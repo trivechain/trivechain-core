@@ -1,19 +1,19 @@
-TriveCoin Core
+Trivechain
 ===============================
 
 https://www.trivecoin.org
 
 
-What is TriveCoin Core?
+What is Trivechain?
 ----------------
 
-TriveCoin Core is a crypto-currency based on Bitcoin, with various improvements such as a two-tier incentivized network, known as the TRIVE VIP Masternode(TVIP) network. Included are other improvements such as ExclusiveSend(ES), for increasing fungibility and DirectSend(DS) which allows instant transaction confirmation without a centralized authority. Trivecoin specially build for commercial purpose hybrid coin.
+Trivechain is a crypto-currency based on Bitcoin, with various improvements such as a two-tier incentivized network, known as the TRIVE VIP Masternode(TVIP) network. Included are other improvements such as ExclusiveSend(ES), for increasing fungibility and DirectSend(DS) which allows instant transaction confirmation without a centralized authority. Trivecoin specially build for commercial purpose hybrid coin.
 
 
 License
 -------
 
-TriveCoin Core is released under the terms of the MIT license. See [COPYING](COPYING) for more
+Trivechain is released under the terms of the MIT license. See [COPYING](COPYING) for more
 information or see https://opensource.org/licenses/MIT.
 
 Development Process
@@ -21,7 +21,7 @@ Development Process
 
 The `master` branch is meant to be stable. Development is normally done in separate branches.
 [Tags](https://gitlab.com/Thunderlabtech/trvc/tags) are created to indicate new official,
-stable release versions of TriveCoin Core.
+stable release versions of Trivechain.
 
 The contribution workflow is described in [CONTRIBUTING.md](CONTRIBUTING.md).
 
