@@ -48,6 +48,7 @@
 #include <boost/lexical_cast.hpp>
 #include <boost/math/distributions/poisson.hpp>
 #include <boost/thread.hpp>
+#include <math.h>
 
 using namespace std;
 
@@ -1242,18 +1243,29 @@ CAmount GetBlockSubsidy(int nPrevBits, int nPrevHeight, const Consensus::Params&
     if (nPrevHeight == 0) {
         // Trivecoin early adopters
         return 33600000 * COIN;
-    } else if (nPrevHeight < 17000 || (dDiff <= 75 && nPrevHeight < 24000)) {
-        // CPU mining era
-        // 11111/(((x+51)/6)^2)
-        nSubsidyBase = (11111.0 / (pow((dDiff+51.0)/6.0,2.0)));
-        if(nSubsidyBase > 50) nSubsidyBase = 50;
-        else if(nSubsidyBase < 25) nSubsidyBase = 25;
+    } if(nPrevHeight <= 19522) {
+        if (nPrevHeight < 17000 || (dDiff <= 75 && nPrevHeight < 24000)) {
+            // CPU mining era
+            // 11111/(((x+51)/6)^2)
+            nSubsidyBase = (11111.0 / (pow((dDiff+51.0)/6.0,2.0)));
+            if(nSubsidyBase > 50) nSubsidyBase = 50;
+            else if(nSubsidyBase < 25) nSubsidyBase = 25;
+        } else {
+            // GPU/ASIC mining era
+            // 2222222/(((x+2600)/9)^2)
+            nSubsidyBase = (2222222.0 / (pow((dDiff+2600.0)/9.0,2.0)));
+            if(nSubsidyBase > 25) nSubsidyBase = 25;
+            else if(nSubsidyBase < 5) nSubsidyBase = 5;
+        }
     } else {
-        // GPU/ASIC mining era
-        // 2222222/(((x+2600)/9)^2)
-        nSubsidyBase = (2222222.0 / (pow((dDiff+2600.0)/9.0,2.0)));
-        if(nSubsidyBase > 25) nSubsidyBase = 25;
-        else if(nSubsidyBase < 5) nSubsidyBase = 5;
+        // Realign with community feedback
+        nSubsidyBase = 25;
+        int nHalvings = floor((nPrevHeight / consensusParams.nSubsidyHalvingInterval / 4) - 1);
+        while(nHalvings > 0)
+        {
+            nSubsidyBase = nSubsidyBase * 0.5;
+            nHalvings--;
+        }
     }
 
     // LogPrintf("height %u diff %4.2f reward %d\n", nPrevHeight, dDiff, nSubsidyBase);
