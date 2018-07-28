@@ -1271,8 +1271,10 @@ CAmount GetBlockSubsidy(int nPrevBits, int nPrevHeight, const Consensus::Params&
     // LogPrintf("height %u diff %4.2f reward %d\n", nPrevHeight, dDiff, nSubsidyBase);
     CAmount nSubsidy = nSubsidyBase * COIN;
 
-    // inflation ~21.91%
-    nSubsidy -= nSubsidy * 0.2191;
+    // inflation ~21.91% after first year
+    if (nPrevHeight >= consensusParams.nSubsidyHalvingInterval) {
+        nSubsidy -= nSubsidy * 0.2191;
+    }
 
     // Hard fork to reduce the block reward by 10 extra percent (allowing budget/superblocks)
     CAmount nSuperblockPart = (nPrevHeight > consensusParams.nBudgetPaymentsStartBlock) ? nSubsidy/10 : 0;
