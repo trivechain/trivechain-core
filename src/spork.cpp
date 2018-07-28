@@ -100,7 +100,7 @@ void CSporkManager::ExecuteSpork(int nSporkID, int nValue)
         ReprocessBlocks(nValue);
         nTimeExecuted = GetTime();
     }
-    else if(nSporkID == SPORK_15_DATA_CARRIER_SIZE && nMaxDatacarrierBytes != SPORK_15_DATA_CARRIER_SIZE_DEFAULT)
+    else if(nSporkID == SPORK_15_DATA_CARRIER_SIZE && nMaxDatacarrierBytes == SPORK_15_DATA_CARRIER_SIZE_DEFAULT)
     {
         // Update with spork value only when user never override it
         nMaxDatacarrierBytes = nValue;
