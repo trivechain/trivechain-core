@@ -1243,7 +1243,7 @@ CAmount GetBlockSubsidy(int nPrevBits, int nPrevHeight, const Consensus::Params&
     if (nPrevHeight == 0) {
         // Trivecoin early adopters
         return 33600000 * COIN;
-    } if(nPrevHeight <= 19522) {
+    } else if (nPrevHeight <= 19522) {
         if (nPrevHeight < 17000 || (dDiff <= 75 && nPrevHeight < 24000)) {
             // CPU mining era
             // 11111/(((x+51)/6)^2)
@@ -1257,7 +1257,7 @@ CAmount GetBlockSubsidy(int nPrevBits, int nPrevHeight, const Consensus::Params&
             if(nSubsidyBase > 25) nSubsidyBase = 25;
             else if(nSubsidyBase < 5) nSubsidyBase = 5;
         }
-    } else {
+    } else if (nPrevHeight <= 100000) {
         // Realign with community feedback
         nSubsidyBase = 25;
         int nHalvings = floor((nPrevHeight / consensusParams.nSubsidyHalvingInterval / 4) - 1);
@@ -1266,14 +1266,24 @@ CAmount GetBlockSubsidy(int nPrevBits, int nPrevHeight, const Consensus::Params&
             nSubsidyBase = nSubsidyBase * 0.5;
             nHalvings--;
         }
+    } else if (nPrevHeight > 2600000) {
+        // Realign with TRVC white paper
+        // Reward remain constant until the Max Supply
+        nSubsidyBase = 3.2
+    } else {
+        // Realign with TRVC white paper
+        nSubsidyBase = 12.5;
     }
 
     // LogPrintf("height %u diff %4.2f reward %d\n", nPrevHeight, dDiff, nSubsidyBase);
     CAmount nSubsidy = nSubsidyBase * COIN;
 
-    // inflation ~21.91% after first year
-    if (nPrevHeight >= consensusParams.nSubsidyHalvingInterval) {
-        nSubsidy -= nSubsidy * 0.2191;
+    // Inflation by 10% every 200,000 blocks
+    // Before the start of constant reward
+    if (nPrevHeight <= 2600000) {
+        for (int i = 200000; i <= nPrevHeight; i += 200000) {
+            nSubsidy -= nSubsidy * 0.1;
+        }
     }
 
     // Hard fork to reduce the block reward by 10 extra percent (allowing budget/superblocks)
