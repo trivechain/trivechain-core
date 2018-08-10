@@ -1269,7 +1269,7 @@ CAmount GetBlockSubsidy(int nPrevBits, int nPrevHeight, const Consensus::Params&
     } else if (nPrevHeight > 2600000) {
         // Realign with TRVC white paper
         // Reward remain constant until the Max Supply
-        nSubsidyBase = 3.2
+        nSubsidyBase = 3.2;
     } else {
         // Realign with TRVC white paper
         nSubsidyBase = 12.5;
