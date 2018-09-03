@@ -1,60 +1,58 @@
 
-#TVIP Masternode Setup Guide
+#TVIP Masternode Setup Guide ( For Windows QT Wallet )
 =
-Each TVIP masternode will require a deposit of 1000TRVC, the masternode is valid as long as deposit is untouched. This setup will require 2 separate machines, a controller and a masternode.
 
 ## Prerequisites
-- 1000TRVC
-- A server with dedicated IP, at least 4GB RAM and 2 cores
-- A Trivecoin-qt wallet ( main controller )
- 
- 
+- 1000 TRVC
+- A server ( Recommended: 4GB RAM, 2 cores CPU )
+- Public IP with port 9999 opened from firewall
+- TRVC latest QT Wallet ( https://trivecoin.org/download-wallet/ )
+
 #Steps
 =
 
-## 1.0 Prepare masternode private key
-- Execute command `masternode genkey`
+## 1. Prepare Trivecoin-qt wallet
+- Download the latest trivecoin-qt wallet from https://trivecoin.org/download-wallet/
+- Unzip the folder
+- Fire up the trivecoin-qt wallet
+- Wait until sync complete
+- Open the Debug console, from the main menu, select **Tools > Debug console**
+
+## 2. Get masternode private key
+- Execute command `masternode genkey` in **Debug console**
 - Mark down your masternode private key
 
-## 1.1 Prepare masternode address
-- Fire up your Trivecoin-qt wallet
-- From the main menu, select **Tools > Debug console**
-- Execute command `getaccountaddress mymasternode`
-- Mark down the address
+## 3. Get masternode address
+- Execute command `getaccountaddress mymasternode` in **Debug console**
+- Mark down the masternode address
 
-## 1.2 Deposit
-- Send 1000TRVC to the masternode address
-- Make sure the "Substract fee from amount" is **unchecked**
+## 4. Deposit
+- Send 1000 TRVC to the masternode address
 - Wait for 6 confirmations
+- Note: Make sure the "Substract fee from amount" is **unchecked**
+- Note: Send exactly 1000 TRVC, any other amount is not recognized
 
-## 1.3 Get the transaction details
-- Return to the debug console
-- Execute command `masternode outputs`
-- You will receive an array of valid transaction pairs of
-	- "transaction id" : "sequence"
+## 5. Get the transaction details
+- Execute command `masternode outputs` in **Debug console**
+- You will receive an array of valid transaction pairs of "transaction id" : "sequence"
+- Mark down the transaction id and sequence
 
-
-## 1.4 Edit masternode configuration file
-- From the Trivecoin-qt wallet main menu, select **Tools > Open Masternode Configuration File**
-- Add a line as shown by the example, replace with your details retrieved from step **1.0** & **1.3**
+## 6. Edit masternode configuration file
+- From the main menu, select **Tools > Open Masternode Configuration File**
+- Add a line as shown by the example, replace with your details retrieved from **Step 2 & 5**
 ```
 mn1 127.0.0.2:9999 93HaYBVUCYjEMeeH1Y4sBGLALQZE1Yc1K64xiqgX37tGBDQL8Xg 2bcd3c84c84f87eaa86e4e56834c92927a07f9e18718810b92e0d0324456a67c 0
 ```
 Explanation:
-| Name | Masternode IP Address | Port | Masternode private key | Transaction ID | Transaction Index |
+
+| Name | Masternode IP Address | Port | Masternode private key | Transaction ID | Transaction Sequence |
 |--|--|--|--|--|--|
 | mn1 | 127.0.0.2 | 9999 | 93HaYBVUCYjEMeeH1Y4sBGLALQZE1Yc1K64xiqgX37tGBDQL8Xg | 2bcd3c84c84f87eaa86e4e56834c92927a07f9e18718810b92e0d0324456a67c | 0 |
 
-- Save and quit the Trivecoin-qt wallet for now
+- Save and close the file
 
-## 2.0 Masternode server environment setup
-- Make sure the masternode server firewall allow incoming port 22 and 9999
-
-## 2.1 Trivecoin daemon configuration
-- Create a file **~/.trivecoin/trivecoin.conf** 
-	* Windows: %APPDATA%\\TriveCoin\trivecoin.conf
-	* Mac OS: ~/Library/Application Support/TriveCoin/trivecoin.conf
-	* Unix/Linux: ~/.trivecoin/trivecoin.conf
+## 7. Edit Trivecoin daemon configuration file
+- From the main menu, select **Tools > Open Wallet Configuration File**
 ```
 rpcuser=XXXXXXXXXXXXX  
 rpcpassword=XXXXXXXXXXXXXXXXXXXXXXXXXXXX  
@@ -68,17 +66,20 @@ masternodeprivkey=XXXXXXXXXXXXXXXXXXXXXXX
 externalip=XXX.XXX.XXX.XXX
 ```
 - Replace the XXXXX:
-	- masternodeprivkey : key from step **1.0**
-	- externalip : Your masternode server IP
-- Run the `trivecoind`
+	- masternodeprivkey : key from **Step 2**
+	- externalip : Your server public IP
+- Save and close the file
 
-## 3.0 Start masternode
-- Open your Trivecoin-qt wallet again
-- From the **trivecoin-qt** menu, select **Preferences**
-- Go to **Wallet** tab
-- Check **Show Masternodes Tab**, click OK
+## 8. Enable the masternode tab
+- From the main menu, select **Settings > Options > Wallet**
+- Check **Show Masternodes Tab**, click **OK**
+- Close Trivecoin-qt wallet
+
+## 9. Start masternode
+- Start Trivecoin-qt wallet
 - Go to Masternodes Tab
-- Click **Start All**
+- Click **Start all**
+- Note: The status will be PRE_ENABLED, after few minutes, you will see the status change to ENABLED
 
 # That's it!
 Congratulations in setting up your first masternode! Feel free to discuss in https://trivecoin.org if you need further assistance
