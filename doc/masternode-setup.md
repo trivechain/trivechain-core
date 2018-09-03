@@ -44,6 +44,7 @@
 mn1 127.0.0.2:9999 93HaYBVUCYjEMeeH1Y4sBGLALQZE1Yc1K64xiqgX37tGBDQL8Xg 2bcd3c84c84f87eaa86e4e56834c92927a07f9e18718810b92e0d0324456a67c 0
 ```
 Explanation:
+
 | Name | Masternode IP Address | Port | Masternode private key | Transaction ID | Transaction Sequence |
 |--|--|--|--|--|--|
 | mn1 | 127.0.0.2 | 9999 | 93HaYBVUCYjEMeeH1Y4sBGLALQZE1Yc1K64xiqgX37tGBDQL8Xg | 2bcd3c84c84f87eaa86e4e56834c92927a07f9e18718810b92e0d0324456a67c | 0 |
