@@ -1266,13 +1266,14 @@ CAmount GetBlockSubsidy(int nPrevBits, int nPrevHeight, const Consensus::Params&
             nSubsidyBase = nSubsidyBase * 0.5;
             nHalvings--;
         }
-    } else if (nPrevHeight > 2600000) {
+    } else if (nPrevHeight > 2200000) {
         // Realign with TRVC white paper
-        // Reward remain constant until the Max Supply
-        nSubsidyBase = 3.2;
+        // Reward remain constant until the Max Supply (54 years)
+        nSubsidyBase = 4;
     } else {
         // Realign with TRVC white paper
-        nSubsidyBase = 12.5;
+        // Accepts only whole number, changed to 12 to realign with the actual reward
+        nSubsidyBase = 12;
     }
 
     // LogPrintf("height %u diff %4.2f reward %d\n", nPrevHeight, dDiff, nSubsidyBase);
@@ -1280,7 +1281,7 @@ CAmount GetBlockSubsidy(int nPrevBits, int nPrevHeight, const Consensus::Params&
 
     // Inflation by 10% every 200,000 blocks
     // Before the start of constant reward
-    if (nPrevHeight <= 2600000) {
+    if (nPrevHeight <= 2200000) {
         for (int i = 200000; i <= nPrevHeight; i += 200000) {
             nSubsidy -= nSubsidy * 0.1;
         }
