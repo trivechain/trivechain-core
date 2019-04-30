@@ -123,7 +123,7 @@ public:
 };
 
 /**
- * TriveCoin RPC command dispatcher.
+ * Trivechain RPC command dispatcher.
  */
 class CRPCTable
 {

@@ -1,0 +1,20 @@
+<!DOCTYPE RCC><RCC version="1.0">
+    <qresource prefix="/translations">
+        <file alias="bg">locale/trivechain_bg.qm</file>
+        <file alias="de">locale/trivechain_de.qm</file>
+        <file alias="en">locale/trivechain_en.qm</file>
+        <file alias="es">locale/trivechain_es.qm</file>
+        <file alias="fi">locale/trivechain_fi.qm</file>
+        <file alias="fr">locale/trivechain_fr.qm</file>
+        <file alias="it">locale/trivechain_it.qm</file>
+        <file alias="ja">locale/trivechain_ja.qm</file>
+        <file alias="pl">locale/trivechain_pl.qm</file>
+        <file alias="pt">locale/trivechain_pt.qm</file>
+        <file alias="ru">locale/trivechain_ru.qm</file>
+        <file alias="sk">locale/trivechain_sk.qm</file>
+        <file alias="sv">locale/trivechain_sv.qm</file>
+        <file alias="vi">locale/trivechain_vi.qm</file>
+        <file alias="zh_CN">locale/trivechain_zh_CN.qm</file>
+        <file alias="zh_TW">locale/trivechain_zh_TW.qm</file>
+    </qresource>
+</RCC>

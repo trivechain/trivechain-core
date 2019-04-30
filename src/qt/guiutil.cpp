@@ -117,7 +117,7 @@ void setupAddressWidget(QValidatedLineEdit *widget, QWidget *parent)
 #if QT_VERSION >= 0x040700
     // We don't want translators to use own addresses in translations
     // and this is the only place, where this address is supplied.
-    widget->setPlaceholderText(QObject::tr("Enter a TriveCoin address (e.g. %1)").arg("XwnLY9Tf7Zsef8gMGL2fhWA9ZmMjt4KPwg"));
+    widget->setPlaceholderText(QObject::tr("Enter a Trivechain address (e.g. %1)").arg("XwnLY9Tf7Zsef8gMGL2fhWA9ZmMjt4KPwg"));
 #endif
     widget->setValidator(new BitcoinAddressEntryValidator(parent));
     widget->setCheckValidator(new BitcoinAddressCheckValidator(parent));
@@ -134,8 +134,8 @@ void setupAmountWidget(QLineEdit *widget, QWidget *parent)
 
 bool parseBitcoinURI(const QUrl &uri, SendCoinsRecipient *out)
 {
-    // return if URI is not valid or is no trivecoin: URI
-    if(!uri.isValid() || uri.scheme() != QString("trivecoin"))
+    // return if URI is not valid or is no trivechain: URI
+    if(!uri.isValid() || uri.scheme() != QString("trivechain"))
         return false;
 
     SendCoinsRecipient rv;
@@ -204,13 +204,13 @@ bool parseBitcoinURI(const QUrl &uri, SendCoinsRecipient *out)
 
 bool parseBitcoinURI(QString uri, SendCoinsRecipient *out)
 {
-    // Convert trivecoin:// to trivecoin:
+    // Convert trivechain:// to trivechain:
     //
-    //    Cannot handle this later, because trivecoin:// will cause Qt to see the part after // as host,
+    //    Cannot handle this later, because trivechain:// will cause Qt to see the part after // as host,
     //    which will lower-case it (and thus invalidate the address).
-    if(uri.startsWith("trivecoin://", Qt::CaseInsensitive))
+    if(uri.startsWith("trivechain://", Qt::CaseInsensitive))
     {
-        uri.replace(0, 7, "trivecoin:");
+        uri.replace(0, 7, "trivechain:");
     }
     QUrl uriInstance(uri);
     return parseBitcoinURI(uriInstance, out);
@@ -218,7 +218,7 @@ bool parseBitcoinURI(QString uri, SendCoinsRecipient *out)
 
 QString formatBitcoinURI(const SendCoinsRecipient &info)
 {
-    QString ret = QString("trivecoin:%1").arg(info.address);
+    QString ret = QString("trivechain:%1").arg(info.address);
     int paramCount = 0;
 
     if (info.amount)
@@ -424,7 +424,7 @@ void openConfigfile()
 {
     boost::filesystem::path pathConfig = GetConfigFile();
 
-    /* Open trivecoin.conf with the associated application */
+    /* Open trivechain.conf with the associated application */
     if (boost::filesystem::exists(pathConfig))
         QDesktopServices::openUrl(QUrl::fromLocalFile(boostPathToQString(pathConfig)));
 }
@@ -634,15 +634,15 @@ boost::filesystem::path static StartupShortcutPath()
 {
     std::string chain = ChainNameFromCommandLine();
     if (chain == CBaseChainParams::MAIN)
-        return GetSpecialFolderPath(CSIDL_STARTUP) / "TriveCoin.lnk";
+        return GetSpecialFolderPath(CSIDL_STARTUP) / "Trivechain.lnk";
     if (chain == CBaseChainParams::TESTNET) // Remove this special case when CBaseChainParams::TESTNET = "testnet4"
-        return GetSpecialFolderPath(CSIDL_STARTUP) / "TriveCoin (testnet).lnk";
-    return GetSpecialFolderPath(CSIDL_STARTUP) / strprintf("TriveCoin (%s).lnk", chain);
+        return GetSpecialFolderPath(CSIDL_STARTUP) / "Trivechain (testnet).lnk";
+    return GetSpecialFolderPath(CSIDL_STARTUP) / strprintf("Trivechain (%s).lnk", chain);
 }
 
 bool GetStartOnSystemStartup()
 {
-    // check for "TriveCoin*.lnk"
+    // check for "Trivechain*.lnk"
     return boost::filesystem::exists(StartupShortcutPath());
 }
 
@@ -734,8 +734,8 @@ boost::filesystem::path static GetAutostartFilePath()
 {
     std::string chain = ChainNameFromCommandLine();
     if (chain == CBaseChainParams::MAIN)
-        return GetAutostartDir() / "trivecoin.desktop";
-    return GetAutostartDir() / strprintf("trivecoin-%s.lnk", chain);
+        return GetAutostartDir() / "trivechain.desktop";
+    return GetAutostartDir() / strprintf("trivechain-%s.lnk", chain);
 }
 
 bool GetStartOnSystemStartup()
@@ -774,13 +774,13 @@ bool SetStartOnSystemStartup(bool fAutoStart)
         if (!optionFile.good())
             return false;
         std::string chain = ChainNameFromCommandLine();
-        // Write a trivecoin.desktop file to the autostart directory:
+        // Write a trivechain.desktop file to the autostart directory:
         optionFile << "[Desktop Entry]\n";
         optionFile << "Type=Application\n";
         if (chain == CBaseChainParams::MAIN)
-            optionFile << "Name=TriveCoin\n";
+            optionFile << "Name=Trivechain\n";
         else
-            optionFile << strprintf("Name=TriveCoin (%s)\n", chain);
+            optionFile << strprintf("Name=Trivechain (%s)\n", chain);
         optionFile << "Exec=" << pszExePath << strprintf(" -min -testnet=%d -regtest=%d\n", GetBoolArg("-testnet", false), GetBoolArg("-regtest", false));
         optionFile << "Terminal=false\n";
         optionFile << "Hidden=false\n";
@@ -799,7 +799,7 @@ bool SetStartOnSystemStartup(bool fAutoStart)
 LSSharedFileListItemRef findStartupItemInList(LSSharedFileListRef list, CFURLRef findUrl);
 LSSharedFileListItemRef findStartupItemInList(LSSharedFileListRef list, CFURLRef findUrl)
 {
-    // loop through the list of startup items and try to find the TriveCoin app
+    // loop through the list of startup items and try to find the Trivechain app
     CFArrayRef listSnapshot = LSSharedFileListCopySnapshot(list, NULL);
     for(int i = 0; i < CFArrayGetCount(listSnapshot); i++) {
         LSSharedFileListItemRef item = (LSSharedFileListItemRef)CFArrayGetValueAtIndex(listSnapshot, i);
@@ -844,7 +844,7 @@ bool SetStartOnSystemStartup(bool fAutoStart)
     LSSharedFileListItemRef foundItem = findStartupItemInList(loginItems, bitcoinAppUrl);
 
     if(fAutoStart && !foundItem) {
-        // add TriveCoin app to startup item list
+        // add Trivechain app to startup item list
         LSSharedFileListInsertItemURL(loginItems, kLSSharedFileListItemBeforeFirst, NULL, NULL, bitcoinAppUrl, NULL, NULL);
     }
     else if(!fAutoStart && foundItem) {

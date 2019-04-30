@@ -579,7 +579,7 @@ void CSuperblock::ParsePaymentSchedule(std::string& strPaymentAddresses, std::st
         CBitcoinAddress address(vecParsed1[i]);
         if (!address.IsValid()) {
             std::ostringstream ostr;
-            ostr << "CSuperblock::ParsePaymentSchedule -- Invalid TriveCoin Address : " <<  vecParsed1[i];
+            ostr << "CSuperblock::ParsePaymentSchedule -- Invalid Trivechain Address : " <<  vecParsed1[i];
             LogPrintf("%s\n", ostr.str());
             throw std::runtime_error(ostr.str());
         }

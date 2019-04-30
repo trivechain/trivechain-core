@@ -7,8 +7,8 @@ GovernanceObjectType GovernanceStringToType(std::string strType) {
     if(strType == "AllTypes") type = AllTypes;
     if(strType == "Error") type = Error;
     if(strType == "ValueOverride") type = ValueOverride;
-    if(strType == "TriveCoinNetwork") type = TriveCoinNetwork;
-    if(strType == "TriveCoinNetworkVariable") type = TriveCoinNetworkVariable;
+    if(strType == "TrivechainNetwork") type = TrivechainNetwork;
+    if(strType == "TrivechainNetworkVariable") type = TrivechainNetworkVariable;
     if(strType == "Category") type = Category;
     if(strType == "Group") type = Group;
     if(strType == "User") type = User;
@@ -28,8 +28,8 @@ std::string GovernanceTypeToString(GovernanceObjectType type) {
     if(type == AllTypes) s = "AllTypes";
     if(type == Error) s = "Error";
     if(type == ValueOverride) s = "ValueOverride";
-    if(type == TriveCoinNetwork) s = "TriveCoinNetwork";
-    if(type == TriveCoinNetworkVariable) s = "TriveCoinNetworkVariable";
+    if(type == TrivechainNetwork) s = "TrivechainNetwork";
+    if(type == TrivechainNetworkVariable) s = "TrivechainNetworkVariable";
     if(type == Category) s = "Category";
     if(type == Group) s = "Group";
     if(type == User) s = "User";

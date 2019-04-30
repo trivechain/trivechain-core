@@ -2,7 +2,7 @@
 
 #include "cachemultimap.h"
 
-#include "test/test_trivecoin.h"
+#include "test/test_trivechain.h"
 
 #include <algorithm>
 #include <iostream>

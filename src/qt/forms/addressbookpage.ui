@@ -137,7 +137,7 @@
   </layout>
  </widget>
  <resources>
-  <include location="../trivecoin.qrc"/>
+  <include location="../trivechain.qrc"/>
  </resources>
  <connections/>
 </ui>

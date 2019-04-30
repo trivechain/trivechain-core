@@ -1,13 +1,13 @@
 Trivechain
 ===============================
 
-https://www.trivecoin.org
+https://trivechain.com
 
 
 What is Trivechain?
 ----------------
 
-Trivechain is a crypto-currency based on Bitcoin, with various improvements such as a two-tier incentivized network, known as the TRIVE VIP Masternode(TVIP) network. Included are other improvements such as ExclusiveSend(ES), for increasing fungibility and DirectSend(DS) which allows instant transaction confirmation without a centralized authority. Trivecoin specially build for commercial purpose hybrid coin.
+Trivechain is a public blockchain managed by Decentralized autonomous organization (DAO) with focus on bridging businesses to enter the new era digital age with implementation of blockchain-based technology and DApps (decentralized applications)
 
 
 License
@@ -20,7 +20,7 @@ Development Process
 -------------------
 
 The `master` branch is meant to be stable. Development is normally done in separate branches.
-[Tags](https://gitlab.com/Thunderlabtech/trvc/tags) are created to indicate new official,
+[Tags](https://github.com/trivechain/trivechain-core/tags) are created to indicate new official,
 stable release versions of Trivechain.
 
 The contribution workflow is described in [CONTRIBUTING.md](CONTRIBUTING.md).

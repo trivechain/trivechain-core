@@ -5,7 +5,7 @@
 #include "coins.h"
 #include "random.h"
 #include "uint256.h"
-#include "test/test_trivecoin.h"
+#include "test/test_trivechain.h"
 #include "validation.h"
 #include "consensus/validation.h"
 

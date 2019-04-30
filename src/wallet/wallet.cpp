@@ -2391,14 +2391,14 @@ void CWallet::AvailableCoins(vector<COutput>& vCoins, bool fOnlyConfirmed, const
                 bool found = false;
                 if(nCoinType == ONLY_DENOMINATED) {
                     found = IsDenominatedAmount(pcoin->vout[i].nValue);
-                } else if(nCoinType == ONLY_NOT1000IFMN) {
-                    found = !(fMasterNode && pcoin->vout[i].nValue == 1000*COIN);
-                } else if(nCoinType == ONLY_NONDENOMINATED_NOT1000IFMN) {
+                } else if(nCoinType == ONLY_NOT10000IFMN) {
+                    found = !(fMasterNode && pcoin->vout[i].nValue == 10000*COIN);
+                } else if(nCoinType == ONLY_NONDENOMINATED_NOT10000IFMN) {
                     if (IsCollateralAmount(pcoin->vout[i].nValue)) continue; // do not use collateral amounts
                     found = !IsDenominatedAmount(pcoin->vout[i].nValue);
-                    if(found && fMasterNode) found = pcoin->vout[i].nValue != 1000*COIN; // do not use Hot MN funds
-                } else if(nCoinType == ONLY_1000) {
-                    found = pcoin->vout[i].nValue == 1000*COIN;
+                    if(found && fMasterNode) found = pcoin->vout[i].nValue != 10000*COIN; // do not use Hot MN funds
+                } else if(nCoinType == ONLY_10000) {
+                    found = pcoin->vout[i].nValue == 10000*COIN;
                 } else if(nCoinType == ONLY_EXCLUSIVESEND_COLLATERAL) {
                     found = IsCollateralAmount(pcoin->vout[i].nValue);
                 } else {
@@ -2408,7 +2408,7 @@ void CWallet::AvailableCoins(vector<COutput>& vCoins, bool fOnlyConfirmed, const
 
                 isminetype mine = IsMine(pcoin->vout[i]);
                 if (!(IsSpent(wtxid, i)) && mine != ISMINE_NO &&
-                    (!IsLockedCoin((*it).first, i) || nCoinType == ONLY_1000) &&
+                    (!IsLockedCoin((*it).first, i) || nCoinType == ONLY_10000) &&
                     (pcoin->vout[i].nValue > 0 || fIncludeZeroValue) &&
                     (!coinControl || !coinControl->HasSelected() || coinControl->fAllowOtherInputs || coinControl->IsSelected(COutPoint((*it).first, i))))
                         vCoins.push_back(COutput(pcoin, i, nDepth,
@@ -2880,7 +2880,7 @@ bool CWallet::SelectCoinsGrouppedByAddresses(std::vector<CompactTallyItem>& vecT
             if(fAnonymizable) {
                 // ignore collaterals
                 if(IsCollateralAmount(wtx.vout[i].nValue)) continue;
-                if(fMasterNode && wtx.vout[i].nValue == 1000*COIN) continue;
+                if(fMasterNode && wtx.vout[i].nValue == 10000*COIN) continue;
                 // ignore outputs that are 10 times smaller then the smallest denomination
                 // otherwise they will just lead to higher fee / lower priority
                 if(wtx.vout[i].nValue <= nSmallestDenom/10) continue;
@@ -2935,7 +2935,7 @@ bool CWallet::SelectCoinsDark(CAmount nValueMin, CAmount nValueMax, std::vector<
     nValueRet = 0;
 
     vector<COutput> vCoins;
-    AvailableCoins(vCoins, true, coinControl, false, nExclusiveSendRoundsMin < 0 ? ONLY_NONDENOMINATED_NOT1000IFMN : ONLY_DENOMINATED);
+    AvailableCoins(vCoins, true, coinControl, false, nExclusiveSendRoundsMin < 0 ? ONLY_NONDENOMINATED_NOT10000IFMN : ONLY_DENOMINATED);
 
     //order the array so largest nondenom are first, then denominations, then very small inputs.
     sort(vCoins.rbegin(), vCoins.rend(), CompareByPriority());
@@ -2946,7 +2946,7 @@ bool CWallet::SelectCoinsDark(CAmount nValueMin, CAmount nValueMax, std::vector<
         if(out.tx->vout[out.i].nValue < nValueMin/10) continue;
         //do not allow collaterals to be selected
         if(IsCollateralAmount(out.tx->vout[out.i].nValue)) continue;
-        if(fMasterNode && out.tx->vout[out.i].nValue == 1000*COIN) continue; //masternode input
+        if(fMasterNode && out.tx->vout[out.i].nValue == 10000*COIN) continue; //masternode input
 
         if(nValueRet + out.tx->vout[out.i].nValue <= nValueMax){
             CTxIn txin = CTxIn(out.tx->GetHash(),out.i);
@@ -2991,7 +2991,7 @@ bool CWallet::GetMasternodeOutpointAndKeys(COutPoint& outpointRet, CPubKey& pubK
 
     // Find possible candidates
     std::vector<COutput> vPossibleCoins;
-    AvailableCoins(vPossibleCoins, true, NULL, false, ONLY_1000);
+    AvailableCoins(vPossibleCoins, true, NULL, false, ONLY_10000);
     if(vPossibleCoins.empty()) {
         LogPrintf("CWallet::GetMasternodeOutpointAndKeys -- Could not locate any valid masternode vin\n");
         return false;
@@ -3288,9 +3288,9 @@ bool CWallet::CreateTransaction(const vector<CRecipient>& vecSend, CWalletTx& wt
 
                 if (!SelectCoins(nValueToSelect, setCoins, nValueIn, coinControl, nCoinType, fUseDirectSend))
                 {
-                    if (nCoinType == ONLY_NOT1000IFMN) {
-                        strFailReason = _("Unable to locate enough funds for this transaction that are not equal 1000 TRVC.");
-                    } else if (nCoinType == ONLY_NONDENOMINATED_NOT1000IFMN) {
+                    if (nCoinType == ONLY_NOT10000IFMN) {
+                        strFailReason = _("Unable to locate enough funds for this transaction that are not equal 10000 TRVC.");
+                    } else if (nCoinType == ONLY_NONDENOMINATED_NOT10000IFMN) {
                         strFailReason = _("Unable to locate enough ExclusiveSend non-denominated funds for this transaction that are not equal 1000 TRVC.");
                     } else if (nCoinType == ONLY_DENOMINATED) {
                         strFailReason = _("Unable to locate enough ExclusiveSend denominated funds for this transaction.");
@@ -3340,7 +3340,7 @@ bool CWallet::CreateTransaction(const vector<CRecipient>& vecSend, CWalletTx& wt
 
                         // Fill a vout to ourself
                         // TODO: pass in scriptChange instead of reservekey so
-                        // change transaction isn't always pay-to-trivecoin-address
+                        // change transaction isn't always pay-to-trivechain-address
                         CScript scriptChange;
 
                         // coin control: send change to custom address

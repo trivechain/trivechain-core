@@ -6,13 +6,13 @@ reset-files.bash
 *.tar.gz
 
 *.exe
-src/trivecoin
-src/trivecoind
-src/trivecoin-cli
-src/trivecoin-tx
-src/test/test_trivecoin
-src/qt/test/test_trivecoin-qt
-src/bench/bench_trivecoin
+src/trivechain
+src/trivechaind
+src/trivechain-cli
+src/trivechain-tx
+src/test/test_trivechain
+src/qt/test/test_trivechain-qt
+src/bench/bench_trivechain
 
 # autoreconf
 Makefile.in
@@ -35,8 +35,8 @@ config.log
 config.status
 configure
 libtool
-src/config/trivecoin-config.h
-src/config/trivecoin-config.h.in
+src/config/trivechain-config.h
+src/config/trivechain-config.h.in
 src/config/stamp-h1
 share/setup.nsi
 share/qt/Info.plist
@@ -61,7 +61,7 @@ libconftest.dylib*
 *.pyc
 *.o
 *.o-*
-.trivecoin
+.trivechain
 *.a
 *.pb.cc
 *.pb.h
@@ -81,12 +81,12 @@ libconftest.dylib*
 *.qm
 Makefile
 !depends/Makefile
-trivecoin-qt
-TriveCoin-Qt.app
+trivechain-qt
+Trivechain-Qt.app
 
 # Unit-tests
 Makefile.test
-trivecoin-qt_test
+trivechain-qt_test
 src/test/buildenv.py
 
 # Resources cpp
@@ -100,7 +100,7 @@ build
 *.gcno
 *.gcda
 /*.info
-test_trivecoin.coverage/
+test_trivechain.coverage/
 total.coverage/
 coverage_percent.txt
 
@@ -123,14 +123,14 @@ share/BitcoindComparisonTool.jar
 .autotools
 /doc/doxygen/
 
-libtrivecoinconsensus.pc
-src/qt/trivecoin-qt.bash
+libtrivechainconsensus.pc
+src/qt/trivechain-qt.bash
 qa/pull-tester/tests-config.sh
 
 #development symlinks
-trivecoin-cli
-trivecoind
-trivecoin-qt
+trivechain-cli
+trivechaind
+trivechain-qt
 make
 trvc.code-workspace
 runtime/*

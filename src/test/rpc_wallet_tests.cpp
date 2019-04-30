@@ -9,7 +9,7 @@
 #include "validation.h"
 #include "wallet/wallet.h"
 
-#include "test/test_trivecoin.h"
+#include "test/test_trivechain.h"
 
 #include <boost/algorithm/string.hpp>
 #include <boost/test/unit_test.hpp>

@@ -194,7 +194,7 @@ void Intro::pickDataDirectory()
                 TryCreateDirectory(GUIUtil::qstringToBoostPath(dataDir));
                 break;
             } catch (const fs::filesystem_error&) {
-                QMessageBox::critical(0, tr("TriveCoin"),
+                QMessageBox::critical(0, tr("Trivechain"),
                     tr("Error: Specified data directory \"%1\" cannot be created.").arg(dataDir));
                 /* fall through, back to choosing screen */
             }
@@ -204,8 +204,8 @@ void Intro::pickDataDirectory()
         settings.setValue("strDataDirDefault", dataDirDefaultCurrent);
     }
     /* Only override -datadir if different from the default, to make it possible to
-     * override -datadir in the trivecoin.conf file in the default data directory
-     * (to be consistent with trivecoind behavior)
+     * override -datadir in the trivechain.conf file in the default data directory
+     * (to be consistent with trivechaind behavior)
      */
     if(dataDir != dataDirDefaultCurrent)
         SoftSetArg("-datadir", GUIUtil::qstringToBoostPath(dataDir).string()); // use OS locale for path setting

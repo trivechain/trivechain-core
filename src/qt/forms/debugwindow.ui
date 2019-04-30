@@ -406,7 +406,7 @@
          <item>
           <widget class="QPushButton" name="openDebugLogfileButton">
            <property name="toolTip">
-            <string>Open the TriveCoin debug log file from the current data directory. This can take a few seconds for large log files.</string>
+            <string>Open the Trivechain debug log file from the current data directory. This can take a few seconds for large log files.</string>
            </property>
            <property name="text">
             <string>&amp;Open</string>
@@ -599,7 +599,7 @@
             <string/>
            </property>
            <property name="icon">
-            <iconset resource="../trivecoin.qrc">
+            <iconset resource="../trivechain.qrc">
              <normaloff>:/icons/prompticon</normaloff>
              <disabledoff>:/icons/prompticon</disabledoff>:/icons/prompticon</iconset>
            </property>
@@ -1732,7 +1732,7 @@
   </customwidget>
  </customwidgets>
  <resources>
-  <include location="../trivecoin.qrc"/>
+  <include location="../trivechain.qrc"/>
  </resources>
  <connections/>
 </ui>

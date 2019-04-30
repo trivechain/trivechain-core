@@ -6,21 +6,21 @@ GZIP_ENV="-9n"
 
 if BUILD_BITCOIN_LIBS
 pkgconfigdir = $(libdir)/pkgconfig
-pkgconfig_DATA = libtrivecoinconsensus.pc
+pkgconfig_DATA = libtrivechainconsensus.pc
 endif
 
-BITCOIND_BIN=$(top_builddir)/src/trivecoind$(EXEEXT)
-BITCOIN_QT_BIN=$(top_builddir)/src/qt/trivecoin-qt$(EXEEXT)
-BITCOIN_CLI_BIN=$(top_builddir)/src/trivecoin-cli$(EXEEXT)
+BITCOIND_BIN=$(top_builddir)/src/trivechaind$(EXEEXT)
+BITCOIN_QT_BIN=$(top_builddir)/src/qt/trivechain-qt$(EXEEXT)
+BITCOIN_CLI_BIN=$(top_builddir)/src/trivechain-cli$(EXEEXT)
 BITCOIN_WIN_INSTALLER=$(PACKAGE)-$(PACKAGE_VERSION)-win$(WINDOWS_BITS)-setup$(EXEEXT)
 
-OSX_APP=TriveCoin-Qt.app
-OSX_DMG=TriveCoin-Core.dmg
+OSX_APP=Trivechain-Qt.app
+OSX_DMG=Trivechain-Core.dmg
 OSX_BACKGROUND_IMAGE=background.tiff
 OSX_DEPLOY_SCRIPT=$(top_srcdir)/contrib/macdeploy/macdeployqtplus
 OSX_FANCY_PLIST=$(top_srcdir)/contrib/macdeploy/fancy.plist
 OSX_BASE_LPROJ_DIR=$(top_srcdir)/contrib/macdeploy/Base.lproj/InfoPlist.strings
-OSX_INSTALLER_ICONS=$(top_srcdir)/src/qt/res/icons/bitcoin.icns
+OSX_INSTALLER_ICONS=$(top_srcdir)/src/qt/res/icons/trvc.icns
 OSX_PLIST=$(top_srcdir)/share/qt/Info.plist #not installed
 OSX_QT_TRANSLATIONS = da,de,es,hu,ru,uk,zh_CN,zh_TW
 
@@ -29,7 +29,7 @@ DIST_DOCS = $(wildcard doc/*.md) $(wildcard doc/release-notes/*.md)
 BIN_CHECKS=$(top_srcdir)/contrib/devtools/symbol-check.py \
            $(top_srcdir)/contrib/devtools/security-check.py
 
-WINDOWS_PACKAGING = $(top_srcdir)/share/pixmaps/bitcoin.ico \
+WINDOWS_PACKAGING = $(top_srcdir)/share/pixmaps/trvc.ico \
   $(top_srcdir)/share/pixmaps/nsis-header.bmp \
   $(top_srcdir)/share/pixmaps/nsis-wizard.bmp \
   $(top_srcdir)/doc/README_windows.txt
@@ -41,9 +41,9 @@ OSX_PACKAGING = $(OSX_DEPLOY_SCRIPT) $(OSX_FANCY_PLIST) $(OSX_INSTALLER_ICONS) $
   $(top_srcdir)/contrib/macdeploy/detached-sig-create.sh
 
 COVERAGE_INFO = baseline_filtered_combined.info baseline.info block_test.info \
-  leveldb_baseline.info test_trivecoin_filtered.info total_coverage.info \
+  leveldb_baseline.info test_trivechain_filtered.info total_coverage.info \
   baseline_filtered.info block_test_filtered.info rpc_test.info rpc_test_filtered.info \
-  leveldb_baseline_filtered.info test_trivecoin_coverage.info test_trivecoin.info
+  leveldb_baseline_filtered.info test_trivechain_coverage.info test_trivechain.info
 
 dist-hook:
 	-$(MAKE) -C $(top_distdir)/src/leveldb clean
@@ -82,11 +82,11 @@ $(OSX_APP)/Contents/Info.plist: $(OSX_PLIST)
 	$(MKDIR_P) $(@D)
 	$(INSTALL_DATA) $< $@
 
-$(OSX_APP)/Contents/Resources/bitcoin.icns: $(OSX_INSTALLER_ICONS)
+$(OSX_APP)/Contents/Resources/trvc.icns: $(OSX_INSTALLER_ICONS)
 	$(MKDIR_P) $(@D)
 	$(INSTALL_DATA) $< $@
 
-$(OSX_APP)/Contents/MacOS/TriveCoin-Qt: $(BITCOIN_QT_BIN)
+$(OSX_APP)/Contents/MacOS/Trivechain-Qt: $(BITCOIN_QT_BIN)
 	$(MKDIR_P) $(@D)
 	STRIPPROG="$(STRIP)" $(INSTALL_STRIP_PROGRAM)  $< $@
 
@@ -95,8 +95,8 @@ $(OSX_APP)/Contents/Resources/Base.lproj/InfoPlist.strings: $(OSX_BASE_LPROJ_DIR
 	$(INSTALL_DATA) $< $@
 
 OSX_APP_BUILT=$(OSX_APP)/Contents/PkgInfo $(OSX_APP)/Contents/Resources/empty.lproj \
-  $(OSX_APP)/Contents/Resources/bitcoin.icns $(OSX_APP)/Contents/Info.plist \
-  $(OSX_APP)/Contents/MacOS/TriveCoin-Qt $(OSX_APP)/Contents/Resources/Base.lproj/InfoPlist.strings
+  $(OSX_APP)/Contents/Resources/trvc.icns $(OSX_APP)/Contents/Info.plist \
+  $(OSX_APP)/Contents/MacOS/Trivechain-Qt $(OSX_APP)/Contents/Resources/Base.lproj/InfoPlist.strings
 
 if BUILD_DARWIN
 $(OSX_DMG): $(OSX_APP_BUILT) $(OSX_PACKAGING)
@@ -111,10 +111,10 @@ $(APP_DIST_DIR)/Applications:
 	@rm -f $@
 	@cd $(@D); $(LN_S) /Applications $(@F)
 
-$(APP_DIST_EXTRAS): $(APP_DIST_DIR)/$(OSX_APP)/Contents/MacOS/TriveCoin-Qt
+$(APP_DIST_EXTRAS): $(APP_DIST_DIR)/$(OSX_APP)/Contents/MacOS/Trivechain-Qt
 
 $(OSX_DMG): $(APP_DIST_EXTRAS)
-	$(GENISOIMAGE) -no-cache-inodes -D -l -probe -V "TriveCoin-Core" -no-pad -r -dir-mode 0755 -apple -o $@ dist
+	$(GENISOIMAGE) -no-cache-inodes -D -l -probe -V "Trivechain-Core" -no-pad -r -dir-mode 0755 -apple -o $@ dist
 
 $(APP_DIST_DIR)/.background/$(OSX_BACKGROUND_IMAGE): contrib/macdeploy/$(OSX_BACKGROUND_IMAGE)
 	$(MKDIR_P) $(@D)
@@ -122,7 +122,7 @@ $(APP_DIST_DIR)/.background/$(OSX_BACKGROUND_IMAGE): contrib/macdeploy/$(OSX_BAC
 $(APP_DIST_DIR)/.DS_Store: contrib/macdeploy/DS_Store
 	$(INSTALL) $< $@
 
-$(APP_DIST_DIR)/$(OSX_APP)/Contents/MacOS/TriveCoin-Qt: $(OSX_APP_BUILT) $(OSX_PACKAGING)
+$(APP_DIST_DIR)/$(OSX_APP)/Contents/MacOS/Trivechain-Qt: $(OSX_APP_BUILT) $(OSX_PACKAGING)
 	INSTALLNAMETOOL=$(INSTALLNAMETOOL)  OTOOL=$(OTOOL) STRIP=$(STRIP) $(OSX_DEPLOY_SCRIPT) $(OSX_APP) -translations-dir=$(QT_TRANSLATION_DIR) -add-qt-tr $(OSX_QT_TRANSLATIONS) -verbose 2
 
 deploydir: $(APP_DIST_EXTRAS)
@@ -162,16 +162,16 @@ leveldb_baseline_filtered.info: leveldb_baseline.info
 baseline_filtered_combined.info: leveldb_baseline_filtered.info baseline_filtered.info
 	$(LCOV) -a leveldb_baseline_filtered.info -a baseline_filtered.info -o $@
 
-test_trivecoin.info: baseline_filtered_combined.info
+test_trivechain.info: baseline_filtered_combined.info
 	$(MAKE) -C src/ check
-	$(LCOV) -c -d $(abs_builddir)/src -t test_trivecoin -o $@
+	$(LCOV) -c -d $(abs_builddir)/src -t test_trivechain -o $@
 	$(LCOV) -z -d $(abs_builddir)/src
 	$(LCOV) -z -d $(abs_builddir)/src/leveldb
 
-test_trivecoin_filtered.info: test_trivecoin.info
+test_trivechain_filtered.info: test_trivechain.info
 	$(LCOV) -r $< "/usr/include/*" -o $@
 
-block_test.info: test_trivecoin_filtered.info
+block_test.info: test_trivechain_filtered.info
 	$(MKDIR_P) qa/tmp
 	-@TIMEOUT=15 qa/pull-tester/run-bitcoind-for-test.sh $(JAVA) -jar $(JAVA_COMPARISON_TOOL) qa/tmp/compTool $(COMPARISON_TOOL_REORG_TESTS)
 	$(LCOV) -c -d $(abs_builddir)/src --t BitcoinJBlockTest -o $@
@@ -181,7 +181,7 @@ block_test.info: test_trivecoin_filtered.info
 block_test_filtered.info: block_test.info
 	$(LCOV) -r $< "/usr/include/*" -o $@
 
-rpc_test.info: test_trivecoin_filtered.info
+rpc_test.info: test_trivechain_filtered.info
 	-@TIMEOUT=15 python qa/pull-tester/rpc-tests.py $(EXTENDED_RPC_TESTS)
 	$(LCOV) -c -d $(abs_builddir)/src --t rpc-tests -o $@
 	$(LCOV) -z -d $(abs_builddir)/src
@@ -190,13 +190,13 @@ rpc_test.info: test_trivecoin_filtered.info
 rpc_test_filtered.info: rpc_test.info
 	$(LCOV) -r $< "/usr/include/*" -o $@
 
-test_trivecoin_coverage.info: baseline_filtered_combined.info test_trivecoin_filtered.info
-	$(LCOV) -a baseline_filtered.info -a leveldb_baseline_filtered.info -a test_trivecoin_filtered.info -o $@
+test_trivechain_coverage.info: baseline_filtered_combined.info test_trivechain_filtered.info
+	$(LCOV) -a baseline_filtered.info -a leveldb_baseline_filtered.info -a test_trivechain_filtered.info -o $@
 
-total_coverage.info: baseline_filtered_combined.info test_trivecoin_filtered.info block_test_filtered.info rpc_test_filtered.info
-	$(LCOV) -a baseline_filtered.info -a leveldb_baseline_filtered.info -a test_trivecoin_filtered.info -a block_test_filtered.info -a rpc_test_filtered.info -o $@ | $(GREP) "\%" | $(AWK) '{ print substr($$3,2,50) "/" $$5 }' > coverage_percent.txt
+total_coverage.info: baseline_filtered_combined.info test_trivechain_filtered.info block_test_filtered.info rpc_test_filtered.info
+	$(LCOV) -a baseline_filtered.info -a leveldb_baseline_filtered.info -a test_trivechain_filtered.info -a block_test_filtered.info -a rpc_test_filtered.info -o $@ | $(GREP) "\%" | $(AWK) '{ print substr($$3,2,50) "/" $$5 }' > coverage_percent.txt
 
-test_trivecoin.coverage/.dirstamp:  test_trivecoin_coverage.info
+test_trivechain.coverage/.dirstamp:  test_trivechain_coverage.info
 	$(GENHTML) -s $< -o $(@D)
 	@touch $@
 
@@ -204,11 +204,11 @@ total.coverage/.dirstamp: total_coverage.info
 	$(GENHTML) -s $< -o $(@D)
 	@touch $@
 
-cov: test_trivecoin.coverage/.dirstamp total.coverage/.dirstamp
+cov: test_trivechain.coverage/.dirstamp total.coverage/.dirstamp
 
 endif
 
-# TriveCoin: disable the test until upstream switches from convoluted comparison tool
+# Trivechain: disable the test until upstream switches from convoluted comparison tool
 # Ref https://github.com/bitcoin/bitcoin/issues/4545
 if USE_COMPARISON_TOOL
 check-local:
@@ -225,4 +225,4 @@ CLEANFILES = $(OSX_DMG) $(BITCOIN_WIN_INSTALLER)
 .INTERMEDIATE: $(COVERAGE_INFO)
 
 clean-local:
-	rm -rf coverage_percent.txt test_trivecoin.coverage/ total.coverage/ qa/tmp/ cache/ $(OSX_APP)
+	rm -rf coverage_percent.txt test_trivechain.coverage/ total.coverage/ qa/tmp/ cache/ $(OSX_APP)

@@ -420,14 +420,14 @@ void CExclusiveSend::SyncTransaction(const CTransaction& tx, const CBlock* pbloc
 //TODO: Rename/move to core
 void ThreadCheckExclusiveSend(CConnman& connman)
 {
-    if(fLiteMode) return; // disable all TriveCoin specific functionality
+    if(fLiteMode) return; // disable all Trivechain specific functionality
 
     static bool fOneThread;
     if(fOneThread) return;
     fOneThread = true;
 
     // Make this thread recognisable as the ExclusiveSend thread
-    RenameThread("trivecoin-ps");
+    RenameThread("trivechain-ps");
 
     unsigned int nTick = 0;
 

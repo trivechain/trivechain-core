@@ -34,7 +34,7 @@ HelpMessageDialog::HelpMessageDialog(QWidget *parent, HelpMode helpMode) :
 {
     ui->setupUi(this);
 
-    QString version = tr("TriveCoin") + " " + tr("version") + " " + QString::fromStdString(FormatFullVersion());
+    QString version = tr("Trivechain") + " " + tr("version") + " " + QString::fromStdString(FormatFullVersion());
     /* On x86 add a bit specifier to the version so that users can distinguish between
      * 32 and 64 bit builds. On other architectures, 32/64 bit may be more ambigious.
      */
@@ -46,7 +46,7 @@ HelpMessageDialog::HelpMessageDialog(QWidget *parent, HelpMode helpMode) :
 
     if (helpMode == about)
     {
-        setWindowTitle(tr("About TriveCoin"));
+        setWindowTitle(tr("About Trivechain"));
 
         /// HTML-format the license message from the core
         QString licenseInfo = QString::fromStdString(LicenseInfo());
@@ -68,7 +68,7 @@ HelpMessageDialog::HelpMessageDialog(QWidget *parent, HelpMode helpMode) :
     } else if (helpMode == cmdline) {
         setWindowTitle(tr("Command-line options"));
         QString header = tr("Usage:") + "\n" +
-            "  trivecoin-qt [" + tr("command-line options") + "]                     " + "\n";
+            "  trivechain-qt [" + tr("command-line options") + "]                     " + "\n";
         QTextCursor cursor(ui->helpMessage->document());
         cursor.insertText(version);
         cursor.insertBlock();
@@ -135,7 +135,7 @@ HelpMessageDialog::HelpMessageDialog(QWidget *parent, HelpMode helpMode) :
         ui->aboutMessage->setText(tr("\
 <h3>ExclusiveSend Basics</h3> \
 ExclusiveSend gives you true financial privacy by obscuring the origins of your funds. \
-All the TriveCoin in your wallet is comprised of different \"inputs\" which you can think of as separate, discrete coins.<br> \
+All the Trivechain in your wallet is comprised of different \"inputs\" which you can think of as separate, discrete coins.<br> \
 ExclusiveSend uses an innovative process to mix your inputs with the inputs of two other people, without having your coins ever leave your wallet. \
 You retain control of your money at all times..<hr> \
 <b>The ExclusiveSend process works like this:</b>\
@@ -201,7 +201,7 @@ ShutdownWindow::ShutdownWindow(QWidget *parent, Qt::WindowFlags f):
 {
     QVBoxLayout *layout = new QVBoxLayout();
     layout->addWidget(new QLabel(
-        tr("TriveCoin is shutting down...") + "<br /><br />" +
+        tr("Trivechain is shutting down...") + "<br /><br />" +
         tr("Do not shut down the computer until this window disappears.")));
     setLayout(layout);
 }

@@ -72,10 +72,10 @@ QString BitcoinUnits::description(int unit)
     {
         switch(unit)
         {
-            case TRVC: return QString("TriveCoin");
-            case mTRVC: return QString("Milli-TriveCoin (1 / 1" THIN_SP_UTF8 "000)");
-            case uTRVC: return QString("Micro-TriveCoin (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
-            case duffs: return QString("Ten Nano-TriveCoin (1 / 100" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
+            case TRVC: return QString("Trivechain");
+            case mTRVC: return QString("Milli-Trivechain (1 / 1" THIN_SP_UTF8 "000)");
+            case uTRVC: return QString("Micro-Trivechain (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
+            case duffs: return QString("Ten Nano-Trivechain (1 / 100" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
             default: return QString("???");
         }
     }
@@ -83,10 +83,10 @@ QString BitcoinUnits::description(int unit)
     {
         switch(unit)
         {
-            case TRVC: return QString("TestTriveCoins");
-            case mTRVC: return QString("Milli-TestTriveCoin (1 / 1" THIN_SP_UTF8 "000)");
-            case uTRVC: return QString("Micro-TestTriveCoin (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
-            case duffs: return QString("Ten Nano-TestTriveCoin (1 / 100" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
+            case TRVC: return QString("TestTrivechains");
+            case mTRVC: return QString("Milli-TestTrivechain (1 / 1" THIN_SP_UTF8 "000)");
+            case uTRVC: return QString("Micro-TestTrivechain (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
+            case duffs: return QString("Ten Nano-TestTrivechain (1 / 100" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
             default: return QString("???");
         }
     }

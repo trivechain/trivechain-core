@@ -21,7 +21,7 @@ CExclusiveSendClient privateSendClient;
 void CExclusiveSendClient::ProcessMessage(CNode* pfrom, std::string& strCommand, CDataStream& vRecv, CConnman& connman)
 {
     if(fMasterNode) return;
-    if(fLiteMode) return; // ignore all TriveCoin related functionality
+    if(fLiteMode) return; // ignore all Trivechain related functionality
     if(!masternodeSync.IsBlockchainSynced()) return;
 
     if(strCommand == NetMsgType::DSQUEUE) {
@@ -1219,16 +1219,16 @@ bool CExclusiveSendClient::MakeCollateralAmounts(const CompactTallyItem& tallyIt
         coinControl.Select(txin.prevout);
 
     bool fSuccess = pwalletMain->CreateTransaction(vecSend, wtx, reservekeyChange,
-            nFeeRet, nChangePosRet, strFail, &coinControl, true, ONLY_NONDENOMINATED_NOT1000IFMN);
+            nFeeRet, nChangePosRet, strFail, &coinControl, true, ONLY_NONDENOMINATED_NOT10000IFMN);
     if(!fSuccess) {
-        LogPrintf("CExclusiveSendClient::MakeCollateralAmounts -- ONLY_NONDENOMINATED_NOT1000IFMN Error: %s\n", strFail);
+        LogPrintf("CExclusiveSendClient::MakeCollateralAmounts -- ONLY_NONDENOMINATED_NOT10000IFMN Error: %s\n", strFail);
         // If we failed then most likeky there are not enough funds on this address.
         if(fTryDenominated) {
             // Try to also use denominated coins (we can't mix denominated without collaterals anyway).
             // MN-like funds should not be touched in any case.
             if(!pwalletMain->CreateTransaction(vecSend, wtx, reservekeyChange,
-                                nFeeRet, nChangePosRet, strFail, &coinControl, true, ONLY_NOT1000IFMN)) {
-                LogPrintf("CExclusiveSendClient::MakeCollateralAmounts -- ONLY_NOT1000IFMN Error: %s\n", strFail);
+                                nFeeRet, nChangePosRet, strFail, &coinControl, true, ONLY_NOT10000IFMN)) {
+                LogPrintf("CExclusiveSendClient::MakeCollateralAmounts -- ONLY_NOT10000IFMN Error: %s\n", strFail);
                 reservekeyCollateral.ReturnKey();
                 return false;
             }
@@ -1362,7 +1362,7 @@ bool CExclusiveSendClient::CreateDenominated(const CompactTallyItem& tallyItem, 
     CReserveKey reservekeyChange(pwalletMain);
 
     bool fSuccess = pwalletMain->CreateTransaction(vecSend, wtx, reservekeyChange,
-            nFeeRet, nChangePosRet, strFail, &coinControl, true, ONLY_NONDENOMINATED_NOT1000IFMN);
+            nFeeRet, nChangePosRet, strFail, &coinControl, true, ONLY_NONDENOMINATED_NOT10000IFMN);
     if(!fSuccess) {
         LogPrintf("CExclusiveSendClient::CreateDenominated -- Error: %s\n", strFail);
         keyHolderStorageDenom.ReturnAll();
@@ -1415,14 +1415,14 @@ void CExclusiveSendClient::UpdatedBlockTip(const CBlockIndex *pindex)
 //TODO: Rename/move to core
 void ThreadCheckExclusiveSendClient(CConnman& connman)
 {
-    if(fLiteMode) return; // disable all TriveCoin specific functionality
+    if(fLiteMode) return; // disable all Trivechain specific functionality
 
     static bool fOneThread;
     if(fOneThread) return;
     fOneThread = true;
 
     // Make this thread recognisable as the ExclusiveSend thread
-    RenameThread("trivecoin-ps-client");
+    RenameThread("trivechain-ps-client");
 
     unsigned int nTick = 0;
     unsigned int nDoAutoNextRun = nTick + EXCLUSIVESEND_AUTO_TIMEOUT_MIN;

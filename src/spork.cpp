@@ -20,7 +20,7 @@ std::map<uint256, CSporkMessage> mapSporks;
 
 void CSporkManager::ProcessSpork(CNode* pfrom, std::string& strCommand, CDataStream& vRecv, CConnman& connman)
 {
-    if(fLiteMode) return; // disable all TriveCoin specific functionality
+    if(fLiteMode) return; // disable all Trivechain specific functionality
 
     if (strCommand == NetMsgType::SPORK) {
 
@@ -78,7 +78,7 @@ void CSporkManager::ExecuteSpork(int nSporkID, int nValue)
     //correct fork via spork technology
     if(nSporkID == SPORK_12_RECONSIDER_BLOCKS && nValue > 0) {
         // allow to reprocess 24h of blocks max, which should be enough to resolve any issues
-        int64_t nMaxBlocks = 576;
+        int64_t nMaxBlocks = 1440;
         // this potentially can be a heavy operation, so only allow this to be executed once per 10 minutes
         int64_t nTimeout = 10 * 60;
 

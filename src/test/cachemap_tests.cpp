@@ -2,7 +2,7 @@
 
 #include "cachemap.h"
 
-#include "test/test_trivecoin.h"
+#include "test/test_trivechain.h"
 
 #include <boost/test/unit_test.hpp>
 

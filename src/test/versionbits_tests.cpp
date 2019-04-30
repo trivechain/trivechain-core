@@ -5,7 +5,7 @@
 #include "chain.h"
 #include "random.h"
 #include "versionbits.h"
-#include "test/test_trivecoin.h"
+#include "test/test_trivechain.h"
 #include "chainparams.h"
 #include "validation.h"
 #include "consensus/params.h"

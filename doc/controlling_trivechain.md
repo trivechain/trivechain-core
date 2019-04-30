@@ -1,9 +1,9 @@
 
 ## Controlling Trivechain
 
-Your Trivechain node (trivecoind) can be controlled via [HTTP JSON-RPC](http://json-rpc.org/wiki/specification)  commands.
+Your Trivechain node (trivechaind) can be controlled via [HTTP JSON-RPC](http://json-rpc.org/wiki/specification)  commands.
 
-You must create a trivecoin.conf configuration file setting rpcuser and rpcpassword; for example:
+You must create a trivechain.conf configuration file setting rpcuser and rpcpassword; for example:
 
 ```
 server=1
@@ -15,23 +15,23 @@ rpcallowip=127.0.0.1
 
 Now run:
 ```
-  $ ./trivecoind
-  trivecoin server starting
-  $ ./trivecoin-cli help
+  $ ./trivechaind
+  trivechain server starting
+  $ ./trivechain-cli help
   # shows the help text
 ```
 
 An list of RPC calls will be shown.
 ```
-  $ ./trivecoin-cli getbalance
+  $ ./trivechain-cli getbalance
   2000.00000
 ```
 
-If you are learning the API, it is a very good idea to use the test network (add testnet=1 in your trivecoin.conf).
+If you are learning the API, it is a very good idea to use the test network (add testnet=1 in your trivechain.conf).
 
 ## JSON-RPC 
 
-Running Bitcoin with the -server argument (or running trivecoind) tells it to function as a [HTTP JSON-RPC](http://json-rpc.org/wiki/specification) server, but 
+Running Bitcoin with the -server argument (or running trivechaind) tells it to function as a [HTTP JSON-RPC](http://json-rpc.org/wiki/specification) server, but 
 [Basic access authentication](http://en.wikipedia.org/wiki/Basic_access_authentication) must be used when communicating with it, and, for security, by default, the server only accepts connections from other processes on the same machine.  If your HTTP or JSON library requires you to specify which 'realm' is authenticated, use 'jsonrpc'.
 
 Allowing arbitrary machines to access the JSON-RPC port (using the rpcallowip [[Running_Bitcoin|configuration option]]) is dangerous and **strongly discouraged** -- access should be strictly limited to trusted machines.

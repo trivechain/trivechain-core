@@ -6,7 +6,7 @@
 #define BITCOIN_COMPAT_ENDIAN_H
 
 #if defined(HAVE_CONFIG_H)
-#include "config/trivecoin-config.h"
+#include "config/trivechain-config.h"
 #endif
 
 #include <stdint.h>

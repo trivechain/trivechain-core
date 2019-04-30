@@ -8,7 +8,7 @@
 #define BITCOIN_VALIDATION_H
 
 #if defined(HAVE_CONFIG_H)
-#include "config/trivecoin-config.h"
+#include "config/trivechain-config.h"
 #endif
 
 #include "amount.h"
@@ -164,7 +164,6 @@ extern bool fEnableReplacement;
 
 extern std::map<uint256, int64_t> mapRejectedBlocks;
 
-static const int DIP0001_PROTOCOL_VERSION = 70208;
 extern std::atomic<bool> fDIP0001WasLockedIn;
 extern std::atomic<bool> fDIP0001ActiveAtTip;
 

@@ -45,7 +45,7 @@
  * =========================
  *
  *   // network
- *   CTriveCoinNetwork lvl, network-type, network-status, network-error, milestone-status*
+ *   CTrivechainNetwork lvl, network-type, network-status, network-error, milestone-status*
  *   CCategory lvl, category-type, status, status-error
  *   CNetworkGlobalVariable lvl, global-type, status, status-error
  *   // base: actor
@@ -117,7 +117,7 @@ private:
     int nLevel;
     std::string strCategory;
 
-    // Current OBJECT STATUS (see http://govman.trivecoin.org/index.php/Documentation_:_Status_Field)
+    // Current OBJECT STATUS (see http://gov.trivechain.com)
     int nStatusID;
     std::string strStatusMessage;
 
@@ -130,7 +130,7 @@ public:
 };
 
 // // root node
-class CTriveCoinNetwork : public CGovernanceObject
+class CTrivechainNetwork : public CGovernanceObject
 {
 private:
     std::string strName;
@@ -138,7 +138,7 @@ private:
 
 
 public:
-    CTriveCoinNetwork(UniValue objIn)
+    CTrivechainNetwork(UniValue objIn)
     {
         strName = objIn["name"].get_str();
         strURL = objIn["name"].get_str();
@@ -174,9 +174,9 @@ public:
 
 };
 
-// // can be under: TriveCoinNetwork
+// // can be under: TrivechainNetwork
 // //   -- signature requirements : Key1(User)
-// class CTriveCoinNetworkVariable : public CGovernanceObject
+// class CTrivechainNetworkVariable : public CGovernanceObject
 // {
 // private:
 
@@ -279,7 +279,7 @@ public:
 //     // isRootCategory()
 //     // {
 //     //     // root categories won't have categories as parents
-//     //     return (IsType() == TriveCoinNetwork);
+//     //     return (IsType() == TrivechainNetwork);
 //     // }
 
 //     // isSubcategoryOf(std::string strParentName)

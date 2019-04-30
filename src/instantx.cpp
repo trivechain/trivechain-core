@@ -42,7 +42,7 @@ CDirectSend directsend;
 
 void CDirectSend::ProcessMessage(CNode* pfrom, std::string& strCommand, CDataStream& vRecv, CConnman& connman)
 {
-    if(fLiteMode) return; // disable all TriveCoin specific functionality
+    if(fLiteMode) return; // disable all Trivechain specific functionality
     if(!sporkManager.IsSporkActive(SPORK_2_DIRECTSEND_ENABLED)) return;
 
     // Ignore any DirectSend messages until masternode list is synced

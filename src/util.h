@@ -12,7 +12,7 @@
 #define BITCOIN_UTIL_H
 
 #if defined(HAVE_CONFIG_H)
-#include "config/trivecoin-config.h"
+#include "config/trivechain-config.h"
 #endif
 
 #include "compat.h"
@@ -41,7 +41,7 @@
 #define DBG( x ) 
 #endif
 
-//TriveCoin only features
+//Trivechain only features
 
 extern bool fMasterNode;
 extern bool fLiteMode;
@@ -248,7 +248,7 @@ std::string GetThreadName();
  */
 template <typename Callable> void TraceThread(const char* name,  Callable func)
 {
-    std::string s = strprintf("trivecoin-%s", name);
+    std::string s = strprintf("trivechain-%s", name);
     RenameThread(s.c_str());
     try
     {

@@ -49,8 +49,8 @@ EXTRA_LIBRARIES += libbitcoin_zmq.a
 endif
 
 if BUILD_BITCOIN_LIBS
-lib_LTLIBRARIES = libtrivecoinconsensus.la
-LIBBITCOIN_CONSENSUS=libtrivecoinconsensus.la
+lib_LTLIBRARIES = libtrivechainconsensus.la
+LIBBITCOIN_CONSENSUS=libtrivechainconsensus.la
 else
 LIBBITCOIN_CONSENSUS=
 endif
@@ -60,15 +60,15 @@ TESTS =
 BENCHMARKS =
 
 if BUILD_BITCOIND
-  bin_PROGRAMS += trivecoind
+  bin_PROGRAMS += trivechaind
 endif
 
 if BUILD_BITCOIN_UTILS
-  bin_PROGRAMS += trivecoin-cli trivecoin-tx
+  bin_PROGRAMS += trivechain-cli trivechain-tx
 endif
 
 .PHONY: FORCE check-symbols check-security
-# trivecoin core #
+# trivechain core #
 BITCOIN_CORE_H = \
   addrdb.h \
   activemasternode.h \
@@ -207,7 +207,7 @@ obj/build.h: FORCE
 	  $(abs_top_srcdir)
 libbitcoin_util_a-clientversion.$(OBJEXT): obj/build.h
 
-# server: shared between trivecoind and trivecoin-qt
+# server: shared between trivechaind and trivechain-qt
 libbitcoin_server_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(MINIUPNPC_CPPFLAGS) $(EVENT_CFLAGS) $(EVENT_PTHREADS_CFLAGS)
 libbitcoin_server_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
 libbitcoin_server_a_SOURCES = \
@@ -271,7 +271,7 @@ libbitcoin_zmq_a_SOURCES = \
 endif
 
 
-# wallet: shared between trivecoind and trivecoin-qt, but only linked
+# wallet: shared between trivechaind and trivechain-qt, but only linked
 # when wallet enabled
 libbitcoin_wallet_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
 libbitcoin_wallet_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
@@ -301,6 +301,10 @@ libbitcoin_wallet_a_SOURCES = \
 crypto_libbitcoin_crypto_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_CONFIG_INCLUDES) $(PIC_FLAGS)
 crypto_libbitcoin_crypto_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS) $(PIC_FLAGS)
 crypto_libbitcoin_crypto_a_SOURCES = \
+  crypto/aes.cpp \
+  crypto/aes.h \
+  crypto/chacha20.h \
+  crypto/chacha20.cpp \
   crypto/common.h \
   crypto/hmac_sha256.cpp \
   crypto/hmac_sha256.h \
@@ -308,16 +312,6 @@ crypto_libbitcoin_crypto_a_SOURCES = \
   crypto/hmac_sha512.h \
   crypto/ripemd160.cpp \
   crypto/aes_helper.c \
-  crypto/ripemd160.h \
-  crypto/sha1.cpp \
-  crypto/sha1.h \
-  crypto/sha256.cpp \
-  crypto/sha256.h \
-  crypto/sha512.cpp \
-  crypto/sha512.h
-
-# x11
-crypto_libbitcoin_crypto_a_SOURCES += \
   crypto/blake.c \
   crypto/bmw.c \
   crypto/cubehash.c \
@@ -329,6 +323,19 @@ crypto_libbitcoin_crypto_a_SOURCES += \
   crypto/shavite.c \
   crypto/simd.c \
   crypto/skein.c \
+  crypto/sph_hamsi.c \
+  crypto/sph_hamsi_helper.c \
+  crypto/sph_fugue.c \
+  crypto/sph_shabal.c \
+  crypto/sph_whirlpool.c \
+  crypto/sph_sha2.c \
+  crypto/sph_sha512.c \
+  crypto/ripemd160.h \
+  crypto/sha1.cpp \
+  crypto/sha1.h \
+  crypto/sha256.cpp \
+  crypto/sha256.h \
+  crypto/sha512.h \
   crypto/sph_blake.h \
   crypto/sph_bmw.h \
   crypto/sph_cubehash.h \
@@ -340,9 +347,17 @@ crypto_libbitcoin_crypto_a_SOURCES += \
   crypto/sph_shavite.h \
   crypto/sph_simd.h \
   crypto/sph_skein.h \
-  crypto/sph_types.h
+  crypto/sph_hamsi.h \
+  crypto/sph_fugue.h \
+  crypto/sph_shabal.h \
+  crypto/sph_whirlpool.h \
+  crypto/sph_sha2.h \
+  crypto/sph_types.h \
+  crypto/sha512.cpp \
+  crypto/sha512.h
 
-# common: shared between trivecoind, and trivecoin-qt and non-server tools
+
+# common: shared between trivechaind, and trivechain-qt and non-server tools
 libbitcoin_common_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
 libbitcoin_common_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
 libbitcoin_common_a_SOURCES = \
@@ -403,7 +418,7 @@ if GLIBC_BACK_COMPAT
 libbitcoin_util_a_SOURCES += compat/glibc_compat.cpp
 endif
 
-# cli: shared between trivecoin-cli and trivecoin-qt
+# cli: shared between trivechain-cli and trivechain-qt
 libbitcoin_cli_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
 libbitcoin_cli_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
 libbitcoin_cli_a_SOURCES = \
@@ -414,16 +429,16 @@ nodist_libbitcoin_util_a_SOURCES = $(srcdir)/obj/build.h
 #
 
 # bitcoind binary #
-trivecoind_SOURCES = trivecoind.cpp
-trivecoind_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
-trivecoind_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-trivecoind_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+trivechaind_SOURCES = trivechaind.cpp
+trivechaind_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
+trivechaind_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+trivechaind_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
 if TARGET_WINDOWS
-trivecoind_SOURCES += trivecoind-res.rc
+trivechaind_SOURCES += trivechaind-res.rc
 endif
 
-trivecoind_LDADD = \
+trivechaind_LDADD = \
   $(LIBBITCOIN_SERVER) \
   $(LIBBITCOIN_COMMON) \
   $(LIBUNIVALUE) \
@@ -434,56 +449,56 @@ trivecoind_LDADD = \
   $(LIBSECP256K1)
 
 if ENABLE_ZMQ
-trivecoind_LDADD += $(LIBBITCOIN_ZMQ) $(ZMQ_LIBS)
+trivechaind_LDADD += $(LIBBITCOIN_ZMQ) $(ZMQ_LIBS)
 endif
 
 if ENABLE_WALLET
-trivecoind_LDADD += libbitcoin_wallet.a
+trivechaind_LDADD += libbitcoin_wallet.a
 endif
 
-trivecoind_LDADD += $(BOOST_LIBS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS) $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS)
+trivechaind_LDADD += $(BOOST_LIBS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS) $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS)
 
-# trivecoin-cli binary #
-trivecoin_cli_SOURCES = trivecoin-cli.cpp
-trivecoin_cli_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(EVENT_CFLAGS)
-trivecoin_cli_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-trivecoin_cli_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+# trivechain-cli binary #
+trivechain_cli_SOURCES = trivechain-cli.cpp
+trivechain_cli_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(EVENT_CFLAGS)
+trivechain_cli_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+trivechain_cli_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
 if TARGET_WINDOWS
-trivecoin_cli_SOURCES += trivecoin-cli-res.rc
+trivechain_cli_SOURCES += trivechain-cli-res.rc
 endif
 
-trivecoin_cli_LDADD = \
+trivechain_cli_LDADD = \
   $(LIBBITCOIN_CLI) \
   $(LIBUNIVALUE) \
   $(LIBBITCOIN_UTIL)
-trivecoin_cli_LDADD += $(BOOST_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(EVENT_LIBS)
+trivechain_cli_LDADD += $(BOOST_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(EVENT_LIBS)
 #
 
-# trivecoin-tx binary #
-trivecoin_tx_SOURCES = trivecoin-tx.cpp
-trivecoin_tx_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
-trivecoin_tx_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-trivecoin_tx_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+# trivechain-tx binary #
+trivechain_tx_SOURCES = trivechain-tx.cpp
+trivechain_tx_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
+trivechain_tx_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+trivechain_tx_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
 if TARGET_WINDOWS
-trivecoin_tx_SOURCES += trivecoin-tx-res.rc
+trivechain_tx_SOURCES += trivechain-tx-res.rc
 endif
 
-trivecoin_tx_LDADD = \
+trivechain_tx_LDADD = \
   $(LIBUNIVALUE) \
   $(LIBBITCOIN_COMMON) \
   $(LIBBITCOIN_UTIL) \
   $(LIBBITCOIN_CRYPTO) \
   $(LIBSECP256K1)
 
-trivecoin_tx_LDADD += $(BOOST_LIBS) $(CRYPTO_LIBS)
+trivechain_tx_LDADD += $(BOOST_LIBS) $(CRYPTO_LIBS)
 #
 
-# trivecoinconsensus library #
+# trivechainconsensus library #
 if BUILD_BITCOIN_LIBS
-include_HEADERS = script/trivecoinconsensus.h
-libtrivecoinconsensus_la_SOURCES = \
+include_HEADERS = script/trivechainconsensus.h
+libtrivechainconsensus_la_SOURCES = \
   crypto/hmac_sha512.cpp \
   crypto/ripemd160.cpp \
   crypto/sha1.cpp \
@@ -492,20 +507,20 @@ libtrivecoinconsensus_la_SOURCES = \
   hash.cpp \
   primitives/transaction.cpp \
   pubkey.cpp \
-  script/trivecoinconsensus.cpp \
+  script/trivechainconsensus.cpp \
   script/interpreter.cpp \
   script/script.cpp \
   uint256.cpp \
   utilstrencodings.cpp
 
 if GLIBC_BACK_COMPAT
-  libtrivecoinconsensus_la_SOURCES += compat/glibc_compat.cpp
+  libtrivechainconsensus_la_SOURCES += compat/glibc_compat.cpp
 endif
 
-libtrivecoinconsensus_la_LDFLAGS = $(AM_LDFLAGS) -no-undefined $(RELDFLAGS)
-libtrivecoinconsensus_la_LIBADD = $(LIBSECP256K1)
-libtrivecoinconsensus_la_CPPFLAGS = $(AM_CPPFLAGS) -I$(builddir)/obj -I$(srcdir)/secp256k1/include -DBUILD_BITCOIN_INTERNAL
-libtrivecoinconsensus_la_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+libtrivechainconsensus_la_LDFLAGS = $(AM_LDFLAGS) -no-undefined $(RELDFLAGS)
+libtrivechainconsensus_la_LIBADD = $(LIBSECP256K1)
+libtrivechainconsensus_la_CPPFLAGS = $(AM_CPPFLAGS) -I$(builddir)/obj -I$(srcdir)/secp256k1/include -DBUILD_BITCOIN_INTERNAL
+libtrivechainconsensus_la_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
 
 endif
 #

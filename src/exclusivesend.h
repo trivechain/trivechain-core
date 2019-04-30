@@ -328,7 +328,7 @@ public:
     static std::vector<CAmount> GetStandardDenominations() { return vecStandardDenominations; }
     static CAmount GetSmallestDenomination() { return vecStandardDenominations.back(); }
 
-    /// Get the denominations for a specific amount of trivecoin.
+    /// Get the denominations for a specific amount of trivechain.
     static int GetDenominationsByAmounts(const std::vector<CAmount>& vecAmount);
 
     /// Get the denominations for a list of outputs (returns a bitshifted integer)

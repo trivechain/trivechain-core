@@ -5,7 +5,7 @@
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #if defined(HAVE_CONFIG_H)
-#include "config/trivecoin-config.h"
+#include "config/trivechain-config.h"
 #endif
 
 #include "util.h"
@@ -104,7 +104,7 @@ namespace boost {
 
 using namespace std;
 
-//TriveCoin only features
+//Trivechain only features
 bool fMasterNode = false;
 bool fLiteMode = false;
 /**
@@ -116,8 +116,8 @@ bool fLiteMode = false;
 */
 int nWalletBackups = 10;
 
-const char * const BITCOIN_CONF_FILENAME = "trivecoin.conf";
-const char * const BITCOIN_PID_FILENAME = "trivecoind.pid";
+const char * const BITCOIN_CONF_FILENAME = "trivechain.conf";
+const char * const BITCOIN_PID_FILENAME = "trivechaind.pid";
 
 map<string, string> mapArgs;
 map<string, vector<string> > mapMultiArgs;
@@ -271,8 +271,8 @@ bool LogAcceptCategory(const char* category)
             const vector<string>& categories = mapMultiArgs["-debug"];
             ptrCategory.reset(new set<string>(categories.begin(), categories.end()));
             // thread_specific_ptr automatically deletes the set when the thread ends.
-            // "trivecoin" is a composite category enabling all TriveCoin-related debug output
-            if(ptrCategory->count(string("trivecoin"))) {
+            // "trivechain" is a composite category enabling all Trivechain-related debug output
+            if(ptrCategory->count(string("trivechain"))) {
                 ptrCategory->insert(string("exclusivesend"));
                 ptrCategory->insert(string("directsend"));
                 ptrCategory->insert(string("masternode"));
@@ -496,7 +496,7 @@ static std::string FormatException(const std::exception* pex, const char* pszThr
     char pszModule[MAX_PATH] = "";
     GetModuleFileNameA(NULL, pszModule, sizeof(pszModule));
 #else
-    const char* pszModule = "trivecoin";
+    const char* pszModule = "trivechain";
 #endif
     if (pex)
         return strprintf(
@@ -516,13 +516,13 @@ void PrintExceptionContinue(const std::exception* pex, const char* pszThread)
 boost::filesystem::path GetDefaultDataDir()
 {
     namespace fs = boost::filesystem;
-    // Windows < Vista: C:\Documents and Settings\Username\Application Data\TriveCoin
-    // Windows >= Vista: C:\Users\Username\AppData\Roaming\TriveCoin
-    // Mac: ~/Library/Application Support/TriveCoin
-    // Unix: ~/.trivecoin
+    // Windows < Vista: C:\Documents and Settings\Username\Application Data\Trivechain
+    // Windows >= Vista: C:\Users\Username\AppData\Roaming\Trivechain
+    // Mac: ~/Library/Application Support/Trivechain
+    // Unix: ~/.trivechain
 #ifdef WIN32
     // Windows
-    return GetSpecialFolderPath(CSIDL_APPDATA) / "TriveCoin";
+    return GetSpecialFolderPath(CSIDL_APPDATA) / "Trivechain";
 #else
     fs::path pathRet;
     char* pszHome = getenv("HOME");
@@ -532,10 +532,10 @@ boost::filesystem::path GetDefaultDataDir()
         pathRet = fs::path(pszHome);
 #ifdef MAC_OSX
     // Mac
-    return pathRet / "Library/Application Support/TriveCoin";
+    return pathRet / "Library/Application Support/Trivechain";
 #else
     // Unix
-    return pathRet / ".trivecoin";
+    return pathRet / ".trivechain";
 #endif
 #endif
 }
@@ -629,7 +629,7 @@ void ReadConfigFile(map<string, string>& mapSettingsRet,
 {
     boost::filesystem::ifstream streamConfig(GetConfigFile());
     if (!streamConfig.good()){
-        // Create empty trivecoin.conf if it does not excist
+        // Create empty trivechain.conf if it does not excist
         FILE* configFile = fopen(GetConfigFile().string().c_str(), "a");
         if (configFile != NULL)
             fclose(configFile);
@@ -641,7 +641,7 @@ void ReadConfigFile(map<string, string>& mapSettingsRet,
 
     for (boost::program_options::detail::config_file_iterator it(streamConfig, setOptions), end; it != end; ++it)
     {
-        // Don't overwrite existing settings so command line settings override trivecoin.conf
+        // Don't overwrite existing settings so command line settings override trivechain.conf
         string strKey = string("-") + it->string_key;
         string strValue = it->value[0];
         InterpretNegativeSetting(strKey, strValue);

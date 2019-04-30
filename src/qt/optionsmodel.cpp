@@ -4,7 +4,7 @@
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #if defined(HAVE_CONFIG_H)
-#include "config/trivecoin-config.h"
+#include "config/trivechain-config.h"
 #endif
 
 #include "optionsmodel.h"
@@ -136,10 +136,10 @@ void OptionsModel::Init(bool resetSettings)
 
     if (!settings.contains("nExclusiveSendAmount")) {
         // for migration from old settings
-        if (!settings.contains("nAnonymizeTriveCoinAmount"))
+        if (!settings.contains("nAnonymizeTrivechainAmount"))
             settings.setValue("nExclusiveSendAmount", DEFAULT_EXCLUSIVESEND_AMOUNT);
         else
-            settings.setValue("nExclusiveSendAmount", settings.value("nAnonymizeTriveCoinAmount").toInt());
+            settings.setValue("nExclusiveSendAmount", settings.value("nAnonymizeTrivechainAmount").toInt());
     }
     if (!SoftSetArg("-exclusivesendamount", settings.value("nExclusiveSendAmount").toString().toStdString()))
         addOverriddenOption("-exclusivesendamount");
@@ -198,7 +198,7 @@ void OptionsModel::Reset()
 
     // Remove all entries from our QSettings object
     settings.clear();
-    resetSettings = true; // Needed in trivecoin.cpp during shotdown to also remove the window positions
+    resetSettings = true; // Needed in trivechain.cpp during shotdown to also remove the window positions
 
     // default setting for OptionsModel::StartAtStartup - disabled
     if (GUIUtil::GetStartOnSystemStartup())

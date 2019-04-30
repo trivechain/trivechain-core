@@ -4,15 +4,15 @@
 
 	* means the category has an associated class
 	
-	CTriveCoinNetwork: TRVC NETWORK (ROOT)
+	CTrivechainNetwork: TRVC NETWORK (ROOT)
 	has:
 		vector<CNetworkVariable> vecNetworkVariables;
-		vector<CTriveCoinProject> vecProjects;
+		vector<CTrivechainProject> vecProjects;
 		vector<CGovernanceObject> vecProposals;
 		vector<CBudgetContract> vecContracts;
 		vector<CBudgetUsers> vecUsers;
 
-	CTriveCoinProject:
+	CTrivechainProject:
 	has:
 		name
 		employees

@@ -42,10 +42,10 @@ SplashScreen::SplashScreen(Qt::WindowFlags f, const NetworkStyle *networkStyle) 
     float fontFactor            = 1.0;
 
     // define text to place
-    QString titleText       = tr("TriveCoin");
+    QString titleText       = tr("Trivechain");
     QString versionText     = QString(tr("Version %1")).arg(QString::fromStdString(FormatFullVersion()));
     QString copyrightTextBtc   = QChar(0xA9)+QString(" 2009-%1 ").arg(COPYRIGHT_YEAR) + QString(tr("The Bitcoin Core developers"));
-    QString copyrightTextTriveCoin   = QChar(0xA9)+QString(" 2017-%1 ").arg(COPYRIGHT_YEAR) + QString(tr("The Trivecoin Core developers"));
+    QString copyrightTextTrivechain   = QChar(0xA9)+QString(" 2017-%1 ").arg(COPYRIGHT_YEAR) + QString(tr("The Trivechain Core developers"));
     QString titleAddText    = networkStyle->getTitleAddText();
     // networkstyle.cpp can't (yet) read themes, so we do it here to get the correct Splash-screen
     QString splashScreenPath = ":/images/" + GUIUtil::getThemeName() + "/splash";
@@ -82,7 +82,7 @@ SplashScreen::SplashScreen(Qt::WindowFlags f, const NetworkStyle *networkStyle) 
     // draw copyright stuff
     pixPaint.setFont(QFont(font, 10*fontFactor));
     pixPaint.drawText(paddingLeft,paddingTop+titleCopyrightVSpace,copyrightTextBtc);
-    pixPaint.drawText(paddingLeft,paddingTop+titleCopyrightVSpace+12,copyrightTextTriveCoin);
+    pixPaint.drawText(paddingLeft,paddingTop+titleCopyrightVSpace+12,copyrightTextTrivechain);
 
     // draw additional text if special network
     if(!titleAddText.isEmpty()) {

@@ -2,7 +2,7 @@ OpenBSD build guide
 ======================
 (updated for OpenBSD 5.7)
 
-This guide describes how to build trivecoind and command-line utilities on OpenBSD.
+This guide describes how to build trivechaind and command-line utilities on OpenBSD.
 
 As OpenBSD is most common as a server OS, we will not bother with the GUI.
 
@@ -19,7 +19,7 @@ pkg_add python # (select version 2.7.x, not 3.x)
 ln -sf /usr/local/bin/python2.7 /usr/local/bin/python2
 ```
 
-The default C++ compiler that comes with OpenBSD 5.7 is g++ 4.2. This version is old (from 2007), and is not able to compile the current version of Trivecoin Core. It is possible to patch it up to compile, but with the planned transition to C++11 this is a losing battle. So here we will be installing a newer compiler.
+The default C++ compiler that comes with OpenBSD 5.7 is g++ 4.2. This version is old (from 2007), and is not able to compile the current version of Trivechain Core. It is possible to patch it up to compile, but with the planned transition to C++11 this is a losing battle. So here we will be installing a newer compiler.
 
 GCC
 -------
@@ -36,16 +36,16 @@ This compiler will not overwrite the system compiler, it will be installed as `e
 
 Do not use `pkg_add boost`! The boost version installed thus is compiled using the `g++` compiler not `eg++`, which will result in a conflict between `/usr/local/lib/libestdc++.so.XX.0` and `/usr/lib/libstdc++.so.XX.0`, resulting in a test crash:
 
-    test_trivecoin:/usr/lib/libstdc++.so.57.0: /usr/local/lib/libestdc++.so.17.0 : WARNING: symbol(_ZN11__gnu_debug17_S_debug_me ssagesE) size mismatch, relink your program
+    test_trivechain:/usr/lib/libstdc++.so.57.0: /usr/local/lib/libestdc++.so.17.0 : WARNING: symbol(_ZN11__gnu_debug17_S_debug_me ssagesE) size mismatch, relink your program
     ...
     Segmentation fault (core dumped)
 
-This makes it necessary to build boost, or at least the parts used by Trivecoin Core, manually:
+This makes it necessary to build boost, or at least the parts used by Trivechain Core, manually:
 
 ```
-# Pick some path to install boost to, here we create a directory within the trivecoin directory
-TRIVECOIN_ROOT=$(pwd)
-BOOST_PREFIX="${TRIVECOIN_ROOT}/boost"
+# Pick some path to install boost to, here we create a directory within the trivechain directory
+TRIVECHAIN_ROOT=$(pwd)
+BOOST_PREFIX="${TRIVECHAIN_ROOT}/boost"
 mkdir -p $BOOST_PREFIX
 
 # Fetch the source and verify that it is not tampered with
@@ -79,8 +79,8 @@ You cannot use the BerkeleyDB library from ports, for the same reason as boost a
 
 ```bash
 # Pick some path to install BDB to, here we create a directory within the dash directory
-TRIVECOIN_ROOT=$(pwd)
-BDB_PREFIX="${TRIVECOIN_ROOT}/db4"
+TRIVECHAIN_ROOT=$(pwd)
+BDB_PREFIX="${TRIVECHAIN_ROOT}/db4"
 mkdir -p $BDB_PREFIX
 
 # Fetch the source and verify that it is not tampered with
@@ -96,7 +96,7 @@ cd db-4.8.30.NC/build_unix/
 make install
 ```
 
-### Building Trivecoin Core
+### Building Trivechain Core
 
 **Important**: use `gmake`, not `make`. The non-GNU `make` will exit with a horrible error.
 

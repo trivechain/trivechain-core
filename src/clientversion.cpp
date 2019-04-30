@@ -10,10 +10,10 @@
 
 /**
  * Name of client reported in the 'version' message. Report the same name
- * for both trivecoind and trivecoin-qt, to make it harder for attackers to
+ * for both trivechaind and trivechain-qt, to make it harder for attackers to
  * target servers or GUI users specifically.
  */
-const std::string CLIENT_NAME("TriveCoin");
+const std::string CLIENT_NAME("Trivechain");
 
 /**
  * Client version number

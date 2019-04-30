@@ -53,7 +53,7 @@
 using namespace std;
 
 #if defined(NDEBUG)
-# error "TriveCoin cannot be compiled without assertions."
+# error "Trivechain cannot be compiled without assertions."
 #endif
 
 /**
@@ -499,6 +499,29 @@ bool CheckTransaction(const CTransaction& tx, CValidationState &state)
         if (vInOutPoints.count(txin.prevout))
             return state.DoS(100, false, REJECT_INVALID, "bad-txns-inputs-duplicate");
         vInOutPoints.insert(txin.prevout);
+    }
+
+    // Check for burnt inputs
+    BOOST_FOREACH(const CTxIn& txin, tx.vin)
+    {
+        if (txin.prevout.hash == uint256S("248fd4a153c47f091a127855508d20c889da72ce6ac6ac2e84bc907fd15b7678") && txin.prevout.n == 0) 
+            return state.DoS(100, false, REJECT_INVALID, "bad-txns-input-burnt");
+        if (txin.prevout.hash == uint256S("0919f1bcdc1def894e889409e9d986615687a90bdfc465becb4b6eb735938abe") && txin.prevout.n == 1) 
+            return state.DoS(100, false, REJECT_INVALID, "bad-txns-input-burnt");
+        if (txin.prevout.hash == uint256S("a3ae0e5a7471234a2aec16f9de2bc9519a7d95b68f463345f4e9ccb9c64e591c") && txin.prevout.n == 0) 
+            return state.DoS(100, false, REJECT_INVALID, "bad-txns-input-burnt");
+        if (txin.prevout.hash == uint256S("a211bccf4c8a0b15efbd564b74b5f1cab4bdd122311a7d2cbd7bc880d2617bf5") && txin.prevout.n == 1) 
+            return state.DoS(100, false, REJECT_INVALID, "bad-txns-input-burnt");
+        if (txin.prevout.hash == uint256S("dd8a3db292db3c5b052e701f4847826ca32315cd7758c1046f085f8b1044d18e") && txin.prevout.n == 1) 
+            return state.DoS(100, false, REJECT_INVALID, "bad-txns-input-burnt");
+        if (txin.prevout.hash == uint256S("4ed3ef0df77f145734b2e02c0f8f531b0202da65954ca95a80cadae79a198296") && txin.prevout.n == 1) 
+            return state.DoS(100, false, REJECT_INVALID, "bad-txns-input-burnt");
+        if (txin.prevout.hash == uint256S("8ddd05a709cc6d78250280c9fe1f306920161352700f829894044bf4acdd5e83") && txin.prevout.n == 0) 
+            return state.DoS(100, false, REJECT_INVALID, "bad-txns-input-burnt");
+        if (txin.prevout.hash == uint256S("646f7f0b1d6a2607a19b6000e0584da1e4970583c81ad9634ce245900d073daa") && txin.prevout.n == 1) 
+            return state.DoS(100, false, REJECT_INVALID, "bad-txns-input-burnt");
+        if (txin.prevout.hash == uint256S("e219be3d8106bdd156d5309000e875b4ec0ffd965a41b91ff94daa67e41e1a20") && txin.prevout.n == 1) 
+            return state.DoS(100, false, REJECT_INVALID, "bad-txns-input-burnt");
     }
 
     if (tx.IsCoinBase())
@@ -1241,7 +1264,7 @@ CAmount GetBlockSubsidy(int nPrevBits, int nPrevHeight, const Consensus::Params&
     }
 
     if (nPrevHeight == 0) {
-        // Trivecoin early adopters
+        // Trivechain early adopters
         return 33600000 * COIN;
     } else if (nPrevHeight <= 19522) {
         if (nPrevHeight < 17000 || (dDiff <= 75 && nPrevHeight < 24000)) {
@@ -1266,28 +1289,40 @@ CAmount GetBlockSubsidy(int nPrevBits, int nPrevHeight, const Consensus::Params&
             nSubsidyBase = nSubsidyBase * 0.5;
             nHalvings--;
         }
-    } else if (nPrevHeight > 2600000) {
-        // Realign with TRVC white paper
-        // Reward remain constant until the Max Supply
-        nSubsidyBase = 3.2;
+    } else if ((nPrevHeight <= 212375 && Params().NetworkIDString() == CBaseChainParams::TESTNET) || (nPrevHeight <= 226655 && Params().NetworkIDString() == CBaseChainParams::MAIN)) {
+        // Realign with TRVC 1.0 white paper before fork
+        // Accepts only whole number, changed to 12 to realign with the actual reward
+        nSubsidyBase = 12;
     } else {
-        // Realign with TRVC white paper
-        nSubsidyBase = 12.5;
+        // Realign with TRVC 2.0 white paper
+        nSubsidyBase = 25;
     }
 
     // LogPrintf("height %u diff %4.2f reward %d\n", nPrevHeight, dDiff, nSubsidyBase);
     CAmount nSubsidy = nSubsidyBase * COIN;
 
-    // Inflation by 10% every 200,000 blocks
-    // Before the start of constant reward
-    if (nPrevHeight <= 2600000) {
+    // TRVC 1.0 Before Fork
+    if ((nPrevHeight <= 212375 && Params().NetworkIDString() == CBaseChainParams::TESTNET) || (nPrevHeight <= 226655 && Params().NetworkIDString() == CBaseChainParams::MAIN)) {
         for (int i = 200000; i <= nPrevHeight; i += 200000) {
             nSubsidy -= nSubsidy * 0.1;
         }
     }
+    // TRVC 2.0 After Forking
+    // Inflation by 25% every 525,600 blocks (1 year)
+    // Before the start of constant reward
+    if (nPrevHeight >= 752230) {
+        for (int i = 752230; i <= nPrevHeight; i += 525600) {
+            nSubsidy -= nSubsidy * 0.25;
+        }
+    }
 
-    // Hard fork to reduce the block reward by 10 extra percent (allowing budget/superblocks)
-    CAmount nSuperblockPart = (nPrevHeight > consensusParams.nBudgetPaymentsStartBlock) ? nSubsidy/10 : 0;
+
+    // TRVC 2.0 Hard fork to reduce the block reward by 30 extra percent (allowing budget/superblocks)
+    CAmount nSuperblockPart = (nPrevHeight > consensusParams.nBudgetPaymentsStartBlock) ? (nSubsidy * 3) / 10 : 0;
+    if ((nPrevHeight <= 212375 && Params().NetworkIDString() == CBaseChainParams::TESTNET) || (nPrevHeight <= 226655 && Params().NetworkIDString() == CBaseChainParams::MAIN)) {
+        // TRVC 1.0 only 10% Governance
+        nSuperblockPart = (nPrevHeight > consensusParams.nBudgetPaymentsStartBlock) ? nSubsidy / 10 : 0;
+    }
 
     return fSuperblockPartOnly ? nSuperblockPart : nSubsidy - nSuperblockPart;
 }
@@ -1877,7 +1912,7 @@ bool FindUndoPos(CValidationState &state, int nFile, CDiskBlockPos &pos, unsigne
 static CCheckQueue<CScriptCheck> scriptcheckqueue(128);
 
 void ThreadScriptCheck() {
-    RenameThread("trivecoin-scriptch");
+    RenameThread("trivechain-scriptch");
     scriptcheckqueue.Thread();
 }
 
@@ -2040,7 +2075,7 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
     //Only continue to enforce if we're below BIP34 activation height or the block hash at that height doesn't correspond.
     fEnforceBIP30 = fEnforceBIP30 && (!pindexBIP34height || !(pindexBIP34height->GetBlockHash() == chainparams.GetConsensus().BIP34Hash));
     */
-    // TRVC: Trivecoin released after BIP30
+    // TRVC: Trivechain released after BIP30
     bool fEnforceBIP30 = true;
     if (fEnforceBIP30) {
         BOOST_FOREACH(const CTransaction& tx, block.vtx) {
@@ -3242,7 +3277,12 @@ bool ContextualCheckBlockHeader(const CBlockHeader& block, CValidationState& sta
     const Consensus::Params& consensusParams = Params().GetConsensus();
     int nHeight = pindexPrev->nHeight + 1;
     // Check proof of work
-    if(Params().NetworkIDString() == CBaseChainParams::MAIN && nHeight <= 68589){
+    if(Params().NetworkIDString() == CBaseChainParams::TESTNET || Params().NetworkIDString() == CBaseChainParams::REGTEST ) {
+        // Ignore before 222222
+        if (nHeight > 222222 && block.nBits != GetNextWorkRequired(pindexPrev, &block, consensusParams))
+            return state.DoS(100, error("%s : incorrect proof of work at %d", __func__, nHeight),
+                            REJECT_INVALID, "bad-diffbits");
+    } else if(Params().NetworkIDString() == CBaseChainParams::MAIN && nHeight <= 68589){
         // architecture issues with DGW v1 and v2)
         unsigned int nBitsNext = GetNextWorkRequired(pindexPrev, &block, consensusParams);
         double n1 = ConvertBitsToDouble(block.nBits);

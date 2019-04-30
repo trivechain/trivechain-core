@@ -3,10 +3,10 @@
 <plist version="1.0">
 <dict>
 	<key>Label</key>
-	<string>org.trivecoin.trivecoind</string>
+	<string>org.trivechain.trivechaind</string>
 	<key>ProgramArguments</key>
 	<array>
-		<string>/usr/local/bin/trivecoind</string>
+		<string>/usr/local/bin/trivechaind</string>
 		<string>-daemon</string>
 	</array>
 	<key>RunAtLoad</key>

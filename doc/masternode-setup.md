@@ -3,18 +3,18 @@
 =
 
 ## Prerequisites
-- 1000 TRVC
+- 10,000 TRVC
 - A server ( Recommended: 4GB RAM, 2 cores CPU )
 - Public IP with port 9999 opened from firewall
-- TRVC latest QT Wallet ( https://trivecoin.org/download-wallet/ )
+- TRVC latest QT Wallet ( https://github.com/trivechain/trivechain-core/releases )
 
 #Steps
 =
 
-## 1. Prepare Trivecoin-qt wallet
-- Download the latest trivecoin-qt wallet from https://trivecoin.org/download-wallet/
+## 1. Prepare Trivechain-qt wallet
+- Download the latest trivechain-qt wallet from https://github.com/trivechain/trivechain-core/releases
 - Unzip the folder
-- Fire up the trivecoin-qt wallet
+- Fire up the trivechain-qt wallet
 - Wait until sync complete
 - Open the Debug console, from the main menu, select **Tools > Debug console**
 
@@ -27,10 +27,10 @@
 - Mark down the masternode address
 
 ## 4. Deposit
-- Send 1000 TRVC to the masternode address
+- Send 10,000 TRVC to the masternode address
 - Wait for 6 confirmations
 - Note: Make sure the "Substract fee from amount" is **unchecked**
-- Note: Send exactly 1000 TRVC, any other amount is not recognized
+- Note: Send exactly 10,000 TRVC, any other amount is not recognized
 
 ## 5. Get the transaction details
 - Execute command `masternode outputs` in **Debug console**
@@ -51,7 +51,7 @@ Explanation:
 
 - Save and close the file
 
-## 7. Edit Trivecoin daemon configuration file
+## 7. Edit Trivechain daemon configuration file
 - From the main menu, select **Tools > Open Wallet Configuration File**
 ```
 rpcuser=XXXXXXXXXXXXX  
@@ -73,13 +73,13 @@ externalip=XXX.XXX.XXX.XXX
 ## 8. Enable the masternode tab
 - From the main menu, select **Settings > Options > Wallet**
 - Check **Show Masternodes Tab**, click **OK**
-- Close Trivecoin-qt wallet
+- Close Trivechain-qt wallet
 
 ## 9. Start masternode
-- Start Trivecoin-qt wallet
+- Start Trivechain-qt wallet
 - Go to Masternodes Tab
 - Click **Start all**
 - Note: The status will be PRE_ENABLED, after few minutes, you will see the status change to ENABLED
 
 # That's it!
-Congratulations in setting up your first masternode! Feel free to discuss in https://trivecoin.org if you need further assistance
+Congratulations in setting up your first masternode! Feel free to discuss in https://trivechain.com if you need further assistance

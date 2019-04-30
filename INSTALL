@@ -1,7 +1,7 @@
-Building Trivecoin Core
+Building Trivechain Core
 
 After you install the usual build tools and C++ development tools,
-Trivecoin Core also needs some build dependencies which are not always provided
+Trivechain Core also needs some build dependencies which are not always provided
 by default by the OS package manager
 (in particular BerkeleyDB 4.8 for building with wallet support).
 
@@ -20,6 +20,6 @@ use the autogen script to prepare the build environment.
     ./configure
     make
 
-See doc/build-*.md for instructions on building trivecoind,
+See doc/build-*.md for instructions on building trivechaind,
 the intended-for-services, no-graphical-interface,
-reference implementation of Trivecoin.
+reference implementation of Trivechain.

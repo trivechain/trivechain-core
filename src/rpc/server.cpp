@@ -243,11 +243,11 @@ UniValue stop(const UniValue& params, bool fHelp)
     if (fHelp || params.size() > 1)
         throw runtime_error(
             "stop\n"
-            "\nStop TriveCoin server.");
+            "\nStop Trivechain server.");
     // Event loop will exit after current HTTP requests have been handled, so
     // this reply will get back to the client.
     StartShutdown();
-    return "TriveCoin server stopping";
+    return "Trivechain server stopping";
 }
 
 /**
@@ -343,20 +343,20 @@ static const CRPCCommand vRPCCommands[] =
     { "hidden",             "resendwallettransactions", &resendwallettransactions, true},
 #endif
 
-    /* TriveCoin features */
-    { "trivecoin",               "masternode",             &masternode,             true  },
-    { "trivecoin",               "masternodelist",         &masternodelist,         true  },
-    { "trivecoin",               "masternodebroadcast",    &masternodebroadcast,    true  },
-    { "trivecoin",               "gobject",                &gobject,                true  },
-    { "trivecoin",               "getgovernanceinfo",      &getgovernanceinfo,      true  },
-    { "trivecoin",               "getsuperblockbudget",    &getsuperblockbudget,    true  },
-    { "trivecoin",               "voteraw",                &voteraw,                true  },
-    { "trivecoin",               "mnsync",                 &mnsync,                 true  },
-    { "trivecoin",               "spork",                  &spork,                  true  },
-    { "trivecoin",               "getpoolinfo",            &getpoolinfo,            true  },
-    { "trivecoin",               "sentinelping",           &sentinelping,           true  },
+    /* Trivechain features */
+    { "trivechain",               "masternode",             &masternode,             true  },
+    { "trivechain",               "masternodelist",         &masternodelist,         true  },
+    { "trivechain",               "masternodebroadcast",    &masternodebroadcast,    true  },
+    { "trivechain",               "gobject",                &gobject,                true  },
+    { "trivechain",               "getgovernanceinfo",      &getgovernanceinfo,      true  },
+    { "trivechain",               "getsuperblockbudget",    &getsuperblockbudget,    true  },
+    { "trivechain",               "voteraw",                &voteraw,                true  },
+    { "trivechain",               "mnsync",                 &mnsync,                 true  },
+    { "trivechain",               "spork",                  &spork,                  true  },
+    { "trivechain",               "getpoolinfo",            &getpoolinfo,            true  },
+    { "trivechain",               "sentinelping",           &sentinelping,           true  },
 #ifdef ENABLE_WALLET
-    { "trivecoin",               "exclusivesend",            &exclusivesend,            false },
+    { "trivechain",               "exclusivesend",            &exclusivesend,            false },
 
     /* Wallet */
     { "wallet",             "keepass",                &keepass,                true },
@@ -580,7 +580,7 @@ std::vector<std::string> CRPCTable::listCommands() const
 
 std::string HelpExampleCli(const std::string& methodname, const std::string& args)
 {
-    return "> trivecoin-cli " + methodname + " " + args + "\n";
+    return "> trivechain-cli " + methodname + " " + args + "\n";
 }
 
 std::string HelpExampleRpc(const std::string& methodname, const std::string& args)

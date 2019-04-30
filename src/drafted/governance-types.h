@@ -16,9 +16,9 @@ enum GovernanceObjectType {
     ValueOverride = 1, 
 
     // -------------------------------
-    // TriveCoinNetwork - is the root node
-    TriveCoinNetwork = 1000,
-    TriveCoinNetworkVariable = 1001,
+    // TrivechainNetwork - is the root node
+    TrivechainNetwork = 1000,
+    TrivechainNetworkVariable = 1001,
     Category = 1002,
 
     // Actors

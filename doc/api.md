@@ -34,7 +34,7 @@ verifytxoutproof "proof"
   
 
 ## Control 
-debug ( 0|1|addrman|alert|bench|coindb|db|lock|rand|rpc|selectcoins|mempool|mempoolrej|net|proxy|prune|http|libevent|tor|zmq|trivecoin|exclusivesend|directsend|masternode|spork|keepass|mnpayments|gobject )
+debug ( 0|1|addrman|alert|bench|coindb|db|lock|rand|rpc|selectcoins|mempool|mempoolrej|net|proxy|prune|http|libevent|tor|zmq|trivechain|exclusivesend|directsend|masternode|spork|keepass|mnpayments|gobject )
 getinfo
 help ( "command" )
 stop
@@ -84,7 +84,7 @@ signrawtransaction "hexstring" ( [{"txid":"id","vout":n,"scriptPubKey":"hex","re
 
   
 
-## Trivecoin 
+## Trivechain 
 exclusivesend "command"
 getgovernanceinfo
 getpoolinfo
@@ -106,8 +106,8 @@ estimatefee nblocks
 estimatepriority nblocks
 estimatesmartfee nblocks
 estimatesmartpriority nblocks
-validateaddress "trivecoinaddress"
-verifymessage "trivecoinaddress" "signature" "message"
+validateaddress "trivechainaddress"
+verifymessage "trivechainaddress" "signature" "message"
 
   
 
@@ -115,25 +115,25 @@ verifymessage "trivecoinaddress" "signature" "message"
 abandontransaction "txid"
 addmultisigaddress nrequired ["key",...] ( "account" )
 backupwallet "destination"
-directsendtoaddress "trivecoinaddress" amount ( "comment" "comment-to" subtractfeefromamount )
+directsendtoaddress "trivechainaddress" amount ( "comment" "comment-to" subtractfeefromamount )
 dumphdinfo
-dumpprivkey "trivecoinaddress"
+dumpprivkey "trivechainaddress"
 dumpwallet "filename"
 encryptwallet "passphrase"
-getaccount "trivecoinaddress"
+getaccount "trivechainaddress"
 getaccountaddress "account"
 getaddressesbyaccount "account"
 getbalance ( "account" minconf addlockconf includeWatchonly )
 getnewaddress ( "account" )
 getrawchangeaddress
 getreceivedbyaccount "account" ( minconf addlockconf )
-getreceivedbyaddress "trivecoinaddress" ( minconf addlockconf )
+getreceivedbyaddress "trivechainaddress" ( minconf addlockconf )
 gettransaction "txid" ( includeWatchonly )
 getunconfirmedbalance
 getwalletinfo
 importaddress "address" ( "label" rescan p2sh )
 importelectrumwallet "filename" index
-importprivkey "trivecoinprivkey" ( "label" rescan )
+importprivkey "trivechainprivkey" ( "label" rescan )
 importpubkey "pubkey" ( "label" rescan )
 importwallet "filename"
 keepass <genkey|init|setpassphrase>
@@ -148,9 +148,9 @@ listtransactions ( "account" count from includeWatchonly)
 listunspent ( minconf maxconf ["address",...] )
 lockunspent unlock [{"txid":"txid","vout":n},...]
 move "fromaccount" "toaccount" amount ( minconf "comment" )
-sendfrom "fromaccount" "totrivecoinaddress" amount ( minconf addlockconf "comment" "comment-to" )
+sendfrom "fromaccount" "totrivechainaddress" amount ( minconf addlockconf "comment" "comment-to" )
 sendmany "fromaccount" {"address":amount,...} ( minconf addlockconf "comment" ["address",...] subtractfeefromamount use_is use_ps )
-sendtoaddress "trivecoinaddress" amount ( "comment" "comment-to" subtractfeefromamount use_is use_ps )
-setaccount "trivecoinaddress" "account"
+sendtoaddress "trivechainaddress" amount ( "comment" "comment-to" subtractfeefromamount use_is use_ps )
+setaccount "trivechainaddress" "account"
 settxfee amount
-signmessage "trivecoinaddress" "message"
+signmessage "trivechainaddress" "message"

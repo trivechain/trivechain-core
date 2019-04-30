@@ -9,8 +9,8 @@
 #include <vector>
 
 /**
- * CBaseChainParams defines the base parameters (shared between trivecoin-cli and trivecoind)
- * of a given instance of the TriveCoin system.
+ * CBaseChainParams defines the base parameters (shared between trivechain-cli and trivechaind)
+ * of a given instance of the Trivechain system.
  */
 class CBaseChainParams
 {

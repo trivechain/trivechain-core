@@ -1,11 +1,11 @@
 Sample configuration files for:
 
-SystemD: trivecoind.service
-Upstart: trivecoind.conf
-OpenRC:  trivecoind.openrc
-         trivecoind.openrcconf
-CentOS:  trivecoind.init
-OS X:    org.trivecoin.trivecoind.plist
+SystemD: trivechaind.service
+Upstart: trivechaind.conf
+OpenRC:  trivechaind.openrc
+         trivechaind.openrcconf
+CentOS:  trivechaind.init
+OS X:    org.trivechain.trivechaind.plist
 
 have been made available to assist packagers in creating node packages here.
 

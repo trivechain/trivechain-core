@@ -119,7 +119,7 @@ UniValue masternode(const UniValue& params, bool fHelp)
                 "  debug        - Print masternode status\n"
                 "  genkey       - Generate new masternodeprivkey\n"
                 "  outputs      - Print masternode compatible outputs\n"
-                "  start        - Start local Hot masternode configured in trivecoin.conf\n"
+                "  start        - Start local Hot masternode configured in trivechain.conf\n"
                 "  start-alias  - Start single remote masternode by assigned alias configured in masternode.conf\n"
                 "  start-<mode> - Start remote masternodes configured in masternode.conf (<mode>: 'all', 'missing', 'disabled')\n"
                 "  status       - Print masternode status information\n"
@@ -382,7 +382,7 @@ UniValue masternode(const UniValue& params, bool fHelp)
     if (strCommand == "outputs") {
         // Find possible candidates
         std::vector<COutput> vPossibleCoins;
-        pwalletMain->AvailableCoins(vPossibleCoins, true, NULL, false, ONLY_1000);
+        pwalletMain->AvailableCoins(vPossibleCoins, true, NULL, false, ONLY_10000);
 
         UniValue obj(UniValue::VOBJ);
         BOOST_FOREACH(COutput& out, vPossibleCoins) {
@@ -483,7 +483,7 @@ UniValue masternodelist(const UniValue& params, bool fHelp)
                 "  lastpaidblock  - Print the last block height a node was paid on the network\n"
                 "  lastpaidtime   - Print the last time a node was paid on the network\n"
                 "  lastseen       - Print timestamp of when a masternode was last seen on the network\n"
-                "  payee          - Print TriveCoin address associated with a masternode (can be additionally filtered,\n"
+                "  payee          - Print Trivechain address associated with a masternode (can be additionally filtered,\n"
                 "                   partial match)\n"
                 "  protocol       - Print protocol of a masternode (can be additionally filtered, exact match))\n"
                 "  pubkey         - Print the masternode (not collateral) public key\n"
