@@ -31,11 +31,11 @@ To build executables for Windows 32-bit:
 To build executables for Windows 64-bit:
 
     cd depends
-    sudo make HOST=x86_64-w64-mingw32 -j4
+    make HOST=x86_64-w64-mingw32 -j4
     cd ..
     ./configure --prefix=`pwd`/depends/x86_64-w64-mingw32
     sudo update-alternatives --config x86_64-w64-mingw32-g++
-    sudo make
+    gmake
 
 For further documentation on the depends system see [README.md](../depends/README.md) in the depends directory.
 
