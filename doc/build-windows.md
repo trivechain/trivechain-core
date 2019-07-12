@@ -35,7 +35,7 @@ To build executables for Windows 64-bit:
     cd ..
     ./configure --prefix=`pwd`/depends/x86_64-w64-mingw32
     sudo update-alternatives --config x86_64-w64-mingw32-g++
-    gmake
+    make 
 
 For further documentation on the depends system see [README.md](../depends/README.md) in the depends directory.
 
