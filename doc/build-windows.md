@@ -31,7 +31,7 @@ To build executables for Windows 32-bit:
 To build executables for Windows 64-bit:
 
     cd depends
-    make HOST=x86_64-w64-mingw32 -j4
+    sudo make HOST=x86_64-w64-mingw32 -j4
     cd ..
     ./configure --prefix=`pwd`/depends/x86_64-w64-mingw32
     sudo update-alternatives --config x86_64-w64-mingw32-g++
