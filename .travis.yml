@@ -78,6 +78,10 @@ script:
     #- make distdir PACKAGE=dash VERSION=$HOST
     #- cd dash-$HOST
     - ./configure --cache-file=../config.cache $BITCOIN_CONFIG_ALL $BITCOIN_CONFIG || ( cat config.log && false)
+     - src/secp256k1 '"$USE_SHELL" -c "./autogen.sh"' || ./autogen.sh
+    - ./configure
+    - make
+    - cd dash-$HOST
     - sudo make $MAKEJOBS $GOAL || ( echo "Build failure. Verbose build follows." && sudo make $GOAL V=1 ; false )
     - export LD_LIBRARY_PATH=$TRAVIS_BUILD_DIR/depends/$HOST/lib
     - if [ "$RUN_TESTS" = "true" -a "$WINE" != "true" ]; then make $MAKEJOBS check VERBOSE=1; fi
