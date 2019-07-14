@@ -78,7 +78,8 @@ script:
     #- make distdir PACKAGE=dash VERSION=$HOST
     #- cd dash-$HOST
     - ./configure --cache-file=../config.cache $BITCOIN_CONFIG_ALL $BITCOIN_CONFIG || ( cat config.log && false)
-     - src/secp256k1 '"$USE_SHELL" -c "./autogen.sh"' || ./autogen.sh
+    - cd src/secp256k1 
+    - ./autogen.sh
     - ./configure
     - make
     - cd dash-$HOST
