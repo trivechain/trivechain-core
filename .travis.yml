@@ -76,7 +76,7 @@ script:
     - test -n "$USE_SHELL" && eval '"$USE_SHELL" -c "./autogen.sh"' || ./autogen.sh
     - ./configure --cache-file=config.cache $BITCOIN_CONFIG_ALL $BITCOIN_CONFIG || ( cat config.log && false)
     - cd src/secp256k1/.. -- ./autogen.sh -- ./configure.sh  -- make -- ./test
-    - make distdir PACKAGE=dash VERSION=$HOST
+    - sudo make distdir PACKAGE=dash VERSION=$HOST
     - cd dash-$HOST
     - ./configure --cache-file=../config.cache $BITCOIN_CONFIG_ALL $BITCOIN_CONFIG || ( cat config.log && false)
     - sudo make $MAKEJOBS $GOAL || ( echo "Build failure. Verbose build follows." && sudo make $GOAL V=1 ; false )
