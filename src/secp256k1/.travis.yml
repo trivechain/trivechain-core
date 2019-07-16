@@ -55,9 +55,8 @@ matrix:
           packages:
             - gcc-multilib
             - libgmp-dev:i386
-before_script: ./autogen.sh
-- ./configure
-- make
+before_script: ./autogen.sh -- ./configure -- make install
+
 script:
  - if [ -n "$HOST" ]; then export USE_HOST="--host=$HOST"; fi
  - if [ "x$HOST" = "xi686-linux-gnu" ]; then export CC="$CC -m32"; fi
