@@ -7,6 +7,7 @@ GZIP_ENV="-9n"
 if BUILD_BITCOIN_LIBS
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = libtrivechainconsensus.pc
+lib_LTLIBRARIES+= libtrivechainconsensus/libtrivechainconsensus.la 
 endif
 
 BITCOIND_BIN=$(top_builddir)/src/trivechaind$(EXEEXT)
