@@ -3,8 +3,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOIN_BITCOINCONSENSUS_H
-#define BITCOIN_BITCOINCONSENSUS_H
+#ifndef TRIVECOIN_TRIVECOINCONSENSUS_H
+#define TRIVECOIN_TRIVECOINCONSENSUS_H
 
 #if defined(BUILD_BITCOIN_INTERNAL) && defined(HAVE_CONFIG_H)
 #include "config/trivecoin-config.h"
@@ -31,7 +31,7 @@
 extern "C" {
 #endif
 
-#define BITCOINCONSENSUS_API_VER 0
+#define TRIVECOINCONSENSUS_API_VER 0
 
 typedef enum trivecoinconsensus_error_t
 {
