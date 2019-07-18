@@ -50,9 +50,9 @@ endif
 
 if BUILD_BITCOIN_LIBS
 lib_LTLIBRARIES = libtrivecoinconsensus.la
-LIBBITCOIN_CONSENSUS=libtrivecoinconsensus.la
+LIBTRIVECOIN_CONSENSUS=libtrivecoinconsensus.la
 else
-LIBBITCOIN_CONSENSUS=
+LIBTRIVECOIN_CONSENSUS=
 endif
 
 bin_PROGRAMS =
