@@ -3,8 +3,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef TRIVECOIN_CONSENSUS_CONSENSUS_H
-#define TRIVECOIN_CONSENSUS_CONSENSUS_H
+#ifndef BITCOIN_CONSENSUS_CONSENSUS_H
+#define BITCOIN_CONSENSUS_CONSENSUS_H
 
 /** The maximum allowed size for a serialized block, in bytes (network rule) */
 // static const unsigned int MAX_BLOCK_SIZE = 1000000;
