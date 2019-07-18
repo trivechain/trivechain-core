@@ -1,5 +1,5 @@
-#ifndef TRIVECOIN_TEST_TEST_TRVC_H
-#define TRIVECOIN_TEST_TEST_TRVC_H
+#ifndef BITCOIN_TEST_TEST_TRVC_H
+#define BITCOIN_TEST_TEST_TRVC_H
 
 #include "chainparamsbase.h"
 #include "key.h"
