@@ -48,11 +48,7 @@ enum
     trivecoinconsensus_SCRIPT_FLAGS_VERIFY_P2SH                = (1U << 0), // evaluate P2SH (BIP16) subscripts
     trivecoinconsensus_SCRIPT_FLAGS_VERIFY_DERSIG              = (1U << 2), // enforce strict DER (BIP66) compliance
     trivecoinconsensus_SCRIPT_FLAGS_VERIFY_CHECKLOCKTIMEVERIFY = (1U << 9), // enable CHECKLOCKTIMEVERIFY (BIP65)
-    triveconsensus_SCRIPT_FLAGS_VERIFY_CHECKSEQUENCEVERIFY = (1U << 10), // enable CHECKSEQUENCEVERIFY (BIP112)
-    triveconsensus_SCRIPT_FLAGS_VERIFY_ALL                 = triveconsensus_SCRIPT_FLAGS_VERIFY_P2SH | triveconsensus_SCRIPT_FLAGS_VERIFY_DERSIG |
-                                                            triveconsensus_SCRIPT_FLAGS_VERIFY_NULLDUMMY | triveconsensus_SCRIPT_FLAGS_VERIFY_CHECKLOCKTIMEVERIFY |
-                                                            triveconsensus_SCRIPT_FLAGS_VERIFY_CHECKSEQUENCEVERIFY
-};
+   };
 
 /// Returns 1 if the input nIn of the serialized transaction pointed to by
 /// txTo correctly spends the scriptPubKey pointed to by scriptPubKey under
