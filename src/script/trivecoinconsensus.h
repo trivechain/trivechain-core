@@ -3,8 +3,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef TRIVECOIN_TRIVECOINCONSENSUS_H
-#define TRIVECOIN_TRIVECOINCONSENSUS_H
+#ifndef BITCOIN_BITCOINCONSENSUS_H
+#define BITCOIN_BITCOINCONSENSUS_H
 
 #if defined(BUILD_BITCOIN_INTERNAL) && defined(HAVE_CONFIG_H)
 #include "config/trivecoin-config.h"
@@ -31,34 +31,34 @@
 extern "C" {
 #endif
 
-#define TRIVECOINCONSENSUS_API_VER 0
+#define BITCOINCONSENSUS_API_VER 0
 
-typedef enum trivecoinconsensus_error_t
+typedef enum bitcoinconsensus_error_t
 {
-    trivecoinconsensus_ERR_OK = 0,
-    trivecoinconsensus_ERR_TX_INDEX,
-    trivecoinconsensus_ERR_TX_SIZE_MISMATCH,
-    trivecoinconsensus_ERR_TX_DESERIALIZE,
-} trivecoinconsensus_error;
+    bitcoinconsensus_ERR_OK = 0,
+    bitcoinconsensus_ERR_TX_INDEX,
+    bitcoinconsensus_ERR_TX_SIZE_MISMATCH,
+    bitcoinconsensus_ERR_TX_DESERIALIZE,
+} bitcoinconsensus_error;
 
 /** Script verification flags */
 enum
 {
-    trivecoinconsensus_SCRIPT_FLAGS_VERIFY_NONE                = 0,
-    trivecoinconsensus_SCRIPT_FLAGS_VERIFY_P2SH                = (1U << 0), // evaluate P2SH (BIP16) subscripts
-    trivecoinconsensus_SCRIPT_FLAGS_VERIFY_DERSIG              = (1U << 2), // enforce strict DER (BIP66) compliance
-    trivecoinconsensus_SCRIPT_FLAGS_VERIFY_CHECKLOCKTIMEVERIFY = (1U << 9), // enable CHECKLOCKTIMEVERIFY (BIP65)
+    bitcoinconsensus_SCRIPT_FLAGS_VERIFY_NONE                = 0,
+    bitcoinconsensus_SCRIPT_FLAGS_VERIFY_P2SH                = (1U << 0), // evaluate P2SH (BIP16) subscripts
+    bitcoinconsensus_SCRIPT_FLAGS_VERIFY_DERSIG              = (1U << 2), // enforce strict DER (BIP66) compliance
+    bitcoinconsensus_SCRIPT_FLAGS_VERIFY_CHECKLOCKTIMEVERIFY = (1U << 9), // enable CHECKLOCKTIMEVERIFY (BIP65)
 };
 
 /// Returns 1 if the input nIn of the serialized transaction pointed to by
 /// txTo correctly spends the scriptPubKey pointed to by scriptPubKey under
 /// the additional constraints specified by flags.
 /// If not NULL, err will contain an error/success code for the operation
-EXPORT_SYMBOL int trivecoinconsensus_verify_script(const unsigned char *scriptPubKey, unsigned int scriptPubKeyLen,
+EXPORT_SYMBOL int bitcoinconsensus_verify_script(const unsigned char *scriptPubKey, unsigned int scriptPubKeyLen,
                                     const unsigned char *txTo        , unsigned int txToLen,
-                                    unsigned int nIn, unsigned int flags, trivecoinconsensus_error* err);
+                                    unsigned int nIn, unsigned int flags, bitcoinconsensus_error* err);
 
-EXPORT_SYMBOL unsigned int trivecoinconsensus_version();
+EXPORT_SYMBOL unsigned int bitcoinconsensus_version();
 
 #ifdef __cplusplus
 } // extern "C"
