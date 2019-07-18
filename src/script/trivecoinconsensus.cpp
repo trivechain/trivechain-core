@@ -94,5 +94,5 @@ int trivecoinconsensus_verify_script(const unsigned char *scriptPubKey, unsigned
 unsigned int trivecoinconsensus_version()
 {
     // Just use the API version for now
-    return BITCOINCONSENSUS_API_VER;
+    return TRIVECOINCONSENSUS_API_VER;
 }
