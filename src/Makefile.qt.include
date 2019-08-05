@@ -4,9 +4,9 @@
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 bin_PROGRAMS += qt/trivechain-qt
-EXTRA_LIBRARIES += qt/libbitcoinqt.a
+EXTRA_LIBRARIES += qt/libtrivechainqt.a
 
-# trivechain qt core #
+# dash qt core #
 QT_TS = \
   qt/locale/trivechain_ar.ts \
   qt/locale/trivechain_bg.ts \
@@ -178,65 +178,65 @@ BITCOIN_QT_H = \
   qt/winshutdownmonitor.h
 
 RES_ICONS = \
-  qt/res/icons/trvc.ico \
-  qt/res/icons/trvc_testnet.ico \
-  qt/res/icons/trvc.png \
+  qt/res/icons/bitcoin.ico \
+  qt/res/icons/bitcoin_testnet.ico \
+  qt/res/icons/bitcoin.png \
   qt/res/icons/chevron.png \
   qt/res/icons/warning.png \
-  qt/res/icons/trvc/add.png \
-  qt/res/icons/trvc/address-book.png \
-  qt/res/icons/trvc/browse.png \
-  qt/res/icons/trvc/clock1.png \
-  qt/res/icons/trvc/clock2.png \
-  qt/res/icons/trvc/clock3.png \
-  qt/res/icons/trvc/clock4.png \
-  qt/res/icons/trvc/clock5.png \
-  qt/res/icons/trvc/configure.png \
-  qt/res/icons/trvc/connect0_16.png \
-  qt/res/icons/trvc/connect1_16.png \
-  qt/res/icons/trvc/connect2_16.png \
-  qt/res/icons/trvc/connect3_16.png \
-  qt/res/icons/trvc/connect4_16.png \
-  qt/res/icons/trvc/debugwindow.png \
-  qt/res/icons/trvc/trvc_editpaste.png \
-  qt/res/icons/trvc/trvc_address-book.png \
-  qt/res/icons/trvc/trvc_editcopy.png \
-  qt/res/icons/trvc/trvc_remove.png \
-  qt/res/icons/trvc/edit.png \
-  qt/res/icons/trvc/editcopy.png \
-  qt/res/icons/trvc/editpaste.png \
-  qt/res/icons/trvc/export.png \
-  qt/res/icons/trvc/eye.png \
-  qt/res/icons/trvc/eye_minus.png \
-  qt/res/icons/trvc/eye_plus.png \
-  qt/res/icons/trvc/filesave.png \
-  qt/res/icons/trvc/hd_disabled.png \
-  qt/res/icons/trvc/hd_enabled.png \
-  qt/res/icons/trvc/history.png \
-  qt/res/icons/trvc/key.png \
-  qt/res/icons/trvc/lock_closed.png \
-  qt/res/icons/trvc/lock_open.png \
-  qt/res/icons/trvc/masternodes.png \
-  qt/res/icons/trvc/overview.png \
-  qt/res/icons/trvc/quit.png \
-  qt/res/icons/trvc/receive.png \
-  qt/res/icons/trvc/remove.png \
-  qt/res/icons/trvc/send.png \
-  qt/res/icons/trvc/synced.png \
-  qt/res/icons/trvc/transaction0.png \
-  qt/res/icons/trvc/transaction2.png \
-  qt/res/icons/trvc/transaction_abandoned.png \
-  qt/res/icons/trvc/transaction_conflicted.png \
-  qt/res/icons/trvc/tx_inout.png \
-  qt/res/icons/trvc/tx_input.png \
-  qt/res/icons/trvc/tx_output.png \
-  qt/res/icons/trvc/tx_mined.png \
-  qt/res/icons/trvc/about.png \
-  qt/res/icons/trvc/about_qt.png \
-  qt/res/icons/trvc/verify.png \
-  qt/res/icons/trvc/fontbigger.png \
-  qt/res/icons/trvc/fontsmaller.png \
-  qt/res/icons/trvc/network_disabled.png \
+  qt/res/icons/drkblue/add.png \
+  qt/res/icons/drkblue/address-book.png \
+  qt/res/icons/drkblue/browse.png \
+  qt/res/icons/drkblue/clock1.png \
+  qt/res/icons/drkblue/clock2.png \
+  qt/res/icons/drkblue/clock3.png \
+  qt/res/icons/drkblue/clock4.png \
+  qt/res/icons/drkblue/clock5.png \
+  qt/res/icons/drkblue/configure.png \
+  qt/res/icons/drkblue/connect0_16.png \
+  qt/res/icons/drkblue/connect1_16.png \
+  qt/res/icons/drkblue/connect2_16.png \
+  qt/res/icons/drkblue/connect3_16.png \
+  qt/res/icons/drkblue/connect4_16.png \
+  qt/res/icons/drkblue/debugwindow.png \
+  qt/res/icons/drkblue/drkblue_editpaste.png \
+  qt/res/icons/drkblue/drkblue_address-book.png \
+  qt/res/icons/drkblue/drkblue_editcopy.png \
+  qt/res/icons/drkblue/drkblue_remove.png \
+  qt/res/icons/drkblue/edit.png \
+  qt/res/icons/drkblue/editcopy.png \
+  qt/res/icons/drkblue/editpaste.png \
+  qt/res/icons/drkblue/export.png \
+  qt/res/icons/drkblue/eye.png \
+  qt/res/icons/drkblue/eye_minus.png \
+  qt/res/icons/drkblue/eye_plus.png \
+  qt/res/icons/drkblue/filesave.png \
+  qt/res/icons/drkblue/hd_disabled.png \
+  qt/res/icons/drkblue/hd_enabled.png \
+  qt/res/icons/drkblue/history.png \
+  qt/res/icons/drkblue/key.png \
+  qt/res/icons/drkblue/lock_closed.png \
+  qt/res/icons/drkblue/lock_open.png \
+  qt/res/icons/drkblue/masternodes.png \
+  qt/res/icons/drkblue/overview.png \
+  qt/res/icons/drkblue/quit.png \
+  qt/res/icons/drkblue/receive.png \
+  qt/res/icons/drkblue/remove.png \
+  qt/res/icons/drkblue/send.png \
+  qt/res/icons/drkblue/synced.png \
+  qt/res/icons/drkblue/transaction0.png \
+  qt/res/icons/drkblue/transaction2.png \
+  qt/res/icons/drkblue/transaction_abandoned.png \
+  qt/res/icons/drkblue/transaction_conflicted.png \
+  qt/res/icons/drkblue/tx_inout.png \
+  qt/res/icons/drkblue/tx_input.png \
+  qt/res/icons/drkblue/tx_output.png \
+  qt/res/icons/drkblue/tx_mined.png \
+  qt/res/icons/drkblue/about.png \
+  qt/res/icons/drkblue/about_qt.png \
+  qt/res/icons/drkblue/verify.png \
+  qt/res/icons/drkblue/fontbigger.png \
+  qt/res/icons/drkblue/fontsmaller.png \
+  qt/res/icons/drkblue/network_disabled.png \
   qt/res/icons/crownium/add.png \
   qt/res/icons/crownium/address-book.png \
   qt/res/icons/crownium/browse.png \
@@ -520,19 +520,19 @@ BITCOIN_QT_CPP += $(BITCOIN_QT_WALLET_CPP)
 endif
 
 RES_IMAGES = \
-  qt/res/images/trvc/about.png \
-  qt/res/images/trvc/splash.png \
-  qt/res/images/trvc/splash_testnet.png \
-  qt/res/images/trvc/trivechain_logo_horizontal.png \
-  qt/res/images/trvc/unchecked.png \
-  qt/res/images/trvc/checked.png \
-  qt/res/images/trvc/trvc_downArrow.png \
-  qt/res/images/trvc/trvc_downArrow_small.png \
-  qt/res/images/trvc/trvc_upArrow_small.png \
-  qt/res/images/trvc/trvc_leftArrow_small.png \
-  qt/res/images/trvc/trvc_rightArrow_small.png \
-  qt/res/images/trvc/trvc_qtreeview_selected.png \
-  qt/res/images/trvc/trvc_walletFrame_bg.png \
+  qt/res/images/drkblue/about.png \
+  qt/res/images/drkblue/splash.png \
+  qt/res/images/drkblue/splash_testnet.png \
+  qt/res/images/drkblue/dash_logo_horizontal.png \
+  qt/res/images/drkblue/unchecked.png \
+  qt/res/images/drkblue/checked.png \
+  qt/res/images/drkblue/drkblue_downArrow.png \
+  qt/res/images/drkblue/drkblue_downArrow_small.png \
+  qt/res/images/drkblue/drkblue_upArrow_small.png \
+  qt/res/images/drkblue/drkblue_leftArrow_small.png \
+  qt/res/images/drkblue/drkblue_rightArrow_small.png \
+  qt/res/images/drkblue/drkblue_qtreeview_selected.png \
+  qt/res/images/drkblue/drkblue_walletFrame_bg.png \
   qt/res/images/crownium/about.png \
   qt/res/images/crownium/splash.png \
   qt/res/images/crownium/splash_testnet.png \
@@ -585,7 +585,7 @@ RES_IMAGES = \
   qt/res/images/trad/drkblue_walletFrame_bg.png
 
 RES_CSS = \
-  qt/res/css/trvc.css \
+  qt/res/css/drkblue.css \
   qt/res/css/crownium.css \
   qt/res/css/light.css \
   qt/res/css/light-hires.css \
@@ -653,11 +653,11 @@ QT_QM=$(QT_TS:.ts=.qm)
 
 SECONDARY: $(QT_QM)
 
-$(srcdir)/qt/trivechainstrings.cpp: $(libtrivechain_server_a_SOURCES) $(libtrivechain_wallet_a_SOURCES) $(libtrivechain_common_a_SOURCES) $(libtrivechain_zmq_a_SOURCES) $(libtrivechain_consensus_a_SOURCES) $(libtrivechain_util_a_SOURCES)
+$(srcdir)/qt/dashstrings.cpp: $(libtrivechain_server_a_SOURCES) $(libtrivechain_wallet_a_SOURCES) $(libtrivechain_common_a_SOURCES) $(libtrivechain_zmq_a_SOURCES) $(libtrivechain_consensus_a_SOURCES) $(libtrivechain_util_a_SOURCES)
 	@test -n $(XGETTEXT) || echo "xgettext is required for updating translations"
 	$(AM_V_GEN) cd $(srcdir); XGETTEXT=$(XGETTEXT) PACKAGE_NAME="$(PACKAGE_NAME)" COPYRIGHT_HOLDERS="$(COPYRIGHT_HOLDERS)" COPYRIGHT_HOLDERS_SUBSTITUTION="$(COPYRIGHT_HOLDERS_SUBSTITUTION)" $(PYTHON) ../share/qt/extract_strings_qt.py $^
 
-translate: $(srcdir)/qt/trivechainstrings.cpp $(QT_FORMS_UI) $(QT_FORMS_UI) $(BITCOIN_QT_BASE_CPP) qt/trivechain.cpp $(BITCOIN_QT_WINDOWS_CPP) $(BITCOIN_QT_WALLET_CPP) $(BITCOIN_QT_H) $(BITCOIN_MM)
+translate: $(srcdir)/qt/dashstrings.cpp $(QT_FORMS_UI) $(QT_FORMS_UI) $(BITCOIN_QT_BASE_CPP) qt/trivechain.cpp $(BITCOIN_QT_WINDOWS_CPP) $(BITCOIN_QT_WALLET_CPP) $(BITCOIN_QT_H) $(BITCOIN_MM)
 	@test -n $(LUPDATE) || echo "lupdate is required for updating translations"
 	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(LUPDATE) $^ -locations relative -no-obsolete -ts $(srcdir)/qt/locale/trivechain_en.ts
 
@@ -670,7 +670,7 @@ $(QT_QRC_LOCALE_CPP): $(QT_QRC_LOCALE) $(QT_QM)
 
 $(QT_QRC_CPP): $(QT_QRC) $(QT_FORMS_H) $(RES_ICONS) $(RES_IMAGES) $(RES_CSS) $(RES_MOVIES) $(PROTOBUF_H)
 	@test -f $(RCC)
-	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(RCC) $(RCCFLAGS) -name trivechain $< | \
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(RCC) $(RCCFLAGS) -name dash $< | \
 	  $(SED) -e '/^\*\*.*Created:/d' -e '/^\*\*.*by:/d' > $@
 
 CLEAN_QT = $(nodist_qt_libtrivechainqt_a_SOURCES) $(QT_QM) $(QT_FORMS_H) qt/*.gcda qt/*.gcno

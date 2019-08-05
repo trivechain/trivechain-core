@@ -12,7 +12,7 @@ The following are some helpful notes on how to run Dash on your native platform.
 Unpack the files into a directory and run:
 
 - `bin/trivechain-qt` (GUI) or
-- `bin/dashd` (headless)
+- `bin/trivechaind` (headless)
 
 ### Windows
 

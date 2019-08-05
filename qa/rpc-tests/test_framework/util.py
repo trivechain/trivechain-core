@@ -232,12 +232,12 @@ def rpc_url(i, rpchost=None):
 
 def wait_for_bitcoind_start(process, url, i):
     '''
-    Wait for trivechain to start. This means that RPC is accessible and fully initialized.
-    Raise an exception if trivechain exits during initialization.
+    Wait for trivechaind to start. This means that RPC is accessible and fully initialized.
+    Raise an exception if trivechaind exits during initialization.
     '''
     while True:
         if process.poll() is not None:
-            raise Exception('trivechain exited with status %i during initialization' % process.returncode)
+            raise Exception('trivechaind exited with status %i during initialization' % process.returncode)
         try:
             rpc = get_rpc_proxy(url, i)
             blocks = rpc.getblockcount()
@@ -272,10 +272,10 @@ def initialize_chain(test_dir, num_nodes, cachedir, extra_args=None, redirect_st
                 shutil.rmtree(os.path.join(cachedir,"node"+str(i)))
 
         set_genesis_mocktime()
-        # Create cache directories, run dashds:
+        # Create cache directories, run trivechainds:
         for i in range(MAX_NODES):
             datadir=initialize_datadir(cachedir, i)
-            args = [ os.getenv("BITCOIND", "dashd"), "-server", "-keypool=1", "-datadir="+datadir, "-discover=0", "-mocktime="+str(GENESISTIME) ]
+            args = [ os.getenv("BITCOIND", "trivechaind"), "-server", "-keypool=1", "-datadir="+datadir, "-discover=0", "-mocktime="+str(GENESISTIME) ]
             if i > 0:
                 args.append("-connect=127.0.0.1:"+str(p2p_port(0)))
             if extra_args is not None:
@@ -284,7 +284,7 @@ def initialize_chain(test_dir, num_nodes, cachedir, extra_args=None, redirect_st
             if redirect_stderr:
                 stderr = sys.stdout
             bitcoind_processes[i] = subprocess.Popen(args, stderr=stderr)
-            logger.debug("initialize_chain: trivechain started, waiting for RPC to come up")
+            logger.debug("initialize_chain: trivechaind started, waiting for RPC to come up")
             wait_for_bitcoind_start(bitcoind_processes[i], rpc_url(i), i)
             logger.debug("initialize_chain: RPC successfully started")
 
@@ -337,11 +337,11 @@ def initialize_chain_clean(test_dir, num_nodes):
 
 def start_node(i, dirname, extra_args=None, rpchost=None, timewait=None, binary=None, redirect_stderr=False, stderr=None):
     """
-    Start a trivechain and return RPC connection to it
+    Start a trivechaind and return RPC connection to it
     """
     datadir = os.path.join(dirname, "node"+str(i))
     if binary is None:
-        binary = os.getenv("BITCOIND", "dashd")
+        binary = os.getenv("BITCOIND", "trivechaind")
     # RPC tests still depend on free transactions
     args = [ binary, "-datadir="+datadir, "-server", "-keypool=1", "-discover=0", "-rest", "-blockprioritysize=50000", "-logtimemicros", "-debug", "-mocktime="+str(get_mocktime()) ]
     # Don't try auto backups (they fail a lot when running tests)
@@ -354,7 +354,7 @@ def start_node(i, dirname, extra_args=None, rpchost=None, timewait=None, binary=
         stderr = sys.stdout
 
     bitcoind_processes[i] = subprocess.Popen(args, stderr=stderr)
-    logger.debug("initialize_chain: trivechain started, waiting for RPC to come up")
+    logger.debug("initialize_chain: trivechaind started, waiting for RPC to come up")
     url = rpc_url(i, rpchost)
     wait_for_bitcoind_start(bitcoind_processes[i], url, i)
     logger.debug("initialize_chain: RPC successfully started")
@@ -371,7 +371,7 @@ def assert_start_raises_init_error(i, dirname, extra_args=None, expected_msg=Non
             node = start_node(i, dirname, extra_args, stderr=log_stderr)
             stop_node(node, i)
         except Exception as e:
-            assert 'trivechain exited' in str(e) #node must have shutdown
+            assert 'trivechaind exited' in str(e) #node must have shutdown
             if expected_msg is not None:
                 log_stderr.seek(0)
                 stderr = log_stderr.read().decode('utf-8')
@@ -379,14 +379,14 @@ def assert_start_raises_init_error(i, dirname, extra_args=None, expected_msg=Non
                     raise AssertionError("Expected error \"" + expected_msg + "\" not found in:\n" + stderr)
         else:
             if expected_msg is None:
-                assert_msg = "trivechain should have exited with an error"
+                assert_msg = "trivechaind should have exited with an error"
             else:
-                assert_msg = "trivechain should have exited with expected error " + expected_msg
+                assert_msg = "trivechaind should have exited with expected error " + expected_msg
             raise AssertionError(assert_msg)
 
 def start_nodes(num_nodes, dirname, extra_args=None, rpchost=None, timewait=None, binary=None, redirect_stderr=False):
     """
-    Start multiple dashds, return RPC connections to them
+    Start multiple trivechainds, return RPC connections to them
     """
     if extra_args is None: extra_args = [ None for _ in range(num_nodes) ]
     if binary is None: binary = [ None for _ in range(num_nodes) ]

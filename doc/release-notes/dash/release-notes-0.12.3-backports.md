@@ -775,7 +775,7 @@
 - [`249167ab8`](https://github.com/dashpay/dash/commit/249167ab8) Python 3 in .travis.yml
 - [`a1111cdf6`](https://github.com/dashpay/dash/commit/a1111cdf6) Dashify addresses/keys in signmessages.py RPC test
 - [`21aaf9289`](https://github.com/dashpay/dash/commit/21aaf9289) Introduce redirect_stderr argument to start_node
-- [`fbe36d3db`](https://github.com/dashpay/dash/commit/fbe36d3db) Pass -createwalletbackups=0 to trivechain when running rpc tests
+- [`fbe36d3db`](https://github.com/dashpay/dash/commit/fbe36d3db) Pass -createwalletbackups=0 to trivechaind when running rpc tests
 - [`69dd8f4a6`](https://github.com/dashpay/dash/commit/69dd8f4a6) Python 3 fixes/porting in rpc tests
 - [`2924b3440`](https://github.com/dashpay/dash/commit/2924b3440) Cast command to str when calling show_debug_msg
 - [`6dc4a1385`](https://github.com/dashpay/dash/commit/6dc4a1385) Merge #8110: [Doc] Add benchmarking notes

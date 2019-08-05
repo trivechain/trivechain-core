@@ -91,7 +91,7 @@ TESTS =
 BENCHMARKS =
 
 if BUILD_BITCOIND
-  bin_PROGRAMS += dashd
+  bin_PROGRAMS += trivechaind
 endif
 
 if BUILD_BITCOIN_UTILS
@@ -254,7 +254,7 @@ obj/build.h: FORCE
 	  $(abs_top_srcdir)
 libtrivechain_util_a-clientversion.$(OBJEXT): obj/build.h
 
-# server: shared between trivechain and trivechain-qt
+# server: shared between trivechaind and trivechain-qt
 libtrivechain_server_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(MINIUPNPC_CPPFLAGS) $(EVENT_CFLAGS) $(EVENT_PTHREADS_CFLAGS)
 libtrivechain_server_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
 libtrivechain_server_a_SOURCES = \
@@ -350,7 +350,7 @@ libtrivechain_zmq_a_SOURCES = \
 endif
 
 
-# wallet: shared between trivechain and trivechain-qt, but only linked
+# wallet: shared between trivechaind and trivechain-qt, but only linked
 # when wallet enabled
 libtrivechain_wallet_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
 libtrivechain_wallet_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
@@ -435,7 +435,7 @@ libtrivechain_consensus_a_SOURCES = \
   primitives/transaction.h \
   pubkey.cpp \
   pubkey.h \
-  script/dashconsensus.cpp \
+  script/trivechainconsensus.cpp \
   script/interpreter.cpp \
   script/interpreter.h \
   script/script.cpp \
@@ -451,7 +451,7 @@ libtrivechain_consensus_a_SOURCES = \
   utilstrencodings.h \
   version.h
 
-# common: shared between dashd, and trivechain-qt and non-server tools
+# common: shared between trivechaind, and trivechain-qt and non-server tools
 libtrivechain_common_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
 libtrivechain_common_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
 libtrivechain_common_a_SOURCES = \
@@ -520,17 +520,17 @@ libtrivechain_cli_a_SOURCES = \
 nodist_libtrivechain_util_a_SOURCES = $(srcdir)/obj/build.h
 #
 
-# trivechain binary #
-dashd_SOURCES = dashd.cpp
-dashd_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
-dashd_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-dashd_LDFLAGS = $(LDFLAGS_WRAP_EXCEPTIONS) $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+# trivechaind binary #
+trivechaind_SOURCES = trivechaind.cpp
+trivechaind_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
+trivechaind_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+trivechaind_LDFLAGS = $(LDFLAGS_WRAP_EXCEPTIONS) $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
 if TARGET_WINDOWS
-dashd_SOURCES += dashd-res.rc
+trivechaind_SOURCES += trivechaind-res.rc
 endif
 
-dashd_LDADD = \
+trivechaind_LDADD = \
   $(LIBBITCOIN_SERVER) \
   $(LIBBITCOIN_COMMON) \
   $(LIBUNIVALUE) \
@@ -543,37 +543,37 @@ dashd_LDADD = \
   $(LIBMEMENV) \
   $(LIBSECP256K1)
 
-dashd_LDADD += $(BACKTRACE_LIB) $(BOOST_LIBS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS) $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS) $(ZMQ_LIBS) $(BLS_LIBS)
+trivechaind_LDADD += $(BACKTRACE_LIB) $(BOOST_LIBS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS) $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS) $(ZMQ_LIBS) $(BLS_LIBS)
 
 # trivechain-cli binary #
-dash_cli_SOURCES = trivechain-cli.cpp
-dash_cli_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(EVENT_CFLAGS)
-dash_cli_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-dash_cli_LDFLAGS = $(LDFLAGS_WRAP_EXCEPTIONS) $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+trivechain_cli_SOURCES = trivechain-cli.cpp
+trivechain_cli_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(EVENT_CFLAGS)
+trivechain_cli_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+trivechain_cli_LDFLAGS = $(LDFLAGS_WRAP_EXCEPTIONS) $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
 if TARGET_WINDOWS
-dash_cli_SOURCES += trivechain-cli-res.rc
+trivechain_cli_SOURCES += trivechain-cli-res.rc
 endif
 
-dash_cli_LDADD = \
+trivechain_cli_LDADD = \
   $(LIBBITCOIN_CLI) \
   $(LIBUNIVALUE) \
   $(LIBBITCOIN_UTIL) \
   $(LIBBITCOIN_CRYPTO)
-dash_cli_LDADD += $(BACKTRACE_LIB) $(BOOST_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(EVENT_LIBS) $(BLS_LIBS)
+trivechain_cli_LDADD += $(BACKTRACE_LIB) $(BOOST_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(EVENT_LIBS) $(BLS_LIBS)
 #
 
 # trivechain-tx binary #
-dash_tx_SOURCES = trivechain-tx.cpp
-dash_tx_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
-dash_tx_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-dash_tx_LDFLAGS = $(LDFLAGS_WRAP_EXCEPTIONS) $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+trivechain_tx_SOURCES = trivechain-tx.cpp
+trivechain_tx_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
+trivechain_tx_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+trivechain_tx_LDFLAGS = $(LDFLAGS_WRAP_EXCEPTIONS) $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
 if TARGET_WINDOWS
-dash_tx_SOURCES += trivechain-tx-res.rc
+trivechain_tx_SOURCES += trivechain-tx-res.rc
 endif
 
-dash_tx_LDADD = \
+trivechain_tx_LDADD = \
   $(LIBUNIVALUE) \
   $(LIBBITCOIN_COMMON) \
   $(LIBBITCOIN_UTIL) \
@@ -581,12 +581,12 @@ dash_tx_LDADD = \
   $(LIBBITCOIN_CRYPTO) \
   $(LIBSECP256K1)
 
-dash_tx_LDADD += $(BACKTRACE_LIB) $(BOOST_LIBS) $(CRYPTO_LIBS) $(BLS_LIBS)
+trivechain_tx_LDADD += $(BACKTRACE_LIB) $(BOOST_LIBS) $(CRYPTO_LIBS) $(BLS_LIBS)
 #
 
-# dashconsensus library #
+# trivechainconsensus library #
 if BUILD_BITCOIN_LIBS
-include_HEADERS = script/dashconsensus.h
+include_HEADERS = script/trivechainconsensus.h
 libtrivechainconsensus_la_SOURCES = $(crypto_libtrivechain_crypto_a_SOURCES) $(libtrivechain_consensus_a_SOURCES)
 
 if GLIBC_BACK_COMPAT

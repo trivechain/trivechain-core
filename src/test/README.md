@@ -23,16 +23,16 @@ example, to run just the getarg_tests verbosely:
 
     test_trivechain --log_level=all --run_test=getarg_tests
 
-... or to run just the doubletrivechain test:
+... or to run just the doubledash test:
 
-    test_trivechain --run_test=getarg_tests/doubletrivechain
+    test_trivechain --run_test=getarg_tests/doubledash
 
 Run `test_trivechain --help` for the full list.
 
 ### Note on adding test cases
 
 The sources in this directory are unit test cases.  Boost includes a
-unit testing framework, and since Trivechain already uses boost, it makes
+unit testing framework, and since Dash Core already uses boost, it makes
 sense to simply use this framework rather than require developers to
 configure some other framework (we want as few impediments to creating
 unit tests as possible).

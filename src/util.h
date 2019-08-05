@@ -36,14 +36,14 @@
 
 // Uncomment the following line to enable debugging messages
 // or enable on a per file basis prior to inclusion of util.h
-//#define ENABLE_TRVC_DEBUG
-#ifdef ENABLE_TRVC_DEBUG
+//#define ENABLE_TRIVECHAIN_DEBUG
+#ifdef ENABLE_TRIVECHAIN_DEBUG
 #define DBG( x ) x
 #else
 #define DBG( x ) 
 #endif
 
-//Trivechain only features
+//Dash only features
 
 extern bool fMasternodeMode;
 extern bool fLiteMode;
@@ -256,7 +256,7 @@ void RenameThreadPool(ctpl::thread_pool& tp, const char* baseName);
  */
 template <typename Callable> void TraceThread(const char* name,  Callable func)
 {
-    std::string s = strprintf("trivechain-%s", name);
+    std::string s = strprintf("dash-%s", name);
     RenameThread(s.c_str());
     try
     {

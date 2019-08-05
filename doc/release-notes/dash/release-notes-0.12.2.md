@@ -20,7 +20,7 @@ How to Upgrade
 If you are running an older version, shut it down. Wait until it has completely
 shut down (which might take a few minutes for older versions), then run the
 installer (on Windows) or just copy over /Applications/Trivechain-Qt (on Mac) or
-dashd/trivechain-qt (on Linux).
+trivechaind/trivechain-qt (on Linux).
 
 Downgrade warning
 -----------------
@@ -78,7 +78,7 @@ New: `assumevalid`, `blocksonly`, `reindex-chainstate`
 
 Experimental: `usehd`, `mnemonic`, `mnemonicpassphrase`, `hdseed`
 
-See `Help -> Command-line options` in Qt wallet or `trivechain --help` for more info.
+See `Help -> Command-line options` in Qt wallet or `trivechaind --help` for more info.
 
 ExclusiveSend improvements
 ------------------------
@@ -318,7 +318,7 @@ Detailed [change log](https://github.com/dashpay/dash/compare/v0.12.1.x...dashpa
 - [`7a5943c3a`](https://github.com/dashpay/dash/commit/7a5943c3a) Merge pull request #1431 from dashpay/v0.12.2.x-merge_upstream
 - [`8bbcf6200`](https://github.com/dashpay/dash/commit/8bbcf6200) Fixed pow (test and algo) (#1415)
 - [`f3b92a95d`](https://github.com/dashpay/dash/commit/f3b92a95d) c++11: don't throw from the reverselock destructor (#1421)
-- [`b40f8f333`](https://github.com/dashpay/dash/commit/b40f8f333) Rename bitcoinconsensus library to dashconsensus. (#1432)
+- [`b40f8f333`](https://github.com/dashpay/dash/commit/b40f8f333) Rename bitcoinconsensus library to trivechainconsensus. (#1432)
 - [`28a1d0ecc`](https://github.com/dashpay/dash/commit/28a1d0ecc) Fix the same header included twice. (#1474)
 - [`adf97e12a`](https://github.com/dashpay/dash/commit/adf97e12a) fix travis ci mac build (#1483)
 - [`a28fa724c`](https://github.com/dashpay/dash/commit/a28fa724c) fix BIP34 starting blocks for mainnet/testnet (#1476)

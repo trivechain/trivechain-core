@@ -110,7 +110,7 @@ namespace boost {
 
 
 
-//Trivechain only features
+//Dash only features
 bool fMasternodeMode = false;
 bool fLiteMode = false;
 /**
@@ -284,8 +284,8 @@ bool LogAcceptCategory(const char* category)
                 const std::vector<std::string>& categories = mapMultiArgs.at("-debug");
                 ptrCategory.reset(new std::set<std::string>(categories.begin(), categories.end()));
                 // thread_specific_ptr automatically deletes the set when the thread ends.
-                // "trivechain" is a composite category enabling all Trivechain-related debug output
-                if(ptrCategory->count(std::string("trivechain"))) {
+                // "dash" is a composite category enabling all Dash-related debug output
+                if(ptrCategory->count(std::string("dash"))) {
                     ptrCategory->insert(std::string("chainlocks"));
                     ptrCategory->insert(std::string("gobject"));
                     ptrCategory->insert(std::string("directsend"));
@@ -565,13 +565,13 @@ void PrintExceptionContinue(const std::exception_ptr pex, const char* pszThread)
 boost::filesystem::path GetDefaultDataDir()
 {
     namespace fs = boost::filesystem;
-    // Windows < Vista: C:\Documents and Settings\Username\Application Data\Trivechain
-    // Windows >= Vista: C:\Users\Username\AppData\Roaming\Trivechain
-    // Mac: ~/Library/Application Support/Trivechain
-    // Unix: ~/.trivechain
+    // Windows < Vista: C:\Documents and Settings\Username\Application Data\DashCore
+    // Windows >= Vista: C:\Users\Username\AppData\Roaming\DashCore
+    // Mac: ~/Library/Application Support/DashCore
+    // Unix: ~/.dashcore
 #ifdef WIN32
     // Windows
-    return GetSpecialFolderPath(CSIDL_APPDATA) / "Trivechain";
+    return GetSpecialFolderPath(CSIDL_APPDATA) / "DashCore";
 #else
     fs::path pathRet;
     char* pszHome = getenv("HOME");
@@ -581,10 +581,10 @@ boost::filesystem::path GetDefaultDataDir()
         pathRet = fs::path(pszHome);
 #ifdef MAC_OSX
     // Mac
-    return pathRet / "Library/Application Support/Trivechain";
+    return pathRet / "Library/Application Support/DashCore";
 #else
     // Unix
-    return pathRet / ".trivechain";
+    return pathRet / ".dashcore";
 #endif
 #endif
 }

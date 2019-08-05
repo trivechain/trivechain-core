@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DASH_DETERMINISTICMNS_H
-#define DASH_DETERMINISTICMNS_H
+#ifndef TRIVECHAIN_DETERMINISTICMNS_H
+#define TRIVECHAIN_DETERMINISTICMNS_H
 
 #include "arith_uint256.h"
 #include "bls/bls.h"
@@ -515,4 +515,4 @@ private:
 
 extern CDeterministicMNManager* deterministicMNManager;
 
-#endif //DASH_DETERMINISTICMNS_H
+#endif //TRIVECHAIN_DETERMINISTICMNS_H

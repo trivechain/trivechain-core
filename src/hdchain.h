@@ -1,7 +1,7 @@
 // Copyright (c) 2014-2018 The Dash Core developers
 // Distributed under the MIT software license, see the accompanying
-#ifndef TRVC_HDCHAIN_H
-#define TRVC_HDCHAIN_H
+#ifndef TRIVECHAIN_HDCHAIN_H
+#define TRIVECHAIN_HDCHAIN_H
 
 #include "key.h"
 #include "sync.h"
@@ -147,4 +147,4 @@ public:
     std::string GetKeyPath() const;
 };
 
-#endif // TRVC_HDCHAIN_H
+#endif // TRIVECHAIN_HDCHAIN_H

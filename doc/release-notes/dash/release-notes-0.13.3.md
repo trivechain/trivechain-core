@@ -21,7 +21,7 @@ How to Upgrade
 If you are running an older version, shut it down. Wait until it has completely
 shut down (which might take a few minutes for older versions), then run the
 installer (on Windows) or just copy over /Applications/Trivechain-Qt (on Mac) or
-dashd/trivechain-qt (on Linux). If you upgrade after DIP0003 activation you will
+trivechaind/trivechain-qt (on Linux). If you upgrade after DIP0003 activation you will
 have to reindex (start with -reindex-chainstate or -reindex) to make sure
 your wallet has all the new data synced (only if you were using version < 0.13).
 
@@ -47,7 +47,7 @@ Notable changes
 Number of false-positives from anti virus software should be reduced
 --------------------------------------------------------------------
 We have removed all mining code from Windows and Mac binaries, which should avoid most of the false-positive alerts
-from anti virus software. Linux builds are not affected. The mining code found in `trivechain-qt` and `dashd` are only meant
+from anti virus software. Linux builds are not affected. The mining code found in `trivechain-qt` and `trivechaind` are only meant
 for regression/integration tests and devnets, so there is no harm in removing this code from non-linux builds.
 
 Fixed an issue with invalid merkle blocks causing SPV nodes to ban other nodes

@@ -10,7 +10,7 @@
 
 /**
  * CBaseChainParams defines the base parameters (shared between trivechain-cli and trivechaind)
- * of a given instance of the Trivechain system.
+ * of a given instance of the Dash system.
  */
 class CBaseChainParams
 {

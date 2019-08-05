@@ -21,7 +21,7 @@ How to Upgrade
 If you are running an older version, shut it down. Wait until it has completely
 shut down (which might take a few minutes for older versions), then run the
 installer (on Windows) or just copy over /Applications/Trivechain-Qt (on Mac) or
-dashd/trivechain-qt (on Linux). If you upgrade after DIP0003 activation and you were
+trivechaind/trivechain-qt (on Linux). If you upgrade after DIP0003 activation and you were
 using version < 0.13 you will have to reindex (start with -reindex-chainstate
 or -reindex) to make sure your wallet has all the new data synced. Upgrading from
 version 0.13 should not require any additional actions.
@@ -163,7 +163,7 @@ New cmd-line options:
 Few cmd-line options are no longer supported: `-limitfreerelay`, `-relaypriority`, `-blockprioritysize`,
 `-sendfreetransactions`, `-mnconf`, `-mnconflock`, `-masternodeprivkey`
 
-See `Help -> Command-line options` in Qt wallet or `trivechain --help` for more info.
+See `Help -> Command-line options` in Qt wallet or `trivechaind --help` for more info.
 
 Miscellaneous
 -------------
@@ -356,7 +356,7 @@ See detailed [set of changes](https://github.com/dashpay/dash/compare/v0.13.3.0.
 - [`4ae52758b`](https://github.com/dashpay/dash/commit/4ae52758b) Remove size check in CDKGSessionManager::GetVerifiedContributions
 - [`e21da2d99`](https://github.com/dashpay/dash/commit/e21da2d99) Move simple PoSe tests into llmq-simplepose.py
 - [`6488135f4`](https://github.com/dashpay/dash/commit/6488135f4) Track index into self.nodes in mninfo
-- [`f30ea6dfd`](https://github.com/dashpay/dash/commit/f30ea6dfd) Replace BITCOIN_UNORDERED_LRU_CACHE_H with DASH_UNORDERED_LRU_CACHE_H
+- [`f30ea6dfd`](https://github.com/dashpay/dash/commit/f30ea6dfd) Replace BITCOIN_UNORDERED_LRU_CACHE_H with TRIVECHAIN_UNORDERED_LRU_CACHE_H
 - [`e763310b5`](https://github.com/dashpay/dash/commit/e763310b5) Add missing LOCK(cs_main)
 - [`3a5e7c433`](https://github.com/dashpay/dash/commit/3a5e7c433) Do not hold cs_vNodes in CSigSharesManager::SendMessages() for too long (#2758)
 - [`fbf0dcb08`](https://github.com/dashpay/dash/commit/fbf0dcb08) Various small cleanups (#2761)

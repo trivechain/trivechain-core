@@ -1578,7 +1578,7 @@ void ThreadMapPort()
             }
         }
 
-        std::string strDesc = "Trivechain " + FormatFullVersion();
+        std::string strDesc = "Dash Core " + FormatFullVersion();
 
         try {
             while (true) {

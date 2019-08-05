@@ -240,7 +240,7 @@ def FromHex(obj, hex_string):
 def ToHex(obj):
     return bytes_to_hex_str(obj.serialize())
 
-# Objects that map to trivechain objects, which can be serialized/deserialized
+# Objects that map to trivechaind objects, which can be serialized/deserialized
 
 class CService(object):
     def __init__(self):
@@ -1349,7 +1349,7 @@ class msg_headers(object):
         self.headers = headers if headers is not None else []
 
     def deserialize(self, f):
-        # comment in trivechain indicates these should be deserialized as blocks
+        # comment in trivechaind indicates these should be deserialized as blocks
         blocks = deser_vector(f, CBlock)
         for x in blocks:
             self.headers.append(CBlockHeader(x))

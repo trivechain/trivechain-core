@@ -19,9 +19,9 @@ BitcoinUnits::BitcoinUnits(QObject *parent):
 QList<BitcoinUnits::Unit> BitcoinUnits::availableUnits()
 {
     QList<BitcoinUnits::Unit> unitlist;
-    unitlist.append(TRVC);
-    unitlist.append(mTRVC);
-    unitlist.append(uTRVC);
+    unitlist.append(DASH);
+    unitlist.append(mDASH);
+    unitlist.append(uDASH);
     unitlist.append(duffs);
     return unitlist;
 }
@@ -30,9 +30,9 @@ bool BitcoinUnits::valid(int unit)
 {
     switch(unit)
     {
-    case TRVC:
-    case mTRVC:
-    case uTRVC:
+    case DASH:
+    case mDASH:
+    case uDASH:
     case duffs:
         return true;
     default:
@@ -46,9 +46,9 @@ QString BitcoinUnits::name(int unit)
     {
         switch(unit)
         {
-            case TRVC: return QString("TRVC");
-            case mTRVC: return QString("mTRVC");
-            case uTRVC: return QString::fromUtf8("μTRVC");
+            case DASH: return QString("DASH");
+            case mDASH: return QString("mDASH");
+            case uDASH: return QString::fromUtf8("μDASH");
             case duffs: return QString("duffs");
             default: return QString("???");
         }
@@ -57,9 +57,9 @@ QString BitcoinUnits::name(int unit)
     {
         switch(unit)
         {
-            case TRVC: return QString("tTRVC");
-            case mTRVC: return QString("mtTRVC");
-            case uTRVC: return QString::fromUtf8("μtTRVC");
+            case DASH: return QString("tDASH");
+            case mDASH: return QString("mtDASH");
+            case uDASH: return QString::fromUtf8("μtDASH");
             case duffs: return QString("tduffs");
             default: return QString("???");
         }
@@ -72,10 +72,10 @@ QString BitcoinUnits::description(int unit)
     {
         switch(unit)
         {
-            case TRVC: return QString("Trivechain");
-            case mTRVC: return QString("Milli-Trivechain (1 / 1" THIN_SP_UTF8 "000)");
-            case uTRVC: return QString("Micro-Trivechain (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
-            case duffs: return QString("Ten Nano-Trivechain (1 / 100" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
+            case DASH: return QString("Dash");
+            case mDASH: return QString("Milli-Dash (1 / 1" THIN_SP_UTF8 "000)");
+            case uDASH: return QString("Micro-Dash (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
+            case duffs: return QString("Ten Nano-Dash (1 / 100" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
             default: return QString("???");
         }
     }
@@ -83,10 +83,10 @@ QString BitcoinUnits::description(int unit)
     {
         switch(unit)
         {
-            case TRVC: return QString("TestTrivechains");
-            case mTRVC: return QString("Milli-TestTrivechain (1 / 1" THIN_SP_UTF8 "000)");
-            case uTRVC: return QString("Micro-TestTrivechain (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
-            case duffs: return QString("Ten Nano-TestTrivechain (1 / 100" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
+            case DASH: return QString("TestDashs");
+            case mDASH: return QString("Milli-TestDash (1 / 1" THIN_SP_UTF8 "000)");
+            case uDASH: return QString("Micro-TestDash (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
+            case duffs: return QString("Ten Nano-TestDash (1 / 100" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
             default: return QString("???");
         }
     }
@@ -96,9 +96,9 @@ qint64 BitcoinUnits::factor(int unit)
 {
     switch(unit)
     {
-    case TRVC:  return 100000000;
-    case mTRVC: return 100000;
-    case uTRVC: return 100;
+    case DASH:  return 100000000;
+    case mDASH: return 100000;
+    case uDASH: return 100;
     case duffs: return 1;
     default:   return 100000000;
     }
@@ -108,9 +108,9 @@ int BitcoinUnits::decimals(int unit)
 {
     switch(unit)
     {
-    case TRVC: return 8;
-    case mTRVC: return 5;
-    case uTRVC: return 2;
+    case DASH: return 8;
+    case mDASH: return 5;
+    case uDASH: return 2;
     case duffs: return 0;
     default: return 0;
     }

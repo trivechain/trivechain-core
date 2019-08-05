@@ -16,7 +16,7 @@ Every connection to KeePassHTTP server is done via plain HTTP and even though pr
 
 ### What's new
 
-The following new options are available for trivechain and trivechain-qt:
+The following new options are available for trivechaind and trivechain-qt:
  - _-keepass_ Use KeePass 2 integration using KeePassHttp plugin (default: 0)
  - _-keepassport=_ Connect to KeePassHttp on port (default: 19455)
  - _-keepasskey=_ KeePassHttp key for AES encrypted communication with KeePass
@@ -26,7 +26,7 @@ The following new options are available for trivechain and trivechain-qt:
 The following rpc commands are available:
 
  - _keepass genkey_: generates a base64 encoded 256 bit AES key that can be used for the communication with KeePassHttp. Only necessary for manual configuration. Use init for automatic configuration.
- - _keepass init_: sets up the association between trivechain and keepass by generating an AES key and sending an association message to KeePassHttp. This will trigger KeePass to ask for an Id for the association. Returns the association and the base64 encoded string for the AES key.
+ - _keepass init_: sets up the association between trivechaind and keepass by generating an AES key and sending an association message to KeePassHttp. This will trigger KeePass to ask for an Id for the association. Returns the association and the base64 encoded string for the AES key.
  - _keepass setpassphrase_: updates the passphrase in KeePassHttp to a new value. This should match the passphrase you intend to use for the wallet. Please note that the standard RPC commands _walletpassphrasechange_ and the wallet encrption from the QT GUI already send the updates to KeePassHttp, so this is only necessary for manual manipulation of the password.
 
 ### How to setup
@@ -38,7 +38,7 @@ Sample initialization flow from _trivechain-qt_ console (this needs to be done o
  - Open console
  - Type "_keepass init_" in trivechain-qt console
  - Keepass pops up and asks for an association id, fill that in, for example, "_mydrkwallet_"
- - You should get a response like this "_Association successful. Id: mydrkwalletdash - Key: AgQkcs6cI7v9tlSYKjG/+s8wJrGALHl3jLosJpPLzUE=_"
+ - You should get a response like this "_Association successful. Id: mydrkwallettrivechain - Key: AgQkcs6cI7v9tlSYKjG/+s8wJrGALHl3jLosJpPLzUE=_"
  - Edit _trivechain.conf_ and fill in these values
 ```
 keepass=1

@@ -55,8 +55,8 @@ UniValue getinfo(const JSONRPCRequest& request)
             "  \"version\": xxxxx,           (numeric) the server version\n"
             "  \"protocolversion\": xxxxx,   (numeric) the protocol version\n"
             "  \"walletversion\": xxxxx,     (numeric) the wallet version\n"
-            "  \"balance\": xxxxxxx,         (numeric) the total trivechain balance of the wallet\n"
-            "  \"exclusivesend_balance\": xxxxxx, (numeric) the anonymized trivechain balance of the wallet\n"
+            "  \"balance\": xxxxxxx,         (numeric) the total dash balance of the wallet\n"
+            "  \"exclusivesend_balance\": xxxxxx, (numeric) the anonymized dash balance of the wallet\n"
             "  \"blocks\": xxxxxx,           (numeric) the current number of blocks processed in the server\n"
             "  \"timeoffset\": xxxxx,        (numeric) the time offset\n"
             "  \"connections\": xxxxx,       (numeric) the number of connections\n"
@@ -518,7 +518,7 @@ UniValue verifymessage(const JSONRPCRequest& request)
             "verifymessage \"address\" \"signature\" \"message\"\n"
             "\nVerify a signed message\n"
             "\nArguments:\n"
-            "1. \"address\"         (string, required) The trivechain address to use for the signature.\n"
+            "1. \"address\"         (string, required) The dash address to use for the signature.\n"
             "2. \"signature\"       (string, required) The signature provided by the signer in base 64 encoding (see signmessage).\n"
             "3. \"message\"         (string, required) The message that was signed.\n"
             "\nResult:\n"
@@ -1178,9 +1178,9 @@ static const CRPCCommand commands[] =
     { "addressindex",       "getaddresstxids",        &getaddresstxids,        false, {"addresses"} },
     { "addressindex",       "getaddressbalance",      &getaddressbalance,      false, {"addresses"} },
 
-    /* Trievchain features */
-    { "trivechain",               "mnsync",                 &mnsync,                 true,  {} },
-    { "trivechain",               "spork",                  &spork,                  true,  {"value"} },
+    /* Dash features */
+    { "dash",               "mnsync",                 &mnsync,                 true,  {} },
+    { "dash",               "spork",                  &spork,                  true,  {"value"} },
 
     /* Not shown in help */
     { "hidden",             "setmocktime",            &setmocktime,            true,  {"timestamp"}},

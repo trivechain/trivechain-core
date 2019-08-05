@@ -288,7 +288,7 @@ WalletModel::SendCoinsReturn WalletModel::prepareTransaction(WalletModelTransact
             total += subtotal;
         }
         else
-        {   // User-entered trivechain address / amount:
+        {   // User-entered dash address / amount:
             if(!validateAddress(rcp.address))
             {
                 return InvalidAddress;

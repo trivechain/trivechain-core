@@ -139,13 +139,13 @@ HelpMessageDialog::HelpMessageDialog(QWidget *parent, HelpMode helpMode) :
         ui->aboutMessage->setText(tr("\
 <h3>ExclusiveSend Basics</h3> \
 ExclusiveSend gives you true financial privacy by obscuring the origins of your funds. \
-All the Trivechain in your wallet is comprised of different \"inputs\" which you can think of as separate, discrete coins.<br> \
+All the Dash in your wallet is comprised of different \"inputs\" which you can think of as separate, discrete coins.<br> \
 ExclusiveSend uses an innovative process to mix your inputs with the inputs of two other people, without having your coins ever leave your wallet. \
 You retain control of your money at all times.<hr> \
 <b>The ExclusiveSend process works like this:</b>\
 <ol type=\"1\"> \
 <li>ExclusiveSend begins by breaking your transaction inputs down into standard denominations. \
-These denominations are 0.001 TRVC, 0.01 TRVC, 0.1 TRVC, 1 TRVC and 10 TRVC -- sort of like the paper money you use every day.</li> \
+These denominations are 0.001 DASH, 0.01 DASH, 0.1 DASH, 1 DASH and 10 DASH -- sort of like the paper money you use every day.</li> \
 <li>Your wallet then sends requests to specially configured software nodes on the network, called \"masternodes.\" \
 These masternodes are informed then that you are interested in mixing a certain denomination. \
 No identifiable information is sent to the masternodes, so they never know \"who\" you are.</li> \

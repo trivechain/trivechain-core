@@ -1,7 +1,7 @@
-Contributing to Trivechain Core
+Contributing to Trivechain
 ============================
 
-The Trivechain Core project operates an open contributor model where anyone is
+The Trivechain project operates an open contributor model where anyone is
 welcome to contribute towards development in the form of peer review, testing
 and patches. This document explains the practical process and guidelines for
 contributing.
@@ -157,11 +157,11 @@ where possible keep them short, uncomplex and easy to verify.
 "Decision Making" Process
 -------------------------
 
-The following applies to code changes to the Trivechain Core project (and related
-projects such as libsecp256k1), and is not to be confused with overall Trivechain
+The following applies to code changes to the Trivechain project (and related
+projects such as libsecp256k1), and is not to be confused with overall Dash
 Network Protocol consensus changes.
 
-Whether a pull request is merged into Trivechain Core rests with the project merge
+Whether a pull request is merged into Trivechain rests with the project merge
 maintainers and ultimately the project lead.
 
 Maintainers will take into consideration if a patch is in line with the general
@@ -229,7 +229,7 @@ a worthwhile change based on the judgement of the maintainers.
 Release Policy
 --------------
 
-The project leader is the release manager for each Trivechain Core release.
+The project leader is the release manager for each Trivechain release.
 
 Copyright
 ---------

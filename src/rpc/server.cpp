@@ -309,11 +309,11 @@ UniValue stop(const JSONRPCRequest& jsonRequest)
     if (jsonRequest.fHelp || jsonRequest.params.size() > 1)
         throw std::runtime_error(
             "stop\n"
-            "\nStop Trivechain Core server.");
+            "\nStop Dash Core server.");
     // Event loop will exit after current HTTP requests have been handled, so
     // this reply will get back to the client.
     StartShutdown();
-    return "Trivechain Core server stopping";
+    return "Dash Core server stopping";
 }
 
 /**

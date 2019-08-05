@@ -106,8 +106,8 @@ class TestNode(NodeConnCB):
 class AcceptBlockTest(BitcoinTestFramework):
     def add_options(self, parser):
         parser.add_option("--testbinary", dest="testbinary",
-                          default=os.getenv("BITCOIND", "dashd"),
-                          help="trivechain binary to test")
+                          default=os.getenv("BITCOIND", "trivechaind"),
+                          help="trivechaind binary to test")
 
     def __init__(self):
         super().__init__()

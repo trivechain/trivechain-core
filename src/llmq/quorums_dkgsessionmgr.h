@@ -2,8 +2,8 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DASH_QUORUMS_DKGSESSIONMGR_H
-#define DASH_QUORUMS_DKGSESSIONMGR_H
+#ifndef TRIVECHAIN_QUORUMS_DKGSESSIONMGR_H
+#define TRIVECHAIN_QUORUMS_DKGSESSIONMGR_H
 
 #include "llmq/quorums_dkgsessionhandler.h"
 
@@ -76,4 +76,4 @@ extern CDKGSessionManager* quorumDKGSessionManager;
 
 }
 
-#endif //DASH_QUORUMS_DKGSESSIONMGR_H
+#endif //TRIVECHAIN_QUORUMS_DKGSESSIONMGR_H
