@@ -7,8 +7,6 @@
 #include "tinyformat.h"
 #include "utilstrencodings.h"
 
-using namespace std;
-
 const char* GetOpName(opcodetype opcode)
 {
     switch (opcode)
@@ -128,7 +126,7 @@ const char* GetOpName(opcodetype opcode)
     case OP_CHECKMULTISIG          : return "OP_CHECKMULTISIG";
     case OP_CHECKMULTISIGVERIFY    : return "OP_CHECKMULTISIGVERIFY";
 
-    // expanson
+    // expansion
     case OP_NOP1                   : return "OP_NOP1";
     case OP_CHECKLOCKTIMEVERIFY    : return "OP_CHECKLOCKTIMEVERIFY";
     case OP_CHECKSEQUENCEVERIFY    : return "OP_CHECKSEQUENCEVERIFY";
@@ -185,54 +183,30 @@ unsigned int CScript::GetSigOpCount(const CScript& scriptSig) const
     // get the last item that the scriptSig
     // pushes onto the stack:
     const_iterator pc = scriptSig.begin();
-    vector<unsigned char> data;
+    std::vector<unsigned char> vData;
     while (pc < scriptSig.end())
     {
         opcodetype opcode;
-        if (!scriptSig.GetOp(pc, opcode, data))
+        if (!scriptSig.GetOp(pc, opcode, vData))
             return 0;
         if (opcode > OP_16)
             return 0;
     }
 
     /// ... and return its opcount:
-    CScript subscript(data.begin(), data.end());
+    CScript subscript(vData.begin(), vData.end());
     return subscript.GetSigOpCount(true);
-}
-
-bool CScript::IsNormalPaymentScript() const
-{
-    if(this->size() != 25) return false;
-
-    std::string str;
-    opcodetype opcode;
-    const_iterator pc = begin();
-    int i = 0;
-    while (pc < end())
-    {
-        GetOp(pc, opcode);
-
-        if(     i == 0 && opcode != OP_DUP) return false;
-        else if(i == 1 && opcode != OP_HASH160) return false;
-        else if(i == 3 && opcode != OP_EQUALVERIFY) return false;
-        else if(i == 4 && opcode != OP_CHECKSIG) return false;
-        else if(i == 5) return false;
-
-        i++;
-    }
-
-    return true;
 }
 
 bool CScript::IsPayToPublicKeyHash() const
 {
     // Extra-fast test for pay-to-pubkey-hash CScripts:
     return (this->size() == 25 &&
-	    (*this)[0] == OP_DUP &&
-	    (*this)[1] == OP_HASH160 &&
-	    (*this)[2] == 0x14 &&
-	    (*this)[23] == OP_EQUALVERIFY &&
-	    (*this)[24] == OP_CHECKSIG);
+            (*this)[0] == OP_DUP &&
+            (*this)[1] == OP_HASH160 &&
+            (*this)[2] == 0x14 &&
+            (*this)[23] == OP_EQUALVERIFY &&
+            (*this)[24] == OP_CHECKSIG);
 }
 
 bool CScript::IsPayToScriptHash() const
@@ -242,6 +216,21 @@ bool CScript::IsPayToScriptHash() const
             (*this)[0] == OP_HASH160 &&
             (*this)[1] == 0x14 &&
             (*this)[22] == OP_EQUAL);
+}
+
+bool CScript::IsPayToPublicKey() const
+{
+    // Test for pay-to-pubkey CScript with both
+    // compressed or uncompressed pubkey
+    if (this->size() == 35) {
+        return ((*this)[1] == 0x02 || (*this)[1] == 0x03) &&
+                (*this)[34] == OP_CHECKSIG;
+    }
+    if (this->size() == 67) {
+        return (*this)[1] == 0x04 &&
+                (*this)[66] == OP_CHECKSIG;
+    }
+    return false;
 }
 
 bool CScript::IsPushOnly(const_iterator pc) const

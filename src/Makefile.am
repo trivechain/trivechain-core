@@ -1,9 +1,37 @@
+# Copyright (c) 2013-2016 The Bitcoin Core developers
+# Copyright (c) 2014-2018 The Dash Core developers
+# Distributed under the MIT software license, see the accompanying
+# file COPYING or http://www.opensource.org/licenses/mit-license.php.
+
 DIST_SUBDIRS = secp256k1 univalue
 
 AM_LDFLAGS = $(PTHREAD_CFLAGS) $(LIBTOOL_LDFLAGS) $(HARDENED_LDFLAGS)
-AM_CXXFLAGS = $(HARDENED_CXXFLAGS)
+AM_CXXFLAGS = $(HARDENED_CXXFLAGS) $(ERROR_CXXFLAGS)
 AM_CPPFLAGS = $(HARDENED_CPPFLAGS)
 EXTRA_LIBRARIES =
+
+if ENABLE_STACKTRACES
+if STACKTRACE_WRAPPED_CXX_ABI
+# Wrap internal C++ ABI's so that we can attach stacktraces to exceptions
+LDFLAGS_WRAP_EXCEPTIONS = -Wl,-wrap,__cxa_allocate_exception -Wl,-wrap,__cxa_free_exception
+if TARGET_WINDOWS
+LDFLAGS_WRAP_EXCEPTIONS += -Wl,-wrap,_assert -Wl,-wrap,_wassert
+else
+LDFLAGS_WRAP_EXCEPTIONS += -Wl,-wrap,__assert_fail
+endif
+endif
+
+if RDYNAMIC_SUPPORTED
+# This gives better stacktraces
+AM_CXXFLAGS += -rdynamic
+endif
+
+if TARGET_WINDOWS
+BACKTRACE_LIB = -ldbghelp -lbacktrace
+else
+BACKTRACE_LIB = -lbacktrace
+endif
+endif
 
 if EMBEDDED_UNIVALUE
 LIBUNIVALUE = univalue/libunivalue.la
@@ -15,19 +43,31 @@ LIBUNIVALUE = $(UNIVALUE_LIBS)
 endif
 
 BITCOIN_CONFIG_INCLUDES=-I$(builddir)/config
-BITCOIN_INCLUDES=-I$(builddir) -I$(builddir)/obj $(BOOST_CPPFLAGS) $(LEVELDB_CPPFLAGS) $(CRYPTO_CFLAGS) $(SSL_CFLAGS)
+BITCOIN_INCLUDES=-I$(builddir) -I$(builddir)/obj $(BDB_CPPFLAGS) $(BOOST_CPPFLAGS) $(LEVELDB_CPPFLAGS) $(CRYPTO_CFLAGS) $(SSL_CFLAGS)
 
 BITCOIN_INCLUDES += -I$(srcdir)/secp256k1/include
 BITCOIN_INCLUDES += $(UNIVALUE_CFLAGS)
 
-LIBBITCOIN_SERVER=libbitcoin_server.a
-LIBBITCOIN_WALLET=libbitcoin_wallet.a
-LIBBITCOIN_COMMON=libbitcoin_common.a
-LIBBITCOIN_CLI=libbitcoin_cli.a
-LIBBITCOIN_UTIL=libbitcoin_util.a
-LIBBITCOIN_CRYPTO=crypto/libbitcoin_crypto.a
-LIBBITCOINQT=qt/libbitcoinqt.a
+BLS_LIBS=-lchiabls -lgmp
+
+LIBBITCOIN_SERVER=libtrivechain_server.a
+LIBBITCOIN_COMMON=libtrivechain_common.a
+LIBBITCOIN_CONSENSUS=libtrivechain_consensus.a
+LIBBITCOIN_CLI=libtrivechain_cli.a
+LIBBITCOIN_UTIL=libtrivechain_util.a
+LIBBITCOIN_CRYPTO=crypto/libtrivechain_crypto.a
+LIBBITCOINQT=qt/libtrivechainqt.a
 LIBSECP256K1=secp256k1/libsecp256k1.la
+
+if ENABLE_ZMQ
+LIBBITCOIN_ZMQ=libtrivechain_zmq.a
+endif
+if BUILD_BITCOIN_LIBS
+LIBBITCOINCONSENSUS=libtrivechainconsensus.la
+endif
+if ENABLE_WALLET
+LIBBITCOIN_WALLET=libtrivechain_wallet.a
+endif
 
 $(LIBSECP256K1): $(wildcard secp256k1/src/*) $(wildcard secp256k1/include/*)
 	$(AM_V_at)$(MAKE) $(AM_MAKEFLAGS) -C $(@D) $(@F)
@@ -35,32 +75,23 @@ $(LIBSECP256K1): $(wildcard secp256k1/src/*) $(wildcard secp256k1/include/*)
 # Make is not made aware of per-object dependencies to avoid limiting building parallelization
 # But to build the less dependent modules first, we manually select their order here:
 EXTRA_LIBRARIES += \
-  crypto/libbitcoin_crypto.a \
-  libbitcoin_util.a \
-  libbitcoin_common.a \
-  libbitcoin_server.a \
-  libbitcoin_cli.a
-if ENABLE_WALLET
-BITCOIN_INCLUDES += $(BDB_CPPFLAGS)
-EXTRA_LIBRARIES += libbitcoin_wallet.a
-endif
-if ENABLE_ZMQ
-EXTRA_LIBRARIES += libbitcoin_zmq.a
-endif
+  $(LIBBITCOIN_CRYPTO) \
+  $(LIBBITCOIN_UTIL) \
+  $(LIBBITCOIN_COMMON) \
+  $(LIBBITCOIN_CONSENSUS) \
+  $(LIBBITCOIN_SERVER) \
+  $(LIBBITCOIN_CLI) \
+  $(LIBBITCOIN_WALLET) \
+  $(LIBBITCOIN_ZMQ)
 
-if BUILD_BITCOIN_LIBS
-lib_LTLIBRARIES = libtrivechainconsensus.la
-LIBBITCOIN_CONSENSUS=libtrivechainconsensus.la
-else
-LIBBITCOIN_CONSENSUS=
-endif
+lib_LTLIBRARIES = $(LIBBITCOINCONSENSUS)
 
 bin_PROGRAMS =
 TESTS =
 BENCHMARKS =
 
 if BUILD_BITCOIND
-  bin_PROGRAMS += trivechaind
+  bin_PROGRAMS += dashd
 endif
 
 if BUILD_BITCOIN_UTILS
@@ -68,7 +99,7 @@ if BUILD_BITCOIN_UTILS
 endif
 
 .PHONY: FORCE check-symbols check-security
-# trivechain core #
+# dash core #
 BITCOIN_CORE_H = \
   addrdb.h \
   activemasternode.h \
@@ -76,11 +107,11 @@ BITCOIN_CORE_H = \
   spentindex.h \
   addrman.h \
   alert.h \
-  amount.h \
-  arith_uint256.h \
   base58.h \
+  batchedlogger.h \
   bip39.h \
   bip39_english.h \
+  blockencodings.h \
   bloom.h \
   cachemap.h \
   cachemultimap.h \
@@ -91,7 +122,6 @@ BITCOIN_CORE_H = \
   checkpoints.h \
   checkqueue.h \
   clientversion.h \
-  coincontrol.h \
   coins.h \
   compat.h \
   compat/byteswap.h \
@@ -99,11 +129,18 @@ BITCOIN_CORE_H = \
   compat/sanity.h \
   compressor.h \
   consensus/consensus.h \
-  consensus/merkle.h \
-  consensus/params.h \
-  consensus/validation.h \
   core_io.h \
   core_memusage.h \
+  cuckoocache.h \
+  ctpl.h \
+  cxxtimer.hpp \
+  evo/cbtx.h \
+  evo/deterministicmns.h \
+  evo/evodb.h \
+  evo/mnauth.h \
+  evo/providertx.h \
+  evo/simplifiedmns.h \
+  evo/specialtx.h \
   exclusivesend.h \
   exclusivesend-client.h \
   exclusivesend-server.h \
@@ -117,10 +154,10 @@ BITCOIN_CORE_H = \
   governance-vote.h \
   governance-votedb.h \
   flat-database.h \
-  hash.h \
   hdchain.h \
   httprpc.h \
   httpserver.h \
+  indirectmap.h \
   init.h \
   instantx.h \
   key.h \
@@ -128,11 +165,23 @@ BITCOIN_CORE_H = \
   keystore.h \
   dbwrapper.h \
   limitedmap.h \
-  masternode.h \
+  llmq/quorums.h \
+  llmq/quorums_blockprocessor.h \
+  llmq/quorums_commitment.h \
+  llmq/quorums_chainlocks.h \
+  llmq/quorums_debug.h \
+  llmq/quorums_dkgsessionhandler.h \
+  llmq/quorums_dkgsessionmgr.h \
+  llmq/quorums_dkgsession.h \
+  llmq/quorums_init.h \
+  llmq/quorums_directsend.h \
+  llmq/quorums_signing.h \
+  llmq/quorums_signing_shares.h \
+  llmq/quorums_utils.h \
+  masternode-meta.h \
   masternode-payments.h \
   masternode-sync.h \
-  masternodeman.h \
-  masternodeconfig.h \
+  masternode-utils.h \
   memusage.h \
   merkleblock.h \
   messagesigner.h \
@@ -142,59 +191,57 @@ BITCOIN_CORE_H = \
   netaddress.h \
   netbase.h \
   netfulfilledman.h \
+  netmessagemaker.h \
   noui.h \
   policy/fees.h \
   policy/policy.h \
-  policy/rbf.h \
   pow.h \
-  prevector.h \
-  primitives/block.h \
-  primitives/transaction.h \
   protocol.h \
-  pubkey.h \
   random.h \
   reverselock.h \
   rpc/client.h \
   rpc/protocol.h \
   rpc/server.h \
+  rpc/register.h \
+  saltedhasher.h \
   scheduler.h \
-  script/interpreter.h \
-  script/script.h \
-  script/script_error.h \
   script/sigcache.h \
   script/sign.h \
   script/standard.h \
-  serialize.h \
+  script/ismine.h \
   spork.h \
+  stacktraces.h \
   streams.h \
+  support/allocators/mt_pooled_secure.h \
+  support/allocators/pooled_secure.h \
   support/allocators/secure.h \
   support/allocators/zeroafterfree.h \
   support/cleanse.h \
-  support/pagelocker.h \
+  support/events.h \
+  support/lockedpool.h \
   sync.h \
   threadsafety.h \
   threadinterrupt.h \
   timedata.h \
-  tinyformat.h \
   torcontrol.h \
   txdb.h \
   txmempool.h \
   ui_interface.h \
-  uint256.h \
   undo.h \
+  unordered_lru_cache.h \
   util.h \
   utilmoneystr.h \
-  utilstrencodings.h \
   utiltime.h \
   validation.h \
   validationinterface.h \
-  version.h \
   versionbits.h \
+  wallet/coincontrol.h \
   wallet/crypter.h \
   wallet/db.h \
+  wallet/rpcwallet.h \
   wallet/wallet.h \
-  wallet/wallet_ismine.h \
   wallet/walletdb.h \
+  warnings.h \
   zmq/zmqabstractnotifier.h \
   zmq/zmqconfig.h\
   zmq/zmqnotificationinterface.h \
@@ -205,21 +252,33 @@ obj/build.h: FORCE
 	@$(MKDIR_P) $(builddir)/obj
 	@$(top_srcdir)/share/genbuild.sh $(abs_top_builddir)/src/obj/build.h \
 	  $(abs_top_srcdir)
-libbitcoin_util_a-clientversion.$(OBJEXT): obj/build.h
+libtrivechain_util_a-clientversion.$(OBJEXT): obj/build.h
 
-# server: shared between trivechaind and trivechain-qt
-libbitcoin_server_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(MINIUPNPC_CPPFLAGS) $(EVENT_CFLAGS) $(EVENT_PTHREADS_CFLAGS)
-libbitcoin_server_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-libbitcoin_server_a_SOURCES = \
+# server: shared between trivechain and trivechain-qt
+libtrivechain_server_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(MINIUPNPC_CPPFLAGS) $(EVENT_CFLAGS) $(EVENT_PTHREADS_CFLAGS)
+libtrivechain_server_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+libtrivechain_server_a_SOURCES = \
+  activemasternode.cpp \
   addrman.cpp \
   addrdb.cpp \
   alert.cpp \
+  batchedlogger.cpp \
   bloom.cpp \
+  blockencodings.cpp \
   chain.cpp \
   checkpoints.cpp \
+  dsnotificationinterface.cpp \
+  evo/cbtx.cpp \
+  evo/deterministicmns.cpp \
+  evo/evodb.cpp \
+  evo/mnauth.cpp \
+  evo/providertx.cpp \
+  evo/simplifiedmns.cpp \
+  evo/specialtx.cpp \
   httprpc.cpp \
   httpserver.cpp \
   init.cpp \
+  instantx.cpp \
   dbwrapper.cpp \
   governance.cpp \
   governance-classes.cpp \
@@ -227,6 +286,23 @@ libbitcoin_server_a_SOURCES = \
   governance-validators.cpp \
   governance-vote.cpp \
   governance-votedb.cpp \
+  llmq/quorums.cpp \
+  llmq/quorums_blockprocessor.cpp \
+  llmq/quorums_commitment.cpp \
+  llmq/quorums_chainlocks.cpp \
+  llmq/quorums_debug.cpp \
+  llmq/quorums_dkgsessionhandler.cpp \
+  llmq/quorums_dkgsessionmgr.cpp \
+  llmq/quorums_dkgsession.cpp \
+  llmq/quorums_init.cpp \
+  llmq/quorums_directsend.cpp \
+  llmq/quorums_signing.cpp \
+  llmq/quorums_signing_shares.cpp \
+  llmq/quorums_utils.cpp \
+  masternode-meta.cpp \
+  masternode-payments.cpp \
+  masternode-sync.cpp \
+  masternode-utils.cpp \
   merkleblock.cpp \
   messagesigner.cpp \
   miner.cpp \
@@ -247,43 +323,38 @@ libbitcoin_server_a_SOURCES = \
   rpc/misc.cpp \
   rpc/net.cpp \
   rpc/rawtransaction.cpp \
+  rpc/rpcevo.cpp \
+  rpc/rpcquorums.cpp \
   rpc/server.cpp \
   script/sigcache.cpp \
+  script/ismine.cpp \
   sendalert.cpp \
+  spork.cpp \
   timedata.cpp \
   torcontrol.cpp \
   txdb.cpp \
   txmempool.cpp \
+  ui_interface.cpp \
   validation.cpp \
   validationinterface.cpp \
   versionbits.cpp \
   $(BITCOIN_CORE_H)
 
 if ENABLE_ZMQ
-LIBBITCOIN_ZMQ=libbitcoin_zmq.a
-
-libbitcoin_zmq_a_CPPFLAGS = $(BITCOIN_INCLUDES) $(ZMQ_CFLAGS)
-libbitcoin_zmq_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-libbitcoin_zmq_a_SOURCES = \
+libtrivechain_zmq_a_CPPFLAGS = $(BITCOIN_INCLUDES) $(ZMQ_CFLAGS)
+libtrivechain_zmq_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+libtrivechain_zmq_a_SOURCES = \
   zmq/zmqabstractnotifier.cpp \
   zmq/zmqnotificationinterface.cpp \
   zmq/zmqpublishnotifier.cpp
 endif
 
 
-# wallet: shared between trivechaind and trivechain-qt, but only linked
+# wallet: shared between trivechain and trivechain-qt, but only linked
 # when wallet enabled
-libbitcoin_wallet_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
-libbitcoin_wallet_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-libbitcoin_wallet_a_SOURCES = \
-  activemasternode.cpp \
-  dsnotificationinterface.cpp \
-  instantx.cpp \
-  masternode.cpp \
-  masternode-payments.cpp \
-  masternode-sync.cpp \
-  masternodeconfig.cpp \
-  masternodeman.cpp \
+libtrivechain_wallet_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
+libtrivechain_wallet_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+libtrivechain_wallet_a_SOURCES = \
   keepass.cpp \
   exclusivesend-client.cpp \
   exclusivesend-util.cpp \
@@ -292,19 +363,15 @@ libbitcoin_wallet_a_SOURCES = \
   wallet/rpcdump.cpp \
   wallet/rpcwallet.cpp \
   wallet/wallet.cpp \
-  wallet/wallet_ismine.cpp \
   wallet/walletdb.cpp \
-  policy/rbf.cpp \
   $(BITCOIN_CORE_H)
 
 # crypto primitives library
-crypto_libbitcoin_crypto_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_CONFIG_INCLUDES) $(PIC_FLAGS)
-crypto_libbitcoin_crypto_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS) $(PIC_FLAGS)
-crypto_libbitcoin_crypto_a_SOURCES = \
+crypto_libtrivechain_crypto_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_CONFIG_INCLUDES) $(PIC_FLAGS)
+crypto_libtrivechain_crypto_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS) $(PIC_FLAGS)
+crypto_libtrivechain_crypto_a_SOURCES = \
   crypto/aes.cpp \
   crypto/aes.h \
-  crypto/chacha20.h \
-  crypto/chacha20.cpp \
   crypto/common.h \
   crypto/hmac_sha256.cpp \
   crypto/hmac_sha256.h \
@@ -312,6 +379,16 @@ crypto_libbitcoin_crypto_a_SOURCES = \
   crypto/hmac_sha512.h \
   crypto/ripemd160.cpp \
   crypto/aes_helper.c \
+  crypto/ripemd160.h \
+  crypto/sha1.cpp \
+  crypto/sha1.h \
+  crypto/sha256.cpp \
+  crypto/sha256.h \
+  crypto/sha512.cpp \
+  crypto/sha512.h
+
+# x11
+crypto_libtrivechain_crypto_a_SOURCES += \
   crypto/blake.c \
   crypto/bmw.c \
   crypto/cubehash.c \
@@ -323,19 +400,6 @@ crypto_libbitcoin_crypto_a_SOURCES = \
   crypto/shavite.c \
   crypto/simd.c \
   crypto/skein.c \
-  crypto/sph_hamsi.c \
-  crypto/sph_hamsi_helper.c \
-  crypto/sph_fugue.c \
-  crypto/sph_shabal.c \
-  crypto/sph_whirlpool.c \
-  crypto/sph_sha2.c \
-  crypto/sph_sha512.c \
-  crypto/ripemd160.h \
-  crypto/sha1.cpp \
-  crypto/sha1.h \
-  crypto/sha256.cpp \
-  crypto/sha256.h \
-  crypto/sha512.h \
   crypto/sph_blake.h \
   crypto/sph_bmw.h \
   crypto/sph_cubehash.h \
@@ -347,56 +411,83 @@ crypto_libbitcoin_crypto_a_SOURCES = \
   crypto/sph_shavite.h \
   crypto/sph_simd.h \
   crypto/sph_skein.h \
-  crypto/sph_hamsi.h \
-  crypto/sph_fugue.h \
-  crypto/sph_shabal.h \
-  crypto/sph_whirlpool.h \
-  crypto/sph_sha2.h \
-  crypto/sph_types.h \
-  crypto/sha512.cpp \
-  crypto/sha512.h
+  crypto/sph_types.h
 
-
-# common: shared between trivechaind, and trivechain-qt and non-server tools
-libbitcoin_common_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
-libbitcoin_common_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-libbitcoin_common_a_SOURCES = \
-  amount.cpp \
+# consensus: shared between all executables that validate any consensus rules.
+libtrivechain_consensus_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
+libtrivechain_consensus_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+libtrivechain_consensus_a_SOURCES = \
+  amount.h \
   arith_uint256.cpp \
+  arith_uint256.h \
+  bls/bls.cpp \
+  bls/bls.h \
+  consensus/merkle.cpp \
+  consensus/merkle.h \
+  consensus/params.h \
+  consensus/validation.h \
+  hash.cpp \
+  hash.h \
+  prevector.h \
+  primitives/block.cpp \
+  primitives/block.h \
+  primitives/transaction.cpp \
+  primitives/transaction.h \
+  pubkey.cpp \
+  pubkey.h \
+  script/dashconsensus.cpp \
+  script/interpreter.cpp \
+  script/interpreter.h \
+  script/script.cpp \
+  script/script.h \
+  script/script_error.cpp \
+  script/script_error.h \
+  serialize.h \
+  streams.h \
+  tinyformat.h \
+  uint256.cpp \
+  uint256.h \
+  utilstrencodings.cpp \
+  utilstrencodings.h \
+  version.h
+
+# common: shared between dashd, and trivechain-qt and non-server tools
+libtrivechain_common_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
+libtrivechain_common_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+libtrivechain_common_a_SOURCES = \
+  amount.cpp \
   base58.cpp \
   bip39.cpp \
   chainparams.cpp \
   coins.cpp \
   compressor.cpp \
-  consensus/merkle.cpp \
   core_read.cpp \
   core_write.cpp \
-  hash.cpp \
   hdchain.cpp \
   key.cpp \
   keystore.cpp \
   netaddress.cpp \
   netbase.cpp \
-  primitives/block.cpp \
-  primitives/transaction.cpp \
   protocol.cpp \
-  pubkey.cpp \
+  saltedhasher.cpp \
   scheduler.cpp \
-  script/interpreter.cpp \
-  script/script.cpp \
-  script/script_error.cpp \
   script/sign.cpp \
   script/standard.cpp \
-  spork.cpp \
+  warnings.cpp \
   $(BITCOIN_CORE_H)
 
 # util: shared between all executables.
 # This library *must* be included to make sure that the glibc
 # backward-compatibility objects and their sanity checks are linked.
-libbitcoin_util_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
-libbitcoin_util_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-libbitcoin_util_a_SOURCES = \
-  support/pagelocker.cpp \
+libtrivechain_util_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
+libtrivechain_util_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+libtrivechain_util_a_SOURCES = \
+  bls/bls_batchverifier.h \
+  bls/bls_ies.cpp \
+  bls/bls_ies.h \
+  bls/bls_worker.cpp \
+  bls/bls_worker.h \
+  support/lockedpool.cpp \
   chainparamsbase.cpp \
   clientversion.cpp \
   compat/glibc_sanity.cpp \
@@ -404,9 +495,9 @@ libbitcoin_util_a_SOURCES = \
   compat/strnlen.cpp \
   random.cpp \
   rpc/protocol.cpp \
+  stacktraces.cpp \
   support/cleanse.cpp \
   sync.cpp \
-  uint256.cpp \
   threadinterrupt.cpp \
   util.cpp \
   utilmoneystr.cpp \
@@ -415,117 +506,109 @@ libbitcoin_util_a_SOURCES = \
   $(BITCOIN_CORE_H)
 
 if GLIBC_BACK_COMPAT
-libbitcoin_util_a_SOURCES += compat/glibc_compat.cpp
+libtrivechain_util_a_SOURCES += compat/glibc_compat.cpp
+AM_LDFLAGS += -Wl,--wrap=log2f -Wl,--wrap=__divmoddi4
 endif
 
 # cli: shared between trivechain-cli and trivechain-qt
-libbitcoin_cli_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
-libbitcoin_cli_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-libbitcoin_cli_a_SOURCES = \
+libtrivechain_cli_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
+libtrivechain_cli_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+libtrivechain_cli_a_SOURCES = \
   rpc/client.cpp \
   $(BITCOIN_CORE_H)
 
-nodist_libbitcoin_util_a_SOURCES = $(srcdir)/obj/build.h
+nodist_libtrivechain_util_a_SOURCES = $(srcdir)/obj/build.h
 #
 
-# bitcoind binary #
-trivechaind_SOURCES = trivechaind.cpp
-trivechaind_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
-trivechaind_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-trivechaind_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+# trivechain binary #
+dashd_SOURCES = dashd.cpp
+dashd_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
+dashd_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+dashd_LDFLAGS = $(LDFLAGS_WRAP_EXCEPTIONS) $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
 if TARGET_WINDOWS
-trivechaind_SOURCES += trivechaind-res.rc
+dashd_SOURCES += dashd-res.rc
 endif
 
-trivechaind_LDADD = \
+dashd_LDADD = \
   $(LIBBITCOIN_SERVER) \
   $(LIBBITCOIN_COMMON) \
   $(LIBUNIVALUE) \
   $(LIBBITCOIN_UTIL) \
+  $(LIBBITCOIN_WALLET) \
+  $(LIBBITCOIN_ZMQ) \
+  $(LIBBITCOIN_CONSENSUS) \
   $(LIBBITCOIN_CRYPTO) \
   $(LIBLEVELDB) \
   $(LIBMEMENV) \
   $(LIBSECP256K1)
 
-if ENABLE_ZMQ
-trivechaind_LDADD += $(LIBBITCOIN_ZMQ) $(ZMQ_LIBS)
-endif
-
-if ENABLE_WALLET
-trivechaind_LDADD += libbitcoin_wallet.a
-endif
-
-trivechaind_LDADD += $(BOOST_LIBS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS) $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS)
+dashd_LDADD += $(BACKTRACE_LIB) $(BOOST_LIBS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS) $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS) $(ZMQ_LIBS) $(BLS_LIBS)
 
 # trivechain-cli binary #
-trivechain_cli_SOURCES = trivechain-cli.cpp
-trivechain_cli_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(EVENT_CFLAGS)
-trivechain_cli_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-trivechain_cli_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+dash_cli_SOURCES = trivechain-cli.cpp
+dash_cli_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(EVENT_CFLAGS)
+dash_cli_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+dash_cli_LDFLAGS = $(LDFLAGS_WRAP_EXCEPTIONS) $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
 if TARGET_WINDOWS
-trivechain_cli_SOURCES += trivechain-cli-res.rc
+dash_cli_SOURCES += trivechain-cli-res.rc
 endif
 
-trivechain_cli_LDADD = \
+dash_cli_LDADD = \
   $(LIBBITCOIN_CLI) \
   $(LIBUNIVALUE) \
-  $(LIBBITCOIN_UTIL)
-trivechain_cli_LDADD += $(BOOST_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(EVENT_LIBS)
+  $(LIBBITCOIN_UTIL) \
+  $(LIBBITCOIN_CRYPTO)
+dash_cli_LDADD += $(BACKTRACE_LIB) $(BOOST_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(EVENT_LIBS) $(BLS_LIBS)
 #
 
 # trivechain-tx binary #
-trivechain_tx_SOURCES = trivechain-tx.cpp
-trivechain_tx_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
-trivechain_tx_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-trivechain_tx_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+dash_tx_SOURCES = trivechain-tx.cpp
+dash_tx_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
+dash_tx_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+dash_tx_LDFLAGS = $(LDFLAGS_WRAP_EXCEPTIONS) $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
 if TARGET_WINDOWS
-trivechain_tx_SOURCES += trivechain-tx-res.rc
+dash_tx_SOURCES += trivechain-tx-res.rc
 endif
 
-trivechain_tx_LDADD = \
+dash_tx_LDADD = \
   $(LIBUNIVALUE) \
   $(LIBBITCOIN_COMMON) \
   $(LIBBITCOIN_UTIL) \
+  $(LIBBITCOIN_CONSENSUS) \
   $(LIBBITCOIN_CRYPTO) \
   $(LIBSECP256K1)
 
-trivechain_tx_LDADD += $(BOOST_LIBS) $(CRYPTO_LIBS)
+dash_tx_LDADD += $(BACKTRACE_LIB) $(BOOST_LIBS) $(CRYPTO_LIBS) $(BLS_LIBS)
 #
 
-# trivechainconsensus library #
+# dashconsensus library #
 if BUILD_BITCOIN_LIBS
-include_HEADERS = script/trivechainconsensus.h
-libtrivechainconsensus_la_SOURCES = \
-  crypto/hmac_sha512.cpp \
-  crypto/ripemd160.cpp \
-  crypto/sha1.cpp \
-  crypto/sha256.cpp \
-  crypto/sha512.cpp \
-  hash.cpp \
-  primitives/transaction.cpp \
-  pubkey.cpp \
-  script/trivechainconsensus.cpp \
-  script/interpreter.cpp \
-  script/script.cpp \
-  uint256.cpp \
-  utilstrencodings.cpp
+include_HEADERS = script/dashconsensus.h
+libtrivechainconsensus_la_SOURCES = $(crypto_libtrivechain_crypto_a_SOURCES) $(libtrivechain_consensus_a_SOURCES)
 
 if GLIBC_BACK_COMPAT
   libtrivechainconsensus_la_SOURCES += compat/glibc_compat.cpp
 endif
 
 libtrivechainconsensus_la_LDFLAGS = $(AM_LDFLAGS) -no-undefined $(RELDFLAGS)
-libtrivechainconsensus_la_LIBADD = $(LIBSECP256K1)
+libtrivechainconsensus_la_LIBADD = $(LIBSECP256K1) $(BLS_LIBS)
 libtrivechainconsensus_la_CPPFLAGS = $(AM_CPPFLAGS) -I$(builddir)/obj -I$(srcdir)/secp256k1/include -DBUILD_BITCOIN_INTERNAL
 libtrivechainconsensus_la_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
 
 endif
 #
 
-CLEANFILES = leveldb/libleveldb.a leveldb/libmemenv.a
+CTAES_DIST =  crypto/ctaes/bench.c
+CTAES_DIST += crypto/ctaes/ctaes.c
+CTAES_DIST += crypto/ctaes/ctaes.h
+CTAES_DIST += crypto/ctaes/README.md
+CTAES_DIST += crypto/ctaes/test.c
+
+CLEANFILES = $(EXTRA_LIBRARIES)
+
 CLEANFILES += *.gcda *.gcno
 CLEANFILES += compat/*.gcda compat/*.gcno
 CLEANFILES += consensus/*.gcda consensus/*.gcno
@@ -539,20 +622,32 @@ CLEANFILES += wallet/*.gcda wallet/*.gcno
 CLEANFILES += wallet/test/*.gcda wallet/test/*.gcno
 CLEANFILES += zmq/*.gcda zmq/*.gcno
 
+IMMER_DIST = immer
+
 DISTCLEANFILES = obj/build.h
 
-EXTRA_DIST = leveldb
+EXTRA_DIST = $(CTAES_DIST)
+EXTRA_DIST += $(IMMER_DIST)
+
+
+config/trivechain-config.h: config/stamp-h1
+	@$(MAKE) -C $(top_builddir) $(subdir)/$(@)
+config/stamp-h1: $(top_srcdir)/$(subdir)/config/trivechain-config.h.in $(top_builddir)/config.status
+	$(AM_V_at)$(MAKE) -C $(top_builddir) $(subdir)/$(@)
+$(top_srcdir)/$(subdir)/config/trivechain-config.h.in:  $(am__configure_deps)
+	$(AM_V_at)$(MAKE) -C $(top_srcdir) $(subdir)/config/trivechain-config.h.in
 
 clean-local:
-	-$(MAKE) -C leveldb clean
 	-$(MAKE) -C secp256k1 clean
 	-$(MAKE) -C univalue clean
 	-rm -f leveldb/*/*.gcda leveldb/*/*.gcno leveldb/helpers/memenv/*.gcda leveldb/helpers/memenv/*.gcno
 	-rm -f config.h
+	-rm -rf test/__pycache__
 
 .rc.o:
 	@test -f $(WINDRES)
-	$(AM_V_GEN) $(WINDRES) -DWINDRES_PREPROC -i $< -o $@
+	## FIXME: How to get the appropriate modulename_CPPFLAGS in here?
+	$(AM_V_GEN) $(WINDRES) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(CPPFLAGS) -DWINDRES_PREPROC -i $< -o $@
 
 .mm.o:
 	$(AM_V_CXX) $(OBJCXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
@@ -572,7 +667,7 @@ endif
 
 %.pb.cc %.pb.h: %.proto
 	@test -f $(PROTOC)
-	$(AM_V_GEN) $(PROTOC) --cpp_out=$(@D) --proto_path=$(abspath $(<D) $<)
+	$(AM_V_GEN) $(PROTOC) --cpp_out=$(@D) --proto_path=$(<D) $<
 
 if EMBEDDED_LEVELDB
 include Makefile.leveldb.include

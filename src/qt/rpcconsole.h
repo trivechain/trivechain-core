@@ -37,6 +37,11 @@ public:
     explicit RPCConsole(const PlatformStyle *platformStyle, QWidget *parent);
     ~RPCConsole();
 
+    static bool RPCParseCommandLine(std::string &strResult, const std::string &strCommand, bool fExecute, std::string * const pstrFilteredOut = NULL);
+    static bool RPCExecuteCommandLine(std::string &strResult, const std::string &strCommand, std::string * const pstrFilteredOut = NULL) {
+        return RPCParseCommandLine(strResult, strCommand, true, pstrFilteredOut);
+    }
+
     void setClientModel(ClientModel *model);
 
     enum MessageClass {
@@ -100,8 +105,8 @@ public Q_SLOTS:
     void setNumConnections(int count);
     /** Set network state shown in the UI */
     void setNetworkActive(bool networkActive);
-    /** Set number of masternodes shown in the UI */
-    void setMasternodeCount(const QString &strMasternodes);
+    /** Update number of masternodes shown in the UI */
+    void updateMasternodeCount();
     /** Set number of blocks and last block date shown in the UI */
     void setNumBlocks(int count, const QDateTime& blockDate, double nVerificationProgress, bool headers);
     /** Set size (number of transactions and memory usage) of the mempool in the UI */
@@ -155,6 +160,7 @@ private:
     ClientModel *clientModel;
     QStringList history;
     int historyPtr;
+    QString cmdBeforeBrowsing;
     QList<NodeId> cachedNodeids;
     const PlatformStyle *platformStyle;
     RPCTimerInterface *rpcTimerInterface;

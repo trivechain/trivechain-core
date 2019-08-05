@@ -32,6 +32,7 @@
 static int column_alignments[] = {
         Qt::AlignLeft|Qt::AlignVCenter, /* status */
         Qt::AlignLeft|Qt::AlignVCenter, /* watchonly */
+        Qt::AlignLeft|Qt::AlignVCenter, /* directsend */
         Qt::AlignLeft|Qt::AlignVCenter, /* date */
         Qt::AlignLeft|Qt::AlignVCenter, /* type */
         Qt::AlignLeft|Qt::AlignVCenter, /* address */
@@ -59,9 +60,9 @@ struct TxLessThan
 class TransactionTablePriv
 {
 public:
-    TransactionTablePriv(CWallet *wallet, TransactionTableModel *parent) :
-        wallet(wallet),
-        parent(parent)
+    TransactionTablePriv(CWallet *_wallet, TransactionTableModel *_parent) :
+        wallet(_wallet),
+        parent(_parent)
     {
     }
 
@@ -194,13 +195,13 @@ public:
             if(lockMain)
             {
                 TRY_LOCK(wallet->cs_wallet, lockWallet);
-                if(lockWallet && rec->statusUpdateNeeded())
+                if(lockWallet && (rec->statusUpdateNeeded(parent->getNumISLocks(), parent->getChainLockHeight())))
                 {
                     std::map<uint256, CWalletTx>::iterator mi = wallet->mapWallet.find(rec->hash);
 
                     if(mi != wallet->mapWallet.end())
                     {
-                        rec->updateStatus(mi->second);
+                        rec->updateStatus(mi->second, parent->getNumISLocks(), parent->getChainLockHeight());
                     }
                 }
             }
@@ -235,15 +236,15 @@ public:
     }
 };
 
-TransactionTableModel::TransactionTableModel(const PlatformStyle *platformStyle, CWallet* wallet, WalletModel *parent):
+TransactionTableModel::TransactionTableModel(const PlatformStyle *_platformStyle, CWallet* _wallet, WalletModel *parent):
         QAbstractTableModel(parent),
-        wallet(wallet),
+        wallet(_wallet),
         walletModel(parent),
-        priv(new TransactionTablePriv(wallet, this)),
+        priv(new TransactionTablePriv(_wallet, this)),
         fProcessingQueuedTransactions(false),
-        platformStyle(platformStyle)
+        platformStyle(_platformStyle)
 {
-    columns << QString() << QString() << tr("Date") << tr("Type") << tr("Address / Label") << BitcoinUnits::getAmountColumnTitle(walletModel->getOptionsModel()->getDisplayUnit());
+    columns << QString() << QString() << QString() << tr("Date") << tr("Type") << tr("Address / Label") << BitcoinUnits::getAmountColumnTitle(walletModel->getOptionsModel()->getDisplayUnit());
     priv->refreshWallet();
 
     connect(walletModel->getOptionsModel(), SIGNAL(displayUnitChanged(int)), this, SLOT(updateDisplayUnit()));
@@ -280,6 +281,27 @@ void TransactionTableModel::updateConfirmations()
     //  visible rows.
     Q_EMIT dataChanged(index(0, Status), index(priv->size()-1, Status));
     Q_EMIT dataChanged(index(0, ToAddress), index(priv->size()-1, ToAddress));
+}
+
+void TransactionTableModel::updateNumISLocks(int numISLocks)
+{
+    cachedNumISLocks = numISLocks;
+}
+
+void TransactionTableModel::updateChainLockHeight(int chainLockHeight)
+{
+    cachedChainLockHeight = chainLockHeight;
+    updateConfirmations();
+}
+
+int TransactionTableModel::getNumISLocks() const
+{
+    return cachedNumISLocks;
+}
+
+int TransactionTableModel::getChainLockHeight() const
+{
+    return cachedChainLockHeight;
 }
 
 int TransactionTableModel::rowCount(const QModelIndex &parent) const
@@ -410,6 +432,7 @@ QVariant TransactionTableModel::txAddressDecoration(const TransactionRecord *wtx
     case TransactionRecord::RecvWithAddress:
     case TransactionRecord::RecvFromOther:
         return QIcon(":/icons/" + theme + "/tx_input");
+    case TransactionRecord::ExclusiveSend:
     case TransactionRecord::SendToAddress:
     case TransactionRecord::SendToOther:
         return QIcon(":/icons/" + theme + "/tx_output");
@@ -533,6 +556,15 @@ QVariant TransactionTableModel::txWatchonlyDecoration(const TransactionRecord *w
         return QVariant();
 }
 
+QVariant TransactionTableModel::txDirectSendDecoration(const TransactionRecord *wtx) const
+{
+    if (wtx->status.lockedByDirectSend) {
+        QString theme = GUIUtil::getThemeName();
+        return QIcon(":/icons/" + theme + "/verify");
+    }
+    return QVariant();
+}
+
 QString TransactionTableModel::formatTooltip(const TransactionRecord *rec) const
 {
     QString tooltip = formatTxStatus(rec) + QString("\n") + formatTxType(rec);
@@ -559,6 +591,8 @@ QVariant TransactionTableModel::data(const QModelIndex &index, int role) const
             return txStatusDecoration(rec);
         case Watchonly:
             return txWatchonlyDecoration(rec);
+        case DirectSend:
+            return txDirectSendDecoration(rec);
         case ToAddress:
             return txAddressDecoration(rec);
         }
@@ -592,6 +626,8 @@ QVariant TransactionTableModel::data(const QModelIndex &index, int role) const
             return formatTxType(rec);
         case Watchonly:
             return (rec->involvesWatchAddress ? 1 : 0);
+        case DirectSend:
+            return (rec->status.lockedByDirectSend ? 1 : 0);
         case ToAddress:
             return formatTxToAddress(rec, true);
         case Amount:
@@ -607,6 +643,10 @@ QVariant TransactionTableModel::data(const QModelIndex &index, int role) const
         if(rec->status.status == TransactionStatus::Abandoned)
         {
             return COLOR_TX_STATUS_DANGER;
+        }
+        if(rec->status.lockedByDirectSend)
+        {
+            return COLOR_TX_STATUS_LOCKED;
         }
         // Non-confirmed (but not immature) as transactions are grey
         if(!rec->status.countsForBalance && rec->status.status != TransactionStatus::Immature)
@@ -630,6 +670,10 @@ QVariant TransactionTableModel::data(const QModelIndex &index, int role) const
         return rec->involvesWatchAddress;
     case WatchonlyDecorationRole:
         return txWatchonlyDecoration(rec);
+    case DirectSendRole:
+        return rec->status.lockedByDirectSend;
+    case DirectSendDecorationRole:
+        return txDirectSendDecoration(rec);
     case LongDescriptionRole:
         return priv->describe(rec, walletModel->getOptionsModel()->getDisplayUnit());
     case AddressRole:
@@ -705,6 +749,8 @@ QVariant TransactionTableModel::headerData(int section, Qt::Orientation orientat
                 return tr("Type of transaction.");
             case Watchonly:
                 return tr("Whether or not a watch-only address is involved in this transaction.");
+            case DirectSend:
+                return tr("Whether or not this transaction was locked by DirectSend.");
             case ToAddress:
                 return tr("User-defined intent/purpose of the transaction.");
             case Amount:
@@ -738,8 +784,8 @@ struct TransactionNotification
 {
 public:
     TransactionNotification() {}
-    TransactionNotification(uint256 hash, ChangeType status, bool showTransaction):
-        hash(hash), status(status), showTransaction(showTransaction) {}
+    TransactionNotification(uint256 _hash, ChangeType _status, bool _showTransaction):
+        hash(_hash), status(_status), showTransaction(_showTransaction) {}
 
     void invoke(QObject *ttm)
     {

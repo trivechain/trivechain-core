@@ -16,6 +16,7 @@ class CBasicKeyStore;
 class CWallet;
 class uint256;
 class CBlockIndex;
+class CDeterministicMNList;
 
 /** General change type (added, updated, removed). */
 enum ChangeType
@@ -88,9 +89,6 @@ public:
     /** Network activity state changed. */
     boost::signals2::signal<void (bool networkActive)> NotifyNetworkActiveChanged;
 
-    /** Number of masternodes changed. */
-    boost::signals2::signal<void (int newNumMasternodes)> NotifyStrMasternodeCountChanged;
-
     /**
      * New, updated or cancelled alert.
      * @note called with lock cs_mapAlerts held.
@@ -103,11 +101,17 @@ public:
     /** Show progress e.g. for verifychain */
     boost::signals2::signal<void (const std::string &title, int nProgress)> ShowProgress;
 
+    /** Set progress break action (possible "cancel button" triggers that action) */
+    boost::signals2::signal<void (std::function<void(void)> action)> SetProgressBreakAction;
+
     /** New block has been accepted */
     boost::signals2::signal<void (bool, const CBlockIndex *)> NotifyBlockTip;
 
     /** Best header has changed */
     boost::signals2::signal<void (bool, const CBlockIndex *)> NotifyHeaderTip;
+
+    /** Masternode list has changed */
+    boost::signals2::signal<void (const CDeterministicMNList&)> NotifyMasternodeListChanged;
 
     /** Additional data sync progress changed */
     boost::signals2::signal<void (double nSyncProgress)> NotifyAdditionalDataSyncProgressChanged;
@@ -115,6 +119,16 @@ public:
     /** Banlist did change. */
     boost::signals2::signal<void (void)> BannedListChanged;
 };
+
+/** Show warning message **/
+void InitWarning(const std::string& str);
+
+/** Show error message **/
+bool InitError(const std::string& str);
+
+std::string AmountHighWarn(const std::string& optname);
+
+std::string AmountErrMsg(const char* const optname, const std::string& strValue);
 
 extern CClientUIInterface uiInterface;
 

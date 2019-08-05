@@ -1,19 +1,25 @@
-#!/usr/bin/env python2
-# Copyright (c) 2014-2015 The Bitcoin Core developers
+#!/usr/bin/env python3
+# Copyright (c) 2014-2016 The Bitcoin Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
+"""Test the getchaintips RPC.
 
-# Exercise the getchaintips API.  We introduce a network split, work
-# on chains of different lengths, and join the network together again.
-# This gives us two tips, verify that it works.
+- introduce a network split
+- work on chains of different lengths
+- join the network together again
+- verify that getchaintips now returns two chain tips.
+"""
 
 from test_framework.test_framework import BitcoinTestFramework
 from test_framework.util import assert_equal
 
 class GetChainTipsTest (BitcoinTestFramework):
+    def __init__(self):
+        super().__init__()
+        self.num_nodes = 4
+        self.setup_clean_chain = False
 
     def run_test (self):
-        BitcoinTestFramework.run_test (self)
 
         tips = self.nodes[0].getchaintips ()
         assert_equal (len (tips), 1)
@@ -51,8 +57,11 @@ class GetChainTipsTest (BitcoinTestFramework):
 
         assert_equal (tips[1]['branchlen'], 10)
         assert_equal (tips[1]['status'], 'valid-fork')
+        # We already checked that the long tip is the active one,
+        # update data to verify that the short tip matches the expected one.
         tips[1]['branchlen'] = 0
         tips[1]['status'] = 'active'
+        tips[1]['forkpoint'] = tips[1]['hash']
         assert_equal (tips[1], shortTip)
 
 if __name__ == '__main__':

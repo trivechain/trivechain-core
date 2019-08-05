@@ -1,4 +1,4 @@
-# Block and Transaction Broadcasting With ZeroMQ
+# Block and Transaction Broadcasting with ZeroMQ
 
 [ZeroMQ](http://zeromq.org/) is a lightweight wrapper around TCP
 connections, inter-process communication, and shared-memory,
@@ -38,7 +38,7 @@ newer. Typically, it is packaged by distributions as something like
 *libzmq3-dev*. The C++ wrapper for ZeroMQ is *not* needed.
 
 In order to run the example Python client scripts in contrib/ one must
-also install *python-zmq*, though this is not necessary for daemon
+also install *python3-zmq*, though this is not necessary for daemon
 operation.
 
 ## Enabling
@@ -50,25 +50,33 @@ during the *configure* step of building bitcoind:
     $ ./configure --disable-zmq (other options)
 
 To actually enable operation, one must set the appropriate options on
-the commandline or in the configuration file.
+the command line or in the configuration file.
 
 ## Usage
 
 Currently, the following notifications are supported:
 
+    -zmqpubhashblock=address
+    -zmqpubhashchainlock=address
     -zmqpubhashtx=address
     -zmqpubhashtxlock=address
-    -zmqpubhashblock=address
+    -zmqpubhashgovernancevote=address
+    -zmqpubhashgovernanceobject=address
+    -zmqpubhashdirectsenddoublespend=address
     -zmqpubrawblock=address
+    -zmqpubrawchainlock=address
     -zmqpubrawtx=address
     -zmqpubrawtxlock=address
+    -zmqpubrawgovernancevote=address
+    -zmqpubrawgovernanceobject=address
+    -zmqpubrawdirectsenddoublespend=address
 
 The socket type is PUB and the address must be a valid ZeroMQ socket
 address. The same address can be used in more than one notification.
 
 For instance:
 
-    $ dashd -zmqpubhashtx=tcp://127.0.0.1:28332 \
+    $ trivechain -zmqpubhashtx=tcp://127.0.0.1:28332 \
                -zmqpubrawtx=ipc:///tmp/dashd.tx.raw
 
 Each PUB notification has a topic and body, where the header
@@ -77,7 +85,7 @@ notification `-zmqpubhashtx` the topic is `hashtx` (no null
 terminator) and the body is the hexadecimal transaction hash (32
 bytes).
 
-These options can also be provided in dash.conf.
+These options can also be provided in trivechain.conf.
 
 ZeroMQ endpoint specifiers for TCP (and others) are documented in the
 [ZeroMQ API](http://api.zeromq.org/4-0:_start).
@@ -91,7 +99,7 @@ arriving. Please see `contrib/zmq/zmq_sub.py` for a working example.
 
 From the perspective of dashd, the ZeroMQ socket is write-only; PUB
 sockets don't even have a read function. Thus, there is no state
-introduced into dashd directly. Furthermore, no information is
+introduced into trivechain directly. Furthermore, no information is
 broadcast that wasn't already received from the public P2P network.
 
 No authentication or authorization is done on connecting clients; it

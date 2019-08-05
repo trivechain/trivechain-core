@@ -21,7 +21,9 @@ protected:
     void AcceptedBlockHeader(const CBlockIndex *pindexNew) override;
     void NotifyHeaderTip(const CBlockIndex *pindexNew, bool fInitialDownload) override;
     void UpdatedBlockTip(const CBlockIndex *pindexNew, const CBlockIndex *pindexFork, bool fInitialDownload) override;
-    void SyncTransaction(const CTransaction &tx, const CBlock *pblock) override;
+    void SyncTransaction(const CTransaction &tx, const CBlockIndex *pindex, int posInBlock) override;
+    void NotifyMasternodeListChanged(bool undo, const CDeterministicMNList& oldMNList, const CDeterministicMNListDiff& diff) override;
+    void NotifyChainLock(const CBlockIndex* pindex) override;
 
 private:
     CConnman& connman;

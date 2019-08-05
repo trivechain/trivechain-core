@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2017 The Dash Core developers
+// Copyright (c) 2014-2018 The Dash Core developers
 // Distributed under the MIT software license, see the accompanying
 
 #include "base58.h"
@@ -39,7 +39,7 @@ bool CHDChain::IsCrypted() const
     return fCrypted;
 }
 
-void CHDChain::Debug(std::string strName) const
+void CHDChain::Debug(const std::string& strName) const
 {
     DBG(
         std::cout << __func__ << ": ---" << strName << "---" << std::endl;
@@ -169,9 +169,9 @@ void CHDChain::DeriveChildExtKey(uint32_t nAccountIndex, bool fInternal, uint32_
     purposeKey.Derive(cointypeKey, Params().ExtCoinType() | 0x80000000);
     // derive m/purpose'/coin_type'/account'
     cointypeKey.Derive(accountKey, nAccountIndex | 0x80000000);
-    // derive m/purpose'/coin_type'/account/change
+    // derive m/purpose'/coin_type'/account'/change
     accountKey.Derive(changeKey, fInternal ? 1 : 0);
-    // derive m/purpose'/coin_type'/account/change/address_index
+    // derive m/purpose'/coin_type'/account'/change/address_index
     changeKey.Derive(extKeyRet, nChildIndex);
 }
 

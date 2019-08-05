@@ -13,7 +13,7 @@
 - (NSString *)__bundleIdentifier
 {
     if (self == [NSBundle mainBundle]) {
-        return @"org.trivechain.Trivechain-Qt";
+        return @"org.dash.Dash-Qt";
     } else {
         return [self __bundleIdentifier];
     }

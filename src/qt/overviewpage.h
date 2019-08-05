@@ -38,7 +38,7 @@ public:
     void showOutOfSyncWarning(bool fShow);
 
 public Q_SLOTS:
-    void privateSendStatus();
+    void exclusiveSendStatus();
     void setBalance(const CAmount& balance, const CAmount& unconfirmedBalance, const CAmount& immatureBalance, const CAmount& anonymizedBalance,
                     const CAmount& watchOnlyBalance, const CAmount& watchUnconfBalance, const CAmount& watchImmatureBalance);
 
@@ -60,6 +60,7 @@ private:
     CAmount currentWatchImmatureBalance;
     int nDisplayUnit;
     bool fShowAdvancedPSUI;
+    int cachedNumISLocks;
 
     TxViewDelegate *txdelegate;
     std::unique_ptr<TransactionFilterProxy> filter;
@@ -69,9 +70,9 @@ private:
 
 private Q_SLOTS:
     void toggleExclusiveSend();
-    void privateSendAuto();
-    void privateSendReset();
-    void privateSendInfo();
+    void exclusiveSendAuto();
+    void exclusiveSendReset();
+    void exclusiveSendInfo();
     void updateDisplayUnit();
     void updateExclusiveSendProgress();
     void updateAdvancedPSUI(bool fShowAdvancedPSUI);

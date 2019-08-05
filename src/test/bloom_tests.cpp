@@ -21,8 +21,6 @@
 #include <boost/test/unit_test.hpp>
 #include <boost/tuple/tuple.hpp>
 
-using namespace std;
-
 BOOST_FIXTURE_TEST_SUITE(bloom_tests, BasicTestingSetup)
 
 BOOST_AUTO_TEST_CASE(bloom_create_insert_serialize)
@@ -30,30 +28,30 @@ BOOST_AUTO_TEST_CASE(bloom_create_insert_serialize)
     CBloomFilter filter(3, 0.01, 0, BLOOM_UPDATE_ALL);
 
     filter.insert(ParseHex("99108ad8ed9bb6274d3980bab5a85c048f0950c8"));
-    BOOST_CHECK_MESSAGE( filter.contains(ParseHex("99108ad8ed9bb6274d3980bab5a85c048f0950c8")), "BloomFilter doesn't contain just-inserted object!");
+    BOOST_CHECK_MESSAGE( filter.contains(ParseHex("99108ad8ed9bb6274d3980bab5a85c048f0950c8")), "Bloom filter doesn't contain just-inserted object!");
     // One bit different in first byte
-    BOOST_CHECK_MESSAGE(!filter.contains(ParseHex("19108ad8ed9bb6274d3980bab5a85c048f0950c8")), "BloomFilter contains something it shouldn't!");
+    BOOST_CHECK_MESSAGE(!filter.contains(ParseHex("19108ad8ed9bb6274d3980bab5a85c048f0950c8")), "Bloom filter contains something it shouldn't!");
 
     filter.insert(ParseHex("b5a2c786d9ef4658287ced5914b37a1b4aa32eee"));
-    BOOST_CHECK_MESSAGE(filter.contains(ParseHex("b5a2c786d9ef4658287ced5914b37a1b4aa32eee")), "BloomFilter doesn't contain just-inserted object (2)!");
+    BOOST_CHECK_MESSAGE(filter.contains(ParseHex("b5a2c786d9ef4658287ced5914b37a1b4aa32eee")), "Bloom filter doesn't contain just-inserted object (2)!");
 
     filter.insert(ParseHex("b9300670b4c5366e95b2699e8b18bc75e5f729c5"));
-    BOOST_CHECK_MESSAGE(filter.contains(ParseHex("b9300670b4c5366e95b2699e8b18bc75e5f729c5")), "BloomFilter doesn't contain just-inserted object (3)!");
+    BOOST_CHECK_MESSAGE(filter.contains(ParseHex("b9300670b4c5366e95b2699e8b18bc75e5f729c5")), "Bloom filter doesn't contain just-inserted object (3)!");
 
     CDataStream stream(SER_NETWORK, PROTOCOL_VERSION);
-    filter.Serialize(stream, SER_NETWORK, PROTOCOL_VERSION);
+    stream << filter;
 
-    vector<unsigned char> vch = ParseHex("03614e9b050000000000000001");
-    vector<char> expected(vch.size());
+    std::vector<unsigned char> vch = ParseHex("03614e9b050000000000000001");
+    std::vector<char> expected(vch.size());
 
     for (unsigned int i = 0; i < vch.size(); i++)
         expected[i] = (char)vch[i];
 
     BOOST_CHECK_EQUAL_COLLECTIONS(stream.begin(), stream.end(), expected.begin(), expected.end());
 
-    BOOST_CHECK_MESSAGE( filter.contains(ParseHex("99108ad8ed9bb6274d3980bab5a85c048f0950c8")), "BloomFilter doesn't contain just-inserted object!");
+    BOOST_CHECK_MESSAGE( filter.contains(ParseHex("99108ad8ed9bb6274d3980bab5a85c048f0950c8")), "Bloom filter doesn't contain just-inserted object!");
     filter.clear();
-    BOOST_CHECK_MESSAGE( !filter.contains(ParseHex("99108ad8ed9bb6274d3980bab5a85c048f0950c8")), "BloomFilter should be empty!");
+    BOOST_CHECK_MESSAGE( !filter.contains(ParseHex("99108ad8ed9bb6274d3980bab5a85c048f0950c8")), "Bloom filter should be empty!");
 }
 
 BOOST_AUTO_TEST_CASE(bloom_create_insert_serialize_with_tweak)
@@ -62,21 +60,21 @@ BOOST_AUTO_TEST_CASE(bloom_create_insert_serialize_with_tweak)
     CBloomFilter filter(3, 0.01, 2147483649UL, BLOOM_UPDATE_ALL);
 
     filter.insert(ParseHex("99108ad8ed9bb6274d3980bab5a85c048f0950c8"));
-    BOOST_CHECK_MESSAGE( filter.contains(ParseHex("99108ad8ed9bb6274d3980bab5a85c048f0950c8")), "BloomFilter doesn't contain just-inserted object!");
+    BOOST_CHECK_MESSAGE( filter.contains(ParseHex("99108ad8ed9bb6274d3980bab5a85c048f0950c8")), "Bloom filter doesn't contain just-inserted object!");
     // One bit different in first byte
-    BOOST_CHECK_MESSAGE(!filter.contains(ParseHex("19108ad8ed9bb6274d3980bab5a85c048f0950c8")), "BloomFilter contains something it shouldn't!");
+    BOOST_CHECK_MESSAGE(!filter.contains(ParseHex("19108ad8ed9bb6274d3980bab5a85c048f0950c8")), "Bloom filter contains something it shouldn't!");
 
     filter.insert(ParseHex("b5a2c786d9ef4658287ced5914b37a1b4aa32eee"));
-    BOOST_CHECK_MESSAGE(filter.contains(ParseHex("b5a2c786d9ef4658287ced5914b37a1b4aa32eee")), "BloomFilter doesn't contain just-inserted object (2)!");
+    BOOST_CHECK_MESSAGE(filter.contains(ParseHex("b5a2c786d9ef4658287ced5914b37a1b4aa32eee")), "Bloom filter doesn't contain just-inserted object (2)!");
 
     filter.insert(ParseHex("b9300670b4c5366e95b2699e8b18bc75e5f729c5"));
-    BOOST_CHECK_MESSAGE(filter.contains(ParseHex("b9300670b4c5366e95b2699e8b18bc75e5f729c5")), "BloomFilter doesn't contain just-inserted object (3)!");
+    BOOST_CHECK_MESSAGE(filter.contains(ParseHex("b9300670b4c5366e95b2699e8b18bc75e5f729c5")), "Bloom filter doesn't contain just-inserted object (3)!");
 
     CDataStream stream(SER_NETWORK, PROTOCOL_VERSION);
-    filter.Serialize(stream, SER_NETWORK, PROTOCOL_VERSION);
+    stream << filter;
 
-    vector<unsigned char> vch = ParseHex("03ce4299050000000100008001");
-    vector<char> expected(vch.size());
+    std::vector<unsigned char> vch = ParseHex("03ce4299050000000100008001");
+    std::vector<char> expected(vch.size());
 
     for (unsigned int i = 0; i < vch.size(); i++)
         expected[i] = (char)vch[i];
@@ -86,24 +84,24 @@ BOOST_AUTO_TEST_CASE(bloom_create_insert_serialize_with_tweak)
 
 BOOST_AUTO_TEST_CASE(bloom_create_insert_key)
 {
-    string strSecret = string("7sQb6QHALg4XyHsJHsSNXnEHGhZfzTTUPJXJqaqK7CavQkiL9Ms");
+    std::string strSecret = std::string("7sQb6QHALg4XyHsJHsSNXnEHGhZfzTTUPJXJqaqK7CavQkiL9Ms");
     CBitcoinSecret vchSecret;
     BOOST_CHECK(vchSecret.SetString(strSecret));
 
     CKey key = vchSecret.GetKey();
     CPubKey pubkey = key.GetPubKey();
-    vector<unsigned char> vchPubKey(pubkey.begin(), pubkey.end());
+    std::vector<unsigned char> vchPubKey(pubkey.begin(), pubkey.end());
 
     CBloomFilter filter(2, 0.001, 0, BLOOM_UPDATE_ALL);
     filter.insert(vchPubKey);
     uint160 hash = pubkey.GetID();
-    filter.insert(vector<unsigned char>(hash.begin(), hash.end()));
+    filter.insert(std::vector<unsigned char>(hash.begin(), hash.end()));
 
     CDataStream stream(SER_NETWORK, PROTOCOL_VERSION);
-    filter.Serialize(stream, SER_NETWORK, PROTOCOL_VERSION);
+    stream << filter;
 
-    vector<unsigned char> vch = ParseHex("038fc16b080000000000000001");
-    vector<char> expected(vch.size());
+    std::vector<unsigned char> vch = ParseHex("038fc16b080000000000000001");
+    std::vector<char> expected(vch.size());
 
     for (unsigned int i = 0; i < vch.size(); i++)
         expected[i] = (char)vch[i];
@@ -114,16 +112,14 @@ BOOST_AUTO_TEST_CASE(bloom_create_insert_key)
 BOOST_AUTO_TEST_CASE(bloom_match)
 {
     // Random real transaction (b4749f017444b051c44dfd2720e88f314ff94f3dd6d56d40ef65854fcd7fff6b)
-    CTransaction tx;
     CDataStream stream(ParseHex("01000000010b26e9b7735eb6aabdf358bab62f9816a21ba9ebdb719d5299e88607d722c190000000008b4830450220070aca44506c5cef3a16ed519d7c3c39f8aab192c4e1c90d065f37b8a4af6141022100a8e160b856c2d43d27d8fba71e5aef6405b8643ac4cb7cb3c462aced7f14711a0141046d11fee51b0e60666d5049a9101a72741df480b96ee26488a4d3466b95c9a40ac5eeef87e10a5cd336c19a84565f80fa6c547957b7700ff4dfbdefe76036c339ffffffff021bff3d11000000001976a91404943fdd508053c75000106d3bc6e2754dbcff1988ac2f15de00000000001976a914a266436d2965547608b9e15d9032a7b9d64fa43188ac00000000"), SER_DISK, CLIENT_VERSION);
-    stream >> tx;
+    CTransaction tx(deserialize, stream);
 
     // and one which spends it (e2769b09e784f32f62ef849763d4f45b98e07ba658647343b915ff832b110436)
     unsigned char ch[] = {0x01, 0x00, 0x00, 0x00, 0x01, 0x6b, 0xff, 0x7f, 0xcd, 0x4f, 0x85, 0x65, 0xef, 0x40, 0x6d, 0xd5, 0xd6, 0x3d, 0x4f, 0xf9, 0x4f, 0x31, 0x8f, 0xe8, 0x20, 0x27, 0xfd, 0x4d, 0xc4, 0x51, 0xb0, 0x44, 0x74, 0x01, 0x9f, 0x74, 0xb4, 0x00, 0x00, 0x00, 0x00, 0x8c, 0x49, 0x30, 0x46, 0x02, 0x21, 0x00, 0xda, 0x0d, 0xc6, 0xae, 0xce, 0xfe, 0x1e, 0x06, 0xef, 0xdf, 0x05, 0x77, 0x37, 0x57, 0xde, 0xb1, 0x68, 0x82, 0x09, 0x30, 0xe3, 0xb0, 0xd0, 0x3f, 0x46, 0xf5, 0xfc, 0xf1, 0x50, 0xbf, 0x99, 0x0c, 0x02, 0x21, 0x00, 0xd2, 0x5b, 0x5c, 0x87, 0x04, 0x00, 0x76, 0xe4, 0xf2, 0x53, 0xf8, 0x26, 0x2e, 0x76, 0x3e, 0x2d, 0xd5, 0x1e, 0x7f, 0xf0, 0xbe, 0x15, 0x77, 0x27, 0xc4, 0xbc, 0x42, 0x80, 0x7f, 0x17, 0xbd, 0x39, 0x01, 0x41, 0x04, 0xe6, 0xc2, 0x6e, 0xf6, 0x7d, 0xc6, 0x10, 0xd2, 0xcd, 0x19, 0x24, 0x84, 0x78, 0x9a, 0x6c, 0xf9, 0xae, 0xa9, 0x93, 0x0b, 0x94, 0x4b, 0x7e, 0x2d, 0xb5, 0x34, 0x2b, 0x9d, 0x9e, 0x5b, 0x9f, 0xf7, 0x9a, 0xff, 0x9a, 0x2e, 0xe1, 0x97, 0x8d, 0xd7, 0xfd, 0x01, 0xdf, 0xc5, 0x22, 0xee, 0x02, 0x28, 0x3d, 0x3b, 0x06, 0xa9, 0xd0, 0x3a, 0xcf, 0x80, 0x96, 0x96, 0x8d, 0x7d, 0xbb, 0x0f, 0x91, 0x78, 0xff, 0xff, 0xff, 0xff, 0x02, 0x8b, 0xa7, 0x94, 0x0e, 0x00, 0x00, 0x00, 0x00, 0x19, 0x76, 0xa9, 0x14, 0xba, 0xde, 0xec, 0xfd, 0xef, 0x05, 0x07, 0x24, 0x7f, 0xc8, 0xf7, 0x42, 0x41, 0xd7, 0x3b, 0xc0, 0x39, 0x97, 0x2d, 0x7b, 0x88, 0xac, 0x40, 0x94, 0xa8, 0x02, 0x00, 0x00, 0x00, 0x00, 0x19, 0x76, 0xa9, 0x14, 0xc1, 0x09, 0x32, 0x48, 0x3f, 0xec, 0x93, 0xed, 0x51, 0xf5, 0xfe, 0x95, 0xe7, 0x25, 0x59, 0xf2, 0xcc, 0x70, 0x43, 0xf9, 0x88, 0xac, 0x00, 0x00, 0x00, 0x00, 0x00};
-    vector<unsigned char> vch(ch, ch + sizeof(ch) -1);
+    std::vector<unsigned char> vch(ch, ch + sizeof(ch) -1);
     CDataStream spendStream(vch, SER_DISK, CLIENT_VERSION);
-    CTransaction spendingTx;
-    spendStream >> spendingTx;
+    CTransaction spendingTx(deserialize, spendStream);
 
     CBloomFilter filter(10, 0.000001, 0, BLOOM_UPDATE_ALL);
     filter.insert(uint256S("0xb4749f017444b051c44dfd2720e88f314ff94f3dd6d56d40ef65854fcd7fff6b"));
@@ -158,7 +154,7 @@ BOOST_AUTO_TEST_CASE(bloom_match)
     filter = CBloomFilter(10, 0.000001, 0, BLOOM_UPDATE_ALL);
     COutPoint prevOutPoint(uint256S("0x90c122d70786e899529d71dbeba91ba216982fb6ba58f3bdaab65e73b7e9260b"), 0);
     {
-        vector<unsigned char> data(32 + sizeof(unsigned int));
+        std::vector<unsigned char> data(32 + sizeof(unsigned int));
         memcpy(&data[0], prevOutPoint.hash.begin(), 32);
         memcpy(&data[32], &prevOutPoint.n, sizeof(unsigned int));
         filter.insert(data);
@@ -182,6 +178,106 @@ BOOST_AUTO_TEST_CASE(bloom_match)
     BOOST_CHECK_MESSAGE(!filter.IsRelevantAndUpdate(tx), "Simple Bloom filter matched COutPoint for an output we didn't care about");
 }
 
+BOOST_AUTO_TEST_CASE(dip2_bloom_match)
+{
+    // ProRegTx from testnet (txid: 39a1339d9bf26de701345beecc5de75a690bc9533741a3dbe90f2fd88b8ed461)
+    CDataStream stream(ParseHex("0300010001c02142f16969d106f4cb144e17975bf9261b8e331354879c6d006e71494b3460000000006b483045022100d6eb9e25fc3215e6a4b5180a1957319d6658103566f0274452bd50d0eddedff202200824a00f582a29c9e3694d34e5525275cabd08c488a0c55b4350c6bfa4fb2cf8012102a8d6433a8f799a13d3495f4aa5b99bd288adca5f59e0c9609f15a221220241c5feffffff0121c89a3b000000001976a914e54445646929fac8b7d6c71715913af44324978488ac00000000fd12010100000000009b9054ff7839b940277b8eb8211570b2f16850ef729ee635e24d722fbc4a46230100000000000000000000000000ffffc6c74af14e1f891cbc8a94fa7fea64ca9994870dca0f75bbd0750efda51589f86e30cc2305e7388c01ce0309c19a182cf37bced97c7da72236f660c0a395e765e6e06962ecff5a69d7de359c348a574176c210c37a25d4ffd917866fb0a300001976a914e54445646929fac8b7d6c71715913af44324978488ac26d5a99c01521d1fca6299de576bae82f901fb56e4b797a945e876ac69068f36411f9cdb72a01b273a53bd916d8c90dd584bd3a1c01dd84fec84eb046f66a4e3b30d39ea3215293a035166b5072349ebc08efd30c2c73ebd023d920f1db0aef91a4e"), SER_DISK, CLIENT_VERSION);
+    CTransaction proregtx(deserialize, stream);
+    // ProUpServTx from testnet (txid: 0c9627a054784f207db34c311b06e8bb797c4a120a236dbb02b51268dd186d39)
+    stream = CDataStream(ParseHex("030002000161d48e8bd82f0fe9dba3413753c90b695ae75dccee5b3401e76df29b9d33a139000000006a473044022036dfd41268e3a387b909d9d1cf61e4d5e97b6b37d5951e82c4ca4fed419b4b6a02203777d818319897a11cf4cd8b4c6495c5c3a5f96fcad6d3a0596431b1146b53c6012102a8d6433a8f799a13d3495f4aa5b99bd288adca5f59e0c9609f15a221220241c5feffffff01a1c69a3b000000001976a914e54445646929fac8b7d6c71715913af44324978488ac00000000b5010061d48e8bd82f0fe9dba3413753c90b695ae75dccee5b3401e76df29b9d33a13900000000000000000000ffffc6c74af14e1f000ccf39b295938f4021fc16b23e4eedbd64a6c9a5aaae6bc9ca085db4bc29ff911612dc4544fc470415cdd4be5659fee6aa7d84c3572c712f5904b2e5d38cb217762717d88e4e1a956a9e82ce132e2b9b144e26cb3ff1e53675ede2769d99f46796ea0b8cbf33b78c15fe9a437dc4d1131ce2af8fd2ed5b306b326f9fcffcd416"), SER_DISK, CLIENT_VERSION);
+    CTransaction proupservtx(deserialize, stream);
+    // ProUpRegTx from testnet (txid: 3037bf4e45d1a9d57891ea8baa72b38ad6323bd28945b11325bdd33ebea049b3)
+    stream = CDataStream(ParseHex("0300030001396d18dd6812b502bb6d230a124a7c79bbe8061b314cb37d204f7854a027960c000000006a47304402203aefa0e1a08469050edc1e5da6e24f783162bebc15cc006f717097e56e07fa0b02207c7f47d113355b095c7edd2408d0554aa6b87187bf95652c516fc7747720fb19012102a8d6433a8f799a13d3495f4aa5b99bd288adca5f59e0c9609f15a221220241c5feffffff01f2c49a3b000000001976a914e54445646929fac8b7d6c71715913af44324978488ac00000000e4010061d48e8bd82f0fe9dba3413753c90b695ae75dccee5b3401e76df29b9d33a13900000efda51589f86e30cc2305e7388c01ce0309c19a182cf37bced97c7da72236f660c0a395e765e6e06962ecff5a69d7de359c348a574176c210c37a25d4ffd917866fb0a31976a914e54445646929fac8b7d6c71715913af44324978488aca8141db635af714f32c7415b298937e171c6bb8a3c8627852ae2b69917ece86a411fa51861025bb5ff4ba4ad3be6090c4ba76b1671d70799ed6882c57bcfeaf27cbd558068e9b5fc1553abce8822fcee63e8f6fbb06ad5b753d47e794bfacadbde3f"), SER_DISK, CLIENT_VERSION);
+    CTransaction proupregtx(deserialize, stream);
+    // ProUpRevTx from testnet (txid: 70c41a5fea07a80c1297771c43eb58b8f52222b971f61f5c7c2030ec0baf7f9a)
+    stream = CDataStream(ParseHex("0300040001b349a0be3ed3bd2513b14589d23b32d68ab372aa8bea9178d5a9d1454ebf3730000000006a4730440220428d87daf3b0ddca9656d59592000f9930a88162c0b017ca460c69c33b76bda202200276a521d94acc57e010262aa1d7d016cebbe7a9806d26dbebb69102ce9cf7b2012102a8d6433a8f799a13d3495f4aa5b99bd288adca5f59e0c9609f15a221220241c5feffffff0183c39a3b000000001976a914e54445646929fac8b7d6c71715913af44324978488ac00000000a4010061d48e8bd82f0fe9dba3413753c90b695ae75dccee5b3401e76df29b9d33a1390000c024ffd34d15686f7a376ecdf45800ddcebf4eb966fd3123cf9450515a38881a0de852c97297bbd9cedb79280f3f1e31b092904a8870274a5a0e52de2ae1dc0bad74851dc0a1e4fe4c274535a2422d3e1510a7be2fbecaae73128e8eb2f336382fb376d2f82273a72960980972b02e3ecf895c00187e0cbe735dc44cb3d97711"), SER_DISK, CLIENT_VERSION);
+    CTransaction prouprevtx(deserialize, stream);
+
+    // check collateral outpoint match in ProRegTx
+    CBloomFilter filter(10, 0.000001, 0, BLOOM_UPDATE_ALL);
+    filter.insert(COutPoint(uint256S("0x23464abc2f724de235e69e72ef5068f1b2701521b88e7b2740b93978ff54909b"), 1));
+    BOOST_CHECK_MESSAGE(filter.IsRelevantAndUpdate(proregtx), "Bloom filter didn't match collateral outpoint in ProRegTx");
+    // check owner keyid match in ProRegTx
+    filter = CBloomFilter(10, 0.000001, 0, BLOOM_UPDATE_ALL);
+    filter.insert(ParseHex("891cbc8a94fa7fea64ca9994870dca0f75bbd075"));
+    BOOST_CHECK_MESSAGE(filter.IsRelevantAndUpdate(proregtx), "Bloom filter didn't match Owner keyid in ProRegTx");
+    // check voting keyid match in ProRegTx
+    filter = CBloomFilter(10, 0.000001, 0, BLOOM_UPDATE_ALL);
+    filter.insert(ParseHex("359c348a574176c210c37a25d4ffd917866fb0a3"));
+    BOOST_CHECK_MESSAGE(filter.IsRelevantAndUpdate(proregtx), "Bloom filter didn't match Voting keyid in ProRegTx");
+    // check scriptPayout match in ProRegTx
+    filter = CBloomFilter(10, 0.000001, 0, BLOOM_UPDATE_ALL);
+    filter.insert(ParseHex("e54445646929fac8b7d6c71715913af443249784"));
+    BOOST_CHECK_MESSAGE(filter.IsRelevantAndUpdate(proregtx), "Bloom filter didn't match scriptPayout in ProRegTx");
+
+    // check proTxHash match in ProUpServTx
+    filter = CBloomFilter(10, 0.000001, 0, BLOOM_UPDATE_ALL);
+    filter.insert(uint256S("0x39a1339d9bf26de701345beecc5de75a690bc9533741a3dbe90f2fd88b8ed461"));
+    BOOST_CHECK_MESSAGE(filter.IsRelevantAndUpdate(proupservtx), "Bloom filter didn't match proTxHash in ProUpServTx");
+    // check scriptOperatorPayout match in ProUpServTx
+    filter = CBloomFilter(10, 0.000001, 0, BLOOM_UPDATE_ALL);
+    filter.insert(ParseHex("e54445646929fac8b7d6c71715913af443249784"));
+    BOOST_CHECK_MESSAGE(filter.IsRelevantAndUpdate(proupservtx), "Bloom filter didn't match scriptOperatorPayout in ProUpServTx");
+
+    // check proTxHash match in ProUpRegTx
+    filter = CBloomFilter(10, 0.000001, 0, BLOOM_UPDATE_ALL);
+    filter.insert(uint256S("0x39a1339d9bf26de701345beecc5de75a690bc9533741a3dbe90f2fd88b8ed461"));
+    BOOST_CHECK_MESSAGE(filter.IsRelevantAndUpdate(proupregtx), "Bloom filter didn't match proTxHash in ProUpRegTx");
+    // check voting keyid match in ProUpRegTx
+    filter = CBloomFilter(10, 0.000001, 0, BLOOM_UPDATE_ALL);
+    filter.insert(ParseHex("359c348a574176c210c37a25d4ffd917866fb0a3"));
+    BOOST_CHECK_MESSAGE(filter.IsRelevantAndUpdate(proupregtx), "Bloom filter didn't match Voting keyid in ProUpRegTx");
+    // check scriptPayout match in ProUpRegTx
+    filter = CBloomFilter(10, 0.000001, 0, BLOOM_UPDATE_ALL);
+    filter.insert(ParseHex("e54445646929fac8b7d6c71715913af443249784"));
+    BOOST_CHECK_MESSAGE(filter.IsRelevantAndUpdate(proupregtx), "Bloom filter didn't match scriptPayout in ProUpRegTx");
+
+    // check proTxHash match in ProUpRevTx
+    filter = CBloomFilter(10, 0.000001, 0, BLOOM_UPDATE_ALL);
+    filter.insert(uint256S("0x39a1339d9bf26de701345beecc5de75a690bc9533741a3dbe90f2fd88b8ed461"));
+    BOOST_CHECK_MESSAGE(filter.IsRelevantAndUpdate(prouprevtx), "Bloom filter didn't match proTxHash in ProUpRevTx");
+
+    // check filter is not matching if it doesn't contain relative data
+    filter = CBloomFilter(10, 0.000001, 0, BLOOM_UPDATE_ALL);
+    // extend real data with additional byte
+    filter.insert(uint256S("0x39a1339d9bf26de701345beecc5de75a690bc9533741a3dbe90f2fd88b8ed46100"));
+    filter.insert(ParseHex("e54445646929fac8b7d6c71715913af44324978400"));
+    filter.insert(ParseHex("359c348a574176c210c37a25d4ffd917866fb0a300"));
+    filter.insert(uint256S("0x39a1339d9bf26de701345beecc5de75a690bc9533741a3dbe90f2fd88b8ed46100"));
+    BOOST_CHECK_MESSAGE(!filter.IsRelevantAndUpdate(prouprevtx), "Bloom filter match unrelated data");
+    BOOST_CHECK_MESSAGE(!filter.IsRelevantAndUpdate(proupregtx), "Bloom filter match unrelated data");
+}
+
+BOOST_AUTO_TEST_CASE(dip2_bloom_update)
+{
+    // ProRegTx from testnet (txid: 39a1339d9bf26de701345beecc5de75a690bc9533741a3dbe90f2fd88b8ed461)
+    CDataStream stream(ParseHex("0300010001c02142f16969d106f4cb144e17975bf9261b8e331354879c6d006e71494b3460000000006b483045022100d6eb9e25fc3215e6a4b5180a1957319d6658103566f0274452bd50d0eddedff202200824a00f582a29c9e3694d34e5525275cabd08c488a0c55b4350c6bfa4fb2cf8012102a8d6433a8f799a13d3495f4aa5b99bd288adca5f59e0c9609f15a221220241c5feffffff0121c89a3b000000001976a914e54445646929fac8b7d6c71715913af44324978488ac00000000fd12010100000000009b9054ff7839b940277b8eb8211570b2f16850ef729ee635e24d722fbc4a46230100000000000000000000000000ffffc6c74af14e1f891cbc8a94fa7fea64ca9994870dca0f75bbd0750efda51589f86e30cc2305e7388c01ce0309c19a182cf37bced97c7da72236f660c0a395e765e6e06962ecff5a69d7de359c348a574176c210c37a25d4ffd917866fb0a300001976a914e54445646929fac8b7d6c71715913af44324978488ac26d5a99c01521d1fca6299de576bae82f901fb56e4b797a945e876ac69068f36411f9cdb72a01b273a53bd916d8c90dd584bd3a1c01dd84fec84eb046f66a4e3b30d39ea3215293a035166b5072349ebc08efd30c2c73ebd023d920f1db0aef91a4e"), SER_DISK, CLIENT_VERSION);
+    CTransaction proregtx(deserialize, stream);
+    // ProUpServTx from testnet (txid: 0c9627a054784f207db34c311b06e8bb797c4a120a236dbb02b51268dd186d39)
+    stream = CDataStream(ParseHex("030002000161d48e8bd82f0fe9dba3413753c90b695ae75dccee5b3401e76df29b9d33a139000000006a473044022036dfd41268e3a387b909d9d1cf61e4d5e97b6b37d5951e82c4ca4fed419b4b6a02203777d818319897a11cf4cd8b4c6495c5c3a5f96fcad6d3a0596431b1146b53c6012102a8d6433a8f799a13d3495f4aa5b99bd288adca5f59e0c9609f15a221220241c5feffffff01a1c69a3b000000001976a914e54445646929fac8b7d6c71715913af44324978488ac00000000b5010061d48e8bd82f0fe9dba3413753c90b695ae75dccee5b3401e76df29b9d33a13900000000000000000000ffffc6c74af14e1f000ccf39b295938f4021fc16b23e4eedbd64a6c9a5aaae6bc9ca085db4bc29ff911612dc4544fc470415cdd4be5659fee6aa7d84c3572c712f5904b2e5d38cb217762717d88e4e1a956a9e82ce132e2b9b144e26cb3ff1e53675ede2769d99f46796ea0b8cbf33b78c15fe9a437dc4d1131ce2af8fd2ed5b306b326f9fcffcd416"), SER_DISK, CLIENT_VERSION);
+    CTransaction proupservtx(deserialize, stream);
+    // ProUpRegTx from testnet (txid: 3037bf4e45d1a9d57891ea8baa72b38ad6323bd28945b11325bdd33ebea049b3)
+    stream = CDataStream(ParseHex("0300030001396d18dd6812b502bb6d230a124a7c79bbe8061b314cb37d204f7854a027960c000000006a47304402203aefa0e1a08469050edc1e5da6e24f783162bebc15cc006f717097e56e07fa0b02207c7f47d113355b095c7edd2408d0554aa6b87187bf95652c516fc7747720fb19012102a8d6433a8f799a13d3495f4aa5b99bd288adca5f59e0c9609f15a221220241c5feffffff01f2c49a3b000000001976a914e54445646929fac8b7d6c71715913af44324978488ac00000000e4010061d48e8bd82f0fe9dba3413753c90b695ae75dccee5b3401e76df29b9d33a13900000efda51589f86e30cc2305e7388c01ce0309c19a182cf37bced97c7da72236f660c0a395e765e6e06962ecff5a69d7de359c348a574176c210c37a25d4ffd917866fb0a31976a914e54445646929fac8b7d6c71715913af44324978488aca8141db635af714f32c7415b298937e171c6bb8a3c8627852ae2b69917ece86a411fa51861025bb5ff4ba4ad3be6090c4ba76b1671d70799ed6882c57bcfeaf27cbd558068e9b5fc1553abce8822fcee63e8f6fbb06ad5b753d47e794bfacadbde3f"), SER_DISK, CLIENT_VERSION);
+    CTransaction proupregtx(deserialize, stream);
+    // ProUpRevTx from testnet (txid: 70c41a5fea07a80c1297771c43eb58b8f52222b971f61f5c7c2030ec0baf7f9a)
+    stream = CDataStream(ParseHex("0300040001b349a0be3ed3bd2513b14589d23b32d68ab372aa8bea9178d5a9d1454ebf3730000000006a4730440220428d87daf3b0ddca9656d59592000f9930a88162c0b017ca460c69c33b76bda202200276a521d94acc57e010262aa1d7d016cebbe7a9806d26dbebb69102ce9cf7b2012102a8d6433a8f799a13d3495f4aa5b99bd288adca5f59e0c9609f15a221220241c5feffffff0183c39a3b000000001976a914e54445646929fac8b7d6c71715913af44324978488ac00000000a4010061d48e8bd82f0fe9dba3413753c90b695ae75dccee5b3401e76df29b9d33a1390000c024ffd34d15686f7a376ecdf45800ddcebf4eb966fd3123cf9450515a38881a0de852c97297bbd9cedb79280f3f1e31b092904a8870274a5a0e52de2ae1dc0bad74851dc0a1e4fe4c274535a2422d3e1510a7be2fbecaae73128e8eb2f336382fb376d2f82273a72960980972b02e3ecf895c00187e0cbe735dc44cb3d97711"), SER_DISK, CLIENT_VERSION);
+    CTransaction prouprevtx(deserialize, stream);
+
+    // if ProRegTx matches, all related pro txes match too
+    CBloomFilter filter(10, 0.000001, 0, BLOOM_UPDATE_ALL);
+    filter.insert(COutPoint(uint256S("0x23464abc2f724de235e69e72ef5068f1b2701521b88e7b2740b93978ff54909b"), 1));
+    BOOST_CHECK_MESSAGE(!filter.IsRelevantAndUpdate(proupservtx), "Bloom filter matches without update");
+    BOOST_CHECK_MESSAGE(filter.IsRelevantAndUpdate(proregtx), "Bloom filter didn't match collateral outpoint in ProRegTx");
+    BOOST_CHECK_MESSAGE(filter.IsRelevantAndUpdate(proupservtx), "Bloom filter wasn't updated with proregtx hash");
+
+    // if ProUpRegTx matches, all related pro txes match too
+    filter = CBloomFilter(10, 0.000001, 0, BLOOM_UPDATE_ALL);
+    filter.insert(ParseHex("359c348a574176c210c37a25d4ffd917866fb0a3"));
+    BOOST_CHECK_MESSAGE(!filter.IsRelevantAndUpdate(proupservtx), "Bloom filter matches without update");
+    BOOST_CHECK_MESSAGE(filter.IsRelevantAndUpdate(proupregtx), "Bloom filter didn't match Voting keyid in ProUpRegTx");
+    BOOST_CHECK_MESSAGE(filter.IsRelevantAndUpdate(proupservtx), "Bloom filter wasn't updated with proregtx hash");
+}
+
 BOOST_AUTO_TEST_CASE(merkle_block_1)
 {
     // Random real block (0000000000013b8ab2cd513b0261a14096412195a72a0c4827d229dcc7e0f7af)
@@ -198,13 +294,14 @@ BOOST_AUTO_TEST_CASE(merkle_block_1)
     BOOST_CHECK(merkleBlock.header.GetHash() == block.GetHash());
 
     BOOST_CHECK(merkleBlock.vMatchedTxn.size() == 1);
-    pair<unsigned int, uint256> pair = merkleBlock.vMatchedTxn[0];
+    std::pair<unsigned int, uint256> pair = merkleBlock.vMatchedTxn[0];
 
     BOOST_CHECK(merkleBlock.vMatchedTxn[0].second == uint256S("0x74d681e0e03bafa802c8aa084379aa98d9fcd632ddc2ed9782b586ec87451f20"));
     BOOST_CHECK(merkleBlock.vMatchedTxn[0].first == 8);
 
-    vector<uint256> vMatched;
-    BOOST_CHECK(merkleBlock.txn.ExtractMatches(vMatched) == block.hashMerkleRoot);
+    std::vector<uint256> vMatched;
+    std::vector<unsigned int> vIndex;
+    BOOST_CHECK(merkleBlock.txn.ExtractMatches(vMatched, vIndex) == block.hashMerkleRoot);
     BOOST_CHECK(vMatched.size() == merkleBlock.vMatchedTxn.size());
     for (unsigned int i = 0; i < vMatched.size(); i++)
         BOOST_CHECK(vMatched[i] == merkleBlock.vMatchedTxn[i].second);
@@ -221,7 +318,7 @@ BOOST_AUTO_TEST_CASE(merkle_block_1)
     BOOST_CHECK(merkleBlock.vMatchedTxn[0].second == uint256S("0xdd1fd2a6fc16404faf339881a90adbde7f4f728691ac62e8f168809cdfae1053"));
     BOOST_CHECK(merkleBlock.vMatchedTxn[0].first == 7);
 
-    BOOST_CHECK(merkleBlock.txn.ExtractMatches(vMatched) == block.hashMerkleRoot);
+    BOOST_CHECK(merkleBlock.txn.ExtractMatches(vMatched, vIndex) == block.hashMerkleRoot);
     BOOST_CHECK(vMatched.size() == merkleBlock.vMatchedTxn.size());
     for (unsigned int i = 0; i < vMatched.size(); i++)
         BOOST_CHECK(vMatched[i] == merkleBlock.vMatchedTxn[i].second);
@@ -243,13 +340,14 @@ BOOST_AUTO_TEST_CASE(merkle_block_2)
     BOOST_CHECK(merkleBlock.header.GetHash() == block.GetHash());
 
     BOOST_CHECK(merkleBlock.vMatchedTxn.size() == 1);
-    pair<unsigned int, uint256> pair = merkleBlock.vMatchedTxn[0];
+    std::pair<unsigned int, uint256> pair = merkleBlock.vMatchedTxn[0];
 
     BOOST_CHECK(merkleBlock.vMatchedTxn[0].second == uint256S("0xe980fe9f792d014e73b95203dc1335c5f9ce19ac537a419e6df5b47aecb93b70"));
     BOOST_CHECK(merkleBlock.vMatchedTxn[0].first == 0);
 
-    vector<uint256> vMatched;
-    BOOST_CHECK(merkleBlock.txn.ExtractMatches(vMatched) == block.hashMerkleRoot);
+    std::vector<uint256> vMatched;
+    std::vector<unsigned int> vIndex;
+    BOOST_CHECK(merkleBlock.txn.ExtractMatches(vMatched, vIndex) == block.hashMerkleRoot);
     BOOST_CHECK(vMatched.size() == merkleBlock.vMatchedTxn.size());
     for (unsigned int i = 0; i < vMatched.size(); i++)
         BOOST_CHECK(vMatched[i] == merkleBlock.vMatchedTxn[i].second);
@@ -275,7 +373,7 @@ BOOST_AUTO_TEST_CASE(merkle_block_2)
     BOOST_CHECK(merkleBlock.vMatchedTxn[3].second == uint256S("0x3c1d7e82342158e4109df2e0b6348b6e84e403d8b4046d7007663ace63cddb23"));
     BOOST_CHECK(merkleBlock.vMatchedTxn[3].first == 3);
 
-    BOOST_CHECK(merkleBlock.txn.ExtractMatches(vMatched) == block.hashMerkleRoot);
+    BOOST_CHECK(merkleBlock.txn.ExtractMatches(vMatched, vIndex) == block.hashMerkleRoot);
     BOOST_CHECK(vMatched.size() == merkleBlock.vMatchedTxn.size());
     for (unsigned int i = 0; i < vMatched.size(); i++)
         BOOST_CHECK(vMatched[i] == merkleBlock.vMatchedTxn[i].second);
@@ -297,13 +395,14 @@ BOOST_AUTO_TEST_CASE(merkle_block_2_with_update_none)
     BOOST_CHECK(merkleBlock.header.GetHash() == block.GetHash());
 
     BOOST_CHECK(merkleBlock.vMatchedTxn.size() == 1);
-    pair<unsigned int, uint256> pair = merkleBlock.vMatchedTxn[0];
+    std::pair<unsigned int, uint256> pair = merkleBlock.vMatchedTxn[0];
 
     BOOST_CHECK(merkleBlock.vMatchedTxn[0].second == uint256S("0xe980fe9f792d014e73b95203dc1335c5f9ce19ac537a419e6df5b47aecb93b70"));
     BOOST_CHECK(merkleBlock.vMatchedTxn[0].first == 0);
 
-    vector<uint256> vMatched;
-    BOOST_CHECK(merkleBlock.txn.ExtractMatches(vMatched) == block.hashMerkleRoot);
+    std::vector<uint256> vMatched;
+    std::vector<unsigned int> vIndex;
+    BOOST_CHECK(merkleBlock.txn.ExtractMatches(vMatched, vIndex) == block.hashMerkleRoot);
     BOOST_CHECK(vMatched.size() == merkleBlock.vMatchedTxn.size());
     for (unsigned int i = 0; i < vMatched.size(); i++)
         BOOST_CHECK(vMatched[i] == merkleBlock.vMatchedTxn[i].second);
@@ -326,7 +425,7 @@ BOOST_AUTO_TEST_CASE(merkle_block_2_with_update_none)
     BOOST_CHECK(merkleBlock.vMatchedTxn[2].second == uint256S("0x3c1d7e82342158e4109df2e0b6348b6e84e403d8b4046d7007663ace63cddb23"));
     BOOST_CHECK(merkleBlock.vMatchedTxn[2].first == 3);
 
-    BOOST_CHECK(merkleBlock.txn.ExtractMatches(vMatched) == block.hashMerkleRoot);
+    BOOST_CHECK(merkleBlock.txn.ExtractMatches(vMatched, vIndex) == block.hashMerkleRoot);
     BOOST_CHECK(vMatched.size() == merkleBlock.vMatchedTxn.size());
     for (unsigned int i = 0; i < vMatched.size(); i++)
         BOOST_CHECK(vMatched[i] == merkleBlock.vMatchedTxn[i].second);
@@ -352,8 +451,9 @@ BOOST_AUTO_TEST_CASE(merkle_block_3_and_serialize)
     BOOST_CHECK(merkleBlock.vMatchedTxn[0].second == uint256S("0x63194f18be0af63f2c6bc9dc0f777cbefed3d9415c4af83f3ee3a3d669c00cb5"));
     BOOST_CHECK(merkleBlock.vMatchedTxn[0].first == 0);
 
-    vector<uint256> vMatched;
-    BOOST_CHECK(merkleBlock.txn.ExtractMatches(vMatched) == block.hashMerkleRoot);
+    std::vector<uint256> vMatched;
+    std::vector<unsigned int> vIndex;
+    BOOST_CHECK(merkleBlock.txn.ExtractMatches(vMatched, vIndex) == block.hashMerkleRoot);
     BOOST_CHECK(vMatched.size() == merkleBlock.vMatchedTxn.size());
     for (unsigned int i = 0; i < vMatched.size(); i++)
         BOOST_CHECK(vMatched[i] == merkleBlock.vMatchedTxn[i].second);
@@ -361,8 +461,8 @@ BOOST_AUTO_TEST_CASE(merkle_block_3_and_serialize)
     CDataStream merkleStream(SER_NETWORK, PROTOCOL_VERSION);
     merkleStream << merkleBlock;
 
-    vector<unsigned char> vch = ParseHex("0100000079cda856b143d9db2c1caff01d1aecc8630d30625d10e8b4b8b0000000000000b50cc069d6a3e33e3ff84a5c41d9d3febe7c770fdcc96b2c3ff60abe184f196367291b4d4c86041b8fa45d630100000001b50cc069d6a3e33e3ff84a5c41d9d3febe7c770fdcc96b2c3ff60abe184f19630101");
-    vector<char> expected(vch.size());
+    std::vector<unsigned char> vch = ParseHex("0100000079cda856b143d9db2c1caff01d1aecc8630d30625d10e8b4b8b0000000000000b50cc069d6a3e33e3ff84a5c41d9d3febe7c770fdcc96b2c3ff60abe184f196367291b4d4c86041b8fa45d630100000001b50cc069d6a3e33e3ff84a5c41d9d3febe7c770fdcc96b2c3ff60abe184f19630101");
+    std::vector<char> expected(vch.size());
 
     for (unsigned int i = 0; i < vch.size(); i++)
         expected[i] = (char)vch[i];
@@ -386,13 +486,14 @@ BOOST_AUTO_TEST_CASE(merkle_block_4)
     BOOST_CHECK(merkleBlock.header.GetHash() == block.GetHash());
 
     BOOST_CHECK(merkleBlock.vMatchedTxn.size() == 1);
-    pair<unsigned int, uint256> pair = merkleBlock.vMatchedTxn[0];
+    std::pair<unsigned int, uint256> pair = merkleBlock.vMatchedTxn[0];
 
     BOOST_CHECK(merkleBlock.vMatchedTxn[0].second == uint256S("0x0a2a92f0bda4727d0a13eaddf4dd9ac6b5c61a1429e6b2b818f19b15df0ac154"));
     BOOST_CHECK(merkleBlock.vMatchedTxn[0].first == 6);
 
-    vector<uint256> vMatched;
-    BOOST_CHECK(merkleBlock.txn.ExtractMatches(vMatched) == block.hashMerkleRoot);
+    std::vector<uint256> vMatched;
+    std::vector<unsigned int> vIndex;
+    BOOST_CHECK(merkleBlock.txn.ExtractMatches(vMatched, vIndex) == block.hashMerkleRoot);
     BOOST_CHECK(vMatched.size() == merkleBlock.vMatchedTxn.size());
     for (unsigned int i = 0; i < vMatched.size(); i++)
         BOOST_CHECK(vMatched[i] == merkleBlock.vMatchedTxn[i].second);
@@ -409,7 +510,7 @@ BOOST_AUTO_TEST_CASE(merkle_block_4)
 
     BOOST_CHECK(merkleBlock.vMatchedTxn[1] == pair);
 
-    BOOST_CHECK(merkleBlock.txn.ExtractMatches(vMatched) == block.hashMerkleRoot);
+    BOOST_CHECK(merkleBlock.txn.ExtractMatches(vMatched, vIndex) == block.hashMerkleRoot);
     BOOST_CHECK(vMatched.size() == merkleBlock.vMatchedTxn.size());
     for (unsigned int i = 0; i < vMatched.size(); i++)
         BOOST_CHECK(vMatched[i] == merkleBlock.vMatchedTxn[i].second);
@@ -509,11 +610,14 @@ BOOST_AUTO_TEST_CASE(rolling_bloom)
         if (i >= 100)
             BOOST_CHECK(rb1.contains(data[i-100]));
         rb1.insert(data[i]);
+        BOOST_CHECK(rb1.contains(data[i]));
     }
 
     // Insert 999 more random entries:
     for (int i = 0; i < 999; i++) {
-        rb1.insert(RandomData());
+        std::vector<unsigned char> d = RandomData();
+        rb1.insert(d);
+        BOOST_CHECK(rb1.contains(d));
     }
     // Sanity check to make sure the filter isn't just filling up:
     nHits = 0;
