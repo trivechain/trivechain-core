@@ -2,7 +2,7 @@
 
 This issue tracker is only for technical issues related to Trivechain.
 
-General Dash questions and/or support requests and are best directed to the [Dashpay Reddit](https://www.reddit.com/r/dashpay/).
+General Dash questions and/or support requests and are best directed to the [Dashpay Reddit](https://www.reddit.com/r/trivechainpay/).
 
 To report critical security issues, email infosec@dash.org and/or see the DASH bug bounty program on [Bugcrowd](https://bugcrowd.com/dashdigitalcash) instead of creating Github issues.
 

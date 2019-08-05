@@ -27,8 +27,8 @@ Build-Depends: debhelper,
  libzmq3-dev
 Standards-Version: 3.9.2
 Homepage: https://www.dash.org/
-Vcs-Git: git://github.com/dashpay/dash.git
-Vcs-Browser: https://github.com/dashpay/dash
+Vcs-Git: git://github.com/trivechainpay/dash.git
+Vcs-Browser: https://github.com/trivechainpay/dash
 
 Package: trivechaind
 Architecture: any

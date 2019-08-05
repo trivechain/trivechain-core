@@ -13,8 +13,8 @@
 #BITCOIND_DATADIR="/var/lib/trivechaind"
 
 # User and group to own trivechain process
-#BITCOIND_USER="dashcore"
-#BITCOIND_GROUP="dashcore"
+#BITCOIND_USER="trivechaincore"
+#BITCOIND_GROUP="trivechaincore"
 
 # Path to trivechain executable
 #BITCOIND_BIN="/usr/bin/trivechaind"

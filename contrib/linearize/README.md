@@ -4,7 +4,7 @@ run using Python 3 but are compatible with Python 2.
 
 ## Step 0: Install trivechain_hash
 
-https://github.com/dashpay/trivechain_hash
+https://github.com/trivechainpay/trivechain_hash
 
 ## Step 1: Download hash list
 

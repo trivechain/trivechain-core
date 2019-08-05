@@ -568,7 +568,7 @@ boost::filesystem::path GetDefaultDataDir()
     // Windows < Vista: C:\Documents and Settings\Username\Application Data\DashCore
     // Windows >= Vista: C:\Users\Username\AppData\Roaming\DashCore
     // Mac: ~/Library/Application Support/DashCore
-    // Unix: ~/.dashcore
+    // Unix: ~/.trivechaincore
 #ifdef WIN32
     // Windows
     return GetSpecialFolderPath(CSIDL_APPDATA) / "DashCore";
@@ -584,7 +584,7 @@ boost::filesystem::path GetDefaultDataDir()
     return pathRet / "Library/Application Support/DashCore";
 #else
     // Unix
-    return pathRet / ".dashcore";
+    return pathRet / ".trivechaincore";
 #endif
 #endif
 }

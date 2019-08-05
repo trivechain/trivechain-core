@@ -34,7 +34,7 @@ for(int i = 0; i < targets.size(); i++) {
         "JOB_NUMBER=${BUILD_NUMBER}",
       ]
       withEnv(env) {
-        def builderImageName="dash-builder-${target}"
+        def builderImageName="trivechain-builder-${target}"
 
         def builderImage
         stage("${target}/builder-image") {
@@ -49,20 +49,20 @@ for(int i = 0; i < targets.size(); i++) {
           // restore cache
           def hasCache = false
           try {
-            copyArtifacts(projectName: "dashpay-dash/${BRANCH_NAME}", optional: true, selector: lastSuccessful(), filter: "ci-cache-${target}.tar.gz")
+            copyArtifacts(projectName: "trivechainpay-dash/${BRANCH_NAME}", optional: true, selector: lastSuccessful(), filter: "ci-cache-${target}.tar.gz")
           } catch (Exception e) {
           }
           if (fileExists("ci-cache-${target}.tar.gz")) {
             hasCache = true
-            echo "Using cache from dashpay-dash/${BRANCH_NAME}"
+            echo "Using cache from trivechainpay-dash/${BRANCH_NAME}"
           } else {
             try {
-              copyArtifacts(projectName: 'dashpay-dash/develop', optional: true, selector: lastSuccessful(), filter: "ci-cache-${target}.tar.gz");
+              copyArtifacts(projectName: 'trivechainpay-dash/develop', optional: true, selector: lastSuccessful(), filter: "ci-cache-${target}.tar.gz");
             } catch (Exception e) {
             }
             if (fileExists("ci-cache-${target}.tar.gz")) {
               hasCache = true
-              echo "Using cache from dashpay-dash/develop"
+              echo "Using cache from trivechainpay-dash/develop"
             }
           }
 

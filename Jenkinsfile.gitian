@@ -11,7 +11,7 @@ def OSX_SDK='10.11'
 def proc = 4
 def mem = 2000
 
-def repositoryUrl = "https://github.com/dashpay/dash.git"
+def repositoryUrl = "https://github.com/trivechainpay/dash.git"
 
 def tasks = [:]
 for(int i = 0; i < targets.size(); i++) {
@@ -35,9 +35,9 @@ for(int i = 0; i < targets.size(); i++) {
           gitianDescriptor = readYaml file: "contrib/gitian-descriptors/gitian-${target}.yml"
         }
         dir('gitian-builder') {
-          git url: 'https://github.com/dashpay/gitian-builder.git'
+          git url: 'https://github.com/trivechainpay/gitian-builder.git'
         }
-        sh "mkdir -p dashcore-binaries"
+        sh "mkdir -p trivechaincore-binaries"
         if (target == "osx") {
           dir('gitian-builder') {
             sh 'mkdir -p inputs'
@@ -47,20 +47,20 @@ for(int i = 0; i < targets.size(); i++) {
 
         // restore cache
         try {
-          copyArtifacts(projectName: "dashpay-dash-gitian-nightly/${BRANCH_NAME}", optional: true, selector: lastSuccessful(), filter: "cache-${gitianDescriptor.name}.tar.gz")
+          copyArtifacts(projectName: "trivechainpay-dash-gitian-nightly/${BRANCH_NAME}", optional: true, selector: lastSuccessful(), filter: "cache-${gitianDescriptor.name}.tar.gz")
         } catch (Exception e) {
         }
         if (fileExists("cache-${gitianDescriptor.name}.tar.gz")) {
           hasCache = true
-          echo "Using cache from dashpay-dash-gitian-nightly/${BRANCH_NAME}"
+          echo "Using cache from trivechainpay-dash-gitian-nightly/${BRANCH_NAME}"
         } else {
           try {
-            copyArtifacts(projectName: 'dashpay-dash-gitian-nightly/develop', optional: true, selector: lastSuccessful(), filter: "cache-${gitianDescriptor.name}.tar.gz");
+            copyArtifacts(projectName: 'trivechainpay-dash-gitian-nightly/develop', optional: true, selector: lastSuccessful(), filter: "cache-${gitianDescriptor.name}.tar.gz");
           } catch (Exception e) {
           }
           if (fileExists("cache-${gitianDescriptor.name}.tar.gz")) {
             hasCache = true
-            echo "Using cache from dashpay-dash-gitian-nightly/develop"
+            echo "Using cache from trivechainpay-dash-gitian-nightly/develop"
           }
         }
       }
@@ -111,10 +111,10 @@ for(int i = 0; i < targets.size(); i++) {
               // make sure it doesn't run forever
               sh "docker rm -fv gitian-target || true"
             }
-            sh "mv build/out/dashcore-* ../dashcore-binaries/"
-            sh "mv build/out/src/dashcore-* ../dashcore-binaries/"
+            sh "mv build/out/trivechaincore-* ../trivechaincore-binaries/"
+            sh "mv build/out/src/trivechaincore-* ../trivechaincore-binaries/"
           }
-          archiveArtifacts artifacts: 'dashcore-binaries/*', fingerprint: true
+          archiveArtifacts artifacts: 'trivechaincore-binaries/*', fingerprint: true
         }
 
         // TODO remove this in a few days (only needed to prune the old compressed file from Jenkins caches)
