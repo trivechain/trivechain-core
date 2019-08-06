@@ -44,6 +44,9 @@ static const int DIP0001_PROTOCOL_VERSION = 70208;
 //! short-id-based block download starts with this version
 static const int SHORT_IDS_BLOCKS_VERSION = 70209;
 
+//! TRVC 2.0 was activated in this version
+static const int TRVC2_PROTOCOL_VERSION = 70210;
+
 //! introduction of DIP3/deterministic masternodes
 static const int DMN_PROTO_VERSION = 70213;
 
