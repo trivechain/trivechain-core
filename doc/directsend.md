@@ -11,7 +11,7 @@ When a "Transaction Lock" occurs the hash of the related transaction is broadcas
 * `zmqpubrawtxlock`: publishes the raw transaction when locked via DirectSend
 * `zmqpubhashtxlock`: publishes the transaction hash when locked via DirectSend
 
-This mechanism has been integrated into Bitcore-Node-Dash which allows for notification to be broadcast through Insight API in one of two ways:
+This mechanism has been integrated into Bitcore-Node-Trivechain which allows for notification to be broadcast through Insight API in one of two ways:
 * WebSocket: [https://github.com/trivechain/insight-api-trivechain#web-socket-api](https://github.com/trivechain/insight-api-trivechain#web-socket-api)
 * API: [https://github.com/trivechain/insight-api-trivechain#directsend-transactions](https://github.com/trivechain/insight-api-trivechain#directsend-transactions)
 

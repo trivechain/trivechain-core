@@ -4,7 +4,7 @@ Some notes on how to build Trivechain based on the [depends](../depends/README.m
 
 Note on old build instructions
 ------------------------------
-In the past, the build documentation contained instructions on how to build Dash with system-wide installed dependencies
+In the past, the build documentation contained instructions on how to build Trivechain with system-wide installed dependencies
 like BerkeleyDB 4.8, boost and Qt. Building this way is considered deprecated and only building with the `depends` prefix
 is supported today.
 
@@ -15,8 +15,8 @@ Building the dependencies and Trivechain requires some essential build tools to 
 
 Building dependencies
 ---------------------
-Dash inherited the `depends` folder from Bitcoin, which contains all dependencies required to build Trivechain. These
-dependencies must be built before Dash can actually be built. To do so, perform the following:
+Trivechain inherited the `depends` folder from Bitcoin, which contains all dependencies required to build Trivechain. These
+dependencies must be built before Trivechain can actually be built. To do so, perform the following:
 
 ```bash
 $ cd depends
