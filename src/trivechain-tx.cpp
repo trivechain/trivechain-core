@@ -58,8 +58,8 @@ static int AppInitRawTx(int argc, char* argv[])
         // First part of help message is specific to this utility
         std::string strUsage = strprintf(_("%s trivechain-tx utility version"), _(PACKAGE_NAME)) + " " + FormatFullVersion() + "\n\n" +
             _("Usage:") + "\n" +
-              "  trivechain-tx [options] <hex-tx> [commands]  " + _("Update hex-encoded dash transaction") + "\n" +
-              "  trivechain-tx [options] -create [commands]   " + _("Create hex-encoded dash transaction") + "\n" +
+              "  trivechain-tx [options] <hex-tx> [commands]  " + _("Update hex-encoded trivechain transaction") + "\n" +
+              "  trivechain-tx [options] -create [commands]   " + _("Create hex-encoded trivechain transaction") + "\n" +
               "\n";
 
         fprintf(stdout, "%s", strUsage.c_str());
@@ -737,7 +737,7 @@ static int CommandLineRawTx(int argc, char* argv[])
             if (argc < 2)
                 throw std::runtime_error("too few parameters");
 
-            // param: hex-encoded dash transaction
+            // param: hex-encoded trivechain transaction
             std::string strHexTx(argv[1]);
             if (strHexTx == "-")                 // "-" implies standard input
                 strHexTx = readStdin();

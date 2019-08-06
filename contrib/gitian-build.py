@@ -24,12 +24,12 @@ def setup():
     subprocess.check_call(['sudo', 'apt-get', 'install', '-qq'] + programs)
     if not os.path.isdir('gitian.sigs'):
         subprocess.check_call(['git', 'clone', 'https://github.com/trivechainpay/gitian.sigs.git'])
-    if not os.path.isdir('dash-detached-sigs'):
-        subprocess.check_call(['git', 'clone', 'https://github.com/trivechainpay/dash-detached-sigs.git'])
+    if not os.path.isdir('trivechain-detached-sigs'):
+        subprocess.check_call(['git', 'clone', 'https://github.com/trivechain/trivechain-detached-sigs.git'])
     if not os.path.isdir('gitian-builder'):
         subprocess.check_call(['git', 'clone', 'https://github.com/devrandom/gitian-builder.git'])
     if not os.path.isdir("trivechain"):
-        subprocess.check_call(['git', 'clone', 'https://github.com/dashpay/dash.git'])
+        subprocess.check_call(['git', 'clone', 'https://github.com/trivechain/trivechain.git'])
     os.chdir('gitian-builder')
     make_image_prog = ['bin/make-base-vm', '--suite', 'bionic', '--arch', 'amd64']
     if args.docker:
@@ -59,13 +59,13 @@ def build():
 
     if args.linux:
         print('\nCompiling ' + args.version + ' Linux')
-        subprocess.check_call(['bin/gbuild', '-j', args.jobs, '-m', args.memory, '--commit', 'dash='+args.commit, '--url', 'dash='+args.url, '../trivechain/contrib/gitian-descriptors/gitian-linux.yml'])
+        subprocess.check_call(['bin/gbuild', '-j', args.jobs, '-m', args.memory, '--commit', 'trivechain='+args.commit, '--url', 'trivechain='+args.url, '../trivechain/contrib/gitian-descriptors/gitian-linux.yml'])
         subprocess.check_call(['bin/gsign', '-p', args.sign_prog, '--signer', args.signer, '--release', args.version+'-linux', '--destination', '../gitian.sigs/', '../trivechain/contrib/gitian-descriptors/gitian-linux.yml'])
         subprocess.check_call('mv build/out/trivechaincore-*.tar.gz build/out/src/trivechaincore-*.tar.gz ../trivechaincore-binaries/'+args.version, shell=True)
 
     if args.windows:
         print('\nCompiling ' + args.version + ' Windows')
-        subprocess.check_call(['bin/gbuild', '-j', args.jobs, '-m', args.memory, '--commit', 'dash='+args.commit, '--url', 'dash='+args.url, '../trivechain/contrib/gitian-descriptors/gitian-win.yml'])
+        subprocess.check_call(['bin/gbuild', '-j', args.jobs, '-m', args.memory, '--commit', 'trivechain='+args.commit, '--url', 'trivechain='+args.url, '../trivechain/contrib/gitian-descriptors/gitian-win.yml'])
         subprocess.check_call(['bin/gsign', '-p', args.sign_prog, '--signer', args.signer, '--release', args.version+'-win-unsigned', '--destination', '../gitian.sigs/', '../trivechain/contrib/gitian-descriptors/gitian-win.yml'])
         subprocess.check_call('mv build/out/trivechaincore-*-win-unsigned.tar.gz inputs/trivechaincore-win-unsigned.tar.gz', shell=True)
         subprocess.check_call('mv build/out/trivechaincore-*.zip build/out/trivechaincore-*.exe ../trivechaincore-binaries/'+args.version, shell=True)
@@ -74,7 +74,7 @@ def build():
         print('\nCompiling ' + args.version + ' MacOS')
         subprocess.check_call(['wget', '-N', '-P', 'inputs', 'https://bitcoincore.org/depends-sources/sdks/MacOSX10.11.sdk.tar.gz'])
         subprocess.check_output(["echo 'bec9d089ebf2e2dd59b1a811a38ec78ebd5da18cbbcd6ab39d1e59f64ac5033f inputs/MacOSX10.11.sdk.tar.gz' | sha256sum -c"], shell=True)
-        subprocess.check_call(['bin/gbuild', '-j', args.jobs, '-m', args.memory, '--commit', 'dash='+args.commit, '--url', 'dash='+args.url, '../trivechain/contrib/gitian-descriptors/gitian-osx.yml'])
+        subprocess.check_call(['bin/gbuild', '-j', args.jobs, '-m', args.memory, '--commit', 'trivechain='+args.commit, '--url', 'trivechain='+args.url, '../trivechain/contrib/gitian-descriptors/gitian-osx.yml'])
         subprocess.check_call(['bin/gsign', '-p', args.sign_prog, '--signer', args.signer, '--release', args.version+'-osx-unsigned', '--destination', '../gitian.sigs/', '../trivechain/contrib/gitian-descriptors/gitian-osx.yml'])
         subprocess.check_call('mv build/out/trivechaincore-*-osx-unsigned.tar.gz inputs/trivechaincore-osx-unsigned.tar.gz', shell=True)
         subprocess.check_call('mv build/out/trivechaincore-*.tar.gz build/out/trivechaincore-*.dmg ../trivechaincore-binaries/'+args.version, shell=True)
@@ -140,7 +140,7 @@ def main():
     parser = argparse.ArgumentParser(usage='%(prog)s [options] signer version')
     parser.add_argument('-c', '--commit', action='store_true', dest='commit', help='Indicate that the version argument is for a commit or branch')
     parser.add_argument('-p', '--pull', action='store_true', dest='pull', help='Indicate that the version argument is the number of a github repository pull request')
-    parser.add_argument('-u', '--url', dest='url', default='https://github.com/trivechainpay/dash', help='Specify the URL of the repository. Default is %(default)s')
+    parser.add_argument('-u', '--url', dest='url', default='https://github.com/trivechain/trivechain', help='Specify the URL of the repository. Default is %(default)s')
     parser.add_argument('-v', '--verify', action='store_true', dest='verify', help='Verify the Gitian build')
     parser.add_argument('-b', '--build', action='store_true', dest='build', help='Do a Gitian build')
     parser.add_argument('-s', '--sign', action='store_true', dest='sign', help='Make signed binaries for Windows and MacOS')
@@ -219,7 +219,7 @@ def main():
     os.chdir("trivechain")
     if args.pull:
         subprocess.check_call(['git', 'fetch', args.url, 'refs/pull/'+args.version+'/merge'])
-        os.chdir('../gitian-builder/inputs/dash')
+        os.chdir('../gitian-builder/inputs/trivechain')
         subprocess.check_call(['git', 'fetch', args.url, 'refs/pull/'+args.version+'/merge'])
         args.commit = subprocess.check_output(['git', 'show', '-s', '--format=%H', 'FETCH_HEAD'], universal_newlines=True, encoding='utf8').strip()
         args.version = 'pull-' + args.version

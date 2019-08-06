@@ -229,7 +229,7 @@ void PrepareShutdown()
     /// for example if the data directory was found to be locked.
     /// Be sure that anything that writes files or flushes caches only does this if the respective
     /// module was initialized.
-    RenameThread("dash-shutoff");
+    RenameThread("trivechain-shutoff");
     mempool.AddTransactionsUpdated(1);
     StopHTTPRPC();
     StopREST();
@@ -552,7 +552,7 @@ std::string HelpMessage(HelpMessageMode mode)
         strUsage += HelpMessageOpt("-watchquorums=<n>", strprintf("Watch and validate quorum communication (default: %u)", llmq::DEFAULT_WATCH_QUORUMS));
     }
     std::string debugCategories = "addrman, alert, bench, cmpctblock, coindb, db, http, leveldb, libevent, lock, mempool, mempoolrej, net, proxy, prune, rand, reindex, rpc, selectcoins, tor, zmq, "
-                                  "dash (or specifically: chainlocks, gobject, directsend, keepass, llmq, llmq-dkg, llmq-sigs, masternode, mnpayments, mnsync, exclusivesend, spork)"; // Don't translate these and qt below
+                                  "trivechain (or specifically: chainlocks, gobject, directsend, keepass, llmq, llmq-dkg, llmq-sigs, masternode, mnpayments, mnsync, exclusivesend, spork)"; // Don't translate these and qt below
     if (mode == HMM_BITCOIN_QT)
         debugCategories += ", qt";
     strUsage += HelpMessageOpt("-debug=<category>", strprintf(_("Output debugging information (default: %u, supplying <category> is optional)"), 0) + ". " +
@@ -583,7 +583,7 @@ std::string HelpMessage(HelpMessageMode mode)
     strUsage += HelpMessageOpt("-shrinkdebugfile", _("Shrink debug.log file on client startup (default: 1 when no -debug)"));
     AppendParamsHelpMessages(strUsage, showDebug);
     strUsage += HelpMessageOpt("-litemode", strprintf(_("Disable all Dash specific functionality (Masternodes, ExclusiveSend, DirectSend, Governance) (0-1, default: %u)"), 0));
-    strUsage += HelpMessageOpt("-sporkaddr=<dashaddress>", strprintf(_("Override spork address. Only useful for regtest and devnet. Using this on mainnet or testnet will ban you.")));
+    strUsage += HelpMessageOpt("-sporkaddr=<trivechainaddress>", strprintf(_("Override spork address. Only useful for regtest and devnet. Using this on mainnet or testnet will ban you.")));
     strUsage += HelpMessageOpt("-minsporkkeys=<n>", strprintf(_("Overrides minimum spork signers to change spork value. Only useful for regtest and devnet. Using this on mainnet or testnet will ban you.")));
 
     strUsage += HelpMessageGroup(_("Masternode options:"));
@@ -596,7 +596,7 @@ std::string HelpMessage(HelpMessageMode mode)
     strUsage += HelpMessageOpt("-exclusivesendmultisession", strprintf(_("Enable multiple ExclusiveSend mixing sessions per block, experimental (0-1, default: %u)"), DEFAULT_EXCLUSIVESEND_MULTISESSION));
     strUsage += HelpMessageOpt("-exclusivesendsessions=<n>", strprintf(_("Use N separate masternodes in parallel to mix funds (%u-%u, default: %u)"), MIN_EXCLUSIVESEND_SESSIONS, MAX_EXCLUSIVESEND_SESSIONS, DEFAULT_EXCLUSIVESEND_SESSIONS));
     strUsage += HelpMessageOpt("-exclusivesendrounds=<n>", strprintf(_("Use N separate masternodes for each denominated input to mix funds (%u-%u, default: %u)"), MIN_EXCLUSIVESEND_ROUNDS, MAX_EXCLUSIVESEND_ROUNDS, DEFAULT_EXCLUSIVESEND_ROUNDS));
-    strUsage += HelpMessageOpt("-exclusivesendamount=<n>", strprintf(_("Keep N DASH anonymized (%u-%u, default: %u)"), MIN_EXCLUSIVESEND_AMOUNT, MAX_EXCLUSIVESEND_AMOUNT, DEFAULT_EXCLUSIVESEND_AMOUNT));
+    strUsage += HelpMessageOpt("-exclusivesendamount=<n>", strprintf(_("Keep N TRVC anonymized (%u-%u, default: %u)"), MIN_EXCLUSIVESEND_AMOUNT, MAX_EXCLUSIVESEND_AMOUNT, DEFAULT_EXCLUSIVESEND_AMOUNT));
     strUsage += HelpMessageOpt("-exclusivesenddenoms=<n>", strprintf(_("Create up to N inputs of each denominated amount (%u-%u, default: %u)"), MIN_EXCLUSIVESEND_DENOMS, MAX_EXCLUSIVESEND_DENOMS, DEFAULT_EXCLUSIVESEND_DENOMS));
     strUsage += HelpMessageOpt("-liquidityprovider=<n>", strprintf(_("Provide liquidity to ExclusiveSend by infrequently mixing coins on a continual basis (%u-%u, default: %u, 1=very frequent, high fees, %u=very infrequent, low fees)"),
         MIN_EXCLUSIVESEND_LIQUIDITY, MAX_EXCLUSIVESEND_LIQUIDITY, DEFAULT_EXCLUSIVESEND_LIQUIDITY, MAX_EXCLUSIVESEND_LIQUIDITY));
@@ -644,8 +644,8 @@ std::string HelpMessage(HelpMessageMode mode)
 
 std::string LicenseInfo()
 {
-    const std::string URL_SOURCE_CODE = "<https://github.com/trivechainpay/dash>";
-    const std::string URL_WEBSITE = "<https://dash.org>";
+    const std::string URL_SOURCE_CODE = "<https://github.com/trivechain/trivechain>";
+    const std::string URL_WEBSITE = "<https://trivechain.com>";
 
     return CopyrightHolders(_("Copyright (C)"), 2014, COPYRIGHT_YEAR) + "\n" +
            "\n" +
@@ -748,7 +748,7 @@ void CleanupBlockRevFiles()
 void ThreadImport(std::vector<boost::filesystem::path> vImportFiles)
 {
     const CChainParams& chainparams = Params();
-    RenameThread("dash-loadblk");
+    RenameThread("trivechain-loadblk");
 
     {
     CImportingNow imp;
@@ -1719,7 +1719,7 @@ bool AppInitMain(boost::thread_group& threadGroup, CScheduler& scheduler)
     }
 
     if((!fLiteMode && fTxIndex == false)
-       && chainparams.NetworkIDString() != CBaseChainParams::REGTEST) { // TODO remove this when pruning is fixed. See https://github.com/trivechainpay/dash/pull/1817 and https://github.com/trivechainpay/dash/pull/1743
+       && chainparams.NetworkIDString() != CBaseChainParams::REGTEST) { // TODO remove this when pruning is fixed. See https://github.com/trivechain/trivechain/pull/1817 and https://github.com/trivechain/trivechain/pull/1743
         return InitError(_("Transaction index can't be disabled in full mode. Either start with -litemode command line switch or enable transaction index."));
     }
 

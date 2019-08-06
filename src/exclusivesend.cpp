@@ -357,10 +357,10 @@ int CExclusiveSend::GetDenominations(const std::vector<CTxOut>& vecTxOut, bool f
 bool CExclusiveSend::GetDenominationsBits(int nDenom, std::vector<int>& vecBitsRet)
 {
     // ( bit on if present, 4 denominations example )
-    // bit 0 - 100DASH+1
-    // bit 1 - 10DASH+1
-    // bit 2 - 1DASH+1
-    // bit 3 - .1DASH+1
+    // bit 0 - 100TRVC+1
+    // bit 1 - 10TRVC+1
+    // bit 2 - 1TRVC+1
+    // bit 3 - .1TRVC+1
 
     int nMaxDenoms = vecStandardDenominations.size();
 

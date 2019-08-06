@@ -15,7 +15,7 @@ Building the dependencies and Trivechain requires some essential build tools to 
 
 Building dependencies
 ---------------------
-Dash inherited the `depends` folder from Bitcoin, which contains all dependencies required to build Dash. These
+Dash inherited the `depends` folder from Bitcoin, which contains all dependencies required to build Trivechain. These
 dependencies must be built before Dash can actually be built. To do so, perform the following:
 
 ```bash
@@ -28,7 +28,7 @@ This will download and build all dependencies required to build Trivechain. Cach
 the packages are rebuilt which have changed since the last depends build.
 
 It is required to re-run the above commands from time to time when dependencies have been updated or added. If this is
-not done, build failures might occur when building Dash.
+not done, build failures might occur when building Trivechain.
 
 Please read the [depends](../depends/README.md) documentation for more details on supported hosts and configuration
 options. If no host is specified (as in the above example) when calling `make`, the depends system will default to your

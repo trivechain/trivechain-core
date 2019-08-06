@@ -1,8 +1,8 @@
 Source: trivechain
 Section: utils
 Priority: optional
-Maintainer: Holger Schinzel <holger@dash.org>
-Uploaders: Holger Schinzel <holger@dash.org>
+Maintainer: Holger Schinzel <holger@trivechain.org>
+Uploaders: Holger Schinzel <holger@trivechain.org>
 Build-Depends: debhelper,
  devscripts,
  automake,
@@ -26,9 +26,9 @@ Build-Depends: debhelper,
  python,
  libzmq3-dev
 Standards-Version: 3.9.2
-Homepage: https://www.dash.org/
-Vcs-Git: git://github.com/dashpay/dash.git
-Vcs-Browser: https://github.com/trivechainpay/dash
+Homepage: https://www.trivechain.com/
+Vcs-Git: git://github.com/trivechain/trivechain-core.git
+Vcs-Browser: https://github.com/trivechain/trivechain
 
 Package: trivechaind
 Architecture: any

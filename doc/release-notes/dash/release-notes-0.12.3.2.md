@@ -3,14 +3,14 @@ Dash Core version 0.12.3.2
 
 Release is now available from:
 
-  <https://www.dash.org/downloads/#wallets>
+  <https://www.trivechain.com/downloads/#wallets>
 
 This is a new minor version release, bringing various bugfixes and other
 improvements.
 
 Please report bugs using the issue tracker at github:
 
-  <https://github.com/trivechainpay/dash/issues>
+  <https://github.com/trivechain/trivechain/issues>
 
 
 Upgrading and downgrading
@@ -29,7 +29,7 @@ Downgrade warning
 
 ### Downgrade to a version < 0.12.2.2
 
-Because release 0.12.2.2 included the [per-UTXO fix](release-notes/dash/release-notes-0.12.2.2.md#per-utxo-fix)
+Because release 0.12.2.2 included the [per-UTXO fix](release-notes/trivechain/release-notes-0.12.2.2.md#per-utxo-fix)
 which changed the structure of the internal database, you will have to reindex
 the database if you decide to use any pre-0.12.2.2 version.
 
@@ -67,23 +67,23 @@ connectivity on devnets which are using nodes with multiple different ports.
 0.12.3.2 Change log
 ===================
 
-See detailed [change log](https://github.com/trivechainpay/dash/compare/v0.12.3.1...trivechainpay:v0.12.3.2) below.
+See detailed [change log](https://github.com/trivechain/trivechain/compare/v0.12.3.1...trivechainpay:v0.12.3.2) below.
 
 ### Network:
-- [`2474d9cb8`](https://github.com/trivechainpay/dash/commit/2474d9cb8) Sync mn list and mnw list from 3 peers max (#2169)
-- [`2c303cdb1`](https://github.com/trivechainpay/dash/commit/2c303cdb1) A few devnet related fixes (#2168)
+- [`2474d9cb8`](https://github.com/trivechain/trivechain/commit/2474d9cb8) Sync mn list and mnw list from 3 peers max (#2169)
+- [`2c303cdb1`](https://github.com/trivechain/trivechain/commit/2c303cdb1) A few devnet related fixes (#2168)
 
 ### Mining:
-- [`2ba0c7760`](https://github.com/trivechainpay/dash/commit/2ba0c7760) Add tests for special rules for slow blocks on devnet/testnet (#2176)
-- [`b9a83d2ae`](https://github.com/trivechainpay/dash/commit/b9a83d2ae) Allow mining min diff for very slow (2h+) blocks (#2175)
-- [`050cabdf5`](https://github.com/trivechainpay/dash/commit/050cabdf5) Adjust diff for slow testnet/devnet blocks a bit smoother (#2161)
+- [`2ba0c7760`](https://github.com/trivechain/trivechain/commit/2ba0c7760) Add tests for special rules for slow blocks on devnet/testnet (#2176)
+- [`b9a83d2ae`](https://github.com/trivechain/trivechain/commit/b9a83d2ae) Allow mining min diff for very slow (2h+) blocks (#2175)
+- [`050cabdf5`](https://github.com/trivechain/trivechain/commit/050cabdf5) Adjust diff for slow testnet/devnet blocks a bit smoother (#2161)
 
 ### GUI:
-- [`7b9919d18`](https://github.com/trivechainpay/dash/commit/7b9919d18) Fix issues with selections on Masternode tab (#2170)
-- [`c4698d5f3`](https://github.com/trivechainpay/dash/commit/c4698d5f3) Make PS Buttons not react to spacebar (#2154)
+- [`7b9919d18`](https://github.com/trivechain/trivechain/commit/7b9919d18) Fix issues with selections on Masternode tab (#2170)
+- [`c4698d5f3`](https://github.com/trivechain/trivechain/commit/c4698d5f3) Make PS Buttons not react to spacebar (#2154)
 
 ### Other:
-- [`f833e2ed6`](https://github.com/trivechainpay/dash/commit/f833e2ed6) Bump to 0.12.3.2 (#2173)
+- [`f833e2ed6`](https://github.com/trivechain/trivechain/commit/f833e2ed6) Bump to 0.12.3.2 (#2173)
 
 
 Credits
@@ -113,7 +113,7 @@ Darkcoin tree 0.10.x used to be the closed source implementation of Darksend
 which was released open source on Sep/25/2014.
 
 Dash Core tree 0.11.x was a fork of Bitcoin Core tree 0.9,
-Darkcoin was rebranded to Dash.
+Darkcoin was rebranded to Trivechain.
 
 Dash Core tree 0.12.0.x was a fork of Bitcoin Core tree 0.10.
 
@@ -121,15 +121,15 @@ Dash Core tree 0.12.1.x was a fork of Bitcoin Core tree 0.12.
 
 These release are considered obsolete. Old release notes can be found here:
 
-- [v0.12.3.1](https://github.com/trivechainpay/dash/blob/master/doc/release-notes/dash/release-notes-0.12.3.1.md) released Jul/03/2018
-- [v0.12.2.3](https://github.com/trivechainpay/dash/blob/master/doc/release-notes/dash/release-notes-0.12.2.3.md) released Jan/12/2018
-- [v0.12.2.2](https://github.com/trivechainpay/dash/blob/master/doc/release-notes/dash/release-notes-0.12.2.2.md) released Dec/17/2017
-- [v0.12.2](https://github.com/trivechainpay/dash/blob/master/doc/release-notes/dash/release-notes-0.12.2.md) released Nov/08/2017
-- [v0.12.1](https://github.com/trivechainpay/dash/blob/master/doc/release-notes/dash/release-notes-0.12.1.md) released Feb/06/2017
-- [v0.12.0](https://github.com/trivechainpay/dash/blob/master/doc/release-notes/dash/release-notes-0.12.0.md) released Jun/15/2015
-- [v0.11.2](https://github.com/trivechainpay/dash/blob/master/doc/release-notes/dash/release-notes-0.11.2.md) released Mar/04/2015
-- [v0.11.1](https://github.com/trivechainpay/dash/blob/master/doc/release-notes/dash/release-notes-0.11.1.md) released Feb/10/2015
-- [v0.11.0](https://github.com/trivechainpay/dash/blob/master/doc/release-notes/dash/release-notes-0.11.0.md) released Jan/15/2015
-- [v0.10.x](https://github.com/trivechainpay/dash/blob/master/doc/release-notes/dash/release-notes-0.10.0.md) released Sep/25/2014
-- [v0.9.x](https://github.com/trivechainpay/dash/blob/master/doc/release-notes/dash/release-notes-0.9.0.md) released Mar/13/2014
+- [v0.12.3.1](https://github.com/trivechain/trivechain/blob/master/doc/release-notes/trivechain/release-notes-0.12.3.1.md) released Jul/03/2018
+- [v0.12.2.3](https://github.com/trivechain/trivechain/blob/master/doc/release-notes/trivechain/release-notes-0.12.2.3.md) released Jan/12/2018
+- [v0.12.2.2](https://github.com/trivechain/trivechain/blob/master/doc/release-notes/trivechain/release-notes-0.12.2.2.md) released Dec/17/2017
+- [v0.12.2](https://github.com/trivechain/trivechain/blob/master/doc/release-notes/trivechain/release-notes-0.12.2.md) released Nov/08/2017
+- [v0.12.1](https://github.com/trivechain/trivechain/blob/master/doc/release-notes/trivechain/release-notes-0.12.1.md) released Feb/06/2017
+- [v0.12.0](https://github.com/trivechain/trivechain/blob/master/doc/release-notes/trivechain/release-notes-0.12.0.md) released Jun/15/2015
+- [v0.11.2](https://github.com/trivechain/trivechain/blob/master/doc/release-notes/trivechain/release-notes-0.11.2.md) released Mar/04/2015
+- [v0.11.1](https://github.com/trivechain/trivechain/blob/master/doc/release-notes/trivechain/release-notes-0.11.1.md) released Feb/10/2015
+- [v0.11.0](https://github.com/trivechain/trivechain/blob/master/doc/release-notes/trivechain/release-notes-0.11.0.md) released Jan/15/2015
+- [v0.10.x](https://github.com/trivechain/trivechain/blob/master/doc/release-notes/trivechain/release-notes-0.10.0.md) released Sep/25/2014
+- [v0.9.x](https://github.com/trivechain/trivechain/blob/master/doc/release-notes/trivechain/release-notes-0.9.0.md) released Mar/13/2014
 

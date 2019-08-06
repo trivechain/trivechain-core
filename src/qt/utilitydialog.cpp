@@ -145,7 +145,7 @@ You retain control of your money at all times.<hr> \
 <b>The ExclusiveSend process works like this:</b>\
 <ol type=\"1\"> \
 <li>ExclusiveSend begins by breaking your transaction inputs down into standard denominations. \
-These denominations are 0.001 DASH, 0.01 DASH, 0.1 DASH, 1 DASH and 10 DASH -- sort of like the paper money you use every day.</li> \
+These denominations are 0.001 TRVC, 0.01 TRVC, 0.1 TRVC, 1 TRVC and 10 TRVC -- sort of like the paper money you use every day.</li> \
 <li>Your wallet then sends requests to specially configured software nodes on the network, called \"masternodes.\" \
 These masternodes are informed then that you are interested in mixing a certain denomination. \
 No identifiable information is sent to the masternodes, so they never know \"who\" you are.</li> \
@@ -161,7 +161,7 @@ your funds will already be anonymized. No additional waiting is required.</li> \
 This means those 1000 addresses last for about 100 mixing events. When 900 of them are used, your wallet must create more addresses. \
 It can only do this, however, if you have automatic backups enabled.<br> \
 Consequently, users who have backups disabled will also have ExclusiveSend disabled. <hr>\
-For more information, see the <a href=\"https://docs.dash.org/en/latest/wallets/dashcore/exclusivesend-directsend.html\">ExclusiveSend documentation</a>."
+For more information, see the <a href=\"https://docs.trivechain.com/en/latest/wallets/trivechaincore/exclusivesend-directsend.html\">ExclusiveSend documentation</a>."
         ));
         ui->aboutMessage->setWordWrap(true);
         ui->helpMessage->setVisible(false);

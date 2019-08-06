@@ -49,7 +49,7 @@
       <string>org.trivechain.DashPayment</string>
       <key>CFBundleURLSchemes</key>
       <array>
-        <string>dash</string>
+        <string>trivechain</string>
       </array>
     </dict>
   </array>
@@ -68,7 +68,7 @@
       <key>UTTypeTagSpecification</key>
       <dict>
         <key>public.mime-type</key>
-        <string>application/x-dash-payment-request</string>
+        <string>application/x-trivechain-payment-request</string>
         <key>public.filename-extension</key>
         <array>
           <string>trivechainpaymentrequest</string>

@@ -23,9 +23,9 @@ example, to run just the getarg_tests verbosely:
 
     test_trivechain --log_level=all --run_test=getarg_tests
 
-... or to run just the doubledash test:
+... or to run just the doubletrivechain test:
 
-    test_trivechain --run_test=getarg_tests/doubledash
+    test_trivechain --run_test=getarg_tests/doubletrivechain
 
 Run `test_trivechain --help` for the full list.
 

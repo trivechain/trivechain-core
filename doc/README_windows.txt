@@ -13,11 +13,11 @@ Setup
 -----
 Unpack the files into a directory and run trivechain-qt.exe.
 
-Dash Core is the original Dash client and it builds the backbone of the network.
-However, it downloads and stores the entire history of Dash transactions;
+Trivechain is the original Trivechain client and it builds the backbone of the network.
+However, it downloads and stores the entire history of Trivechain transactions;
 depending on the speed of your computer and network connection, the synchronization
 process can take anywhere from a few hours to a day or more.
 
-See the Dash documentation at:
-  https://docs.dash.org
+See the Trivechain documentation at:
+  https://docs.trivechain.com
 for more help and information.

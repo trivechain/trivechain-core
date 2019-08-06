@@ -8,6 +8,6 @@ Comment[tr]=Trivechain, eşten eşe kriptografik sanal para birimi
 Exec=trivechain-qt %u
 Terminal=false
 Type=Application
-Icon=dash128
+Icon=trivechain128
 MimeType=x-scheme-handler/trivechain;
 Categories=Office;Finance;

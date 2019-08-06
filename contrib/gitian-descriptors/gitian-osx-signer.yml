@@ -1,5 +1,5 @@
 ---
-name: "dash-dmg-signer"
+name: "trivechain-dmg-signer"
 suites:
 - "bionic"
 architectures:
@@ -7,7 +7,7 @@ architectures:
 packages:
 - "faketime"
 remotes:
-- "url": "https://github.com/trivechainpay/dash-detached-sigs.git"
+- "url": "https://github.com/trivechain/trivechain-detached-sigs.git"
   "dir": "signature"
 files:
 - "trivechaincore-osx-unsigned.tar.gz"

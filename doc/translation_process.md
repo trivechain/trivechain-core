@@ -8,7 +8,7 @@ Transifex is setup to monitor the GitHub repo for updates, and when code contain
 
 Multiple language support is critical in assisting Dash’s global adoption, and growth. One of Dash’s greatest strengths is cross-border money transfers, any help making that easier is greatly appreciated.
 
-See the [Transifex Dash project](https://www.transifex.com/projects/p/dash/) to assist in translations. You should also join the translation mailing list for announcements - see details below.
+See the [Transifex Dash project](https://www.transifex.com/projects/p/trivechain/) to assist in translations. You should also join the translation mailing list for announcements - see details below.
 
 ### Writing code with translations
 We use automated scripts to help extract translations in both Qt, and non-Qt source files. It is rarely necessary to manually edit the files in `src/qt/locale/`. The translation source files must adhere to the following format:
@@ -44,7 +44,7 @@ git commit
 ### Creating a Transifex account
 Visit the [Transifex Signup](https://www.transifex.com/signup/) page to create an account. Take note of your username and password, as they will be required to configure the command-line tool.
 
-You can find the Dash translation project at [https://www.transifex.com/projects/p/dash/](https://www.transifex.com/projects/p/dash/).
+You can find the Dash translation project at [https://www.transifex.com/projects/p/trivechain/](https://www.transifex.com/projects/p/trivechain/).
 
 ### Installing the Transifex client command-line tool
 The client it used to fetch updated translations. If you are having problems, or need more details, see [http://docs.transifex.com/developer/client/setup](http://docs.transifex.com/developer/client/setup)
@@ -76,9 +76,9 @@ To assist in updating translations, we have created a script to help.
 
 1. `python contrib/devtools/update-translations.py`
 2. Update `src/qt/trivechain_locale.qrc` manually or via
-   `ls src/qt/locale/*ts|xargs -n1 basename|sed 's/\(dash_\(.*\)\).ts/<file alias="\2">locale\/\1.qm<\/file>/'`
+   `ls src/qt/locale/*ts|xargs -n1 basename|sed 's/\(trivechain_\(.*\)\).ts/<file alias="\2">locale\/\1.qm<\/file>/'`
 3. Update `src/Makefile.qt.include` manually or via
-   `ls src/qt/locale/*ts|xargs -n1 basename|sed 's/\(dash_\(.*\)\).ts/  qt\/locale\/\1.ts \\/'`
+   `ls src/qt/locale/*ts|xargs -n1 basename|sed 's/\(trivechain_\(.*\)\).ts/  qt\/locale\/\1.ts \\/'`
 4. `git add` new translations from `src/qt/locale/`
 
 **Do not directly download translations** one by one from the Transifex website, as we do a few post-processing steps before committing the translations.
@@ -107,4 +107,4 @@ To create a new language template, you will need to edit the languages manifest 
 **Note:** that the language translation file **must end in `.qm`** (the compiled extension), and not `.ts`.
 
 ### Questions and general assistance
-Check official forum at [https://www.dash.org/forum/topic/dash-worldwide-collaboration.88/](https://www.dash.org/forum/topic/dash-worldwide-collaboration.88/).
+Check official forum at [https://www.trivechain.com/forum/topic/trivechain-worldwide-collaboration.88/](https://www.trivechain.com/forum/topic/trivechain-worldwide-collaboration.88/).

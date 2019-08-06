@@ -19,9 +19,9 @@ BitcoinUnits::BitcoinUnits(QObject *parent):
 QList<BitcoinUnits::Unit> BitcoinUnits::availableUnits()
 {
     QList<BitcoinUnits::Unit> unitlist;
-    unitlist.append(DASH);
-    unitlist.append(mDASH);
-    unitlist.append(uDASH);
+    unitlist.append(TRVC);
+    unitlist.append(mTRVC);
+    unitlist.append(uTRVC);
     unitlist.append(duffs);
     return unitlist;
 }
@@ -46,9 +46,9 @@ QString BitcoinUnits::name(int unit)
     {
         switch(unit)
         {
-            case TRVC: return QString("DASH");
-            case mTRVC: return QString("mDASH");
-            case uTRVC: return QString::fromUtf8("μDASH");
+            case TRVC: return QString("TRVC");
+            case mTRVC: return QString("mTRVC");
+            case uTRVC: return QString::fromUtf8("μTRVC");
             case duffs: return QString("duffs");
             default: return QString("???");
         }
@@ -57,9 +57,9 @@ QString BitcoinUnits::name(int unit)
     {
         switch(unit)
         {
-            case TRVC: return QString("tDASH");
-            case mTRVC: return QString("mtDASH");
-            case uTRVC: return QString::fromUtf8("μtDASH");
+            case TRVC: return QString("tTRVC");
+            case mTRVC: return QString("mtTRVC");
+            case uTRVC: return QString::fromUtf8("μtTRVC");
             case duffs: return QString("tduffs");
             default: return QString("???");
         }

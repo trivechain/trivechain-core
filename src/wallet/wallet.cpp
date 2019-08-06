@@ -3467,7 +3467,7 @@ bool CWallet::CreateTransaction(const std::vector<CRecipient>& vecSend, CWalletT
                     return false;
                 }
                 if (fUseDirectSend && nValueIn > sporkManager.GetSporkValue(SPORK_5_DIRECTSEND_MAX_VALUE)*COIN) {
-                    strFailReason += " " + strprintf(_("DirectSend doesn't support sending values that high yet. Transactions are currently limited to %1 DASH."), sporkManager.GetSporkValue(SPORK_5_DIRECTSEND_MAX_VALUE));
+                    strFailReason += " " + strprintf(_("DirectSend doesn't support sending values that high yet. Transactions are currently limited to %1 TRVC."), sporkManager.GetSporkValue(SPORK_5_DIRECTSEND_MAX_VALUE));
                     return false;
                 }
 
@@ -3485,7 +3485,7 @@ bool CWallet::CreateTransaction(const std::vector<CRecipient>& vecSend, CWalletT
 
                         // Fill a vout to ourself
                         // TODO: pass in scriptChange instead of reservekey so
-                        // change transaction isn't always pay-to-dash-address
+                        // change transaction isn't always pay-to-trivechain-address
                         CScript scriptChange;
 
                         // coin control: send change to custom address

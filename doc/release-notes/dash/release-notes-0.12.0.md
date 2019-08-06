@@ -8,7 +8,7 @@ Dash Core version 0.12.0 is now available from:
 
 Please report bugs using the issue tracker at github:
 
-  https://github.com/trivechainpay/dash/issues
+  https://github.com/trivechain/trivechain/issues
 
 
 How to Upgrade
@@ -100,4 +100,4 @@ AlexMomo
 snogcel
 bertlebbert
 
-As well as everyone that helped translating on [Transifex](https://www.transifex.com/projects/p/dash/).
+As well as everyone that helped translating on [Transifex](https://www.transifex.com/projects/p/trivechain/).

@@ -52,7 +52,7 @@ static const int MAX_URI_LENGTH = 255;
 #define SPINNER_FRAMES 36
 
 #define QAPP_ORG_NAME "Trivechain"
-#define QAPP_ORG_DOMAIN "dash.org"
+#define QAPP_ORG_DOMAIN "trivechain.com"
 #define QAPP_APP_NAME_DEFAULT "Trivechain-Qt"
 #define QAPP_APP_NAME_TESTNET "Trivechain-Qt-testnet"
 #define QAPP_APP_NAME_DEVNET "Trivechain-Qt-%s"

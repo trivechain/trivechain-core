@@ -299,17 +299,17 @@ Set key pool size to <n> (default: 1000)
 .HP
 \fB\-fallbackfee=\fR<amt>
 .IP
-A fee rate (in DASH/kB) that will be used when fee estimation has
+A fee rate (in TRIVECHAIN/kB) that will be used when fee estimation has
 insufficient data (default: 0.00001)
 .HP
 \fB\-mintxfee=\fR<amt>
 .IP
-Fees (in DASH/kB) smaller than this are considered zero fee for
+Fees (in TRIVECHAIN/kB) smaller than this are considered zero fee for
 transaction creation (default: 0.00001)
 .HP
 \fB\-paytxfee=\fR<amt>
 .IP
-Fee (in DASH/kB) to add to transactions you send (default: 0.00)
+Fee (in TRIVECHAIN/kB) to add to transactions you send (default: 0.00)
 .HP
 \fB\-rescan\fR
 .IP
@@ -462,7 +462,7 @@ optional). If <category> is not supplied or if <category> = 1,
 output all debugging information.<category> can be: addrman,
 alert, bench, cmpctblock, coindb, db, http, leveldb, libevent,
 lock, mempool, mempoolrej, net, proxy, prune, rand, reindex, rpc,
-selectcoins, tor, zmq, dash (or specifically: chainlocks,
+selectcoins, tor, zmq, trivechain (or specifically: chainlocks,
 gobject, directsend, keepass, llmq, llmq\-dkg, llmq\-sigs,
 masternode, mnpayments, mnsync, exclusivesend, spork), qt.
 .HP
@@ -480,12 +480,12 @@ Prepend debug output with timestamp (default: 1)
 .HP
 \fB\-minrelaytxfee=\fR<amt>
 .IP
-Fees (in DASH/kB) smaller than this are considered zero fee for
+Fees (in TRIVECHAIN/kB) smaller than this are considered zero fee for
 relaying, mining and transaction creation (default: 0.00001)
 .HP
 \fB\-maxtxfee=\fR<amt>
 .IP
-Maximum total fees (in DASH) to use in a single wallet transaction or
+Maximum total fees (in TRIVECHAIN) to use in a single wallet transaction or
 raw transaction; setting this too low may abort large
 transactions (default: 0.10)
 .HP
@@ -513,10 +513,10 @@ Use devnet chain with provided name
 .HP
 \fB\-litemode\fR
 .IP
-Disable all Dash specific functionality (Masternodes, ExclusiveSend,
+Disable all Trivechain specific functionality (Masternodes, ExclusiveSend,
 DirectSend, Governance) (0\-1, default: 0)
 .HP
-\fB\-sporkaddr=\fR<dashaddress>
+\fB\-sporkaddr=\fR<trivechainaddress>
 .IP
 Override spork address. Only useful for regtest and devnet. Using this
 on mainnet or testnet will ban you.
@@ -560,7 +560,7 @@ Use N separate masternodes for each denominated input to mix funds
 .HP
 \fB\-exclusivesendamount=\fR<n>
 .IP
-Keep N DASH anonymized (2\-21000000, default: 1000)
+Keep N TRIVECHAIN anonymized (2\-21000000, default: 1000)
 .HP
 \fB\-exclusivesenddenoms=\fR<n>
 .IP
@@ -608,7 +608,7 @@ Set maximum block size in bytes (default: 2000000)
 .HP
 \fB\-blockmintxfee=\fR<amt>
 .IP
-Set lowest fee rate (in DASH/kB) for transactions to be included in
+Set lowest fee rate (in TRIVECHAIN/kB) for transactions to be included in
 block creation. (default: 0.00001)
 .PP
 RPC server options:
@@ -696,9 +696,9 @@ Reset all settings changed in the GUI
 Copyright (C) 2014-2019 The Dash Core developers
 Copyright (C) 2009-2019 The Bitcoin Core developers
 
-Please contribute if you find Dash Core useful. Visit <https://dash.org> for
+Please contribute if you find Dash Core useful. Visit <https://trivechain.com> for
 further information about the software.
-The source code is available from <https://github.com/trivechainpay/dash>.
+The source code is available from <https://github.com/trivechain/trivechain>.
 
 This is experimental software.
 Distributed under the MIT software license, see the accompanying file COPYING

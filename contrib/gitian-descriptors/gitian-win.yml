@@ -1,5 +1,5 @@
 ---
-name: "dash-win-0.14"
+name: "trivechain-win-0.14"
 enable_cache: true
 suites:
 - "bionic"
@@ -25,7 +25,7 @@ packages:
 - "python3"
 - "rename"
 remotes:
-- "url": "https://github.com/dashpay/dash.git"
+- "url": "https://github.com/trivechain/trivechain.git"
   "dir": "trivechain"
 files: []
 script: |

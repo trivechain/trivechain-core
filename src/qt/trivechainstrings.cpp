@@ -8,7 +8,7 @@
 #else
 #define UNUSED
 #endif
-static const char UNUSED *dash_strings[] = {
+static const char UNUSED *trivechain_strings[] = {
 QT_TRANSLATE_NOOP("trivechain-core", "Trivechain"),
 QT_TRANSLATE_NOOP("trivechain-core", "The %s developers"),
 QT_TRANSLATE_NOOP("trivechain-core", ""
@@ -137,7 +137,7 @@ QT_TRANSLATE_NOOP("trivechain-core", ""
 "specified?"),
 QT_TRANSLATE_NOOP("trivechain-core", ""
 "DirectSend doesn't support sending values that high yet. Transactions are "
-"currently limited to %1 DASH."),
+"currently limited to %1 TRVC."),
 QT_TRANSLATE_NOOP("trivechain-core", ""
 "DirectSend requires inputs with at least %d confirmations, you might need "
 "to wait a few minutes and try again."),
@@ -440,7 +440,7 @@ QT_TRANSLATE_NOOP("trivechain-core", "Invalid script detected."),
 QT_TRANSLATE_NOOP("trivechain-core", "Invalid spork address specified with -sporkaddr"),
 QT_TRANSLATE_NOOP("trivechain-core", "KeePassHttp id for the established association"),
 QT_TRANSLATE_NOOP("trivechain-core", "KeePassHttp key for AES encrypted communication with KeePass"),
-QT_TRANSLATE_NOOP("trivechain-core", "Keep N DASH anonymized (%u-%u, default: %u)"),
+QT_TRANSLATE_NOOP("trivechain-core", "Keep N TRVC anonymized (%u-%u, default: %u)"),
 QT_TRANSLATE_NOOP("trivechain-core", "Keep at most <n> unconnectable transactions in memory (default: %u)"),
 QT_TRANSLATE_NOOP("trivechain-core", "Keep the transaction memory pool below <n> megabytes (default: %u)"),
 QT_TRANSLATE_NOOP("trivechain-core", "Keypool ran out, please call keypoolrefill first"),
