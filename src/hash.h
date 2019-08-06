@@ -28,6 +28,14 @@
 #include "crypto/sph_simd.h"
 #include "crypto/sph_echo.h"
 
+#include "crypto/sph_hamsi.h"
+#include "crypto/sph_fugue.h"
+#include "crypto/sph_shabal.h"
+#include "crypto/sph_whirlpool.h"
+extern "C" {
+#include "crypto/sph_sha2.h"
+}
+
 #include <vector>
 
 typedef uint256 ChainCode;
