@@ -4918,7 +4918,7 @@ https://www.transifex.com/projects/p/dash/</translation>
 <context>
     <name>trivechain-core</name>
     <message>
-        <location filename="../dashstrings.cpp" line="+36"/>
+        <location filename="../trivechainstrings.cpp" line="+36"/>
         <source>Bind to given address and always listen on it. Use [host]:port notation for IPv6</source>
         <translation>Bind to given address and always listen on it. Use [host]:port notation for IPv6</translation>
     </message>

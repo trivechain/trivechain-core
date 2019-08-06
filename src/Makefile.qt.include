@@ -6,7 +6,7 @@
 bin_PROGRAMS += qt/trivechain-qt
 EXTRA_LIBRARIES += qt/libtrivechainqt.a
 
-# dash qt core #
+# trivechain qt core #
 QT_TS = \
   qt/locale/trivechain_ar.ts \
   qt/locale/trivechain_bg.ts \
@@ -653,11 +653,11 @@ QT_QM=$(QT_TS:.ts=.qm)
 
 SECONDARY: $(QT_QM)
 
-$(srcdir)/qt/dashstrings.cpp: $(libtrivechain_server_a_SOURCES) $(libtrivechain_wallet_a_SOURCES) $(libtrivechain_common_a_SOURCES) $(libtrivechain_zmq_a_SOURCES) $(libtrivechain_consensus_a_SOURCES) $(libtrivechain_util_a_SOURCES)
+$(srcdir)/qt/trivechainstrings.cpp: $(libtrivechain_server_a_SOURCES) $(libtrivechain_wallet_a_SOURCES) $(libtrivechain_common_a_SOURCES) $(libtrivechain_zmq_a_SOURCES) $(libtrivechain_consensus_a_SOURCES) $(libtrivechain_util_a_SOURCES)
 	@test -n $(XGETTEXT) || echo "xgettext is required for updating translations"
 	$(AM_V_GEN) cd $(srcdir); XGETTEXT=$(XGETTEXT) PACKAGE_NAME="$(PACKAGE_NAME)" COPYRIGHT_HOLDERS="$(COPYRIGHT_HOLDERS)" COPYRIGHT_HOLDERS_SUBSTITUTION="$(COPYRIGHT_HOLDERS_SUBSTITUTION)" $(PYTHON) ../share/qt/extract_strings_qt.py $^
 
-translate: $(srcdir)/qt/dashstrings.cpp $(QT_FORMS_UI) $(QT_FORMS_UI) $(BITCOIN_QT_BASE_CPP) qt/trivechain.cpp $(BITCOIN_QT_WINDOWS_CPP) $(BITCOIN_QT_WALLET_CPP) $(BITCOIN_QT_H) $(BITCOIN_MM)
+translate: $(srcdir)/qt/trivechainstrings.cpp $(QT_FORMS_UI) $(QT_FORMS_UI) $(BITCOIN_QT_BASE_CPP) qt/trivechain.cpp $(BITCOIN_QT_WINDOWS_CPP) $(BITCOIN_QT_WALLET_CPP) $(BITCOIN_QT_H) $(BITCOIN_MM)
 	@test -n $(LUPDATE) || echo "lupdate is required for updating translations"
 	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(LUPDATE) $^ -locations relative -no-obsolete -ts $(srcdir)/qt/locale/trivechain_en.ts
 

@@ -136,7 +136,7 @@ UniValue debug(const JSONRPCRequest& request)
             "\nResult:\n"
             "  result               (string) \"Debug mode: \" followed by the specified category.\n"
             "\nExamples:\n"
-            + HelpExampleCli("debug", "dash")
+            + HelpExampleCli("debug", "trivechain")
             + HelpExampleRpc("debug", "dash+net")
         );
 
@@ -1179,8 +1179,8 @@ static const CRPCCommand commands[] =
     { "addressindex",       "getaddressbalance",      &getaddressbalance,      false, {"addresses"} },
 
     /* Dash features */
-    { "dash",               "mnsync",                 &mnsync,                 true,  {} },
-    { "dash",               "spork",                  &spork,                  true,  {"value"} },
+    { "trivechain",               "mnsync",                 &mnsync,                 true,  {} },
+    { "trivechain",               "spork",                  &spork,                  true,  {"value"} },
 
     /* Not shown in help */
     { "hidden",             "setmocktime",            &setmocktime,            true,  {"timestamp"}},

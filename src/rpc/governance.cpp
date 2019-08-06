@@ -1090,10 +1090,10 @@ static const CRPCCommand commands[] =
 { //  category              name                      actor (function)         okSafe argNames
   //  --------------------- ------------------------  -----------------------  ------ ----------
     /* Dash features */
-    { "dash",               "getgovernanceinfo",      &getgovernanceinfo,      true,  {} },
-    { "dash",               "getsuperblockbudget",    &getsuperblockbudget,    true,  {"index"} },
-    { "dash",               "gobject",                &gobject,                true,  {} },
-    { "dash",               "voteraw",                &voteraw,                true,  {} },
+    { "trivechain",               "getgovernanceinfo",      &getgovernanceinfo,      true,  {} },
+    { "trivechain",               "getsuperblockbudget",    &getsuperblockbudget,    true,  {"index"} },
+    { "trivechain",               "gobject",                &gobject,                true,  {} },
+    { "trivechain",               "voteraw",                &voteraw,                true,  {} },
 
 };
 

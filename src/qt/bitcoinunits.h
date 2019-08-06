@@ -52,14 +52,14 @@ class BitcoinUnits: public QAbstractListModel
 public:
     explicit BitcoinUnits(QObject *parent);
 
-    /** Dash units.
+    /** TRVC units.
       @note Source: https://en.bitcoin.it/wiki/Units . Please add only sensible ones
      */
     enum Unit
     {
-        DASH,
-        mDASH,
-        uDASH,
+        TRVC,
+        mTRVC,
+        uTRVC,
         duffs
     };
 

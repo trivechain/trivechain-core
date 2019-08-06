@@ -11,7 +11,7 @@ def OSX_SDK='10.11'
 def proc = 4
 def mem = 2000
 
-def repositoryUrl = "https://github.com/trivechainpay/dash.git"
+def repositoryUrl = "https://github.com/dashpay/dash.git"
 
 def tasks = [:]
 for(int i = 0; i < targets.size(); i++) {
@@ -30,7 +30,7 @@ for(int i = 0; i < targets.size(); i++) {
       def gitianDescriptor
 
       stage("${target}/prepare") {
-        dir('dash') {
+        dir("trivechain") {
           checkout scm
           gitianDescriptor = readYaml file: "contrib/gitian-descriptors/gitian-${target}.yml"
         }
@@ -67,7 +67,7 @@ for(int i = 0; i < targets.size(); i++) {
 
       def gitianImage
       stage("${target}/builder-image") {
-        dir('dash') {
+        dir("trivechain") {
           gitianImage = docker.build("dash-gitian:${env.BUILD_ID}", 'ci -f ci/Dockerfile.gitian-builder')
         }
       }
@@ -83,7 +83,7 @@ for(int i = 0; i < targets.size(); i++) {
             sh "mkdir -p inputs"
             sh "cd inputs && curl -R -O ${osslPatchUrl}"
             sh "cd inputs && curl -R -O ${osslTarUrl}"
-            sh "make -C ../dash/depends download SOURCES_PATH=`pwd`/cache/common"
+            sh "make -C ../trivechain/depends download SOURCES_PATH=`pwd`/cache/common"
           }
         }
         stage("${target}/base-vm") {
@@ -101,7 +101,7 @@ for(int i = 0; i < targets.size(); i++) {
               sh """
                 tail -F var/install.log &
                 tail -F var/build.log &
-                USE_DOCKER=1 ./bin/gbuild -j ${proc} -m ${mem} --commit dash=${commit} --url dash=${repositoryUrl} ../dash/contrib/gitian-descriptors/gitian-${target}.yml
+                USE_DOCKER=1 ./bin/gbuild -j ${proc} -m ${mem} --commit dash=${commit} --url dash=${repositoryUrl} ../trivechain/contrib/gitian-descriptors/gitian-${target}.yml
                 RET=\$?
                 # give the above tail calls enough time to print everything on failure
                 sleep 2s

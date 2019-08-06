@@ -4,7 +4,7 @@
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 from test_framework.mininode import *
-from test_framework.test_framework import DashTestFramework
+from test_framework.test_framework import TrivechainTestFramework
 from test_framework.util import *
 from time import *
 
@@ -12,7 +12,7 @@ from time import *
 DirectSendTest -- test DirectSend functionality (prevent doublespend for unconfirmed transactions)
 '''
 
-class DirectSendTest(DashTestFramework):
+class DirectSendTest(TrivechainTestFramework):
     def __init__(self):
         super().__init__(9, 5, [], fast_dip3_enforcement=True)
         # set sender,  receiver,  isolated nodes

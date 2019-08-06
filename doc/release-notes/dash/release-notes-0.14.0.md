@@ -315,7 +315,7 @@ See detailed [set of changes](https://github.com/trivechainpay/dash/compare/v0.1
 - [`15c720dd4`](https://github.com/trivechainpay/dash/commit/15c720dd4) Stop tracking interested/participating nodes and send/announce to MNAUTH peers (#2798)
 - [`f20620b0a`](https://github.com/trivechainpay/dash/commit/f20620b0a) Also handle MNAUTH on non-masternodes (#2797)
 - [`b18f8cb77`](https://github.com/trivechainpay/dash/commit/b18f8cb77) Implement MNAUTH and allow unlimited inbound MN connections (#2790)
-- [`aae985746`](https://github.com/trivechainpay/dash/commit/aae985746) Update log categories in help message and in decomposition of "dash" category (#2792)
+- [`aae985746`](https://github.com/trivechainpay/dash/commit/aae985746) Update log categories in help message and in decomposition of "trivechain" category (#2792)
 - [`7b76e7abb`](https://github.com/trivechainpay/dash/commit/7b76e7abb) Implement BIP9 style deployment for DIP8/ChainLocks and fix a bug with late headers (#2793)
 - [`3ead8cd85`](https://github.com/trivechainpay/dash/commit/3ead8cd85) Fix potential travis failures due to network failures (#2795)
 - [`02db06658`](https://github.com/trivechainpay/dash/commit/02db06658) Fix loop in CLLMQUtils::GetQuorumConnections to add at least 2 connections (#2796)
@@ -599,7 +599,7 @@ See detailed [set of changes](https://github.com/trivechainpay/dash/compare/v0.1
 - [`b8d069bcd`](https://github.com/trivechainpay/dash/commit/b8d069bcd) fix/cleanup qt rpcnestedtests
 - [`b970c20a9`](https://github.com/trivechainpay/dash/commit/b970c20a9) Avoid using immature coinbase UTXOs for dummy TXins
 - [`4d25148c0`](https://github.com/trivechainpay/dash/commit/4d25148c0) Add llmq-signing.py tests
-- [`d020ffa00`](https://github.com/trivechainpay/dash/commit/d020ffa00) Add wait_for_sporks_same and mine_quorum to DashTestFramework
+- [`d020ffa00`](https://github.com/trivechainpay/dash/commit/d020ffa00) Add wait_for_sporks_same and mine_quorum to TrivechainTestFramework
 - [`0cc1cf279`](https://github.com/trivechainpay/dash/commit/0cc1cf279) Add receivedFinalCommitment flag to CDKGDebugSessionStatus
 - [`23d7ed80d`](https://github.com/trivechainpay/dash/commit/23d7ed80d) Implement "quorum sign/hasrecsig/isconflicting" RPCs
 - [`316b6bf0d`](https://github.com/trivechainpay/dash/commit/316b6bf0d) Faster re-requesting of recovered sigs

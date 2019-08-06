@@ -491,7 +491,7 @@ void CKeePassIntegrator::rpcSetLogin(const SecureString& sWalletPass, const Secu
     LogPrint("keepass", "CKeePassIntegrator::rpcSetLogin -- send Url: %s\n", sUrl);
 
     //request.addStrParameter("SubmitUrl", sSubmitUrl); // Is used to construct the entry title
-    request.addStrParameter("Login", SecureString("dash"));
+    request.addStrParameter("Login", SecureString("trivechain"));
     request.addStrParameter("Password", sWalletPass);
     if(sEntryId.size() != 0)
     {

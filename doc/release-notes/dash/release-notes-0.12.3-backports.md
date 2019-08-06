@@ -338,7 +338,7 @@
 - [`f831710f4`](https://github.com/trivechainpay/dash/commit/f831710f4) Merge #9139: Change sync_blocks to pick smarter maxheight (on top of #9196)
 - [`b6ea01e07`](https://github.com/trivechainpay/dash/commit/b6ea01e07) Remove namespace alert_tests when including alert test data
 - [`7939a23e3`](https://github.com/trivechainpay/dash/commit/7939a23e3) Use std::move when calling MakeTransactionRef
-- [`d0a39fbcf`](https://github.com/trivechainpay/dash/commit/d0a39fbcf) Use "Dash Core" instead of "trivechain-core" in some places and Dashify
+- [`d0a39fbcf`](https://github.com/trivechainpay/dash/commit/d0a39fbcf) Use "Trivechain" instead of "trivechain-core" in some places and Dashify
 - [`9170c0e9c`](https://github.com/trivechainpay/dash/commit/9170c0e9c) Fix rpc tests
 - [`76d7730a5`](https://github.com/trivechainpay/dash/commit/76d7730a5) Dashify ISSUE_TEMPLATE.md
 - [`07cd44c0e`](https://github.com/trivechainpay/dash/commit/07cd44c0e) Use MakeTransactionRef in CreateDevNetGenesisBlock
@@ -632,7 +632,7 @@
 - [`f4af44676`](https://github.com/trivechainpay/dash/commit/f4af44676) Add SYNC_TRANSACTION_NOT_IN_BLOCK constant and fix callers of SyncTransaction
 - [`256b9b77a`](https://github.com/trivechainpay/dash/commit/256b9b77a) Merge #7946: Reduce cs_main locks during ConnectTip/SyncWithWallets
 - [`6ba688b1c`](https://github.com/trivechainpay/dash/commit/6ba688b1c) Merge #8353: Trivial: tiny c++11 refactors
-- [`cca05694c`](https://github.com/trivechainpay/dash/commit/cca05694c) Merge #8293: Bugfix: Allow building libbitcoinconsensus without any univalue
+- [`cca05694c`](https://github.com/trivechainpay/dash/commit/cca05694c) Merge #8293: Bugfix: Allow building libtrivechainconsensus without any univalue
 - [`7dafb5303`](https://github.com/trivechainpay/dash/commit/7dafb5303) Merge #8492: configure: Allow building bench_bitcoin by itself
 - [`82336d818`](https://github.com/trivechainpay/dash/commit/82336d818) Merge #8503: [doc] typos, text errors
 - [`d5b5aeefe`](https://github.com/trivechainpay/dash/commit/d5b5aeefe) Merge #8481: Qt: Fix minimize and close bugs
@@ -829,7 +829,7 @@
 - [`5d8e94a26`](https://github.com/trivechainpay/dash/commit/5d8e94a26) Merge #7840: Several performance and privacy improvements to inv/mempool handling
 - [`33233409a`](https://github.com/trivechainpay/dash/commit/33233409a) Merge #7966: http: Do a pending c++11 simplification handling work items
 - [`90b00cfc6`](https://github.com/trivechainpay/dash/commit/90b00cfc6) Merge #7953: Create signmessagewithprivkey rpc
-- [`233493b71`](https://github.com/trivechainpay/dash/commit/233493b71) Delete old "dash" registry key when installing/uninstalling
+- [`233493b71`](https://github.com/trivechainpay/dash/commit/233493b71) Delete old "trivechain" registry key when installing/uninstalling
 - [`b78bd5cc7`](https://github.com/trivechainpay/dash/commit/b78bd5cc7) Dashify help text of fundrawtransaction
 - [`da2de0771`](https://github.com/trivechainpay/dash/commit/da2de0771) Put ps_rounds to the bottom of the result of listunspent
 - [`15fc7f213`](https://github.com/trivechainpay/dash/commit/15fc7f213) De-bump fees in miner_tests.cpp

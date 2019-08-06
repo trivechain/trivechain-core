@@ -251,7 +251,7 @@ class MasternodeInfo:
         self.collateral_vout = collateral_vout
 
 
-class DashTestFramework(BitcoinTestFramework):
+class TrivechainTestFramework(BitcoinTestFramework):
     def __init__(self, num_nodes, masterodes_count, extra_args, fast_dip3_enforcement=False):
         super().__init__()
         self.mn_count = masterodes_count

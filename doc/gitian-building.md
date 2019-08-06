@@ -404,9 +404,9 @@ For example:
 ```bash
 URL=https://github.com/crowning-/dash.git
 COMMIT=b616fb8ef0d49a919b72b0388b091aaec5849b96
-./bin/gbuild --commit dash=${COMMIT} --url dash=${URL} ../dash/contrib/gitian-descriptors/gitian-linux.yml
-./bin/gbuild --commit dash=${COMMIT} --url dash=${URL} ../dash/contrib/gitian-descriptors/gitian-win.yml
-./bin/gbuild --commit dash=${COMMIT} --url dash=${URL} ../dash/contrib/gitian-descriptors/gitian-osx.yml
+./bin/gbuild --commit dash=${COMMIT} --url dash=${URL} ../trivechain/contrib/gitian-descriptors/gitian-linux.yml
+./bin/gbuild --commit dash=${COMMIT} --url dash=${URL} ../trivechain/contrib/gitian-descriptors/gitian-win.yml
+./bin/gbuild --commit dash=${COMMIT} --url dash=${URL} ../trivechain/contrib/gitian-descriptors/gitian-osx.yml
 ```
 
 Building fully offline
@@ -432,7 +432,7 @@ cd /path/to/gitian-builder
 LXC_ARCH=amd64 LXC_SUITE=bionic on-target -u root apt-get update
 LXC_ARCH=amd64 LXC_SUITE=bionic on-target -u root \
   -e DEBIAN_FRONTEND=noninteractive apt-get --no-install-recommends -y install \
-  $( sed -ne '/^packages:/,/[^-] .*/ {/^- .*/{s/"//g;s/- //;p}}' ../dash/contrib/gitian-descriptors/*|sort|uniq )
+  $( sed -ne '/^packages:/,/[^-] .*/ {/^- .*/{s/"//g;s/- //;p}}' ../trivechain/contrib/gitian-descriptors/*|sort|uniq )
 LXC_ARCH=amd64 LXC_SUITE=bionic on-target -u root apt-get -q -y purge grub
 LXC_ARCH=amd64 LXC_SUITE=bionic on-target -u root -e DEBIAN_FRONTEND=noninteractive apt-get -y dist-upgrade
 ```
@@ -457,7 +457,7 @@ git clone https://github.com/trivechainpay/dash-detached-sigs.git
 BTCPATH=/some/root/path/dash
 SIGPATH=/some/root/path/dash-detached-sigs
 
-./bin/gbuild --url dash=${BTCPATH},signature=${SIGPATH} ../dash/contrib/gitian-descriptors/gitian-win-signer.yml
+./bin/gbuild --url dash=${BTCPATH},signature=${SIGPATH} ../trivechain/contrib/gitian-descriptors/gitian-win-signer.yml
 ```
 
 Signing externally
