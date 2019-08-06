@@ -348,18 +348,14 @@ public:
             ( 150000, uint256S("0x000000000000a5a404d4b403401c61159df545da193fe002115d7f799e2b85fe"))
             ( 200000, uint256S("0x00000000000df26f68d1a64d69ef250797d773b0c6e00fa399ee3cec059541e7"))
             ( 226650, uint256S("0x0000000000012c3d19793ebb8fe56bf3644529b159fbee8b7a8ab21ff463f4eb"))
-            ( 288000, uint256S("0x00000000029c6f80395cbec98682c8fba0f13d47b7089607637173ff7f65f65b")),
+            ( 288000, uint256S("0x00000000029c6f80395cbec98682c8fba0f13d47b7089607637173ff7f65f65b"))
+        };
+
+        chainTxData = ChainTxData{
             1559822642, // * UNIX timestamp of last checkpoint block
             507840,     // * total number of transactions between genesis and last checkpoint
                         //   (the tx=... number in the SetBestChain debug.log lines)
             5000        // * estimated number of transactions per day after checkpoint
-        };
-
-        chainTxData = ChainTxData{
-            1557610432, // * UNIX timestamp of last known number of transactions (Block 1068571)
-            14380723,   // * total number of transactions between genesis and that timestamp
-                        //   (the tx=... number in the SetBestChain debug.log lines)
-            0.1         // * estimated number of transactions per second after that timestamp
         };
     }
 };
@@ -508,16 +504,12 @@ public:
 
         checkpointData = (CCheckpointData) {
             boost::assign::map_list_of
-            ( 203871, uint256S("0x000000d54be3783d235c99915edb20f1a711f3a78717208c58a35087e77cf2aa")),
-            1554365338, // * UNIX timestamp of last known number of transactions (Block 203871)
-            204600,     // * total number of transactions between genesis and that timestamp
-                        //   (the tx=... number in the SetBestChain debug.log lines)
-            0.01        // * estimated number of transactions per second after that timestamp
+            ( 203871, uint256S("0x000000d54be3783d235c99915edb20f1a711f3a78717208c58a35087e77cf2aa"))
         };
 
         chainTxData = ChainTxData{
-            1557603759, // * UNIX timestamp of last known number of transactions (Block 96717)
-            968552,     // * total number of transactions between genesis and that timestamp
+            1554365338, // * UNIX timestamp of last known number of transactions (Block 203871)
+            204600,     // * total number of transactions between genesis and that timestamp
                         //   (the tx=... number in the SetBestChain debug.log lines)
             0.01        // * estimated number of transactions per second after that timestamp
         };
@@ -792,17 +784,14 @@ public:
 
         checkpointData = (CCheckpointData){
             boost::assign::map_list_of
-            (  0, uint256S("0x000008ad295e16d2a5456aef65cb1c28139835aba6a340d0be0fb8ca2b2e9e26")),
+            (  0, uint256S("0x000008ad295e16d2a5456aef65cb1c28139835aba6a340d0be0fb8ca2b2e9e26"))
+        };
+
+        chainTxData = ChainTxData{
             0, // * UNIX timestamp of last checkpoint block
             0,    // * total number of transactions between genesis and last checkpoint
                         //   (the tx=... number in the SetBestChain debug.log lines)
             0        // * estimated number of transactions per day after checkpoint
-        };
-
-        chainTxData = ChainTxData{
-            0,
-            0,
-            0
         };
 
         // Regtest Trivechain addresses start with 'y'
