@@ -621,18 +621,18 @@ public:
         vSeeds.clear();
         vSeeds.push_back(CDNSSeedData("trvc.dev",  "dnsseed.trvc.dev"));
 
-        // Testnet Trivechain addresses start with 'y'
+        // Devnet Trivechain addresses start with 'y'
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,140);
-        // Testnet Trivechain script addresses start with '8' or '9'
+        // Devnet Trivechain script addresses start with '8' or '9'
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,19);
-        // Testnet private keys start with '9' or 'c' (Bitcoin defaults)
+        // Devnet private keys start with '9' or 'c' (Bitcoin defaults)
         base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,239);
-        // Testnet Trivechain BIP32 pubkeys start with 'tpub' (Bitcoin defaults)
+        // Devnet Trivechain BIP32 pubkeys start with 'tpub' (Bitcoin defaults)
         base58Prefixes[EXT_PUBLIC_KEY] = boost::assign::list_of(0x04)(0x35)(0x87)(0xCF).convert_to_container<std::vector<unsigned char> >();
-        // Testnet Trivechain BIP32 prvkeys start with 'tprv' (Bitcoin defaults)
+        // Devnet Trivechain BIP32 prvkeys start with 'tprv' (Bitcoin defaults)
         base58Prefixes[EXT_SECRET_KEY] = boost::assign::list_of(0x04)(0x35)(0x83)(0x94).convert_to_container<std::vector<unsigned char> >();
 
-        // Testnet Trivechain BIP44 coin type is '1' (All coin's testnet default)
+        // Devnet Trivechain BIP44 coin type is '1' (All coin's devnet default)
         nExtCoinType = 1;
 
         // long living quorum params
@@ -653,7 +653,7 @@ public:
         nPoolMaxParticipants = 5;
         nFulfilledRequestExpireTime = 5*60; // fulfilled requests expire in 5 minutes
 
-        vSporkAddresses = {"TFBQSoycHWzibVEBh6hFkEQ8WCbpyVWzUH"};
+        vSporkAddresses = {"ySR7RSyoWQMt6GNcShJrSnfm7opLaJ87ui"};
         nMinSporkKeys = 1;
         // devnets are started with no blocks and no MN, so we can't check for upgraded MN (as there are none)
         fBIP9CheckMasternodesUpgraded = false;

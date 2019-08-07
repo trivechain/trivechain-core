@@ -1,8 +1,8 @@
 Source: trivechain
 Section: utils
 Priority: optional
-Maintainer: Holger Schinzel <holger@trivechain.org>
-Uploaders: Holger Schinzel <holger@trivechain.org>
+Maintainer: Holger Schinzel <holger@trivechain.com>
+Uploaders: Holger Schinzel <holger@trivechain.com>
 Build-Depends: debhelper,
  devscripts,
  automake,

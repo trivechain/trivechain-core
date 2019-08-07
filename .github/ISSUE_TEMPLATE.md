@@ -4,7 +4,7 @@ This issue tracker is only for technical issues related to Trivechain.
 
 General Trivechain questions and/or support requests and are best directed to the [Trivechain Reddit](https://www.reddit.com/r/trivechain/).
 
-To report critical security issues, email infosec@trivechain.org and/or see the TRIVECHAIN bug bounty program on [Bugcrowd](https://bugcrowd.com/trivechaindigitalcash) instead of creating Github issues.
+To report critical security issues, email infosec@trivechain.com and/or see the TRIVECHAIN bug bounty program on [Bugcrowd](https://bugcrowd.com/trivechaindigitalcash) instead of creating Github issues.
 
 ### Describe the issue
 

@@ -4939,7 +4939,7 @@ https://www.transifex.com/projects/p/trivechain/</translation>
     </message>
     <message>
         <source>Unable to locate enough ExclusiveSend non-denominated funds for this transaction.</source>
-        <translation>Không thể tìm đủ lượng ngân sách chưa phân mệnh giá Private Send cho giao dịch  này.</translation>
+        <translation>Không thể tìm đủ lượng ngân sách chưa phân mệnh giá Exclusivesend Send cho giao dịch  này.</translation>
     </message>
     <message>
         <source>Use N separate masternodes for each denominated input to mix funds (%u-%u, default: %u)</source>
