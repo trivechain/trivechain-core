@@ -1,4 +1,4 @@
-Dash Core version 0.12.2.2
+Trivechain version 0.12.2.2
 ==========================
 
 Release is now available from:
@@ -51,7 +51,7 @@ can cause nodes to allocate excessive amounts of memory, which leads them to a
 halt. You can read more about the fix in the original Bitcoin Core pull request
 https://github.com/bitcoin/bitcoin/pull/10195
 
-To fix this issue in Dash Core however, we had to backport a lot of other
+To fix this issue in Trivechain however, we had to backport a lot of other
 improvements from Bitcoin Core, see full list of backports in the detailed
 change log below.
 
@@ -92,7 +92,7 @@ Other improvements and bug fixes
 --------------------------------
 
 As a result of previous intensive refactoring and some additional fixes,
-it should be possible to compile Dash Core with `--disable-wallet` option now.
+it should be possible to compile Trivechain with `--disable-wallet` option now.
 
 This release also improves sync process and significantly lowers the time after
 which `getblocktemplate` rpc becomes available on node start.
@@ -141,7 +141,7 @@ See detailed [change log](https://github.com/trivechain/trivechain/compare/v0.12
 - [`c81394b97`](https://github.com/trivechain/trivechain/commit/c81394b97) Backport #10195: Switch chainstate db and cache to per-txout model
 - [`d4562b5e5`](https://github.com/trivechain/trivechain/commit/d4562b5e5) Fix CCoinsViewCache::GetPriority to use new per-utxo
 - [`92bb65894`](https://github.com/trivechain/trivechain/commit/92bb65894) Fix address index to use new per-utxo DB
-- [`9ad56fe18`](https://github.com/trivechain/trivechain/commit/9ad56fe18) Dash related fixes for per-utxo DB
+- [`9ad56fe18`](https://github.com/trivechain/trivechain/commit/9ad56fe18) Trivechain related fixes for per-utxo DB
 - [`4f807422f`](https://github.com/trivechain/trivechain/commit/4f807422f) Backport #10550: Don't return stale data from CCoinsViewCache::Cursor()
 - [`151c552c7`](https://github.com/trivechain/trivechain/commit/151c552c7) Backport #10537: Few Minor per-utxo assert-semantics re-adds and tweak
 - [`06aa02ff6`](https://github.com/trivechain/trivechain/commit/06aa02ff6) Backport #10559: Change semantics of HaveCoinInCache to match HaveCoin
@@ -171,7 +171,7 @@ See detailed [change log](https://github.com/trivechain/trivechain/compare/v0.12
 - [`51b2c7501`](https://github.com/trivechain/trivechain/commit/51b2c7501) Fix WarningBitsConditionChecker (#1765)
 
 ### Network/Sync:
-- [`5d58dd90c`](https://github.com/trivechain/trivechain/commit/5d58dd90c) Make sure to clear setAskFor in Dash submodules (#1730)
+- [`5d58dd90c`](https://github.com/trivechain/trivechain/commit/5d58dd90c) Make sure to clear setAskFor in Trivechain submodules (#1730)
 - [`328009749`](https://github.com/trivechain/trivechain/commit/328009749) fine-tune sync conditions in getblocktemplate (#1739)
 - [`362becbcc`](https://github.com/trivechain/trivechain/commit/362becbcc) Bump MIN_PEER_PROTO_VERSION to 70208 (#1772)
 - [`930afd7df`](https://github.com/trivechain/trivechain/commit/930afd7df) Fix mnp and mnv invs (#1775)
@@ -229,7 +229,7 @@ reviewed pull requests or helped translating on
 Older releases
 ==============
 
-Dash was previously known as Darkcoin.
+Trivechain was previously known as Darkcoin.
 
 Darkcoin tree 0.8.x was a fork of Litecoin tree 0.8, original name was XCoin
 which was first released on Jan/18/2014.
@@ -240,12 +240,12 @@ the 0.8.x tree and was first released on Mar/13/2014.
 Darkcoin tree 0.10.x used to be the closed source implementation of Darksend
 which was released open source on Sep/25/2014.
 
-Dash Core tree 0.11.x was a fork of Bitcoin Core tree 0.9,
+Trivechain tree 0.11.x was a fork of Bitcoin Core tree 0.9,
 Darkcoin was rebranded to Trivechain.
 
-Dash Core tree 0.12.0.x was a fork of Bitcoin Core tree 0.10.
+Trivechain tree 0.12.0.x was a fork of Bitcoin Core tree 0.10.
 
-Dash Core tree 0.12.1.x was a fork of Bitcoin Core tree 0.12.
+Trivechain tree 0.12.1.x was a fork of Bitcoin Core tree 0.12.
 
 These release are considered obsolete. Old release notes can be found here:
 

@@ -1,11 +1,11 @@
-Dash Core 0.14.0
+Trivechain 0.14.0
 =====================
 
-This is the official reference wallet for Dash digital currency and comprises the backbone of the Dash peer-to-peer network. You can [download Dash Core](https://www.trivechain.com/downloads/) or [build it yourself](#building) using the guides below.
+This is the official reference wallet for Trivechain digital currency and comprises the backbone of the Trivechain peer-to-peer network. You can [download Trivechain](https://www.trivechain.com/downloads/) or [build it yourself](#building) using the guides below.
 
 Running
 ---------------------
-The following are some helpful notes on how to run Dash on your native platform.
+The following are some helpful notes on how to run Trivechain on your native platform.
 
 ### Unix
 
@@ -24,16 +24,16 @@ Drag Trivechain-Qt to your applications folder, and then run Trivechain-Qt.
 
 ### Need Help?
 
-* See the [Dash documentation](https://docs.trivechain.com)
+* See the [Trivechain documentation](https://docs.trivechain.com)
 for help and more information.
-* See the [Dash Developer Documentation](https://trivechain-docs.github.io/) 
+* See the [Trivechain Developer Documentation](https://trivechain-docs.github.io/) 
 for technical specifications and implementation details.
-* Ask for help on [Dash Nation Discord](http://trivechainchat.org)
-* Ask for help on the [Dash Forum](https://trivechain.com/forum)
+* Ask for help on [Trivechain Nation Discord](http://trivechainchat.org)
+* Ask for help on the [Trivechain Forum](https://trivechain.com/forum)
 
 Building
 ---------------------
-The following are developer notes on how to build Dash Core on your native platform. They are not complete guides, but include notes on the necessary libraries, compile flags, etc.
+The following are developer notes on how to build Trivechain on your native platform. They are not complete guides, but include notes on the necessary libraries, compile flags, etc.
 
 - [OS X Build Notes](build-osx.md)
 - [Unix Build Notes](build-unix.md)
@@ -43,7 +43,7 @@ The following are developer notes on how to build Dash Core on your native platf
 
 Development
 ---------------------
-The Dash Core repo's [root README](/README.md) contains relevant information on the development process and automated testing.
+The Trivechain repo's [root README](/README.md) contains relevant information on the development process and automated testing.
 
 - [Developer Notes](developer-notes.md)
 - [Release Notes](release-notes.md)
@@ -59,8 +59,8 @@ The Dash Core repo's [root README](/README.md) contains relevant information on 
 - [Benchmarking](benchmarking.md)
 
 ### Resources
-* Discuss on the [Dash Forum](https://trivechain.com/forum), in the Development & Technical Discussion board.
-* Discuss on [Dash Nation Discord](http://trivechainchat.org)
+* Discuss on the [Trivechain Forum](https://trivechain.com/forum), in the Development & Technical Discussion board.
+* Discuss on [Trivechain Nation Discord](http://trivechainchat.org)
 
 ### Miscellaneous
 - [Assets Attribution](assets-attribution.md)

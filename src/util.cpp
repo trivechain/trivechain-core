@@ -1,6 +1,6 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2015 The Bitcoin Core developers
-// Copyright (c) 2014-2019 The Dash Core developers
+// Copyright (c) 2019 The Trivechain developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -110,7 +110,7 @@ namespace boost {
 
 
 
-//Dash only features
+//Trivechain only features
 bool fMasternodeMode = false;
 bool fLiteMode = false;
 /**
@@ -284,7 +284,7 @@ bool LogAcceptCategory(const char* category)
                 const std::vector<std::string>& categories = mapMultiArgs.at("-debug");
                 ptrCategory.reset(new std::set<std::string>(categories.begin(), categories.end()));
                 // thread_specific_ptr automatically deletes the set when the thread ends.
-                // "trivechain" is a composite category enabling all Dash-related debug output
+                // "trivechain" is a composite category enabling all Trivechain-related debug output
                 if(ptrCategory->count(std::string("trivechain"))) {
                     ptrCategory->insert(std::string("chainlocks"));
                     ptrCategory->insert(std::string("gobject"));
@@ -565,13 +565,13 @@ void PrintExceptionContinue(const std::exception_ptr pex, const char* pszThread)
 boost::filesystem::path GetDefaultDataDir()
 {
     namespace fs = boost::filesystem;
-    // Windows < Vista: C:\Documents and Settings\Username\Application Data\DashCore
-    // Windows >= Vista: C:\Users\Username\AppData\Roaming\DashCore
-    // Mac: ~/Library/Application Support/DashCore
-    // Unix: ~/.trivechaincore
+    // Windows < Vista: C:\Documents and Settings\Username\Application Data\Trivechain
+    // Windows >= Vista: C:\Users\Username\AppData\Roaming\Trivechain
+    // Mac: ~/Library/Application Support/Trivechain
+    // Unix: ~/.trivechain
 #ifdef WIN32
     // Windows
-    return GetSpecialFolderPath(CSIDL_APPDATA) / "DashCore";
+    return GetSpecialFolderPath(CSIDL_APPDATA) / "Trivechain";
 #else
     fs::path pathRet;
     char* pszHome = getenv("HOME");
@@ -581,10 +581,10 @@ boost::filesystem::path GetDefaultDataDir()
         pathRet = fs::path(pszHome);
 #ifdef MAC_OSX
     // Mac
-    return pathRet / "Library/Application Support/DashCore";
+    return pathRet / "Library/Application Support/Trivechain";
 #else
     // Unix
-    return pathRet / ".trivechaincore";
+    return pathRet / ".trivechain";
 #endif
 #endif
 }

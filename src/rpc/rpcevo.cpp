@@ -1,4 +1,4 @@
-// Copyright (c) 2018-2019 The Dash Core developers
+// Copyright (c) 2019 The Trivechain developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -102,7 +102,7 @@ std::string GetHelpString(int nParamNum, std::string strParamName)
     return strprintf(it->second, nParamNum);
 }
 
-// Allows to specify Dash address or priv key. In case of Dash address, the priv key is taken from the wallet
+// Allows to specify Trivechain address or priv key. In case of Trivechain address, the priv key is taken from the wallet
 static CKey ParsePrivKey(CWallet* pwallet, const std::string &strKeyOrAddress, bool allowAddresses = true) {
     CBitcoinAddress address;
     if (allowAddresses && address.SetString(strKeyOrAddress) && address.IsValid()) {
@@ -294,7 +294,7 @@ void protx_register_fund_help(CWallet* const pwallet)
 {
     throw std::runtime_error(
             "protx register_fund \"collateralAddress\" \"ipAndPort\" \"ownerAddress\" \"operatorPubKey\" \"votingAddress\" operatorReward \"payoutAddress\" ( \"fundAddress\" )\n"
-            "\nCreates, funds and sends a ProTx to the network. The resulting transaction will move 1000 Dash\n"
+            "\nCreates, funds and sends a ProTx to the network. The resulting transaction will move 1000 Trivechain\n"
             "to the address specified by collateralAddress and will then function as the collateral of your\n"
             "masternode.\n"
             "A few of the limitations you see in the arguments are temporary and might be lifted after DIP3\n"
@@ -488,7 +488,7 @@ UniValue protx_register(const JSONRPCRequest& request)
     if (request.params.size() > paramIdx + 6) {
         fundAddress = CBitcoinAddress(request.params[paramIdx + 6].get_str());
         if (!fundAddress.IsValid())
-            throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, std::string("Invalid Dash address: ") + request.params[paramIdx + 6].get_str());
+            throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, std::string("Invalid Trivechain address: ") + request.params[paramIdx + 6].get_str());
     }
 
     FundSpecialTx(pwallet, tx, ptx, fundAddress.Get());
@@ -652,7 +652,7 @@ UniValue protx_update_service(const JSONRPCRequest& request)
     if (request.params.size() >= 6) {
         CBitcoinAddress feeSourceAddress = CBitcoinAddress(request.params[5].get_str());
         if (!feeSourceAddress.IsValid())
-            throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, std::string("Invalid Dash address: ") + request.params[5].get_str());
+            throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, std::string("Invalid Trivechain address: ") + request.params[5].get_str());
         feeSource = feeSourceAddress.Get();
     } else {
         if (ptx.scriptOperatorPayout != CScript()) {
@@ -746,7 +746,7 @@ UniValue protx_update_registrar(const JSONRPCRequest& request)
     if (request.params.size() > 5) {
         feeSourceAddress = CBitcoinAddress(request.params[5].get_str());
         if (!feeSourceAddress.IsValid())
-            throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, std::string("Invalid Dash address: ") + request.params[5].get_str());
+            throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, std::string("Invalid Trivechain address: ") + request.params[5].get_str());
     }
 
     FundSpecialTx(pwallet, tx, ptx, feeSourceAddress.Get());
@@ -819,7 +819,7 @@ UniValue protx_revoke(const JSONRPCRequest& request)
     if (request.params.size() > 4) {
         CBitcoinAddress feeSourceAddress = CBitcoinAddress(request.params[4].get_str());
         if (!feeSourceAddress.IsValid())
-            throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, std::string("Invalid Dash address: ") + request.params[4].get_str());
+            throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, std::string("Invalid Trivechain address: ") + request.params[4].get_str());
         FundSpecialTx(pwallet, tx, ptx, feeSourceAddress.Get());
     } else if (dmn->pdmnState->scriptOperatorPayout != CScript()) {
         // Using funds from previousely specified operator payout address

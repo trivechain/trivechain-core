@@ -51,11 +51,11 @@
     </message>
     <message>
         <source>Choose the address to send coins to</source>
-        <translation>Kies het adres om Dash naar over te maken</translation>
+        <translation>Kies het adres om Trivechain naar over te maken</translation>
     </message>
     <message>
         <source>Choose the address to receive coins with</source>
-        <translation>Kies het adres om Dash mee te ontvangen</translation>
+        <translation>Kies het adres om Trivechain mee te ontvangen</translation>
     </message>
     <message>
         <source>C&amp;hoose</source>
@@ -70,12 +70,12 @@
         <translation>Ontvangstadressen</translation>
     </message>
     <message>
-        <source>These are your Dash addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation>Dit zijn uw Dash adressen om betalingen mee uit te voeren. Controleer altijd het bedrag en ontvangstadres voordat u uw Dash verzendt.</translation>
+        <source>These are your Trivechain addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation>Dit zijn uw Trivechain adressen om betalingen mee uit te voeren. Controleer altijd het bedrag en ontvangstadres voordat u uw Trivechain verzendt.</translation>
     </message>
     <message>
-        <source>These are your Dash addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
-        <translation>Dit zijn uw Dash adressen om betalingen me te ontvangen. Het wordt aangeraden om voor elke transactie een niew ontvangstadres te gebruiken.</translation>
+        <source>These are your Trivechain addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
+        <translation>Dit zijn uw Trivechain adressen om betalingen me te ontvangen. Het wordt aangeraden om voor elke transactie een niew ontvangstadres te gebruiken.</translation>
     </message>
     <message>
         <source>&amp;Copy Address</source>
@@ -258,12 +258,12 @@
 <context>
     <name>BitcoinGUI</name>
     <message>
-        <source>A fatal error occurred. Dash Core can no longer continue safely and will quit.</source>
-        <translation>Er heeft zich een fatale fout voorgedaan. Dash Core kan niet veilig worden voortgezet en zal worden afgesloten.</translation>
+        <source>A fatal error occurred. Trivechain can no longer continue safely and will quit.</source>
+        <translation>Er heeft zich een fatale fout voorgedaan. Trivechain kan niet veilig worden voortgezet en zal worden afgesloten.</translation>
     </message>
     <message>
-        <source>Dash Core</source>
-        <translation>Dash Core</translation>
+        <source>Trivechain</source>
+        <translation>Trivechain</translation>
     </message>
     <message>
         <source>Wallet</source>
@@ -286,8 +286,8 @@
         <translation>&amp;Verzenden</translation>
     </message>
     <message>
-        <source>Send coins to a Dash address</source>
-        <translation>Verstuur Dash naar een Dashadres</translation>
+        <source>Send coins to a Trivechain address</source>
+        <translation>Verstuur Trivechain naar een Trivechainadres</translation>
     </message>
     <message>
         <source>&amp;Receive</source>
@@ -295,7 +295,7 @@
     </message>
     <message>
         <source>Request payments (generates QR codes and trivechain: URIs)</source>
-        <translation>Vraag betaling aan (genereert QR-codes en Dash: URI's)</translation>
+        <translation>Vraag betaling aan (genereert QR-codes en Trivechain: URI's)</translation>
     </message>
     <message>
         <source>&amp;Transactions</source>
@@ -322,8 +322,8 @@
         <translation>Sluit applicatie</translation>
     </message>
     <message>
-        <source>Show information about Dash Core</source>
-        <translation>Toon informatie over Dash Core</translation>
+        <source>Show information about Trivechain</source>
+        <translation>Toon informatie over Trivechain</translation>
     </message>
     <message>
         <source>About &amp;Qt</source>
@@ -394,16 +394,16 @@
         <translation>Onderteken &amp;bericht</translation>
     </message>
     <message>
-        <source>Sign messages with your Dash addresses to prove you own them</source>
-        <translation>Onderteken berichten met uw Dashadressen om te bewijzen dat u deze adressen bezit.</translation>
+        <source>Sign messages with your Trivechain addresses to prove you own them</source>
+        <translation>Onderteken berichten met uw Trivechainadressen om te bewijzen dat u deze adressen bezit.</translation>
     </message>
     <message>
         <source>&amp;Verify message...</source>
         <translation>&amp;Verifieer handtekening</translation>
     </message>
     <message>
-        <source>Verify messages to ensure they were signed with specified Dash addresses</source>
-        <translation>Verifieer handtekeningen om zeker te zijn dat de berichten zijn ondertekend met de gespecificeerde Dashadressen.</translation>
+        <source>Verify messages to ensure they were signed with specified Trivechain addresses</source>
+        <translation>Verifieer handtekeningen om zeker te zijn dat de berichten zijn ondertekend met de gespecificeerde Trivechainadressen.</translation>
     </message>
     <message>
         <source>&amp;Information</source>
@@ -490,8 +490,8 @@
         <translation>&amp;Command-line opties</translation>
     </message>
     <message>
-        <source>Show the %1 help message to get a list with possible Dash command-line options</source>
-        <translation>Toon het %1 hulpbericht om een lijst te krijgen met mogelijke Dash commandoregelopties</translation>
+        <source>Show the %1 help message to get a list with possible Trivechain command-line options</source>
+        <translation>Toon het %1 hulpbericht om een lijst te krijgen met mogelijke Trivechain commandoregelopties</translation>
     </message>
     <message>
         <source>%1 client</source>
@@ -526,8 +526,8 @@
         <translation>Tab-werkbalk</translation>
     </message>
     <message numerus="yes">
-        <source>%n active connection(s) to Dash network</source>
-        <translation><numerusform>%n actieve verbinding met het Dash netwerk</numerusform><numerusform>%n actieve verbindingen met het Dash netwerk</numerusform></translation>
+        <source>%n active connection(s) to Trivechain network</source>
+        <translation><numerusform>%n actieve verbinding met het Trivechain netwerk</numerusform><numerusform>%n actieve verbindingen met het Trivechain netwerk</numerusform></translation>
     </message>
     <message>
         <source>Network activity disabled</source>
@@ -877,8 +877,8 @@
         <translation>Bewerk verzendadres</translation>
     </message>
     <message>
-        <source>The entered address "%1" is not a valid Dash address.</source>
-        <translation>Het ingevoerde adres "%1" is geen geldig Dash adres.</translation>
+        <source>The entered address "%1" is not a valid Trivechain address.</source>
+        <translation>Het ingevoerde adres "%1" is geen geldig Trivechain adres.</translation>
     </message>
     <message>
         <source>The entered address "%1" is already in the address book.</source>
@@ -975,8 +975,8 @@
         <translation>ExclusiveSend informatie</translation>
     </message>
     <message>
-        <source>&lt;h3&gt;ExclusiveSend Basics&lt;/h3&gt; ExclusiveSend gives you true financial privacy by obscuring the origins of your funds. All the Dash in your wallet is comprised of different "inputs" which you can think of as separate, discrete coins.&lt;br&gt; ExclusiveSend uses an innovative process to mix your inputs with the inputs of two other people, without having your coins ever leave your wallet. You retain control of your money at all times.&lt;hr&gt; &lt;b&gt;The ExclusiveSend process works like this:&lt;/b&gt;&lt;ol type="1"&gt; &lt;li&gt;ExclusiveSend begins by breaking your transaction inputs down into standard denominations. These denominations are 0.001 TRVC, 0.01 TRVC, 0.1 TRVC, 1 TRVC and 10 TRVC -- sort of like the paper money you use every day.&lt;/li&gt; &lt;li&gt;Your wallet then sends requests to specially configured software nodes on the network, called "masternodes." These masternodes are informed then that you are interested in mixing a certain denomination. No identifiable information is sent to the masternodes, so they never know "who" you are.&lt;/li&gt; &lt;li&gt;When two other people send similar messages, indicating that they wish to mix the same denomination, a mixing session begins. The masternode mixes up the inputs and instructs all three users' wallets to pay the now-transformed input back to themselves. Your wallet pays that denomination directly to itself, but in a different address (called a change address).&lt;/li&gt; &lt;li&gt;In order to fully obscure your funds, your wallet must repeat this process a number of times with each denomination. Each time the process is completed, it's called a "round." Each round of ExclusiveSend makes it exponentially more difficult to determine where your funds originated.&lt;/li&gt; &lt;li&gt;This mixing process happens in the background without any intervention on your part. When you wish to make a transaction, your funds will already be anonymized. No additional waiting is required.&lt;/li&gt; &lt;/ol&gt; &lt;hr&gt;&lt;b&gt;IMPORTANT:&lt;/b&gt; Your wallet only contains 1000 of these "change addresses." Every time a mixing event happens, up to 9 of your addresses are used up. This means those 1000 addresses last for about 100 mixing events. When 900 of them are used, your wallet must create more addresses. It can only do this, however, if you have automatic backups enabled.&lt;br&gt; Consequently, users who have backups disabled will also have ExclusiveSend disabled. &lt;hr&gt;For more information, see the &lt;a href="https://docs.trivechain.com/en/latest/wallets/trivechaincore/exclusivesend-directsend.html"&gt;ExclusiveSend documentation&lt;/a&gt;.</source>
-        <translation>&lt;h3&gt;ExclusiveSend Basics&lt;/h3&gt; ExclusiveSend geeft u een echte financiële privacy door de oorsprong van uw geld te verschuilen. Alle Dash in uw portefeuille bestaat uit verschillende "inputs" die u kunt beschouwen als afzonderlijke, discrete munten.&lt;br&gt; ExclusiveSend maakt gebruik van een innovatief proces om uw invoer te mengen met de invoer van twee andere mensen, zonder dat uw munten ooit uw portemonnee verlaten . U behoudt de controle over uw geld te allen tijde. &lt;hr&gt; &lt;b&gt;Het ExclusiveSend-proces werkt als volgt: &lt;/b&gt;&lt;ol type="1"&gt; &lt;li&gt;ExclusiveSend begint door uw transactie-inputs in de standaard denominaties te breken. Deze denominaties zijn 0,001 TRVC, 0,01 TRVC, 0,1 TRVC, 1 TRVC en 10 TRVC - zoals de papiergeld dat u elke dag gebruikt.&lt;/li&gt; &lt;li&gt;Jouw portemonnee stuurt dan verzoeken naar speciaal geconfigureerde software nodes op het netwerk, genaamd "masternodes." Deze masternodes worden dan op de hoogte gesteld dat u geïnteresseerd bent in het mengen van een bepaalde denominaties. Er wordt geen identificeerbare informatie naar de masternodes gestuurd, zodat ze nooit weten wie je bent.&lt;/li&gt; &lt;li&gt;Wanneer twee andere mensen dezelfde berichten sturen, die aanduiden dat ze dezelfde denominaties willen vermengen, begint een mengsessie. De masternode mengt alle invoeren en instrueert de portefeuilles van alle drie de gebruikers om de nu getransformeerde invoer aan zichzelf terug te betalen. Jouw portemonnee betaalt die denominaties rechtstreeks naar zichzelf, maar met een ander adres (een wijziging adres genoemd).&lt;/li&gt; &lt;li&gt;Om uw geld volledig te verschuilen, moet uw portemonnee dit proces een aantal keren herhalen voor elke denominaties. Elke keer dat het proces wordt voltooid, dit heet een 'ronde'. Elke ronde van ExclusiveSend maakt het exponentieel moeilijker om te bepalen waar uw geld van afkomstig is.&lt;/li&gt; &lt;li&gt;Dit mengproces gebeurt op de achtergrond zonder enige interventie van uw kant. Wanneer u een transactie wenst uit te voeren, zijn uw fondsen al geanonimiseerd. Er is geen extra wachttijd nodig.&lt;/li&gt; &lt;/ol&gt; &lt;hr&gt;&lt;b&gt;BELANGRIJK:&lt;/b&gt; Je portemonnee bevat slechts 1000 van deze "wijzigingsadressen". Elke keer dat er een mengsessie plaatsvindt, worden maximaal 9 van uw adressen opgebruikt. Dit betekent dat deze 1000 adressen voor ongeveer 100 mengsessies volstaat. Wanneer er 900 werden gebruikt, moet je portemonnee meer adressen aanmaken. Dit kan alleen maar als u automatische back-ups hebt ingeschakeld.&lt;br&gt; Bijgevolg hebben gebruikers die back-ups hebben uitgeschakeld, ook ExclusiveSend uitgeschakeld. &lt;hr&gt;Voor meer informatie zie de &lt;a href="https://docs.trivechain.com/en/latest/wallets/trivechaincore/exclusivesend-directsend.html"&gt;ExclusiveSend documentatie&lt;/a&gt;.</translation>
+        <source>&lt;h3&gt;ExclusiveSend Basics&lt;/h3&gt; ExclusiveSend gives you true financial privacy by obscuring the origins of your funds. All the Trivechain in your wallet is comprised of different "inputs" which you can think of as separate, discrete coins.&lt;br&gt; ExclusiveSend uses an innovative process to mix your inputs with the inputs of two other people, without having your coins ever leave your wallet. You retain control of your money at all times.&lt;hr&gt; &lt;b&gt;The ExclusiveSend process works like this:&lt;/b&gt;&lt;ol type="1"&gt; &lt;li&gt;ExclusiveSend begins by breaking your transaction inputs down into standard denominations. These denominations are 0.001 TRVC, 0.01 TRVC, 0.1 TRVC, 1 TRVC and 10 TRVC -- sort of like the paper money you use every day.&lt;/li&gt; &lt;li&gt;Your wallet then sends requests to specially configured software nodes on the network, called "masternodes." These masternodes are informed then that you are interested in mixing a certain denomination. No identifiable information is sent to the masternodes, so they never know "who" you are.&lt;/li&gt; &lt;li&gt;When two other people send similar messages, indicating that they wish to mix the same denomination, a mixing session begins. The masternode mixes up the inputs and instructs all three users' wallets to pay the now-transformed input back to themselves. Your wallet pays that denomination directly to itself, but in a different address (called a change address).&lt;/li&gt; &lt;li&gt;In order to fully obscure your funds, your wallet must repeat this process a number of times with each denomination. Each time the process is completed, it's called a "round." Each round of ExclusiveSend makes it exponentially more difficult to determine where your funds originated.&lt;/li&gt; &lt;li&gt;This mixing process happens in the background without any intervention on your part. When you wish to make a transaction, your funds will already be anonymized. No additional waiting is required.&lt;/li&gt; &lt;/ol&gt; &lt;hr&gt;&lt;b&gt;IMPORTANT:&lt;/b&gt; Your wallet only contains 1000 of these "change addresses." Every time a mixing event happens, up to 9 of your addresses are used up. This means those 1000 addresses last for about 100 mixing events. When 900 of them are used, your wallet must create more addresses. It can only do this, however, if you have automatic backups enabled.&lt;br&gt; Consequently, users who have backups disabled will also have ExclusiveSend disabled. &lt;hr&gt;For more information, see the &lt;a href="https://docs.trivechain.com/en/latest/wallets/trivechain/exclusivesend-directsend.html"&gt;ExclusiveSend documentation&lt;/a&gt;.</source>
+        <translation>&lt;h3&gt;ExclusiveSend Basics&lt;/h3&gt; ExclusiveSend geeft u een echte financiële privacy door de oorsprong van uw geld te verschuilen. Alle Trivechain in uw portefeuille bestaat uit verschillende "inputs" die u kunt beschouwen als afzonderlijke, discrete munten.&lt;br&gt; ExclusiveSend maakt gebruik van een innovatief proces om uw invoer te mengen met de invoer van twee andere mensen, zonder dat uw munten ooit uw portemonnee verlaten . U behoudt de controle over uw geld te allen tijde. &lt;hr&gt; &lt;b&gt;Het ExclusiveSend-proces werkt als volgt: &lt;/b&gt;&lt;ol type="1"&gt; &lt;li&gt;ExclusiveSend begint door uw transactie-inputs in de standaard denominaties te breken. Deze denominaties zijn 0,001 TRVC, 0,01 TRVC, 0,1 TRVC, 1 TRVC en 10 TRVC - zoals de papiergeld dat u elke dag gebruikt.&lt;/li&gt; &lt;li&gt;Jouw portemonnee stuurt dan verzoeken naar speciaal geconfigureerde software nodes op het netwerk, genaamd "masternodes." Deze masternodes worden dan op de hoogte gesteld dat u geïnteresseerd bent in het mengen van een bepaalde denominaties. Er wordt geen identificeerbare informatie naar de masternodes gestuurd, zodat ze nooit weten wie je bent.&lt;/li&gt; &lt;li&gt;Wanneer twee andere mensen dezelfde berichten sturen, die aanduiden dat ze dezelfde denominaties willen vermengen, begint een mengsessie. De masternode mengt alle invoeren en instrueert de portefeuilles van alle drie de gebruikers om de nu getransformeerde invoer aan zichzelf terug te betalen. Jouw portemonnee betaalt die denominaties rechtstreeks naar zichzelf, maar met een ander adres (een wijziging adres genoemd).&lt;/li&gt; &lt;li&gt;Om uw geld volledig te verschuilen, moet uw portemonnee dit proces een aantal keren herhalen voor elke denominaties. Elke keer dat het proces wordt voltooid, dit heet een 'ronde'. Elke ronde van ExclusiveSend maakt het exponentieel moeilijker om te bepalen waar uw geld van afkomstig is.&lt;/li&gt; &lt;li&gt;Dit mengproces gebeurt op de achtergrond zonder enige interventie van uw kant. Wanneer u een transactie wenst uit te voeren, zijn uw fondsen al geanonimiseerd. Er is geen extra wachttijd nodig.&lt;/li&gt; &lt;/ol&gt; &lt;hr&gt;&lt;b&gt;BELANGRIJK:&lt;/b&gt; Je portemonnee bevat slechts 1000 van deze "wijzigingsadressen". Elke keer dat er een mengsessie plaatsvindt, worden maximaal 9 van uw adressen opgebruikt. Dit betekent dat deze 1000 adressen voor ongeveer 100 mengsessies volstaat. Wanneer er 900 werden gebruikt, moet je portemonnee meer adressen aanmaken. Dit kan alleen maar als u automatische back-ups hebt ingeschakeld.&lt;br&gt; Bijgevolg hebben gebruikers die back-ups hebben uitgeschakeld, ook ExclusiveSend uitgeschakeld. &lt;hr&gt;Voor meer informatie zie de &lt;a href="https://docs.trivechain.com/en/latest/wallets/trivechain/exclusivesend-directsend.html"&gt;ExclusiveSend documentatie&lt;/a&gt;.</translation>
     </message>
 </context>
 <context>
@@ -1022,8 +1022,8 @@
         <translation>Gemiddeld %1 GB aan data zal worden opgeslagen in deze map.</translation>
     </message>
     <message>
-        <source>%1 will download and store a copy of the Dash block chain.</source>
-        <translation>%1 zal een kopie van de blokketen van Dash downloaden en opslaan.</translation>
+        <source>%1 will download and store a copy of the Trivechain block chain.</source>
+        <translation>%1 zal een kopie van de blokketen van Trivechain downloaden en opslaan.</translation>
     </message>
     <message>
         <source>The wallet will also be stored in this directory.</source>
@@ -1160,12 +1160,12 @@
         <translation>Vorm</translation>
     </message>
     <message>
-        <source>Recent transactions may not yet be visible, and therefore your wallet's balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the Dash network, as detailed below.</source>
-        <translation>Recente transacties zijn mogelijk nog niet zichtbaar. De balans van de portemonnee is daarom mogelijk niet correct. Deze informatie is correct van zodra de synchronisatie met het Dash-netwerk werd voltooid, zoals onderaan beschreven.</translation>
+        <source>Recent transactions may not yet be visible, and therefore your wallet's balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the Trivechain network, as detailed below.</source>
+        <translation>Recente transacties zijn mogelijk nog niet zichtbaar. De balans van de portemonnee is daarom mogelijk niet correct. Deze informatie is correct van zodra de synchronisatie met het Trivechain-netwerk werd voltooid, zoals onderaan beschreven.</translation>
     </message>
     <message>
-        <source>Attempting to spend Dash that are affected by not-yet-displayed transactions will not be accepted by the network.</source>
-        <translation>Pogingen om Dash uit te geven die betrokken zijn bij nog-niet-weergegeven transacties zullen niet worden geaccepteerd door het netwerk</translation>
+        <source>Attempting to spend Trivechain that are affected by not-yet-displayed transactions will not be accepted by the network.</source>
+        <translation>Pogingen om Trivechain uit te geven die betrokken zijn bij nog-niet-weergegeven transacties zullen niet worden geaccepteerd door het netwerk</translation>
     </message>
     <message>
         <source>Number of blocks left</source>
@@ -1254,8 +1254,8 @@
         <translation>(0 = auto, &lt;0 = laat dit aantal kernen vrij)</translation>
     </message>
     <message>
-        <source>Amount of Dash to keep anonymized</source>
-        <translation>Aantal Dash om geanonimiseerd te houden</translation>
+        <source>Amount of Trivechain to keep anonymized</source>
+        <translation>Aantal Trivechain om geanonimiseerd te houden</translation>
     </message>
     <message>
         <source>W&amp;allet</source>
@@ -1307,8 +1307,8 @@ Dit heeft ook invloed op de manier waarop uw saldo wordt berekend.</translation>
         <translation>Dit bedrag fungeert als een drempel om ExclusiveSend uit te schakelen zodra het werd bereikt.</translation>
     </message>
     <message>
-        <source>Automatically open the Dash Core client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>Open automatisch de Dash client poort op de router. Dit werkt alleen als uw router UPnP ondersteunt en dit is ingeschakeld.</translation>
+        <source>Automatically open the Trivechain client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <translation>Open automatisch de Trivechain client poort op de router. Dit werkt alleen als uw router UPnP ondersteunt en dit is ingeschakeld.</translation>
     </message>
     <message>
         <source>Accept connections from outside</source>
@@ -1319,8 +1319,8 @@ Dit heeft ook invloed op de manier waarop uw saldo wordt berekend.</translation>
         <translation>Laat binnenkomende verbindingen toe</translation>
     </message>
     <message>
-        <source>Connect to the Dash network through a SOCKS5 proxy.</source>
-        <translation>Verbind met het Dash netwerk via een SOCKS proxy.</translation>
+        <source>Connect to the Trivechain network through a SOCKS5 proxy.</source>
+        <translation>Verbind met het Trivechain netwerk via een SOCKS proxy.</translation>
     </message>
     <message>
         <source>&amp;Connect through SOCKS5 proxy (default proxy):</source>
@@ -1416,8 +1416,8 @@ Meer anonimisatie rondes geeft een hoger niveau van privacy, maar kost ook meer 
         <translation>Tor</translation>
     </message>
     <message>
-        <source>Connect to the Dash network through a separate SOCKS5 proxy for Tor hidden services.</source>
-        <translation>Maak verbinding met Dashnetwerk door een aparte SOCKS5-proxy voor verborgen diensten van Tor.</translation>
+        <source>Connect to the Trivechain network through a separate SOCKS5 proxy for Tor hidden services.</source>
+        <translation>Maak verbinding met Trivechainnetwerk door een aparte SOCKS5-proxy voor verborgen diensten van Tor.</translation>
     </message>
     <message>
         <source>Use separate SOCKS5 proxy to reach peers via Tor hidden services:</source>
@@ -1541,8 +1541,8 @@ https://www.transifex.com/projects/p/trivechain/</translation>
         <translation>Vorm</translation>
     </message>
     <message>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Dash network after a connection is established, but this process has not completed yet.</source>
-        <translation>De weergegeven informatie kan achterhaald zijn. De beurs synchroniseert automatisch met het Dash netwerk nadat de verbinding is gelegd, maar dit proces is nog niet beeindigd.</translation>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Trivechain network after a connection is established, but this process has not completed yet.</source>
+        <translation>De weergegeven informatie kan achterhaald zijn. De beurs synchroniseert automatisch met het Trivechain netwerk nadat de verbinding is gelegd, maar dit proces is nog niet beeindigd.</translation>
     </message>
     <message>
         <source>Available:</source>
@@ -1808,7 +1808,7 @@ Om te mixen moeten andere gebruikers exact dezelfde denominaties inbrengen.</tra
     </message>
     <message>
         <source>Cannot start trivechain: click-to-pay handler</source>
-        <translation>Kan Dash niet starten: click-to-pay handler</translation>
+        <translation>Kan Trivechain niet starten: click-to-pay handler</translation>
     </message>
     <message>
         <source>URI handling</source>
@@ -1823,8 +1823,8 @@ Om te mixen moeten andere gebruikers exact dezelfde denominaties inbrengen.</tra
         <translation>Ongeldig betalingsadres %1</translation>
     </message>
     <message>
-        <source>URI cannot be parsed! This can be caused by an invalid Dash address or malformed URI parameters.</source>
-        <translation>URI kan niet verwerkt worden! Dit kan het gevolg zijn van een ongeldig Dash adres of misvormde URI parameters.</translation>
+        <source>URI cannot be parsed! This can be caused by an invalid Trivechain address or malformed URI parameters.</source>
+        <translation>URI kan niet verwerkt worden! Dit kan het gevolg zijn van een ongeldig Trivechain adres of misvormde URI parameters.</translation>
     </message>
     <message>
         <source>Payment request file handling</source>
@@ -1921,8 +1921,8 @@ Om te mixen moeten andere gebruikers exact dezelfde denominaties inbrengen.</tra
         <translation>Bedrag</translation>
     </message>
     <message>
-        <source>Enter a Dash address (e.g. %1)</source>
-        <translation>Voer een Dashadres in (bijv. %1)</translation>
+        <source>Enter a Trivechain address (e.g. %1)</source>
+        <translation>Voer een Trivechainadres in (bijv. %1)</translation>
     </message>
     <message>
         <source>%1 d</source>
@@ -2445,8 +2445,8 @@ Gebruik dit niet, behalve als er eerder een betalingsverzoek opnieuw gegenereerd
         <translation>H&amp;ergebruik en bestaand ontvangstadres (niet aanbevolen)</translation>
     </message>
     <message>
-        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the Dash network.</source>
-        <translation>Een optioneel bericht om aan het betalingsverzoek toe te voegen, die zal worden getoond wanneer het verzoek wordt geopend. Nota: Het bericht zal niet verzonden worden met de betaling over het Dash netwerk.</translation>
+        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the Trivechain network.</source>
+        <translation>Een optioneel bericht om aan het betalingsverzoek toe te voegen, die zal worden getoond wanneer het verzoek wordt geopend. Nota: Het bericht zal niet verzonden worden met de betaling over het Trivechain netwerk.</translation>
     </message>
     <message>
         <source>&amp;Message:</source>
@@ -2457,9 +2457,9 @@ Gebruik dit niet, behalve als er eerder een betalingsverzoek opnieuw gegenereerd
         <translation>Een optioneel label om te associëren met het nieuwe ontvangende adres</translation>
     </message>
     <message>
-        <source>An optional message to attach to the payment request, which will be displayed when the request is opened.&lt;br&gt;Note: The message will not be sent with the payment over the Dash network.</source>
+        <source>An optional message to attach to the payment request, which will be displayed when the request is opened.&lt;br&gt;Note: The message will not be sent with the payment over the Trivechain network.</source>
         <translation>Een optioneel bericht om aan het betalingsverzoek toe te voegen, die zal worden getoond wanneer het verzoek wordt geopend. &lt;br&gt;
-Nota: Het bericht zal niet verzonden worden met de betaling over het Dash netwerk.</translation>
+Nota: Het bericht zal niet verzonden worden met de betaling over het Trivechain netwerk.</translation>
     </message>
     <message>
         <source>Use this form to request payments. All fields are &lt;b&gt;optional&lt;/b&gt;.</source>
@@ -2728,7 +2728,7 @@ Nota: Het bericht zal niet verzonden worden met de betaling over het Dash netwer
     </message>
     <message>
         <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks.&lt;br /&gt;But be aware that this can end up in a never confirming transaction once there is more demand for trivechain transactions than the network can process.</source>
-        <translation>Het betalen van de minimale vergoeding is prima zo lang er minder transactie volume is dan ruimte in de blocks. &lt;br /&gt;Maar houd er rekening mee dat dit kan eindigen in een nooit bevestigde transactie zodra er meer vraag is voor Dash transacties fdan het netwerk kan verwerken.</translation>
+        <translation>Het betalen van de minimale vergoeding is prima zo lang er minder transactie volume is dan ruimte in de blocks. &lt;br /&gt;Maar houd er rekening mee dat dit kan eindigen in een nooit bevestigde transactie zodra er meer vraag is voor Trivechain transacties fdan het netwerk kan verwerken.</translation>
     </message>
     <message>
         <source>per kilobyte</source>
@@ -2915,8 +2915,8 @@ Nota: Het bericht zal niet verzonden worden met de betaling over het Dash netwer
         <translation><numerusform>Schatting is dat bevestiging begint binnen %n blok.</numerusform><numerusform>Schatting is dat bevestiging begint binnen %n blocks.</numerusform></translation>
     </message>
     <message>
-        <source>Warning: Invalid Dash address</source>
-        <translation>WAARSCHUWING: Ongeldig Dash adres</translation>
+        <source>Warning: Invalid Trivechain address</source>
+        <translation>WAARSCHUWING: Ongeldig Trivechain adres</translation>
     </message>
     <message>
         <source>Warning: Unknown change address</source>
@@ -2946,8 +2946,8 @@ Nota: Het bericht zal niet verzonden worden met de betaling over het Dash netwer
         <translation>Betaal &amp;Aan:</translation>
     </message>
     <message>
-        <source>The Dash address to send the payment to</source>
-        <translation>Het Dashadres om betaling aan te versturen</translation>
+        <source>The Trivechain address to send the payment to</source>
+        <translation>Het Trivechainadres om betaling aan te versturen</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -2982,8 +2982,8 @@ Nota: Het bericht zal niet verzonden worden met de betaling over het Dash netwer
         <translation>Bedra&amp;g:</translation>
     </message>
     <message>
-        <source>The fee will be deducted from the amount being sent. The recipient will receive a lower amount of Dash than you enter in the amount field. If multiple recipients are selected, the fee is split equally.</source>
-        <translation>De vergoeding zal worden afgetrokken van het bedrag dat wordt verzonden. De ontvanger zal een lagere hoeveelheid Dash ontvangt dan u in het veld bedrag invoert. Als meerdere ontvangers zijn geselecteerd, wordt de vergoeding gelijk verdeeld.</translation>
+        <source>The fee will be deducted from the amount being sent. The recipient will receive a lower amount of Trivechain than you enter in the amount field. If multiple recipients are selected, the fee is split equally.</source>
+        <translation>De vergoeding zal worden afgetrokken van het bedrag dat wordt verzonden. De ontvanger zal een lagere hoeveelheid Trivechain ontvangt dan u in het veld bedrag invoert. Als meerdere ontvangers zijn geselecteerd, wordt de vergoeding gelijk verdeeld.</translation>
     </message>
     <message>
         <source>S&amp;ubtract fee from amount</source>
@@ -2994,8 +2994,8 @@ Nota: Het bericht zal niet verzonden worden met de betaling over het Dash netwer
         <translation>Bericht:</translation>
     </message>
     <message>
-        <source>A message that was attached to the trivechain: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the Dash network.</source>
-        <translation>Een boodschap die was bijgevoegd aan de trivechain: URI die met de transactie voor uw referentie wordt opgeslagen. Opmerking: Dit bericht zal niet over het Dash netwerk worden verzonden.</translation>
+        <source>A message that was attached to the trivechain: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the Trivechain network.</source>
+        <translation>Een boodschap die was bijgevoegd aan de trivechain: URI die met de transactie voor uw referentie wordt opgeslagen. Opmerking: Dit bericht zal niet over het Trivechain netwerk worden verzonden.</translation>
     </message>
     <message>
         <source>This is an unauthenticated payment request.</source>
@@ -3047,12 +3047,12 @@ Nota: Het bericht zal niet verzonden worden met de betaling over het Dash netwer
         <translation>O&amp;nderteken Bericht</translation>
     </message>
     <message>
-        <source>You can sign messages/agreements with your addresses to prove you can receive Dash sent to them. Be careful not to sign anything vague or random, as phishing attacks may try to trick you into signing your identity over to them. Only sign fully-detailed statements you agree to.</source>
+        <source>You can sign messages/agreements with your addresses to prove you can receive Trivechain sent to them. Be careful not to sign anything vague or random, as phishing attacks may try to trick you into signing your identity over to them. Only sign fully-detailed statements you agree to.</source>
         <translation>U kunt berichten/overeenkomsten ondertekenen met een van uw adressen om te bewijzen dat u dit adres bezit. Pas op dat u geen onduidelijke of willekeurige dingen ondertekent, want phishingaanvallen zouden u kunnen misleiden om zo uw identiteit te stelen. Onderteken alleen berichten waarmee u het volledig eens bent.</translation>
     </message>
     <message>
-        <source>The Dash address to sign the message with</source>
-        <translation>Het Dashadres om bericht mee te ondertekenen</translation>
+        <source>The Trivechain address to sign the message with</source>
+        <translation>Het Trivechainadres om bericht mee te ondertekenen</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -3083,8 +3083,8 @@ Nota: Het bericht zal niet verzonden worden met de betaling over het Dash netwer
         <translation>Kopieer de huidige handtekening naar het systeemklembord</translation>
     </message>
     <message>
-        <source>Sign the message to prove you own this Dash address</source>
-        <translation>Teken het bericht om te bewijzen dat u dit Dash adres bezit</translation>
+        <source>Sign the message to prove you own this Trivechain address</source>
+        <translation>Teken het bericht om te bewijzen dat u dit Trivechain adres bezit</translation>
     </message>
     <message>
         <source>Sign &amp;Message</source>
@@ -3107,12 +3107,12 @@ Nota: Het bericht zal niet verzonden worden met de betaling over het Dash netwer
         <translation>Voer het adres van de ontvanger in, bericht (zorg ervoor dat de regeleinden, spaties, tabs etc. precies kloppen) en onderteken onderaan om het bericht te verifiëren. Wees voorzicht om niet meer in de ondertekening te lezen dan in het getekende bericht zelf, om te voorkomen dat je wordt aangevallen met een man-in-the-middle attack. Houd er mee rekening dat dit alleen de ondertekende partij bewijst met het ontvangen adres, er kan niet bewezen worden dat er een transactie heeft plaatsgevonden!</translation>
     </message>
     <message>
-        <source>The Dash address the message was signed with</source>
-        <translation>Het Dashadres waarmee het bericht ondertekend is</translation>
+        <source>The Trivechain address the message was signed with</source>
+        <translation>Het Trivechainadres waarmee het bericht ondertekend is</translation>
     </message>
     <message>
-        <source>Verify the message to ensure it was signed with the specified Dash address</source>
-        <translation>Verifieer het bericht om zeker te zijn dat het getekend werd met het opgegeven Dash adres</translation>
+        <source>Verify the message to ensure it was signed with the specified Trivechain address</source>
+        <translation>Verifieer het bericht om zeker te zijn dat het getekend werd met het opgegeven Trivechain adres</translation>
     </message>
     <message>
         <source>Verify &amp;Message</source>
@@ -4396,8 +4396,8 @@ Nota: Het bericht zal niet verzonden worden met de betaling over het Dash netwer
         <translation>Houd maximaal &lt;n&gt; onverbonden transacties in geheugen (standaard: %u)</translation>
     </message>
     <message>
-        <source>Disable all Dash specific functionality (Masternodes, ExclusiveSend, DirectSend, Governance) (0-1, default: %u)</source>
-        <translation>Uitschakelen van alle Dash specifieke functies (Masternodes, ExclusiveSend, DirectSend, Governance) (0-1, standaard: %u)</translation>
+        <source>Disable all Trivechain specific functionality (Masternodes, ExclusiveSend, DirectSend, Governance) (0-1, default: %u)</source>
+        <translation>Uitschakelen van alle Trivechain specifieke functies (Masternodes, ExclusiveSend, DirectSend, Governance) (0-1, standaard: %u)</translation>
     </message>
     <message>
         <source>%s file contains all private keys from this wallet. Do not share it with anyone!</source>
@@ -4552,8 +4552,8 @@ Nota: Het bericht zal niet verzonden worden met de betaling over het Dash netwer
         <translation>Waarschuwing: Onbekende blok versies worden gemined! Er zijn mogelijk onbekende regels in werking getreden</translation>
     </message>
     <message>
-        <source>You are starting in lite mode, all Dash-specific functionality is disabled.</source>
-        <translation>Je start in lite modus. Alle Dash specifieke functionaliteit is uitgeschakeld.</translation>
+        <source>You are starting in lite mode, all Trivechain-specific functionality is disabled.</source>
+        <translation>Je start in lite modus. Alle Trivechain specifieke functionaliteit is uitgeschakeld.</translation>
     </message>
     <message>
         <source>You need to rebuild the database using -reindex to go back to unpruned mode.  This will redownload the entire blockchain</source>
@@ -4900,8 +4900,8 @@ Nota: Het bericht zal niet verzonden worden met de betaling over het Dash netwer
         <translation>RPC-serveropties:</translation>
     </message>
     <message>
-        <source>Dash Core</source>
-        <translation>Dash Core</translation>
+        <source>Trivechain</source>
+        <translation>Trivechain</translation>
     </message>
     <message>
         <source>The %s developers</source>
@@ -5109,7 +5109,7 @@ Nota: Het bericht zal niet verzonden worden met de betaling over het Dash netwer
     </message>
     <message>
         <source>Keep N TRVC anonymized (%u-%u, default: %u)</source>
-        <translation>Hou N Dash geanonimiseerd (%u-%u, standaard: %u)</translation>
+        <translation>Hou N Trivechain geanonimiseerd (%u-%u, standaard: %u)</translation>
     </message>
     <message>
         <source>Loading P2P addresses...</source>

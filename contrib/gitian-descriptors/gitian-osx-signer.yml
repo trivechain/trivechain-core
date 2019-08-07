@@ -10,7 +10,7 @@ remotes:
 - "url": "https://github.com/trivechain/trivechain-detached-sigs.git"
   "dir": "signature"
 files:
-- "trivechaincore-osx-unsigned.tar.gz"
+- "trivechain-osx-unsigned.tar.gz"
 script: |
   WRAP_DIR=$HOME/wrapped
   mkdir -p ${WRAP_DIR}
@@ -27,8 +27,8 @@ script: |
     chmod +x ${WRAP_DIR}/${prog}
   done
 
-  UNSIGNED=trivechaincore-osx-unsigned.tar.gz
-  SIGNED=trivechaincore-osx-signed.dmg
+  UNSIGNED=trivechain-osx-unsigned.tar.gz
+  SIGNED=trivechain-osx-signed.dmg
 
   tar -xf ${UNSIGNED}
   OSX_VOLNAME="$(cat osx_volname)"

@@ -3,13 +3,13 @@ Description=Trivechain's distributed currency daemon
 After=network.target
 
 [Service]
-User=trivechaincore
-Group=trivechaincore
+User=trivechain
+Group=trivechain
 
 Type=forking
 PIDFile=/var/lib/trivechaind/trivechaind.pid
 ExecStart=/usr/bin/trivechaind -daemon -pid=/var/lib/trivechaind/trivechaind.pid \
--conf=/etc/trivechaincore/trivechain.conf -datadir=/var/lib/trivechaind -disablewallet
+-conf=/etc/trivechain/trivechain.conf -datadir=/var/lib/trivechaind -disablewallet
 
 Restart=always
 PrivateTmp=true

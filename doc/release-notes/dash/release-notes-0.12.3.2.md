@@ -1,4 +1,4 @@
-Dash Core version 0.12.3.2
+Trivechain version 0.12.3.2
 ==========================
 
 Release is now available from:
@@ -101,7 +101,7 @@ As well as everyone who submitted issues and reviewed pull requests.
 Older releases
 ==============
 
-Dash was previously known as Darkcoin.
+Trivechain was previously known as Darkcoin.
 
 Darkcoin tree 0.8.x was a fork of Litecoin tree 0.8, original name was XCoin
 which was first released on Jan/18/2014.
@@ -112,12 +112,12 @@ the 0.8.x tree and was first released on Mar/13/2014.
 Darkcoin tree 0.10.x used to be the closed source implementation of Darksend
 which was released open source on Sep/25/2014.
 
-Dash Core tree 0.11.x was a fork of Bitcoin Core tree 0.9,
+Trivechain tree 0.11.x was a fork of Bitcoin Core tree 0.9,
 Darkcoin was rebranded to Trivechain.
 
-Dash Core tree 0.12.0.x was a fork of Bitcoin Core tree 0.10.
+Trivechain tree 0.12.0.x was a fork of Bitcoin Core tree 0.10.
 
-Dash Core tree 0.12.1.x was a fork of Bitcoin Core tree 0.12.
+Trivechain tree 0.12.1.x was a fork of Bitcoin Core tree 0.12.
 
 These release are considered obsolete. Old release notes can be found here:
 

@@ -143,7 +143,7 @@ public:
 };
 
 /**
- * Dash RPC command dispatcher.
+ * Trivechain RPC command dispatcher.
  */
 class CRPCTable
 {

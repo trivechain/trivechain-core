@@ -46,7 +46,7 @@
       <key>CFBundleTypeRole</key>
       <string>Editor</string>
       <key>CFBundleURLName</key>
-      <string>org.trivechain.DashPayment</string>
+      <string>org.trivechain.TrivechainPayment</string>
       <key>CFBundleURLSchemes</key>
       <array>
         <string>trivechain</string>
@@ -60,7 +60,7 @@
       <key>UTTypeIdentifier</key>
       <string>org.trivechain.paymentrequest</string>
       <key>UTTypeDescription</key>
-      <string>Dash payment request</string>
+      <string>Trivechain payment request</string>
       <key>UTTypeConformsTo</key>
       <array>
         <string>public.data</string>

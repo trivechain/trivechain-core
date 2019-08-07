@@ -1,7 +1,7 @@
-Building Trivechain Core
+Building Trivechain
 
 After you install the usual build tools and C++ development tools,
-Trivechain Core also needs some build dependencies which are not always provided
+Trivechain also needs some build dependencies which are not always provided
 by default by the OS package manager
 (in particular BerkeleyDB 4.8 for building with wallet support).
 

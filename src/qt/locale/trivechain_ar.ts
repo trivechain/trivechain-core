@@ -62,11 +62,11 @@
         <translation>عناوين الاستقبال </translation>
     </message>
     <message>
-        <source>These are your Dash addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <source>These are your Trivechain addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
         <translation>هذه هي عناوين داش التابعة لك من أجل إرسال الدفعات. تحقق دائما من المبلغ و عنوان المرسل المستقبل قبل إرسال العملات </translation>
     </message>
     <message>
-        <source>These are your Dash addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
+        <source>These are your Trivechain addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
         <translation>هذه هي عناوين داش التابعة لك من أجل إستقبال الدفعات. ينصح استخدام عنوان جديد من أجل كل صفقة </translation>
     </message>
     <message>
@@ -242,11 +242,11 @@
 <context>
     <name>BitcoinGUI</name>
     <message>
-        <source>A fatal error occurred. Dash Core can no longer continue safely and will quit.</source>
+        <source>A fatal error occurred. Trivechain can no longer continue safely and will quit.</source>
         <translation>خطأ فادح حدث . لا يمكن اتمام داش بامان سيتم الخروج</translation>
     </message>
     <message>
-        <source>Dash Core</source>
+        <source>Trivechain</source>
         <translation>جوهر الداش</translation>
     </message>
     <message>
@@ -270,7 +270,7 @@
         <translation>إرسال</translation>
     </message>
     <message>
-        <source>Send coins to a Dash address</source>
+        <source>Send coins to a Trivechain address</source>
         <translation>إرسال عملات الى عنوان داش</translation>
     </message>
     <message>
@@ -306,7 +306,7 @@
         <translation>الخروج من التطبيق</translation>
     </message>
     <message>
-        <source>Show information about Dash Core</source>
+        <source>Show information about Trivechain</source>
         <translation>أظهر المعلومات حولة داش الأساسية</translation>
     </message>
     <message>
@@ -378,7 +378,7 @@
         <translation>توقيع الرسالة</translation>
     </message>
     <message>
-        <source>Sign messages with your Dash addresses to prove you own them</source>
+        <source>Sign messages with your Trivechain addresses to prove you own them</source>
         <translation>وقَع الرسائل بواسطة اداش الخاص بك لإثبات امتلاكك لهم</translation>
     </message>
     <message>
@@ -386,7 +386,7 @@
         <translation>التحقق من الرسالة</translation>
     </message>
     <message>
-        <source>Verify messages to ensure they were signed with specified Dash addresses</source>
+        <source>Verify messages to ensure they were signed with specified Trivechain addresses</source>
         <translation>تحقق من الرسائل للتأكد من أنَها وُقعت برسائل داش محدَدة</translation>
     </message>
     <message>
@@ -474,7 +474,7 @@
         <translation>خيارات سطر الأوامر</translation>
     </message>
     <message>
-        <source>Show the %1 help message to get a list with possible Dash command-line options</source>
+        <source>Show the %1 help message to get a list with possible Trivechain command-line options</source>
         <translation>عرض رسالة مساعدة%1 للحصول على قائمة مع خيارات سطر أوامر داش المحتملة</translation>
     </message>
     <message>
@@ -510,7 +510,7 @@
         <translation>شريط أدوات علامات التبويب</translation>
     </message>
     <message numerus="yes">
-        <source>%n active connection(s) to Dash network</source>
+        <source>%n active connection(s) to Trivechain network</source>
         <translation><numerusform>%n اتصالات نشطة بشبكة داش</numerusform><numerusform>%n اتصالات نشطة بشبكة داش</numerusform><numerusform>%n اتصالات نشطة بشبكة داش</numerusform><numerusform>%n اتصالات نشطة بشبكة داش</numerusform><numerusform>%n اتصالات نشطة بشبكة داش</numerusform><numerusform>%n اتصالات نشطة بشبكة داش</numerusform></translation>
     </message>
     <message>
@@ -861,7 +861,7 @@
         <translation>تعديل عنوان الارسال</translation>
     </message>
     <message>
-        <source>The entered address "%1" is not a valid Dash address.</source>
+        <source>The entered address "%1" is not a valid Trivechain address.</source>
         <translation>العنوان الذي تم إدخاله "%1" ليس عنوانًا صالحًا لداش.</translation>
     </message>
     <message>
@@ -959,8 +959,8 @@
         <translation>معلومات الإرسال المخفي</translation>
     </message>
     <message>
-        <source>&lt;h3&gt;ExclusiveSend Basics&lt;/h3&gt; ExclusiveSend gives you true financial privacy by obscuring the origins of your funds. All the Dash in your wallet is comprised of different "inputs" which you can think of as separate, discrete coins.&lt;br&gt; ExclusiveSend uses an innovative process to mix your inputs with the inputs of two other people, without having your coins ever leave your wallet. You retain control of your money at all times.&lt;hr&gt; &lt;b&gt;The ExclusiveSend process works like this:&lt;/b&gt;&lt;ol type="1"&gt; &lt;li&gt;ExclusiveSend begins by breaking your transaction inputs down into standard denominations. These denominations are 0.001 TRVC, 0.01 TRVC, 0.1 TRVC, 1 TRVC and 10 TRVC -- sort of like the paper money you use every day.&lt;/li&gt; &lt;li&gt;Your wallet then sends requests to specially configured software nodes on the network, called "masternodes." These masternodes are informed then that you are interested in mixing a certain denomination. No identifiable information is sent to the masternodes, so they never know "who" you are.&lt;/li&gt; &lt;li&gt;When two other people send similar messages, indicating that they wish to mix the same denomination, a mixing session begins. The masternode mixes up the inputs and instructs all three users' wallets to pay the now-transformed input back to themselves. Your wallet pays that denomination directly to itself, but in a different address (called a change address).&lt;/li&gt; &lt;li&gt;In order to fully obscure your funds, your wallet must repeat this process a number of times with each denomination. Each time the process is completed, it's called a "round." Each round of ExclusiveSend makes it exponentially more difficult to determine where your funds originated.&lt;/li&gt; &lt;li&gt;This mixing process happens in the background without any intervention on your part. When you wish to make a transaction, your funds will already be anonymized. No additional waiting is required.&lt;/li&gt; &lt;/ol&gt; &lt;hr&gt;&lt;b&gt;IMPORTANT:&lt;/b&gt; Your wallet only contains 1000 of these "change addresses." Every time a mixing event happens, up to 9 of your addresses are used up. This means those 1000 addresses last for about 100 mixing events. When 900 of them are used, your wallet must create more addresses. It can only do this, however, if you have automatic backups enabled.&lt;br&gt; Consequently, users who have backups disabled will also have ExclusiveSend disabled. &lt;hr&gt;For more information, see the &lt;a href="https://docs.trivechain.com/en/latest/wallets/trivechaincore/exclusivesend-directsend.html"&gt;ExclusiveSend documentation&lt;/a&gt;.</source>
-        <translation>&lt;h3&gt;أساسيات الإرسال المخفي &lt;/h3&gt; يمنحك الإرسال المخفي الخصوصية المالية الحقيقية عن طريق حجب أصول أموالك. تتألف جميع داش في محفظتك من "مدخلات" مختلفة يمكنك التفكير فيها على أنها عملات معدنية منفصلة ومنفصلة. &lt;br&gt;يستخدم الإرسال المخفي عملية مبتكرة لخلط مدخلات الخاصة بك مع مدخلات شخصين آخرين ، دون أن تترك العملات المعدنية الخاصة بك من أي وقت مضى محفظتك. أنت تحتفظ بالسيطرة على أموالك في جميع الأوقات.&lt;hr&gt;  &lt;b&gt; تعمل عملية الإرسال المخفي على النحو التالي: &lt;/b&gt;&lt;ol type="1"&gt;&lt;li&gt;يبدأ الإرسال المخفي عن طريق كسر مدخلات الخاصة بالمعاملات إلى فئات قياسية. هذه الفئات هي 0.001 داش ، 0.01 داش ، 0.1 داش ، 1 داش و 10 داش - نوع من مثل النقود الورقية التي تستخدمها كل يوم. &lt;/li&gt;  عندئذٍ ترسل محفظتك طلبات إلى عقد برامج تم تكوينها خصيصًا على الشبكة ، تُسمى "ماسترنود". يتم إخبار هذه الألفاظ بأنك مهتم بخلط فئة معينة. يتم إرسال أي معلومات يمكن تحديدها إلى جميع ماسترنود ، لذلك لا يعرفون أبدا "من" أنت&lt;li&gt;  &lt;li&gt;  عندما يرسل شخصان آخران رسائل مشابهة ، تشير إلى أنهما يرغبان في خلط نفس المذهب ، تبدأ جلسة الخلط. يمزج متاسترنود يصل مدخلات ويكلف محافظ المستخدمين الثلاثة لدفع مدخلات تحولت الآن إلى أنفسهم. تدفع محفظتك تلك التسمية مباشرة لنفسها ، ولكن في عنوان مختلف (يسمى عنوان التغيير). &lt;li&gt;&lt;/li&gt;  من أجل حجب أموالك بشكل كامل ، يجب أن تكرر محفظتك هذه العملية عدة مرات مع كل فئة. في كل مرة يتم الانتهاء من العملية ، يطلق عليها "جولة". كل جولة من الإرسال المخفي تجعل من الصعب بشكل كبير تحديد المكان الذي نشأت فيه أموالك.&lt;/li&gt;  &lt;li&gt; تحدث عملية الاختلاط هذه في الخلفية دون أي تدخل من جانبك. عندما ترغب في إجراء معاملة ، ستكون أموالك مجهولة المصدر بالفعل. مطلوب أي انتظار إضافي. &lt;/li&gt;&lt;/ol&gt;&lt;hr&gt;&lt;b&gt;مهم &lt;/b&gt; تحتوي محفظتك فقط على 1000 من "عناوين التغيير" هذه. في كل مرة يحدث فيها حدث خلط ، يتم استخدام ما يصل إلى 9 عناوين من عناوينك. هذا يعني أن 1000 عنوان تدوم لحوالي 100 حدث خلط. عند استخدام 900 منهم ، يجب أن تنشئ محفظتك المزيد من العناوين. يمكن فقط القيام بذلك ، ومع ذلك ، إذا قمت بتمكين النسخ الاحتياطي التلقائي.&lt;br&gt; وبالتالي ، سيتم تعطيل الإرسال المخفي أيضًا للمستخدمين الذين لديهم نسخ احتياطية معطلة.&lt;hr&gt; لمزيد من المعلومات ، راجع&lt;a href="https://docs.trivechain.com/en/latest/wallets/trivechaincore/exclusivesend-directsend.html"&gt; وثائق الإرسال المخفي &lt;/a&gt;</translation>
+        <source>&lt;h3&gt;ExclusiveSend Basics&lt;/h3&gt; ExclusiveSend gives you true financial privacy by obscuring the origins of your funds. All the Trivechain in your wallet is comprised of different "inputs" which you can think of as separate, discrete coins.&lt;br&gt; ExclusiveSend uses an innovative process to mix your inputs with the inputs of two other people, without having your coins ever leave your wallet. You retain control of your money at all times.&lt;hr&gt; &lt;b&gt;The ExclusiveSend process works like this:&lt;/b&gt;&lt;ol type="1"&gt; &lt;li&gt;ExclusiveSend begins by breaking your transaction inputs down into standard denominations. These denominations are 0.001 TRVC, 0.01 TRVC, 0.1 TRVC, 1 TRVC and 10 TRVC -- sort of like the paper money you use every day.&lt;/li&gt; &lt;li&gt;Your wallet then sends requests to specially configured software nodes on the network, called "masternodes." These masternodes are informed then that you are interested in mixing a certain denomination. No identifiable information is sent to the masternodes, so they never know "who" you are.&lt;/li&gt; &lt;li&gt;When two other people send similar messages, indicating that they wish to mix the same denomination, a mixing session begins. The masternode mixes up the inputs and instructs all three users' wallets to pay the now-transformed input back to themselves. Your wallet pays that denomination directly to itself, but in a different address (called a change address).&lt;/li&gt; &lt;li&gt;In order to fully obscure your funds, your wallet must repeat this process a number of times with each denomination. Each time the process is completed, it's called a "round." Each round of ExclusiveSend makes it exponentially more difficult to determine where your funds originated.&lt;/li&gt; &lt;li&gt;This mixing process happens in the background without any intervention on your part. When you wish to make a transaction, your funds will already be anonymized. No additional waiting is required.&lt;/li&gt; &lt;/ol&gt; &lt;hr&gt;&lt;b&gt;IMPORTANT:&lt;/b&gt; Your wallet only contains 1000 of these "change addresses." Every time a mixing event happens, up to 9 of your addresses are used up. This means those 1000 addresses last for about 100 mixing events. When 900 of them are used, your wallet must create more addresses. It can only do this, however, if you have automatic backups enabled.&lt;br&gt; Consequently, users who have backups disabled will also have ExclusiveSend disabled. &lt;hr&gt;For more information, see the &lt;a href="https://docs.trivechain.com/en/latest/wallets/trivechain/exclusivesend-directsend.html"&gt;ExclusiveSend documentation&lt;/a&gt;.</source>
+        <translation>&lt;h3&gt;أساسيات الإرسال المخفي &lt;/h3&gt; يمنحك الإرسال المخفي الخصوصية المالية الحقيقية عن طريق حجب أصول أموالك. تتألف جميع داش في محفظتك من "مدخلات" مختلفة يمكنك التفكير فيها على أنها عملات معدنية منفصلة ومنفصلة. &lt;br&gt;يستخدم الإرسال المخفي عملية مبتكرة لخلط مدخلات الخاصة بك مع مدخلات شخصين آخرين ، دون أن تترك العملات المعدنية الخاصة بك من أي وقت مضى محفظتك. أنت تحتفظ بالسيطرة على أموالك في جميع الأوقات.&lt;hr&gt;  &lt;b&gt; تعمل عملية الإرسال المخفي على النحو التالي: &lt;/b&gt;&lt;ol type="1"&gt;&lt;li&gt;يبدأ الإرسال المخفي عن طريق كسر مدخلات الخاصة بالمعاملات إلى فئات قياسية. هذه الفئات هي 0.001 داش ، 0.01 داش ، 0.1 داش ، 1 داش و 10 داش - نوع من مثل النقود الورقية التي تستخدمها كل يوم. &lt;/li&gt;  عندئذٍ ترسل محفظتك طلبات إلى عقد برامج تم تكوينها خصيصًا على الشبكة ، تُسمى "ماسترنود". يتم إخبار هذه الألفاظ بأنك مهتم بخلط فئة معينة. يتم إرسال أي معلومات يمكن تحديدها إلى جميع ماسترنود ، لذلك لا يعرفون أبدا "من" أنت&lt;li&gt;  &lt;li&gt;  عندما يرسل شخصان آخران رسائل مشابهة ، تشير إلى أنهما يرغبان في خلط نفس المذهب ، تبدأ جلسة الخلط. يمزج متاسترنود يصل مدخلات ويكلف محافظ المستخدمين الثلاثة لدفع مدخلات تحولت الآن إلى أنفسهم. تدفع محفظتك تلك التسمية مباشرة لنفسها ، ولكن في عنوان مختلف (يسمى عنوان التغيير). &lt;li&gt;&lt;/li&gt;  من أجل حجب أموالك بشكل كامل ، يجب أن تكرر محفظتك هذه العملية عدة مرات مع كل فئة. في كل مرة يتم الانتهاء من العملية ، يطلق عليها "جولة". كل جولة من الإرسال المخفي تجعل من الصعب بشكل كبير تحديد المكان الذي نشأت فيه أموالك.&lt;/li&gt;  &lt;li&gt; تحدث عملية الاختلاط هذه في الخلفية دون أي تدخل من جانبك. عندما ترغب في إجراء معاملة ، ستكون أموالك مجهولة المصدر بالفعل. مطلوب أي انتظار إضافي. &lt;/li&gt;&lt;/ol&gt;&lt;hr&gt;&lt;b&gt;مهم &lt;/b&gt; تحتوي محفظتك فقط على 1000 من "عناوين التغيير" هذه. في كل مرة يحدث فيها حدث خلط ، يتم استخدام ما يصل إلى 9 عناوين من عناوينك. هذا يعني أن 1000 عنوان تدوم لحوالي 100 حدث خلط. عند استخدام 900 منهم ، يجب أن تنشئ محفظتك المزيد من العناوين. يمكن فقط القيام بذلك ، ومع ذلك ، إذا قمت بتمكين النسخ الاحتياطي التلقائي.&lt;br&gt; وبالتالي ، سيتم تعطيل الإرسال المخفي أيضًا للمستخدمين الذين لديهم نسخ احتياطية معطلة.&lt;hr&gt; لمزيد من المعلومات ، راجع&lt;a href="https://docs.trivechain.com/en/latest/wallets/trivechain/exclusivesend-directsend.html"&gt; وثائق الإرسال المخفي &lt;/a&gt;</translation>
     </message>
 </context>
 <context>
@@ -1006,7 +1006,7 @@
         <translation>سيتم تخزين %1 جيجابايت تقريباً من البيانات في هذا الدليل.</translation>
     </message>
     <message>
-        <source>%1 will download and store a copy of the Dash block chain.</source>
+        <source>%1 will download and store a copy of the Trivechain block chain.</source>
         <translation>سيقوم %1 بتنزيل نسخة من سلسلة كتل بتكوين وتخزينها.</translation>
     </message>
     <message>
@@ -1136,11 +1136,11 @@
         <translation>نمودج</translation>
     </message>
     <message>
-        <source>Recent transactions may not yet be visible, and therefore your wallet's balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the Dash network, as detailed below.</source>
+        <source>Recent transactions may not yet be visible, and therefore your wallet's balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the Trivechain network, as detailed below.</source>
         <translation>قد لا تكون المعاملات الأخيرة مرئية بعد ، وبالتالي قد يكون رصيد محفظتك غير صحيح. ستكون هذه المعلومات صحيحة بمجرد انتهاء محفظتك من المزامنة مع شبكة داش ، كما هو مفصل أدناه.</translation>
     </message>
     <message>
-        <source>Attempting to spend Dash that are affected by not-yet-displayed transactions will not be accepted by the network.</source>
+        <source>Attempting to spend Trivechain that are affected by not-yet-displayed transactions will not be accepted by the network.</source>
         <translation>لن تقبل الشبكة محاولة إنفاق داش المتأثرة بالمعاملات التي لم يتم عرضها بعد.</translation>
     </message>
     <message>
@@ -1230,7 +1230,7 @@
         <translation>(0 = تلقائي، &lt;0 = اترك ذلك العديد من النوى مجانا )</translation>
     </message>
     <message>
-        <source>Amount of Dash to keep anonymized</source>
+        <source>Amount of Trivechain to keep anonymized</source>
         <translation>مبلغ من داش للحفاظ على مجهولة المصدر</translation>
     </message>
     <message>
@@ -1282,7 +1282,7 @@
         <translation>يعمل هذا المقدار كعتبة لإيقاف تشغيل الإرسال المخفي بمجرد الوصول إليه.</translation>
     </message>
     <message>
-        <source>Automatically open the Dash Core client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <source>Automatically open the Trivechain client port on the router. This only works when your router supports UPnP and it is enabled.</source>
         <translation>فتح منفذ عميل داش كور تلقائيًا على جهاز التوجيه. هذا يعمل فقط عندما يدعم جهاز التوجيه الخاص بك UPnP وتمكينه.</translation>
     </message>
     <message>
@@ -1294,7 +1294,7 @@
         <translation>السماح بالاتصالات الواردة</translation>
     </message>
     <message>
-        <source>Connect to the Dash network through a SOCKS5 proxy.</source>
+        <source>Connect to the Trivechain network through a SOCKS5 proxy.</source>
         <translation>الاتصال بشبكة داش من خلال وكيل SOCKS5.</translation>
     </message>
     <message>
@@ -1390,7 +1390,7 @@
         <translation>تور</translation>
     </message>
     <message>
-        <source>Connect to the Dash network through a separate SOCKS5 proxy for Tor hidden services.</source>
+        <source>Connect to the Trivechain network through a separate SOCKS5 proxy for Tor hidden services.</source>
         <translation>اتصل بشبكة داش من خلال وكيل SOCKS5 منفصل لخدمات المخفية.</translation>
     </message>
     <message>
@@ -1515,7 +1515,7 @@ https://www.transifex.com/projects/p/trivechain/</translation>
         <translation>نمودج</translation>
     </message>
     <message>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Dash network after a connection is established, but this process has not completed yet.</source>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Trivechain network after a connection is established, but this process has not completed yet.</source>
         <translation>قد تكون المعلومات المعروضة قديمة. تتزامن محفظتك تلقائيًا مع شبكة داش بعد إنشاء الاتصال ، ولكن هذه العملية لم تكتمل بعد.</translation>
     </message>
     <message>
@@ -1796,7 +1796,7 @@ https://www.transifex.com/projects/p/trivechain/</translation>
         <translation>عنوان الدفع غير صالح %1</translation>
     </message>
     <message>
-        <source>URI cannot be parsed! This can be caused by an invalid Dash address or malformed URI parameters.</source>
+        <source>URI cannot be parsed! This can be caused by an invalid Trivechain address or malformed URI parameters.</source>
         <translation>لا يمكن تحليل العنوان! يمكن أن يكون ذلك بسبب عنوان داش غير صالح أو معلمات العنوان غير صحيحة.</translation>
     </message>
     <message>
@@ -1894,7 +1894,7 @@ https://www.transifex.com/projects/p/trivechain/</translation>
         <translation>مبلغ</translation>
     </message>
     <message>
-        <source>Enter a Dash address (e.g. %1)</source>
+        <source>Enter a Trivechain address (e.g. %1)</source>
         <translation>أدخل عنوان داش (على سبيل المثال%1)</translation>
     </message>
     <message>
@@ -2412,7 +2412,7 @@ https://www.transifex.com/projects/p/trivechain/</translation>
         <translation>إعادة استخدام عنوان استلام موجود (غير مستحسن)</translation>
     </message>
     <message>
-        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the Dash network.</source>
+        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the Trivechain network.</source>
         <translation>رسالة اختيارية لإرفاقها بطلب الدفع ، والتي سيتم عرضها عند فتح الطلب. ملاحظة: لن يتم إرسال الرسالة مع الدفع عبر شبكة داش.</translation>
     </message>
     <message>
@@ -2424,7 +2424,7 @@ https://www.transifex.com/projects/p/trivechain/</translation>
         <translation>تسمية اختيارية لربطها بعنوان المستلم الجديد.</translation>
     </message>
     <message>
-        <source>An optional message to attach to the payment request, which will be displayed when the request is opened.&lt;br&gt;Note: The message will not be sent with the payment over the Dash network.</source>
+        <source>An optional message to attach to the payment request, which will be displayed when the request is opened.&lt;br&gt;Note: The message will not be sent with the payment over the Trivechain network.</source>
         <translation>رسالة اختيارية لإرفاقها بطلب الدفع ، والتي سيتم عرضها عند فتح الطلب.&lt;br&gt; ملاحظة: لن يتم إرسال الرسالة مع الدفع عبر شبكة داش.</translation>
     </message>
     <message>
@@ -2881,7 +2881,7 @@ https://www.transifex.com/projects/p/trivechain/</translation>
         <translation><numerusform>يقدر أن يبدأ التأكيد ضمن %n من الكتل.</numerusform><numerusform>يقدر أن يبدأ التأكيد ضمن %n من الكتل.</numerusform><numerusform>يقدر أن يبدأ التأكيد ضمن %n من الكتل.</numerusform><numerusform>يقدر أن يبدأ التأكيد ضمن %n من الكتل.</numerusform><numerusform>يقدر أن يبدأ التأكيد ضمن %n من الكتل.</numerusform><numerusform>يقدر أن يبدأ التأكيد ضمن %n من الكتل.</numerusform></translation>
     </message>
     <message>
-        <source>Warning: Invalid Dash address</source>
+        <source>Warning: Invalid Trivechain address</source>
         <translation>تحذير: عنوان داش غير صالح</translation>
     </message>
     <message>
@@ -2912,7 +2912,7 @@ https://www.transifex.com/projects/p/trivechain/</translation>
         <translation>ادفع &amp;الى :</translation>
     </message>
     <message>
-        <source>The Dash address to send the payment to</source>
+        <source>The Trivechain address to send the payment to</source>
         <translation>عنوان داش لإرسال الدفعة إلى</translation>
     </message>
     <message>
@@ -2948,7 +2948,7 @@ https://www.transifex.com/projects/p/trivechain/</translation>
         <translation>&amp;القيمة</translation>
     </message>
     <message>
-        <source>The fee will be deducted from the amount being sent. The recipient will receive a lower amount of Dash than you enter in the amount field. If multiple recipients are selected, the fee is split equally.</source>
+        <source>The fee will be deducted from the amount being sent. The recipient will receive a lower amount of Trivechain than you enter in the amount field. If multiple recipients are selected, the fee is split equally.</source>
         <translation>سيتم خصم الرسوم من المبلغ الذي يتم إرساله. سوف يتلقى المستلم كمية أقل من الشرطة من إدخالها في حقل المبلغ. في حالة تحديد عدة مستلمين ، يتم تقسيم الرسوم بالتساوي.</translation>
     </message>
     <message>
@@ -2960,7 +2960,7 @@ https://www.transifex.com/projects/p/trivechain/</translation>
         <translation>الرسائل</translation>
     </message>
     <message>
-        <source>A message that was attached to the trivechain: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the Dash network.</source>
+        <source>A message that was attached to the trivechain: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the Trivechain network.</source>
         <translation>رسالة تم إرفاقها بخط العطف: عنوان الذي سيتم تخزينه مع المعاملة كمرجع لك. ملاحظة: لن يتم إرسال هذه الرسالة عبر شبكة داش.</translation>
     </message>
     <message>
@@ -3013,11 +3013,11 @@ https://www.transifex.com/projects/p/trivechain/</translation>
         <translation>&amp;توقيع الرسالة</translation>
     </message>
     <message>
-        <source>You can sign messages/agreements with your addresses to prove you can receive Dash sent to them. Be careful not to sign anything vague or random, as phishing attacks may try to trick you into signing your identity over to them. Only sign fully-detailed statements you agree to.</source>
+        <source>You can sign messages/agreements with your addresses to prove you can receive Trivechain sent to them. Be careful not to sign anything vague or random, as phishing attacks may try to trick you into signing your identity over to them. Only sign fully-detailed statements you agree to.</source>
         <translation>يمكنك توقيع الرسائل / الاتفاقيات مع العناوين الخاصة بك لإثبات أنك يمكن أن تتلقى داش المرسلة إليهم. احرص على عدم التوقيع على أي شيء غامض أو عشوائي ، حيث إن هجمات التصيد الاحتيالي قد تحاول خداعك لتوقيع هويتك عليها. توقيع فقط عبارات تفصيلية كاملة توافق على.</translation>
     </message>
     <message>
-        <source>The Dash address to sign the message with</source>
+        <source>The Trivechain address to sign the message with</source>
         <translation>عنوان داش للتوقيع على الرسالة</translation>
     </message>
     <message>
@@ -3049,7 +3049,7 @@ https://www.transifex.com/projects/p/trivechain/</translation>
         <translation>نسخ التوقيع الحالي إلى حافظة النظام</translation>
     </message>
     <message>
-        <source>Sign the message to prove you own this Dash address</source>
+        <source>Sign the message to prove you own this Trivechain address</source>
         <translation>وقع على الرسالة لإثبات أنك تملك عنوان داش هذا</translation>
     </message>
     <message>
@@ -3073,11 +3073,11 @@ https://www.transifex.com/projects/p/trivechain/</translation>
         <translation>أدخل عنوان المتلقي ، رسالة (تأكد من نسخ فواصل الأسطر والمسافات وعلامات التبويب وما إلى ذلك تمامًا) والتوقيع أدناه للتحقق من الرسالة. يجب الحرص على عدم قراءة المزيد في التوقيع أكثر مما هو موجود في الرسالة الموقّعة نفسها ، لتجنب التعرض للخداع من خلال هجوم رجل في الوسط. لاحظ أن هذا يثبت فقط أن الطرف المتلقي يتلقى العنوان ، فلا يمكنه إثبات إرسال أي معاملة!</translation>
     </message>
     <message>
-        <source>The Dash address the message was signed with</source>
+        <source>The Trivechain address the message was signed with</source>
         <translation>عنوان داش الذي تم توقيع الرسالة به</translation>
     </message>
     <message>
-        <source>Verify the message to ensure it was signed with the specified Dash address</source>
+        <source>Verify the message to ensure it was signed with the specified Trivechain address</source>
         <translation>تحقق من الرسالة للتأكد من توقيعها باستخدام عنوان داش المحدد</translation>
     </message>
     <message>
@@ -4338,7 +4338,7 @@ https://www.transifex.com/projects/p/trivechain/</translation>
         <translation>ابقى على اقصى حد &lt;n&gt; معاملات غير قابلة للاتصال في الذاكرة (القيمة الافتراضية: %u)</translation>
     </message>
     <message>
-        <source>Disable all Dash specific functionality (Masternodes, ExclusiveSend, DirectSend, Governance) (0-1, default: %u)</source>
+        <source>Disable all Trivechain specific functionality (Masternodes, ExclusiveSend, DirectSend, Governance) (0-1, default: %u)</source>
         <translation>تعطيل جميع وظائف داش المحددة (ماسترنود ، الإرسال المخفي  ، الإرسال الفوري ، الحوكمة) (0-1 ، القيمة الافتراضية: %u)</translation>
     </message>
     <message>
@@ -4490,7 +4490,7 @@ https://www.transifex.com/projects/p/trivechain/</translation>
         <translation>تحذير: يتم نسخ إصدارات الحظر غير المعروفة! من المحتمل أن تكون قواعد غير معروفة سارية المفعول</translation>
     </message>
     <message>
-        <source>You are starting in lite mode, all Dash-specific functionality is disabled.</source>
+        <source>You are starting in lite mode, all Trivechain-specific functionality is disabled.</source>
         <translation>أنت تبدأ في الوضع البسيط ، يتم تعطيل جميع وظائف داش المحددة.</translation>
     </message>
     <message>
@@ -4826,7 +4826,7 @@ https://www.transifex.com/projects/p/trivechain/</translation>
         <translation>خيارات خادم RPC:</translation>
     </message>
     <message>
-        <source>Dash Core</source>
+        <source>Trivechain</source>
         <translation>جوهر الداش</translation>
     </message>
     <message>

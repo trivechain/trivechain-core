@@ -29,7 +29,7 @@ for Debian-based Linux systems. If you compile trivechaind/trivechain-qt yoursel
 Notes on getting Gitian builds up and running using KVM.
 
 ### [Gitian-keys](/contrib/gitian-keys)
-PGP keys used for signing Trivechain Core [Gitian release](/doc/release-process.md) results.
+PGP keys used for signing Trivechain [Gitian release](/doc/release-process.md) results.
 
 ### [MacDeploy](/contrib/macdeploy) ###
 Scripts and notes for Mac builds. 
@@ -41,7 +41,7 @@ Test and Verify Tools
 ---------------------
 
 ### [TestGen](/contrib/testgen) ###
-Utilities to generate test vectors for the data-driven Dash tests.
+Utilities to generate test vectors for the data-driven Trivechain tests.
 
 ### [Verify Binaries](/contrib/verifybinaries) ###
 This script attempts to download and verify the signature file SHA256SUMS.asc from bitcoin.org.

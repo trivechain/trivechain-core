@@ -15,6 +15,6 @@ fi
 
 export LD_LIBRARY_PATH=$BUILD_DIR/depends/$HOST/lib
 
-cd build-ci/trivechaincore-$BUILD_TARGET
+cd build-ci/trivechain-$BUILD_TARGET
 
 ./qa/pull-tester/rpc-tests.py --coverage $PASS_ARGS

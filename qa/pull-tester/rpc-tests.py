@@ -101,7 +101,7 @@ BASE_SCRIPTS= [
 ]
 
 ZMQ_SCRIPTS = [
-    # ZMQ test can only be run if Dash Core was built with zmq-enabled.
+    # ZMQ test can only be run if Trivechain was built with zmq-enabled.
     # call rpc_tests.py with -nozmq to explicitly exclude these tests.
     "zmq_test.py"]
 

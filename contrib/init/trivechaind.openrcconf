@@ -1,7 +1,7 @@
 # /etc/conf.d/trivechaind: config file for /etc/init.d/trivechaind
 
 # Config file location
-#BITCOIND_CONFIGFILE="/etc/trivechaincore/trivechain.conf"
+#BITCOIND_CONFIGFILE="/etc/trivechain/trivechain.conf"
 
 # What directory to write pidfile to?  (created and owned by $BITCOIND_USER)
 #BITCOIND_PIDDIR="/var/run/trivechaind"
@@ -13,8 +13,8 @@
 #BITCOIND_DATADIR="/var/lib/trivechaind"
 
 # User and group to own trivechain process
-#BITCOIND_USER="trivechaincore"
-#BITCOIND_GROUP="trivechaincore"
+#BITCOIND_USER="trivechain"
+#BITCOIND_GROUP="trivechain"
 
 # Path to trivechain executable
 #BITCOIND_BIN="/usr/bin/trivechaind"

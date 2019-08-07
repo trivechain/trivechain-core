@@ -1,5 +1,5 @@
 // Copyright (c) 2011-2015 The Bitcoin Core developers
-// Copyright (c) 2014-2016 The Dash Core developers
+// Copyright (c) 2019 The Trivechain developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -73,9 +73,9 @@ QString BitcoinUnits::description(int unit)
         switch(unit)
         {
             case TRVC: return QString("Trivechain");
-            case mTRVC: return QString("Milli-Dash (1 / 1" THIN_SP_UTF8 "000)");
-            case uTRVC: return QString("Micro-Dash (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
-            case duffs: return QString("Ten Nano-Dash (1 / 100" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
+            case mTRVC: return QString("Milli-Trivechain (1 / 1" THIN_SP_UTF8 "000)");
+            case uTRVC: return QString("Micro-Trivechain (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
+            case duffs: return QString("Ten Nano-Trivechain (1 / 100" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
             default: return QString("???");
         }
     }
@@ -83,10 +83,10 @@ QString BitcoinUnits::description(int unit)
     {
         switch(unit)
         {
-            case TRVC: return QString("TestDashs");
-            case mTRVC: return QString("Milli-TestDash (1 / 1" THIN_SP_UTF8 "000)");
-            case uTRVC: return QString("Micro-TestDash (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
-            case duffs: return QString("Ten Nano-TestDash (1 / 100" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
+            case TRVC: return QString("TestTrivechains");
+            case mTRVC: return QString("Milli-TestTrivechain (1 / 1" THIN_SP_UTF8 "000)");
+            case uTRVC: return QString("Micro-TestTrivechain (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
+            case duffs: return QString("Ten Nano-TestTrivechain (1 / 100" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
             default: return QString("???");
         }
     }

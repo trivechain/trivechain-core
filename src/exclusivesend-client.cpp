@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2019 The Dash Core developers
+// Copyright (c) 2019 The Trivechain developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -25,7 +25,7 @@ CExclusiveSendClientManager exclusiveSendClient;
 void CExclusiveSendClientManager::ProcessMessage(CNode* pfrom, const std::string& strCommand, CDataStream& vRecv, CConnman& connman)
 {
     if (fMasternodeMode) return;
-    if (fLiteMode) return; // ignore all Dash related functionality
+    if (fLiteMode) return; // ignore all Trivechain related functionality
     if (!masternodeSync.IsBlockchainSynced()) return;
 
     if (!CheckDiskSpace()) {
@@ -132,7 +132,7 @@ void CExclusiveSendClientManager::ProcessMessage(CNode* pfrom, const std::string
 void CExclusiveSendClientSession::ProcessMessage(CNode* pfrom, const std::string& strCommand, CDataStream& vRecv, CConnman& connman)
 {
     if (fMasternodeMode) return;
-    if (fLiteMode) return; // ignore all Dash related functionality
+    if (fLiteMode) return; // ignore all Trivechain related functionality
     if (!masternodeSync.IsBlockchainSynced()) return;
 
     if (strCommand == NetMsgType::DSSTATUSUPDATE) {
@@ -1707,7 +1707,7 @@ void CExclusiveSendClientManager::UpdatedBlockTip(const CBlockIndex* pindex)
 
 void CExclusiveSendClientManager::DoMaintenance(CConnman& connman)
 {
-    if (fLiteMode) return;       // disable all Dash specific functionality
+    if (fLiteMode) return;       // disable all Trivechain specific functionality
     if (fMasternodeMode) return; // no client-side mixing on masternodes
 
     if (!masternodeSync.IsBlockchainSynced() || ShutdownRequested())

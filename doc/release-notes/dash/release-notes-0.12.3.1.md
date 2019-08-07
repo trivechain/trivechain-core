@@ -1,4 +1,4 @@
-Dash Core version 0.12.3.1
+Trivechain version 0.12.3.1
 ==========================
 
 Release is now available from:
@@ -64,7 +64,7 @@ If a node connects to the wrong network, it will immediately be disconnected.
 New format of network message signatures
 ----------------------------------------
 
-We introduced a new signature format for Dash-specific network messages,
+We introduced a new signature format for Trivechain-specific network messages,
 read more [here](https://github.com/trivechain/trivechain/pull/1936) and [here](https://github.com/trivechain/trivechain/pull/1937).
 We also introduced a new spork `SPORK_6_NEW_SIGS` which is going to be used to activate the new format after the network has finished the upgrade.
 Note that old pre-12.3 nodes won't be able to recognize and verify new signatures after `SPORK_6_NEW_SIGS` activates.
@@ -110,7 +110,7 @@ Support for pruned nodes in Lite Mode
 -------------------------------------
 
 It is now possible to run a pruned node which stores only some recent blocks and not the whole blockchain.
-However this option is only available in so called Lite Mode. In this mode, Dash specific features are disabled, meaning
+However this option is only available in so called Lite Mode. In this mode, Trivechain specific features are disabled, meaning
 that such nodes won't fully validate the blockchain (masternode payments and superblocks).
 ExclusiveSend and DirectSend functions are also disabled on such nodes. Such nodes are comparable to SPV-like nodes
 in terms of security and validation - it relies a lot on surrounding nodes, so please keep this in mind if you decide to
@@ -148,7 +148,7 @@ Command-line options
 --------------------
 
 New cmd-line options:
-- introduced in Dash Core 0.12.3.1: `allowprivatenet`, `bip9params`, `sporkaddr`, `devnet`;
+- introduced in Trivechain 0.12.3.1: `allowprivatenet`, `bip9params`, `sporkaddr`, `devnet`;
 - backported from Bitcoin Core 0.13/0.14: `blockreconstructionextratxn`, `maxtimeadjustment`, `maxtipage`,
 `incrementalrelayfee`, `dustrelayfee`, `blockmintxfee`.
 
@@ -175,7 +175,7 @@ case of future ASIC uses on testnet.
 Using masternode lists for initial peers discovery
 --------------------------------------------------
 
-We now use a recent masternode list to feed the hardcoded seed nodes list in Dash Core. This list was previously
+We now use a recent masternode list to feed the hardcoded seed nodes list in Trivechain. This list was previously
 unmaintained as we fully relied on DNS based discovery on startup. DNS discovery is still used as the main discovery
 method, but the hardcoded seed list should now be able to serve as a proper backup in case DNS fails for some reason.
 
@@ -268,7 +268,7 @@ See detailed [change log](https://github.com/trivechain/trivechain/compare/v0.12
 - [`a648d6eff`](https://github.com/trivechain/trivechain/commit/a648d6eff) Drop delayed headers logic and fix duplicate initial headers sync by handling block inv correctly (#2032)
 - [`99085c5b6`](https://github.com/trivechain/trivechain/commit/99085c5b6) swap devnet magic bytes around (#2028)
 - [`a37dbd6d2`](https://github.com/trivechain/trivechain/commit/a37dbd6d2) Fix netfulfilledman usage (#2033)
-- [`08033ffe4`](https://github.com/trivechain/trivechain/commit/08033ffe4) Reject Dash-specific messages from obsolete peers (#1983)
+- [`08033ffe4`](https://github.com/trivechain/trivechain/commit/08033ffe4) Reject Trivechain-specific messages from obsolete peers (#1983)
 - [`43671a39d`](https://github.com/trivechain/trivechain/commit/43671a39d) Deprecate nMnCount in mnget (#1942)
 - [`451f7f071`](https://github.com/trivechain/trivechain/commit/451f7f071) Fix issues with mnp, mnw and dsq signatures via new spork (SPORK_6_NEW_SIGS) (#1936)
 - [`048062641`](https://github.com/trivechain/trivechain/commit/048062641) Force masternodes to have listen=1 and maxconnections to be at least DEFAULT_MAX_PEER_CONNECTIONS (#1935)
@@ -283,7 +283,7 @@ See detailed [change log](https://github.com/trivechain/trivechain/compare/v0.12
 - [`1b1a440f4`](https://github.com/trivechain/trivechain/commit/1b1a440f4) Do not send trivechain-specific requests to masternodes before we are fully connected (#1882)
 - [`1ca270ed8`](https://github.com/trivechain/trivechain/commit/1ca270ed8) No need for msgMakerInitProto for sporks because we loop by fully connected nodes only now (#1877)
 - [`b84afb251`](https://github.com/trivechain/trivechain/commit/b84afb251) Allow to filter for fully connected nodes when calling CopyNodeVector (#1864)
-- [`532b9fa3d`](https://github.com/trivechain/trivechain/commit/532b9fa3d) Use OpenNetworkConnection instead of calling ConnectNode directly in Dash code (#1857)
+- [`532b9fa3d`](https://github.com/trivechain/trivechain/commit/532b9fa3d) Use OpenNetworkConnection instead of calling ConnectNode directly in Trivechain code (#1857)
 - [`3aad9d908`](https://github.com/trivechain/trivechain/commit/3aad9d908) Fix logging in PushInventory (#1847)
 - [`81fb931fb`](https://github.com/trivechain/trivechain/commit/81fb931fb) Don't delay GETHEADERS when no blocks have arrived yet in devnet (#1807)
 
@@ -366,7 +366,7 @@ See detailed [change log](https://github.com/trivechain/trivechain/compare/v0.12
 - [`836e10471`](https://github.com/trivechain/trivechain/commit/836e10471) Bump proto to 70210 (#2109)
 - [`23ba94b37`](https://github.com/trivechain/trivechain/commit/23ba94b37) Bump remaining min protocols (#2097)
 - [`9299a84b1`](https://github.com/trivechain/trivechain/commit/9299a84b1) Bump few consts (#2096)
-- [`7b43720f0`](https://github.com/trivechain/trivechain/commit/7b43720f0) Fix copying of final binaries into trivechaincore-binaries (#2090)
+- [`7b43720f0`](https://github.com/trivechain/trivechain/commit/7b43720f0) Fix copying of final binaries into trivechain-binaries (#2090)
 - [`cc593615e`](https://github.com/trivechain/trivechain/commit/cc593615e) Bump copyright year to 2018 (#2087)
 - [`2129ee4d8`](https://github.com/trivechain/trivechain/commit/2129ee4d8) Add docker support when doing Gitian builds (#2084)
 - [`6a1456ef4`](https://github.com/trivechain/trivechain/commit/6a1456ef4) Update gitian key for codablock (#2085)
@@ -382,7 +382,7 @@ See detailed [change log](https://github.com/trivechain/trivechain/compare/v0.12
 - [`b07503f01`](https://github.com/trivechain/trivechain/commit/b07503f01) Some cleanup (mostly trivial) (#2038)
 - [`f8e5c5d56`](https://github.com/trivechain/trivechain/commit/f8e5c5d56) Simplify spork defaults by using a map (#2037)
 - [`6dd8304a5`](https://github.com/trivechain/trivechain/commit/6dd8304a5) Remove duplication of "class CBlockIndex;" (#2036)
-- [`4ea790377`](https://github.com/trivechain/trivechain/commit/4ea790377) Dashify lib names (#2035)
+- [`4ea790377`](https://github.com/trivechain/trivechain/commit/4ea790377) Trivechainify lib names (#2035)
 - [`53093c65b`](https://github.com/trivechain/trivechain/commit/53093c65b) Run tests in mocked time (#2031)
 - [`f7b9aae27`](https://github.com/trivechain/trivechain/commit/f7b9aae27) Correctly update pindexBestHeader and pindexBestInvalid in InvalidateBlock (#2029)
 - [`8b09e779b`](https://github.com/trivechain/trivechain/commit/8b09e779b) Bump testnet checkpoint and nMinimumChainWork/defaultAssumeValid params (#2026)
@@ -411,7 +411,7 @@ See detailed [change log](https://github.com/trivechain/trivechain/compare/v0.12
 - [`e23f61822`](https://github.com/trivechain/trivechain/commit/e23f61822) Make TrafficGraphDataTests more general (#1943)
 - [`5b1c4d8a1`](https://github.com/trivechain/trivechain/commit/5b1c4d8a1) Few (mostly trivial) cleanups and fixes (#1940)
 - [`99273f63a`](https://github.com/trivechain/trivechain/commit/99273f63a) Use SPORK_6_NEW_SIGS to switch from signing string messages to hashes (#1937)
-- [`c65613350`](https://github.com/trivechain/trivechain/commit/c65613350) Switch masternode id in Dash data structures from CTxIn to COutPoint (#1933)
+- [`c65613350`](https://github.com/trivechain/trivechain/commit/c65613350) Switch masternode id in Trivechain data structures from CTxIn to COutPoint (#1933)
 - [`2ea6f7d82`](https://github.com/trivechain/trivechain/commit/2ea6f7d82) Use `override` keyword for overriden class member functions (#1644)
 - [`d5ef77ba9`](https://github.com/trivechain/trivechain/commit/d5ef77ba9) Refactor: use constant refs and `Ret` suffix (#1928)
 - [`2e04864b2`](https://github.com/trivechain/trivechain/commit/2e04864b2) Replace boost::lexical_cast<int> with atoi (#1926)
@@ -419,7 +419,7 @@ See detailed [change log](https://github.com/trivechain/trivechain/compare/v0.12
 - [`4528c735f`](https://github.com/trivechain/trivechain/commit/4528c735f) Replace some directsend/exclusivesend magic numbers with constants (#1924)
 - [`120893c63`](https://github.com/trivechain/trivechain/commit/120893c63) Update timeLastMempoolReq when responding to MEMPOOL request (#1904)
 - [`bb20b4e7b`](https://github.com/trivechain/trivechain/commit/bb20b4e7b) Few cleanups after backporting (#1903)
-- [`a7fa07a30`](https://github.com/trivechain/trivechain/commit/a7fa07a30) Drop BOOST_FOREACH and use references in loops (const ref where applicable, Dash code only) (#1899)
+- [`a7fa07a30`](https://github.com/trivechain/trivechain/commit/a7fa07a30) Drop BOOST_FOREACH and use references in loops (const ref where applicable, Trivechain code only) (#1899)
 - [`e0b6988a4`](https://github.com/trivechain/trivechain/commit/e0b6988a4) Various fixes and refactoring for Cache*Map classes (#1896)
 - [`99b2789a7`](https://github.com/trivechain/trivechain/commit/99b2789a7) Fix DeserializeAndCheckBlockTest benchmark and store hashDevnetGenesisBlock in `consensus` (#1888)
 - [`88646bd0d`](https://github.com/trivechain/trivechain/commit/88646bd0d) Rename `fMasterNode` to `fMasternodeMode` to clarify its meaning and to avoid confusion with `CNode::fMasternode` (#1874)
@@ -467,7 +467,7 @@ reviewed pull requests or helped translating on
 Older releases
 ==============
 
-Dash was previously known as Darkcoin.
+Trivechain was previously known as Darkcoin.
 
 Darkcoin tree 0.8.x was a fork of Litecoin tree 0.8, original name was XCoin
 which was first released on Jan/18/2014.
@@ -478,12 +478,12 @@ the 0.8.x tree and was first released on Mar/13/2014.
 Darkcoin tree 0.10.x used to be the closed source implementation of Darksend
 which was released open source on Sep/25/2014.
 
-Dash Core tree 0.11.x was a fork of Bitcoin Core tree 0.9,
+Trivechain tree 0.11.x was a fork of Bitcoin Core tree 0.9,
 Darkcoin was rebranded to Trivechain.
 
-Dash Core tree 0.12.0.x was a fork of Bitcoin Core tree 0.10.
+Trivechain tree 0.12.0.x was a fork of Bitcoin Core tree 0.10.
 
-Dash Core tree 0.12.1.x was a fork of Bitcoin Core tree 0.12.
+Trivechain tree 0.12.1.x was a fork of Bitcoin Core tree 0.12.
 
 These release are considered obsolete. Old release notes can be found here:
 

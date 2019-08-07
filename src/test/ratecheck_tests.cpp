@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2018 The Dash Core developers
+// Copyright (c) 2019 The Trivechain developers
 
 #include "governance.h"
 

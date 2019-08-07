@@ -19,7 +19,7 @@ Before every minor and major release:
 
 Before every major release:
 
-* Update hardcoded [seeds](/contrib/seeds/README.md). TODO: Give example PR for Dash
+* Update hardcoded [seeds](/contrib/seeds/README.md). TODO: Give example PR for Trivechain
 * Update [`BLOCK_CHAIN_SIZE`](/src/qt/intro.cpp) to the current size plus some overhead.
 
 ### First time / New builders
@@ -34,7 +34,7 @@ Check out the source code in the following directory hierarchy.
 	git clone https://github.com/devrandom/gitian-builder.git
 	git clone https://github.com/trivechain/trivechain.git
 
-### Dash Core maintainers/release engineers, update (commit) version in sources
+### Trivechain maintainers/release engineers, update (commit) version in sources
 
 - `configure.ac`:
     - `_CLIENT_VERSION_MAJOR`
@@ -116,7 +116,7 @@ NOTE: Offline builds must use the --url flag to ensure Gitian fetches only from 
 
 The gbuild invocations below <b>DO NOT DO THIS</b> by default.
 
-### Build and sign Dash Core for Linux, Windows, and OS X:
+### Build and sign Trivechain for Linux, Windows, and OS X:
 
     pushd ./gitian-builder
     ./bin/gbuild --memory 3000 --commit trivechain=v${VERSION} ../trivechain/contrib/gitian-descriptors/gitian-linux.yml
@@ -175,22 +175,22 @@ Codesigner only: Create Windows/OS X detached signatures:
 
 Codesigner only: Sign the osx binary:
 
-    transfer trivechaincore-osx-unsigned.tar.gz to osx for signing
-    tar xf trivechaincore-osx-unsigned.tar.gz
+    transfer trivechain-osx-unsigned.tar.gz to osx for signing
+    tar xf trivechain-osx-unsigned.tar.gz
     ./detached-sig-create.sh -s "Key ID"
     Enter the keychain password and authorize the signature
     Move signature-osx.tar.gz back to the gitian host
 
 Codesigner only: Sign the windows binaries:
 
-    tar xf trivechaincore-win-unsigned.tar.gz
+    tar xf trivechain-win-unsigned.tar.gz
     ./detached-sig-create.sh -key /path/to/codesign.key
     Enter the passphrase for the key when prompted
     signature-win.tar.gz will be created
 
 Codesigner only: Commit the detached codesign payloads:
 
-    cd ~/trivechaincore-detached-sigs
+    cd ~/trivechain-detached-sigs
     checkout the appropriate branch for this release series
     rm -rf *
     tar xf signature-osx.tar.gz
@@ -275,9 +275,9 @@ Note: check that SHA256SUMS itself doesn't end up in SHA256SUMS, which is a spur
 
 - Announce the release:
 
-  - Release on Dash forum: https://www.trivechain.com/forum/topic/official-announcements.54/
+  - Release on Trivechain6 forum: https://www.trivechain.com/forum/topic/official-announcements.54/
 
-  - Optionally Discord, twitter, reddit /r/Dashpay, ... but this will usually sort out itself
+  - Optionally Discord, twitter, reddit /r/Trivechain, ... but this will usually sort out itself
 
   - Notify flare so that he can start building [the PPAs](https://launchpad.net/~trivechain.com/+archive/ubuntu/trivechain)
 

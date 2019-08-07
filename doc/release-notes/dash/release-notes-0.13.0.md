@@ -1,4 +1,4 @@
-Dash Core version 0.13.0.0
+Trivechain version 0.13.0.0
 ==========================
 
 Release is now available from:
@@ -41,7 +41,7 @@ DIP0002 - Special Transactions
 ------------------------------
 Currently, new features and consensus mechanisms have to be implemented on top of the restrictions
 imposed by the simple nature of transactions. Since classical transactions can only carry inputs
-and outputs, they are most useful for financial transactions (i.e. transfers of quantities of Dash
+and outputs, they are most useful for financial transactions (i.e. transfers of quantities of Trivechain
 between addresses on the distributed ledger). These inputs and outputs carry scripts and signatures
 which are used to authorize and validate the transaction.
 
@@ -51,7 +51,7 @@ scripts to add additional data and meaning to a transaction. For example, new op
 to be introduced to mark a transaction as something special and add a payload. In other cases,
 OP_RETURN has been misused to store data on-chain.
 
-The introduction of special transactions will require the whole Dash ecosystem to perform a one-time
+The introduction of special transactions will require the whole Trivechain ecosystem to perform a one-time
 mandatory update of all the software and libraries involved. Software and libraries will have to be
 changed so that they can differentiate between classical transactions and special transactions.
 Deserialization of a classical transaction remains unchanged. Deserialization of a special transaction
@@ -67,7 +67,7 @@ This DIP provides on-chain consensus for masternode lists that in turn allow for
 derivation and service scoring of masternode rewards.
 
 In the previous system, each node maintained its own individual masternode list. Masternodes gained
-entry to that masternode list after the owner created a 1000 Dash UTXO and the masternode broadcast
+entry to that masternode list after the owner created a 1000 Trivechain UTXO and the masternode broadcast
 a "masternode broadcast/announcement" P2P message. This in turn set the masternode to a PRE_ENABLED
 state in the list maintained by each node. Masternodes then regularly broadcasted ping messages to
 keep the masternode in ENABLED state.
@@ -88,7 +88,7 @@ take an unnecessarily long amount of time and sometimes resulted in failure.
 In the new system, the masternode list is derived entirely from information found on-chain. New
 masternodes are added by new special transactions called Provider Registration Transactions
 (abbreviated as ProRegTx). They are only removed by spending the collateral. A ProRegTx is a special
-transaction which includes either a 1000-Dash collateral payment or a reference to it, along with
+transaction which includes either a 1000-Trivechain collateral payment or a reference to it, along with
 other payload information (DIP0002).
 
 The new system is going to be activated via combination of a BIP9-like deployment (bit 3) and new spork
@@ -99,7 +99,7 @@ Upgrade instructions: https://docs.trivechain.com/DIP3-masternode-upgrade
 
 DIP0004 - Simplified Verification of Deterministic Masternode Lists
 -------------------------------------------------------------------
-A verifiable and correct masternode list is foundational to many Dash features, including verification
+A verifiable and correct masternode list is foundational to many Trivechain features, including verification
 of an DirectSend transaction, mixing in ExclusiveSend and many features of Evolution. The deterministic
 masternode lists introduced by DIP0003 enable full derivation and verification of a masternode list via
 on-chain data. This, however, requires the full chain to be available to construct or verify this list.
@@ -670,19 +670,19 @@ See detailed [set of changes](https://github.com/trivechain/trivechain/compare/v
 - [`eb202e812`](https://github.com/trivechain/trivechain/commit/eb202e812) Use ccache in gitian builds (#2185)
 - [`b47617325`](https://github.com/trivechain/trivechain/commit/b47617325) Install python3 in gitian builds (#2182)
 - [`7a85e24c3`](https://github.com/trivechain/trivechain/commit/7a85e24c3) Remove deprecated gitian-rpi2.yml descriptor (#2183)
-- [`1681d6366`](https://github.com/trivechain/trivechain/commit/1681d6366) Replace Dash-specific threads with Dash-specific scheduled tasks (#2043)
+- [`1681d6366`](https://github.com/trivechain/trivechain/commit/1681d6366) Replace Trivechain-specific threads with Trivechain-specific scheduled tasks (#2043)
 - [`dac090964`](https://github.com/trivechain/trivechain/commit/dac090964) remove trivechainpay.io dns seed entry (#2181)
 - [`753c2436b`](https://github.com/trivechain/trivechain/commit/753c2436b) Fix MissingPropertyException on Jenkins when no cache was found (#2180)
 - [`f3e380659`](https://github.com/trivechain/trivechain/commit/f3e380659) Move to in-docker CI builds and add Jenkins support (#2178)
 - [`23dde9f12`](https://github.com/trivechain/trivechain/commit/23dde9f12) Remove a few annoying debug prints from CMasternodeMan (#2179)
 - [`5036d7dfc`](https://github.com/trivechain/trivechain/commit/5036d7dfc) depends: Update Qt download url (#2177)
-- [`e23339d6f`](https://github.com/trivechain/trivechain/commit/e23339d6f) use nullptr in Dash-specific code (#2166)
+- [`e23339d6f`](https://github.com/trivechain/trivechain/commit/e23339d6f) use nullptr in Trivechain-specific code (#2166)
 - [`42c193df0`](https://github.com/trivechain/trivechain/commit/42c193df0) replace map count/insert w/emplace in instantx.cpp (#2165)
 - [`fd70a1eb9`](https://github.com/trivechain/trivechain/commit/fd70a1eb9) iterator cleanup in several places (#2164)
 - [`df1be90ce`](https://github.com/trivechain/trivechain/commit/df1be90ce)  Update links to obsolete documentation (#2162)
 - [`448e92f4a`](https://github.com/trivechain/trivechain/commit/448e92f4a) GetOutPointExclusiveSendRounds readability (#2149)
 - [`6da2837bd`](https://github.com/trivechain/trivechain/commit/6da2837bd) DirectSend Integration tests (#2141)
-- [`8ee9333bc`](https://github.com/trivechain/trivechain/commit/8ee9333bc) remove boost dependency from Dash-specific code (#2072)
+- [`8ee9333bc`](https://github.com/trivechain/trivechain/commit/8ee9333bc) remove boost dependency from Trivechain-specific code (#2072)
 - [`a527845e4`](https://github.com/trivechain/trivechain/commit/a527845e4) Bump to 0.12.4.0 pre-release (#2167)
 
 Credits
@@ -712,7 +712,7 @@ As well as everyone that submitted issues, reviewed pull requests or helped tran
 Older releases
 ==============
 
-Dash was previously known as Darkcoin.
+Trivechain was previously known as Darkcoin.
 
 Darkcoin tree 0.8.x was a fork of Litecoin tree 0.8, original name was XCoin
 which was first released on Jan/18/2014.
@@ -723,12 +723,12 @@ the 0.8.x tree and was first released on Mar/13/2014.
 Darkcoin tree 0.10.x used to be the closed source implementation of Darksend
 which was released open source on Sep/25/2014.
 
-Dash Core tree 0.11.x was a fork of Bitcoin Core tree 0.9,
+Trivechain tree 0.11.x was a fork of Bitcoin Core tree 0.9,
 Darkcoin was rebranded to Trivechain.
 
-Dash Core tree 0.12.0.x was a fork of Bitcoin Core tree 0.10.
+Trivechain tree 0.12.0.x was a fork of Bitcoin Core tree 0.10.
 
-Dash Core tree 0.12.1.x was a fork of Bitcoin Core tree 0.12.
+Trivechain tree 0.12.1.x was a fork of Bitcoin Core tree 0.12.
 
 These release are considered obsolete. Old release notes can be found here:
 

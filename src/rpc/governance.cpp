@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2019 The Dash Core developers
+// Copyright (c) 2019 The Trivechain developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -1089,7 +1089,7 @@ UniValue getsuperblockbudget(const JSONRPCRequest& request)
 static const CRPCCommand commands[] =
 { //  category              name                      actor (function)         okSafe argNames
   //  --------------------- ------------------------  -----------------------  ------ ----------
-    /* Dash features */
+    /* Trivechain features */
     { "trivechain",               "getgovernanceinfo",      &getgovernanceinfo,      true,  {} },
     { "trivechain",               "getsuperblockbudget",    &getsuperblockbudget,    true,  {"index"} },
     { "trivechain",               "gobject",                &gobject,                true,  {} },

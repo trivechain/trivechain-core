@@ -13,7 +13,7 @@ can be found in the contrib/init folder.
 1. Service User
 ---------------------------------
 
-All three Linux startup configurations assume the existence of a "trivechaincore" user
+All three Linux startup configurations assume the existence of a "trivechain" user
 and group.  They must be created before attempting to use these scripts.
 The OS X configuration assumes trivechaind will be set up for the current user.
 
@@ -54,23 +54,23 @@ see `contrib/debian/examples/trivechain.conf`.
 All three configurations assume several paths that might need to be adjusted.
 
 Binary:              `/usr/bin/trivechaind`  
-Configuration file:  `/etc/trivechaincore/trivechain.conf`  
+Configuration file:  `/etc/trivechain/trivechain.conf`  
 Data directory:      `/var/lib/trivechaind`  
 PID file:            `/var/run/trivechaind/trivechaind.pid` (OpenRC and Upstart) or `/var/lib/trivechaind/trivechaind.pid` (systemd)  
 Lock file:           `/var/lock/subsys/trivechaind` (CentOS)  
 
 The configuration file, PID directory (if applicable) and data directory
-should all be owned by the trivechaincore user and group.  It is advised for security
+should all be owned by the trivechain user and group.  It is advised for security
 reasons to make the configuration file and data directory only readable by the
-trivechaincore user and group.  Access to trivechain-cli and other trivechaind rpc clients
+trivechain user and group.  Access to trivechain-cli and other trivechaind rpc clients
 can then be controlled by group membership.
 
 3b) Mac OS X
 
 Binary:              `/usr/local/bin/trivechaind`  
-Configuration file:  `~/Library/Application Support/trivechainCore/trivechain.conf`  
-Data directory:      `~/Library/Application Support/trivechainCore`
-Lock file:           `~/Library/Application Support/trivechainCore/.lock`
+Configuration file:  `~/Library/Application Support/trivechain/trivechain.conf`  
+Data directory:      `~/Library/Application Support/trivechain`
+Lock file:           `~/Library/Application Support/trivechain/.lock`
 
 4. Installing Service Configuration
 -----------------------------------
@@ -116,7 +116,7 @@ This Launch Agent will cause trivechaind to start whenever the user logs in.
 
 NOTE: This approach is intended for those wanting to run trivechaind as the current user.
 You will need to modify org.trivechain.trivechaind.plist if you intend to use it as a
-Launch Daemon with a dedicated trivechaincore user.
+Launch Daemon with a dedicated trivechain user.
 
 5. Auto-respawn
 -----------------------------------

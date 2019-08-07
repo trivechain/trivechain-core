@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2019 The Dash Core developers
+// Copyright (c) 2019 The Trivechain developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -25,7 +25,7 @@ CExclusiveSendServer exclusiveSendServer;
 void CExclusiveSendServer::ProcessMessage(CNode* pfrom, const std::string& strCommand, CDataStream& vRecv, CConnman& connman)
 {
     if (!fMasternodeMode) return;
-    if (fLiteMode) return; // ignore all Dash related functionality
+    if (fLiteMode) return; // ignore all Trivechain related functionality
     if (!masternodeSync.IsBlockchainSynced()) return;
 
     if (strCommand == NetMsgType::DSACCEPT) {
@@ -477,7 +477,7 @@ void CExclusiveSendServer::ChargeFees(CConnman& connman)
 
     Being that mixing has "no fees" we need to have some kind of cost associated
     with using it to stop abuse. Otherwise it could serve as an attack vector and
-    allow endless transaction that would bloat Dash and make it unusable. To
+    allow endless transaction that would bloat Trivechain and make it unusable. To
     stop these kinds of attacks 1 in 10 successful transactions are charged. This
     adds up to a cost of 0.001DRK per transaction on average.
 */
@@ -910,7 +910,7 @@ void CExclusiveSendServer::SetState(PoolState nStateNew)
 
 void CExclusiveSendServer::DoMaintenance(CConnman& connman)
 {
-    if (fLiteMode) return;        // disable all Dash specific functionality
+    if (fLiteMode) return;        // disable all Trivechain specific functionality
     if (!fMasternodeMode) return; // only run on masternodes
 
     if (!masternodeSync.IsBlockchainSynced() || ShutdownRequested())

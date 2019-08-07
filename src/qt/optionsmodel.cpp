@@ -1,5 +1,5 @@
 // Copyright (c) 2011-2015 The Bitcoin Core developers
-// Copyright (c) 2014-2019 The Dash Core developers
+// Copyright (c) 2019 The Trivechain developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -139,10 +139,10 @@ void OptionsModel::Init(bool resetSettings)
 
     if (!settings.contains("nExclusiveSendAmount")) {
         // for migration from old settings
-        if (!settings.contains("nAnonymizeDashAmount"))
+        if (!settings.contains("nAnonymizeTrivechainAmount"))
             settings.setValue("nExclusiveSendAmount", DEFAULT_EXCLUSIVESEND_AMOUNT);
         else
-            settings.setValue("nExclusiveSendAmount", settings.value("nAnonymizeDashAmount").toInt());
+            settings.setValue("nExclusiveSendAmount", settings.value("nAnonymizeTrivechainAmount").toInt());
     }
     if (!SoftSetArg("-exclusivesendamount", settings.value("nExclusiveSendAmount").toString().toStdString()))
         addOverriddenOption("-exclusivesendamount");

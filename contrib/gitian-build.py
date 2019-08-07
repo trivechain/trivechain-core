@@ -46,7 +46,7 @@ def setup():
 def build():
     global args, workdir
 
-    os.makedirs('trivechaincore-binaries/' + args.version, exist_ok=True)
+    os.makedirs('trivechain-binaries/' + args.version, exist_ok=True)
     print('\nBuilding Dependencies\n')
     os.chdir('gitian-builder')
     os.makedirs('inputs', exist_ok=True)
@@ -61,14 +61,14 @@ def build():
         print('\nCompiling ' + args.version + ' Linux')
         subprocess.check_call(['bin/gbuild', '-j', args.jobs, '-m', args.memory, '--commit', 'trivechain='+args.commit, '--url', 'trivechain='+args.url, '../trivechain/contrib/gitian-descriptors/gitian-linux.yml'])
         subprocess.check_call(['bin/gsign', '-p', args.sign_prog, '--signer', args.signer, '--release', args.version+'-linux', '--destination', '../gitian.sigs/', '../trivechain/contrib/gitian-descriptors/gitian-linux.yml'])
-        subprocess.check_call('mv build/out/trivechaincore-*.tar.gz build/out/src/trivechaincore-*.tar.gz ../trivechaincore-binaries/'+args.version, shell=True)
+        subprocess.check_call('mv build/out/trivechain-*.tar.gz build/out/src/trivechain-*.tar.gz ../trivechain-binaries/'+args.version, shell=True)
 
     if args.windows:
         print('\nCompiling ' + args.version + ' Windows')
         subprocess.check_call(['bin/gbuild', '-j', args.jobs, '-m', args.memory, '--commit', 'trivechain='+args.commit, '--url', 'trivechain='+args.url, '../trivechain/contrib/gitian-descriptors/gitian-win.yml'])
         subprocess.check_call(['bin/gsign', '-p', args.sign_prog, '--signer', args.signer, '--release', args.version+'-win-unsigned', '--destination', '../gitian.sigs/', '../trivechain/contrib/gitian-descriptors/gitian-win.yml'])
-        subprocess.check_call('mv build/out/trivechaincore-*-win-unsigned.tar.gz inputs/trivechaincore-win-unsigned.tar.gz', shell=True)
-        subprocess.check_call('mv build/out/trivechaincore-*.zip build/out/trivechaincore-*.exe ../trivechaincore-binaries/'+args.version, shell=True)
+        subprocess.check_call('mv build/out/trivechain-*-win-unsigned.tar.gz inputs/trivechain-win-unsigned.tar.gz', shell=True)
+        subprocess.check_call('mv build/out/trivechain-*.zip build/out/trivechain-*.exe ../trivechain-binaries/'+args.version, shell=True)
 
     if args.macos:
         print('\nCompiling ' + args.version + ' MacOS')
@@ -76,8 +76,8 @@ def build():
         subprocess.check_output(["echo 'bec9d089ebf2e2dd59b1a811a38ec78ebd5da18cbbcd6ab39d1e59f64ac5033f inputs/MacOSX10.11.sdk.tar.gz' | sha256sum -c"], shell=True)
         subprocess.check_call(['bin/gbuild', '-j', args.jobs, '-m', args.memory, '--commit', 'trivechain='+args.commit, '--url', 'trivechain='+args.url, '../trivechain/contrib/gitian-descriptors/gitian-osx.yml'])
         subprocess.check_call(['bin/gsign', '-p', args.sign_prog, '--signer', args.signer, '--release', args.version+'-osx-unsigned', '--destination', '../gitian.sigs/', '../trivechain/contrib/gitian-descriptors/gitian-osx.yml'])
-        subprocess.check_call('mv build/out/trivechaincore-*-osx-unsigned.tar.gz inputs/trivechaincore-osx-unsigned.tar.gz', shell=True)
-        subprocess.check_call('mv build/out/trivechaincore-*.tar.gz build/out/trivechaincore-*.dmg ../trivechaincore-binaries/'+args.version, shell=True)
+        subprocess.check_call('mv build/out/trivechain-*-osx-unsigned.tar.gz inputs/trivechain-osx-unsigned.tar.gz', shell=True)
+        subprocess.check_call('mv build/out/trivechain-*.tar.gz build/out/trivechain-*.dmg ../trivechain-binaries/'+args.version, shell=True)
 
     os.chdir(workdir)
 
@@ -98,14 +98,14 @@ def sign():
         print('\nSigning ' + args.version + ' Windows')
         subprocess.check_call(['bin/gbuild', '-i', '--commit', 'signature='+args.commit, '../trivechain/contrib/gitian-descriptors/gitian-win-signer.yml'])
         subprocess.check_call(['bin/gsign', '-p', args.sign_prog, '--signer', args.signer, '--release', args.version+'-win-signed', '--destination', '../gitian.sigs/', '../trivechain/contrib/gitian-descriptors/gitian-win-signer.yml'])
-        subprocess.check_call('mv build/out/trivechaincore-*win64-setup.exe ../trivechaincore-binaries/'+args.version, shell=True)
-        subprocess.check_call('mv build/out/trivechaincore-*win32-setup.exe ../trivechaincore-binaries/'+args.version, shell=True)
+        subprocess.check_call('mv build/out/trivechain-*win64-setup.exe ../trivechain-binaries/'+args.version, shell=True)
+        subprocess.check_call('mv build/out/trivechain-*win32-setup.exe ../trivechain-binaries/'+args.version, shell=True)
 
     if args.macos:
         print('\nSigning ' + args.version + ' MacOS')
         subprocess.check_call(['bin/gbuild', '-i', '--commit', 'signature='+args.commit, '../trivechain/contrib/gitian-descriptors/gitian-osx-signer.yml'])
         subprocess.check_call(['bin/gsign', '-p', args.sign_prog, '--signer', args.signer, '--release', args.version+'-osx-signed', '--destination', '../gitian.sigs/', '../trivechain/contrib/gitian-descriptors/gitian-osx-signer.yml'])
-        subprocess.check_call('mv build/out/trivechaincore-osx-signed.dmg ../trivechaincore-binaries/'+args.version+'/trivechaincore-'+args.version+'-osx.dmg', shell=True)
+        subprocess.check_call('mv build/out/trivechain-osx-signed.dmg ../trivechain-binaries/'+args.version+'/trivechain-'+args.version+'-osx.dmg', shell=True)
 
     os.chdir(workdir)
 

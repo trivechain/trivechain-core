@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2019 The Dash Core developers
+// Copyright (c) 2019 The Trivechain developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -20,7 +20,7 @@ const std::string CSporkManager::SERIALIZATION_VERSION_STRING = "CSporkManager-V
 std::map<int, int64_t> mapSporkDefaults = {
     {SPORK_2_DIRECTSEND_ENABLED,            0},             // ON
     {SPORK_3_DIRECTSEND_BLOCK_FILTERING,    0},             // ON
-    {SPORK_5_DIRECTSEND_MAX_VALUE,          1000},          // 1000 Dash
+    {SPORK_5_DIRECTSEND_MAX_VALUE,          1000},          // 1000 Trivechain
     {SPORK_6_NEW_SIGS,                       4070908800ULL}, // OFF
     {SPORK_9_SUPERBLOCKS_ENABLED,            4070908800ULL}, // OFF
     {SPORK_12_RECONSIDER_BLOCKS,             0},             // 0 BLOCKS
@@ -111,7 +111,7 @@ void CSporkManager::CheckAndRemove()
 
 void CSporkManager::ProcessSpork(CNode* pfrom, const std::string& strCommand, CDataStream& vRecv, CConnman& connman)
 {
-    if(fLiteMode) return; // disable all Dash specific functionality
+    if(fLiteMode) return; // disable all Trivechain specific functionality
 
     if (strCommand == NetMsgType::SPORK) {
 

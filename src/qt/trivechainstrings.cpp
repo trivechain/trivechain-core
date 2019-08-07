@@ -57,7 +57,7 @@ QT_TRANSLATE_NOOP("trivechain-core", ""
 "Delete all wallet transactions and only recover those parts of the "
 "blockchain through -rescan on startup"),
 QT_TRANSLATE_NOOP("trivechain-core", ""
-"Disable all Dash specific functionality (Masternodes, ExclusiveSend, "
+"Disable all Trivechain specific functionality (Masternodes, ExclusiveSend, "
 "DirectSend, Governance) (0-1, default: %u)"),
 QT_TRANSLATE_NOOP("trivechain-core", ""
 "Discover own IP addresses (default: 1 when listening and no -externalip or -"
@@ -324,7 +324,7 @@ QT_TRANSLATE_NOOP("trivechain-core", ""
 "Whitelisted peers cannot be DoS banned and their transactions are always "
 "relayed, even if they are already in the mempool, useful e.g. for a gateway"),
 QT_TRANSLATE_NOOP("trivechain-core", ""
-"You are starting in lite mode, all Dash-specific functionality is disabled."),
+"You are starting in lite mode, all Trivechain-specific functionality is disabled."),
 QT_TRANSLATE_NOOP("trivechain-core", ""
 "You need to rebuild the database using -reindex to go back to unpruned "
 "mode.  This will redownload the entire blockchain"),

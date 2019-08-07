@@ -37,7 +37,7 @@ for(int i = 0; i < targets.size(); i++) {
         dir('gitian-builder') {
           git url: 'https://github.com/trivechainpay/gitian-builder.git'
         }
-        sh "mkdir -p trivechaincore-binaries"
+        sh "mkdir -p trivechain-binaries"
         if (target == "osx") {
           dir('gitian-builder') {
             sh 'mkdir -p inputs'
@@ -111,10 +111,10 @@ for(int i = 0; i < targets.size(); i++) {
               // make sure it doesn't run forever
               sh "docker rm -fv gitian-target || true"
             }
-            sh "mv build/out/trivechaincore-* ../trivechaincore-binaries/"
-            sh "mv build/out/src/trivechaincore-* ../trivechaincore-binaries/"
+            sh "mv build/out/trivechain-* ../trivechain-binaries/"
+            sh "mv build/out/src/trivechain-* ../trivechain-binaries/"
           }
-          archiveArtifacts artifacts: 'trivechaincore-binaries/*', fingerprint: true
+          archiveArtifacts artifacts: 'trivechain-binaries/*', fingerprint: true
         }
 
         // TODO remove this in a few days (only needed to prune the old compressed file from Jenkins caches)

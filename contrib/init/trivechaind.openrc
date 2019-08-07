@@ -8,17 +8,17 @@ else
 	BITCOIND_DEFAULT_DATADIR="/var/lib/trivechaind"
 fi
 
-BITCOIND_CONFIGFILE=${BITCOIND_CONFIGFILE:-/etc/trivechaincore/trivechain.conf}
+BITCOIND_CONFIGFILE=${BITCOIND_CONFIGFILE:-/etc/trivechain/trivechain.conf}
 BITCOIND_PIDDIR=${BITCOIND_PIDDIR:-/var/run/trivechaind}
 BITCOIND_PIDFILE=${BITCOIND_PIDFILE:-${BITCOIND_PIDDIR}/trivechaind.pid}
 BITCOIND_DATADIR=${BITCOIND_DATADIR:-${BITCOIND_DEFAULT_DATADIR}}
-BITCOIND_USER=${BITCOIND_USER:-${BITCOIN_USER:-trivechaincore}}
-BITCOIND_GROUP=${BITCOIND_GROUP:-trivechaincore}
+BITCOIND_USER=${BITCOIND_USER:-${BITCOIN_USER:-trivechain}}
+BITCOIND_GROUP=${BITCOIND_GROUP:-trivechain}
 BITCOIND_BIN=${BITCOIND_BIN:-/usr/bin/trivechaind}
 BITCOIND_NICE=${BITCOIND_NICE:-${NICELEVEL:-0}}
 BITCOIND_OPTS="${BITCOIND_OPTS:-${BITCOIN_OPTS}}"
 
-name="Trivechain Core Daemon"
+name="Trivechain Daemon"
 description="Trivechain cryptocurrency P2P network daemon"
 
 command="/usr/bin/trivechaind"

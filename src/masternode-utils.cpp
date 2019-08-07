@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2019 The Dash Core developers
+// Copyright (c) 2019 The Trivechain developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -92,7 +92,7 @@ void CMasternodeUtils::ProcessMasternodeConnections(CConnman& connman)
 
 void CMasternodeUtils::DoMaintenance(CConnman& connman)
 {
-    if(fLiteMode) return; // disable all Dash specific functionality
+    if(fLiteMode) return; // disable all Trivechain specific functionality
 
     if(!masternodeSync.IsBlockchainSynced() || ShutdownRequested())
         return;

@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2019 The Dash Core developers
+// Copyright (c) 2019 The Trivechain developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -56,7 +56,7 @@ const std::string CDirectSend::SERIALIZATION_VERSION_STRING = "CDirectSend-Versi
 
 void CDirectSend::ProcessMessage(CNode* pfrom, const std::string& strCommand, CDataStream& vRecv, CConnman& connman)
 {
-    if (fLiteMode) return; // disable all Dash specific functionality
+    if (fLiteMode) return; // disable all Trivechain specific functionality
     if (!llmq::IsOldDirectSendEnabled()) return;
 
     // NOTE: NetMsgType::TXLOCKREQUEST is handled via ProcessMessage() in net_processing.cpp
