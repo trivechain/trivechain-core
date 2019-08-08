@@ -107,6 +107,8 @@ BITCOIN_CORE_H = \
   spentindex.h \
   addrman.h \
   alert.h \
+  amount.h \
+  arith_uint256.h \
   base58.h \
   batchedlogger.h \
   bip39.h \
@@ -122,6 +124,7 @@ BITCOIN_CORE_H = \
   checkpoints.h \
   checkqueue.h \
   clientversion.h \
+  coincontrol.h \
   coins.h \
   compat.h \
   compat/byteswap.h \
@@ -129,6 +132,9 @@ BITCOIN_CORE_H = \
   compat/sanity.h \
   compressor.h \
   consensus/consensus.h \
+  consensus/merkle.h \
+  consensus/params.h \
+  consensus/validation.h \
   core_io.h \
   core_memusage.h \
   cuckoocache.h \
@@ -154,6 +160,7 @@ BITCOIN_CORE_H = \
   governance-vote.h \
   governance-votedb.h \
   flat-database.h \
+  hash.h \
   hdchain.h \
   httprpc.h \
   httpserver.h \
@@ -227,13 +234,16 @@ BITCOIN_CORE_H = \
   txdb.h \
   txmempool.h \
   ui_interface.h \
+  uint256.h \
   undo.h \
   unordered_lru_cache.h \
   util.h \
   utilmoneystr.h \
+  utilstrencodings.h \
   utiltime.h \
   validation.h \
   validationinterface.h \
+  version.h \
   versionbits.h \
   wallet/coincontrol.h \
   wallet/crypter.h \
@@ -364,6 +374,12 @@ libtrivechain_wallet_a_SOURCES = \
   wallet/rpcwallet.cpp \
   wallet/wallet.cpp \
   wallet/walletdb.cpp \
+  activemasternode.cpp \
+  dsnotificationinterface.cpp \
+  instantx.cpp \
+  masternode.cpp \
+  masternode-payments.cpp \
+  masternode-sync.cpp \
   $(BITCOIN_CORE_H)
 
 # crypto primitives library
@@ -512,6 +528,7 @@ libtrivechain_util_a_SOURCES = \
   utilmoneystr.cpp \
   utilstrencodings.cpp \
   utiltime.cpp \
+  uint256.cpp \
   $(BITCOIN_CORE_H)
 
 if GLIBC_BACK_COMPAT
