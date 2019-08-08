@@ -391,7 +391,7 @@ public:
         consensus.DIP0003Height = 300000;
         consensus.DIP0003EnforcementHeight = 300000;
         consensus.DIP0003EnforcementHash = uint256S("");
-        consensus.powLimit = uint256S("0000ffffff000000000000000000000000000000000000000000000000000000");
+        consensus.powLimit = uint256S("00000fffff000000000000000000000000000000000000000000000000000000");
         consensus.nPowTargetTimespan = 24 * 60 * 60; // Trivechain: 1 day
         consensus.nPowTargetSpacing = 15; // Trivechain: 1 minute
         consensus.fPowAllowMinDifficultyBlocks = true;
