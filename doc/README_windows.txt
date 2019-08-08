@@ -1,4 +1,4 @@
-Trivechain 0.14.0
+Trivechain 4.0.0
 =====================
 
 Intro

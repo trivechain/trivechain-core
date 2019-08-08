@@ -1,4 +1,4 @@
-Trivechain 0.14.0
+Trivechain 4.0.0
 =====================
 
 This is the official reference wallet for Trivechain digital currency and comprises the backbone of the Trivechain peer-to-peer network. You can [download Trivechain](https://www.trivechain.com/downloads/) or [build it yourself](#building) using the guides below.

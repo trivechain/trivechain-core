@@ -418,6 +418,7 @@ crypto_libtrivechain_crypto_a_SOURCES += \
   crypto/sph_shabal.c \
   crypto/sph_whirlpool.c \
   crypto/sph_sha2.c \
+  crypto/sha512.h \
   crypto/sph_sha512.c \
   crypto/sph_hamsi.h \
   crypto/sph_fugue.h \
