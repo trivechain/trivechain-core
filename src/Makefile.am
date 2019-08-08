@@ -377,7 +377,6 @@ libtrivechain_wallet_a_SOURCES = \
   activemasternode.cpp \
   dsnotificationinterface.cpp \
   instantx.cpp \
-  masternode.cpp \
   masternode-payments.cpp \
   masternode-sync.cpp \
   $(BITCOIN_CORE_H)
