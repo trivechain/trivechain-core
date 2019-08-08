@@ -60,10 +60,11 @@ unsigned int static DarkGravityWave(const CBlockIndex* pindexLast, const CBlockH
 
     int64_t nActualTimespan = pindexLast->GetBlockTime() - pindex->GetBlockTime();
     // NOTE: is this accurate? nActualTimespan counts it for (nPastBlocks - 1) blocks only...
+    // Latest Trivechain protocol will follow in chainparameters
+    int64_t nTargetTimespan = nPastBlocks * params.nPowTargetSpacing;
     if (pindexLast->nHeight < 226649) {
-        int64_t nTargetTimespan = nPastBlocks * 150;
-    } else {
-        int64_t nTargetTimespan = nPastBlocks * params.nPowTargetSpacing;
+        // TRVC 1.X used to be 2.5 minutes per block
+        nTargetTimespan = nPastBlocks * 150;
     }
 
     if (nActualTimespan < nTargetTimespan/3)
