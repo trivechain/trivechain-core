@@ -29,7 +29,7 @@ unsigned int static DarkGravityWave(const CBlockIndex* pindexLast, const CBlockH
             return bnPowLimit.GetCompact();
         }
         // recent block is more than 10 minutes old
-        if (pblock->GetBlockTime() > pindexLast->GetBlockTime() + params.nPowTargetSpacing * 4) {
+        if (pblock->GetBlockTime() > pindexLast->GetBlockTime() + params.nPowTargetSpacing * 10) {
             arith_uint256 bnNew = arith_uint256().SetCompact(pindexLast->nBits) * 10;
             if (bnNew > bnPowLimit) {
                 bnNew = bnPowLimit;
