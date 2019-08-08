@@ -385,10 +385,7 @@ crypto_libtrivechain_crypto_a_SOURCES = \
   crypto/sha256.cpp \
   crypto/sha256.h \
   crypto/sha512.cpp \
-  crypto/sha512.h
-
-# x11
-crypto_libtrivechain_crypto_a_SOURCES += \
+  crypto/sha512.h \
   crypto/blake.c \
   crypto/bmw.c \
   crypto/cubehash.c \
@@ -418,7 +415,6 @@ crypto_libtrivechain_crypto_a_SOURCES += \
   crypto/sph_shabal.c \
   crypto/sph_whirlpool.c \
   crypto/sph_sha2.c \
-  crypto/sha512.h \
   crypto/sph_sha512.c \
   crypto/sph_hamsi.h \
   crypto/sph_fugue.h \
