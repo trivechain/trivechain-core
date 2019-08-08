@@ -1433,16 +1433,14 @@ bool CheckTxInputs(const CTransaction& tx, CValidationState& state, const CCoins
 
             // If prev is coinbase, check that it's matured
             if (coin.IsCoinBase()) {
-                if (nSpendHeight - coin.nHeight < COINBASE_MATURITY)
-                    if (coin.nHeight < 400000 && nSpendHeight - coin.nHeight < 5) {
+                if (nSpendHeight >= 400000 && nSpendHeight - coin.nHeight < COINBASE_MATURITY)
                         return state.Invalid(false,
                             REJECT_INVALID, "bad-txns-premature-spend-of-coinbase",
                             strprintf("tried to spend coinbase at depth %d", nSpendHeight - coin.nHeight));
-                    } else {
+                if (nSpendHeight < 400000 && nSpendHeight - coin.nHeight < 5)
                         return state.Invalid(false,
                             REJECT_INVALID, "bad-txns-premature-spend-of-coinbase",
                             strprintf("tried to spend coinbase at depth %d", nSpendHeight - coin.nHeight));
-                    }
                     
             }
 
@@ -3405,8 +3403,8 @@ bool ContextualCheckBlockHeader(const CBlockHeader& block, CValidationState& sta
     // Check proof of work
     // Check proof of work
     if(Params().NetworkIDString() == CBaseChainParams::TESTNET || Params().NetworkIDString() == CBaseChainParams::REGTEST ) {
-        // Ignore before 222222
-        if (nHeight > 222222 && block.nBits != GetNextWorkRequired(pindexPrev, &block, consensusParams))
+        // Ignore before 226650
+        if (nHeight > 226650 && block.nBits != GetNextWorkRequired(pindexPrev, &block, consensusParams))
             return state.DoS(100, error("%s : incorrect proof of work at %d", __func__, nHeight),
                             REJECT_INVALID, "bad-diffbits");
     } else if(Params().NetworkIDString() == CBaseChainParams::MAIN && nHeight <= 68589){
