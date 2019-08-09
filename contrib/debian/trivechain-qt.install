@@ -1,6 +1,4 @@
 usr/local/bin/trivechain-qt usr/bin
-share/pixmaps/trivechain32.xpm usr/share/pixmaps
-share/pixmaps/trivechain16.xpm usr/share/pixmaps
-share/pixmaps/trivechain128.png usr/share/pixmaps
+share/pixmaps/trvc.ico usr/share/pixmaps
 debian/trivechain-qt.desktop usr/share/applications
 debian/trivechain-qt.protocol usr/share/kde4/services/
