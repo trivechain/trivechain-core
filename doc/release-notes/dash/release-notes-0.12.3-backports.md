@@ -661,7 +661,7 @@
 - [`8cfc25739`](https://github.com/trivechain/trivechain/commit/8cfc25739) Merge #11847: Make boost::multi_index comparators const
 - [`9c2e97085`](https://github.com/trivechain/trivechain/commit/9c2e97085) Fix review nits
 - [`f61a75402`](https://github.com/trivechain/trivechain/commit/f61a75402) Disable free transactions in TestPackageSelection
-- [`f8a7a2c88`](https://github.com/trivechain/trivechain/commit/f8a7a2c88) Move trvc.ico/png and bitcoin_testnet.ico/png one dir up
+- [`f8a7a2c88`](https://github.com/trivechain/trivechain/commit/f8a7a2c88) Move trvc.ico/png and trvc_testnet.ico/png one dir up
 - [`a9f0aedb3`](https://github.com/trivechain/trivechain/commit/a9f0aedb3) Merge #8320: Fix 0.12 release notes on block relaying
 - [`6a993236b`](https://github.com/trivechain/trivechain/commit/6a993236b) Remove SegWit related checks added by backporting of Bitcoin #8295
 - [`f9f3b8d93`](https://github.com/trivechain/trivechain/commit/f9f3b8d93) Merge #8295: Mining-related fixups for 0.13.0
