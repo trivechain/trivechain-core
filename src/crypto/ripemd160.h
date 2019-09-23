@@ -1,9 +1,10 @@
-// Copyright (c) 2014 The Bitcoin Core developers
+// Copyright (c) 2014-2018 The Bitcoin Core developers
+// Copyright (c) 2017 The Trivechain Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOIN_CRYPTO_RIPEMD160_H
-#define BITCOIN_CRYPTO_RIPEMD160_H
+#ifndef TRVC_CRYPTO_RIPEMD160_H
+#define TRVC_CRYPTO_RIPEMD160_H
 
 #include <stdint.h>
 #include <stdlib.h>
@@ -25,4 +26,4 @@ public:
     CRIPEMD160& Reset();
 };
 
-#endif // BITCOIN_CRYPTO_RIPEMD160_H
+#endif // TRVC_CRYPTO_RIPEMD160_H

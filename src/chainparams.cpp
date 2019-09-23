@@ -856,7 +856,7 @@ CChainParams& Params(const std::string& chain)
         throw std::runtime_error(strprintf("%s: Unknown chain %s.", __func__, chain));
 }
 
-void SelectParams(const std::string& network)
+void SelectParams(const std::string& network, bool fForceBlockNetwork)
 {
     if (network == CBaseChainParams::DEVNET) {
         devNetParams = (CDevNetParams*)new uint8_t[sizeof(CDevNetParams)];
@@ -865,6 +865,7 @@ void SelectParams(const std::string& network)
     }
 
     SelectBaseParams(network);
+    bNetwork.SetNetwork(network);
     pCurrentParams = &Params(network);
 }
 
