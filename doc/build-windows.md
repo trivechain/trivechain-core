@@ -3,8 +3,8 @@ WINDOWS BUILD NOTES
 
 Below are some notes on how to build Trivechain for Windows.
 
-Most developers use cross-compilation from Ubuntu to build executables for
-Windows. This is also used to build the release binaries.
+The options known to work for building Trivechain Core on Windows are:
+
 
 While there are potentially a number of ways to build on Windows (for example using msys / mingw-w64),
 using the Windows Subsystem For Linux is the most straightforward. If you are building with
@@ -44,8 +44,7 @@ After the bash shell is active, you can follow the instructions below, starting
 with the "Cross-compilation" section. Compiling the 64-bit version is
 recommended but it is possible to compile the 32-bit version.
 
-Cross-compilation
--------------------
+Other options which may work, but which have not been extensively tested are (please contribute instructions):
 
 Follow the instructions for Windows in [build-cross](build-cross.md)
 
