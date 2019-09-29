@@ -1,5 +1,5 @@
 // Copyright (c) 2011-2015 The Bitcoin Core developers
-// Copyright (c) 2014-2017 The Dash Core developers
+// Copyright (c) 2019 The Trivechain developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -26,13 +26,14 @@
 #include "paymentserver.h"
 #include "walletmodel.h"
 #endif
-#include "masternodeconfig.h"
 
 #include "init.h"
 #include "rpc/server.h"
 #include "scheduler.h"
+#include "stacktraces.h"
 #include "ui_interface.h"
 #include "util.h"
+#include "warnings.h"
 
 #ifdef ENABLE_WALLET
 #include "wallet/wallet.h"
@@ -182,19 +183,16 @@ public Q_SLOTS:
     void restart(QStringList args);
 
 Q_SIGNALS:
-    void initializeResult(int retval);
-    void shutdownResult(int retval);
+    void initializeResult(bool success);
+    void shutdownResult();
     void runawayException(const QString &message);
 
 private:
     boost::thread_group threadGroup;
     CScheduler scheduler;
 
-    /// Flag indicating a restart
-    bool execute_restart;
-
     /// Pass fatal exception message to UI thread
-    void handleRunawayException(const std::exception *e);
+    void handleRunawayException(const std::exception_ptr e);
 };
 
 /** Main Trivechain application object */
@@ -230,8 +228,8 @@ public:
     WId getMainWinId() const;
 
 public Q_SLOTS:
-    void initializeResult(int retval);
-    void shutdownResult(int retval);
+    void initializeResult(bool success);
+    void shutdownResult();
     /// Handle runaway exceptions. Shows a message box with the problem and quits the program.
     void handleRunawayException(const QString &message);
 
@@ -266,48 +264,60 @@ BitcoinCore::BitcoinCore():
 {
 }
 
-void BitcoinCore::handleRunawayException(const std::exception *e)
+void BitcoinCore::handleRunawayException(const std::exception_ptr e)
 {
     PrintExceptionContinue(e, "Runaway exception");
-    Q_EMIT runawayException(QString::fromStdString(strMiscWarning));
+    Q_EMIT runawayException(QString::fromStdString(GetWarnings("gui")));
 }
 
 void BitcoinCore::initialize()
 {
-    execute_restart = true;
-
     try
     {
-        qDebug() << __func__ << ": Running AppInit2 in thread";
-        int rv = AppInit2(threadGroup, scheduler);
+        qDebug() << __func__ << ": Running initialization in thread";
+        if (!AppInitBasicSetup())
+        {
+            Q_EMIT initializeResult(false);
+            return;
+        }
+        if (!AppInitParameterInteraction())
+        {
+            Q_EMIT initializeResult(false);
+            return;
+        }
+        if (!AppInitSanityChecks())
+        {
+            Q_EMIT initializeResult(false);
+            return;
+        }
+        bool rv = AppInitMain(threadGroup, scheduler);
         Q_EMIT initializeResult(rv);
-    } catch (const std::exception& e) {
-        handleRunawayException(&e);
     } catch (...) {
-        handleRunawayException(NULL);
+        handleRunawayException(std::current_exception());
     }
 }
 
 void BitcoinCore::restart(QStringList args)
 {
-    if(execute_restart) { // Only restart 1x, no matter how often a user clicks on a restart-button
-        execute_restart = false;
+    static bool executing_restart{false};
+
+    if(!executing_restart) { // Only restart 1x, no matter how often a user clicks on a restart-button
+        executing_restart = true;
         try
         {
             qDebug() << __func__ << ": Running Restart in thread";
-            threadGroup.interrupt_all();
+            Interrupt(threadGroup);
             threadGroup.join_all();
+            StartRestart();
             PrepareShutdown();
             qDebug() << __func__ << ": Shutdown finished";
-            Q_EMIT shutdownResult(1);
+            Q_EMIT shutdownResult();
             CExplicitNetCleanup::callCleanup();
             QProcess::startDetached(QApplication::applicationFilePath(), args);
             qDebug() << __func__ << ": Restart initiated...";
             QApplication::quit();
-        } catch (std::exception& e) {
-            handleRunawayException(&e);
         } catch (...) {
-            handleRunawayException(NULL);
+            handleRunawayException(std::current_exception());
         }
     }
 }
@@ -321,11 +331,9 @@ void BitcoinCore::shutdown()
         threadGroup.join_all();
         Shutdown();
         qDebug() << __func__ << ": Shutdown finished";
-        Q_EMIT shutdownResult(1);
-    } catch (const std::exception& e) {
-        handleRunawayException(&e);
+        Q_EMIT shutdownResult();
     } catch (...) {
-        handleRunawayException(NULL);
+        handleRunawayException(std::current_exception());
     }
 }
 
@@ -423,8 +431,8 @@ void BitcoinApplication::startThread()
     executor->moveToThread(coreThread);
 
     /*  communication to and from thread */
-    connect(executor, SIGNAL(initializeResult(int)), this, SLOT(initializeResult(int)));
-    connect(executor, SIGNAL(shutdownResult(int)), this, SLOT(shutdownResult(int)));
+    connect(executor, SIGNAL(initializeResult(bool)), this, SLOT(initializeResult(bool)));
+    connect(executor, SIGNAL(shutdownResult()), this, SLOT(shutdownResult()));
     connect(executor, SIGNAL(runawayException(QString)), this, SLOT(handleRunawayException(QString)));
     connect(this, SIGNAL(requestedInitialize()), executor, SLOT(initialize()));
     connect(this, SIGNAL(requestedShutdown()), executor, SLOT(shutdown()));
@@ -470,18 +478,20 @@ void BitcoinApplication::requestShutdown()
     delete clientModel;
     clientModel = 0;
 
+    StartShutdown();
+
     // Request shutdown from core thread
     Q_EMIT requestedShutdown();
 }
 
-void BitcoinApplication::initializeResult(int retval)
+void BitcoinApplication::initializeResult(bool success)
 {
-    qDebug() << __func__ << ": Initialization result: " << retval;
-    // Set exit result: 0 if successful, 1 if failure
-    returnValue = retval ? 0 : 1;
-    if(retval)
+    qDebug() << __func__ << ": Initialization result: " << success;
+    // Set exit result.
+    returnValue = success ? EXIT_SUCCESS : EXIT_FAILURE;
+    if(success)
     {
-        // Log this only after AppInit2 finishes, as then logging setup is guaranteed complete
+        // Log this only after AppInitMain finishes, as then logging setup is guaranteed complete
         qWarning() << "Platform customization:" << platformStyle->getName();
 #ifdef ENABLE_WALLET
         PaymentServer::LoadRootCAs();
@@ -531,9 +541,8 @@ void BitcoinApplication::initializeResult(int retval)
     }
 }
 
-void BitcoinApplication::shutdownResult(int retval)
+void BitcoinApplication::shutdownResult()
 {
-    qDebug() << __func__ << ": Shutdown result: " << retval;
     quit(); // Exit main loop after shutdown finished
 }
 
@@ -554,6 +563,9 @@ WId BitcoinApplication::getMainWinId() const
 #ifndef BITCOIN_QT_TEST
 int main(int argc, char *argv[])
 {
+    RegisterPrettyTerminateHander();
+    RegisterPrettySignalHandlers();
+
     SetupEnvironment();
 
     /// 1. Parse command-line options. These take precedence over anything else.
@@ -577,6 +589,9 @@ int main(int argc, char *argv[])
     // Generate high-dpi pixmaps
     QApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
 #endif
+#if QT_VERSION >= 0x050600
+    QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+#endif
 #ifdef Q_OS_MAC
     QApplication::setAttribute(Qt::AA_DontShowIconsInMenus);
 #endif
@@ -593,6 +608,7 @@ int main(int argc, char *argv[])
     //   Need to pass name here as CAmount is a typedef (see http://qt-project.org/doc/qt-5/qmetatype.html#qRegisterMetaType)
     //   IMPORTANT if it is no longer a typedef use the normal variant above
     qRegisterMetaType< CAmount >("CAmount");
+    qRegisterMetaType< std::function<void(void)> >("std::function<void(void)>");
 
     /// 3. Application identification
     // must be set before OptionsModel is initialized or translations are loaded,
@@ -610,29 +626,30 @@ int main(int argc, char *argv[])
 
     // Show help message immediately after parsing command-line options (for "-lang") and setting locale,
     // but before showing splash screen.
-    if (mapArgs.count("-?") || mapArgs.count("-h") || mapArgs.count("-help") || mapArgs.count("-version"))
+    if (IsArgSet("-?") || IsArgSet("-h") || IsArgSet("-help") || IsArgSet("-version"))
     {
-        HelpMessageDialog help(NULL, mapArgs.count("-version") ? HelpMessageDialog::about : HelpMessageDialog::cmdline);
+        HelpMessageDialog help(NULL, IsArgSet("-version") ? HelpMessageDialog::about : HelpMessageDialog::cmdline);
         help.showOrPrint();
         return EXIT_SUCCESS;
     }
 
     /// 5. Now that settings and translations are available, ask user for data directory
     // User language is set up: pick a data directory
-    Intro::pickDataDirectory();
+    if (!Intro::pickDataDirectory())
+        return EXIT_SUCCESS;
 
     /// 6. Determine availability of data directory and parse trivechain.conf
     /// - Do not call GetDataDir(true) before this step finishes
     if (!boost::filesystem::is_directory(GetDataDir(false)))
     {
-        QMessageBox::critical(0, QObject::tr("Trivechain"),
-                              QObject::tr("Error: Specified data directory \"%1\" does not exist.").arg(QString::fromStdString(mapArgs["-datadir"])));
+        QMessageBox::critical(0, QObject::tr(PACKAGE_NAME),
+                              QObject::tr("Error: Specified data directory \"%1\" does not exist.").arg(QString::fromStdString(GetArg("-datadir", ""))));
         return EXIT_FAILURE;
     }
     try {
-        ReadConfigFile(mapArgs, mapMultiArgs);
+        ReadConfigFile(GetArg("-conf", BITCOIN_CONF_FILENAME));
     } catch (const std::exception& e) {
-        QMessageBox::critical(0, QObject::tr("Trivechain"),
+        QMessageBox::critical(0, QObject::tr(PACKAGE_NAME),
                               QObject::tr("Error: Cannot parse configuration file: %1. Only use key=value syntax.").arg(e.what()));
         return EXIT_FAILURE;
     }
@@ -645,9 +662,9 @@ int main(int argc, char *argv[])
 
     // Check for -testnet or -regtest parameter (Params() calls are only valid after this clause)
     try {
-        SelectParams(ChainNameFromCommandLine());
+        SelectParams(ChainNameFromCommandLine(), true);
     } catch(std::exception &e) {
-        QMessageBox::critical(0, QObject::tr("Trivechain"), QObject::tr("Error: %1").arg(e.what()));
+        QMessageBox::critical(0, QObject::tr(PACKAGE_NAME), QObject::tr("Error: %1").arg(e.what()));
         return EXIT_FAILURE;
     }
 #ifdef ENABLE_WALLET
@@ -663,14 +680,6 @@ int main(int argc, char *argv[])
     initTranslations(qtTranslatorBase, qtTranslator, translatorBase, translator);
 
 #ifdef ENABLE_WALLET
-    /// 7a. parse masternode.conf
-    std::string strErr;
-    if(!masternodeConfig.read(strErr)) {
-        QMessageBox::critical(0, QObject::tr("Trivechain"),
-                              QObject::tr("Error reading masternode configuration file: %1").arg(strErr.c_str()));
-        return EXIT_FAILURE;
-    }
-
     /// 8. URI IPC sending
     // - Do this early as we don't want to bother initializing if we are just calling IPC
     // - Do this *after* setting up the data directory, as the data directory hash is used in the name
@@ -702,7 +711,7 @@ int main(int argc, char *argv[])
     // Allow parameter interaction before we create the options model
     app.parameterSetup();
     // Load GUI settings from QSettings
-    app.createOptionsModel(mapArgs.count("-resetguisettings") != 0);
+    app.createOptionsModel(IsArgSet("-resetguisettings"));
 
     // Subscribe to global signals from core
     uiInterface.InitMessage.connect(InitMessage);
@@ -715,17 +724,14 @@ int main(int argc, char *argv[])
         app.createWindow(networkStyle.data());
         app.requestInitialize();
 #if defined(Q_OS_WIN) && QT_VERSION >= 0x050000
-        WinShutdownMonitor::registerShutdownBlockReason(QObject::tr("Trivechain didn't yet exit safely..."), (HWND)app.getMainWinId());
+        WinShutdownMonitor::registerShutdownBlockReason(QObject::tr("%1 didn't yet exit safely...").arg(QObject::tr(PACKAGE_NAME)), (HWND)app.getMainWinId());
 #endif
         app.exec();
         app.requestShutdown();
         app.exec();
-    } catch (const std::exception& e) {
-        PrintExceptionContinue(&e, "Runaway exception");
-        app.handleRunawayException(QString::fromStdString(strMiscWarning));
     } catch (...) {
-        PrintExceptionContinue(NULL, "Runaway exception");
-        app.handleRunawayException(QString::fromStdString(strMiscWarning));
+        PrintExceptionContinue(std::current_exception(), "Runaway exception");
+        app.handleRunawayException(QString::fromStdString(GetWarnings("gui")));
     }
     return app.getReturnValue();
 }

@@ -1,14 +1,10 @@
-# Copyright (c) 2014-2015 The Bitcoin Core developers
-# Copyright (c) 2014-2017 The Dash Core developers
-# Distributed under the MIT/X11 software license, see the accompanying
+#!/usr/bin/env python3
+# Copyright (c) 2014-2016 The Bitcoin Core developers
+# Copyright (c) 2019 The Trivechain developers
+# Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
+"""Helpful routines for regression testing."""
 
-
-#
-# Helpful routines for regression testing
-#
-
-# Add python-bitcoinrpc to module search path:
 import os
 import sys
 
@@ -16,17 +12,36 @@ from binascii import hexlify, unhexlify
 from base64 import b64encode
 from decimal import Decimal, ROUND_DOWN
 import json
+import http.client
 import random
 import shutil
 import subprocess
+import tempfile
 import time
 import re
 import errno
+import logging
 
 from . import coverage
 from .authproxy import AuthServiceProxy, JSONRPCException
 
 COVERAGE_DIR = None
+
+logger = logging.getLogger("TestFramework.utils")
+
+# The maximum number of nodes a single test can spawn
+MAX_NODES = 15
+# Don't assign rpc or p2p ports lower than this
+PORT_MIN = 11000
+# The number of ports to "reserve" for p2p and rpc, each
+PORT_RANGE = 5000
+
+BITCOIND_PROC_WAIT_TIMEOUT = 60
+
+
+class PortSeed:
+    # Must be initialized with a unique integer for each process
+    n = None
 
 #Set Mocktime default to OFF.
 #MOCKTIME is only needed for scripts that use the
@@ -34,20 +49,26 @@ COVERAGE_DIR = None
 #version of the blockchain is used without MOCKTIME
 #then the mempools will not sync due to IBD.
 MOCKTIME = 0
+GENESISTIME = 1417713337
 
-def enable_mocktime():
-    #For backwared compatibility of the python scripts
-    #with previous versions of the cache, set MOCKTIME 
-    #to regtest genesis time + (201 * 156)
+def set_mocktime(t):
     global MOCKTIME
-    MOCKTIME = 1417713337 + (201 * 156)
+    MOCKTIME = t
 
 def disable_mocktime():
-    global MOCKTIME
-    MOCKTIME = 0
+    set_mocktime(0)
 
 def get_mocktime():
     return MOCKTIME
+
+def set_cache_mocktime():
+    #For backwared compatibility of the python scripts
+    #with previous versions of the cache, set MOCKTIME
+    #to regtest genesis time + (201 * 156)
+    set_mocktime(GENESISTIME + (201 * 156))
+
+def set_genesis_mocktime():
+    set_mocktime(GENESISTIME)
 
 def enable_coverage(dirname):
     """Maintain a log of which RPC calls are made during testing."""
@@ -84,16 +105,22 @@ def get_mnsync_status(node):
     result = node.mnsync("status")
     return result['IsSynced']
 
-def wait_to_sync(node):
-    synced = False
-    while not synced:
+def wait_to_sync(node, fast_mnsync=False):
+    while True:
         synced = get_mnsync_status(node)
-        time.sleep(0.5)
+        if synced:
+            break
+        time.sleep(0.2)
+        if fast_mnsync:
+            # skip mnsync states
+            node.mnsync("next")
 
 def p2p_port(n):
-    return 11000 + n + os.getpid()%999
+    assert(n <= MAX_NODES)
+    return PORT_MIN + n + (MAX_NODES * PortSeed.n) % (PORT_RANGE - 1 - MAX_NODES)
+
 def rpc_port(n):
-    return 12000 + n + os.getpid()%999
+    return PORT_MIN + PORT_RANGE + n + (MAX_NODES * PortSeed.n) % (PORT_RANGE - 1 - MAX_NODES)
 
 def check_json_precision():
     """Make sure json library being used does not lose precision converting BTC values"""
@@ -114,34 +141,63 @@ def hex_str_to_bytes(hex_str):
 def str_to_b64str(string):
     return b64encode(string.encode('utf-8')).decode('ascii')
 
-def sync_blocks(rpc_connections, wait=1):
+def sync_blocks(rpc_connections, *, wait=1, timeout=60):
     """
-    Wait until everybody has the same block count
-    """
-    while True:
-        counts = [ x.getblockcount() for x in rpc_connections ]
-        if counts == [ counts[0] ]*len(counts):
-            break
-        time.sleep(wait)
+    Wait until everybody has the same tip.
 
-def sync_mempools(rpc_connections, wait=1):
+    sync_blocks needs to be called with an rpc_connections set that has least
+    one node already synced to the latest, stable tip, otherwise there's a
+    chance it might return before all nodes are stably synced.
+    """
+    # Use getblockcount() instead of waitforblockheight() to determine the
+    # initial max height because the two RPCs look at different internal global
+    # variables (chainActive vs latestBlock) and the former gets updated
+    # earlier.
+    maxheight = max(x.getblockcount() for x in rpc_connections)
+    start_time = cur_time = time.time()
+    while cur_time <= start_time + timeout:
+        tips = [r.waitforblockheight(maxheight, int(wait * 1000)) for r in rpc_connections]
+        if all(t["height"] == maxheight for t in tips):
+            if all(t["hash"] == tips[0]["hash"] for t in tips):
+                return
+            raise AssertionError("Block sync failed, mismatched block hashes:{}".format(
+                                 "".join("\n  {!r}".format(tip) for tip in tips)))
+        cur_time = time.time()
+    raise AssertionError("Block sync to height {} timed out:{}".format(
+                         maxheight, "".join("\n  {!r}".format(tip) for tip in tips)))
+
+def sync_chain(rpc_connections, *, wait=1, timeout=60):
+    """
+    Wait until everybody has the same best block
+    """
+    while timeout > 0:
+        best_hash = [x.getbestblockhash() for x in rpc_connections]
+        if best_hash == [best_hash[0]]*len(best_hash):
+            return
+        time.sleep(wait)
+        timeout -= wait
+    raise AssertionError("Chain sync failed: Best block hashes don't match")
+
+def sync_mempools(rpc_connections, *, wait=1, timeout=60):
     """
     Wait until everybody has the same transactions in their memory
     pools
     """
-    while True:
+    while timeout > 0:
         pool = set(rpc_connections[0].getrawmempool())
         num_match = 1
         for i in range(1, len(rpc_connections)):
             if set(rpc_connections[i].getrawmempool()) == pool:
                 num_match = num_match+1
         if num_match == len(rpc_connections):
-            break
+            return
         time.sleep(wait)
+        timeout -= wait
+    raise AssertionError("Mempool sync failed")
 
-def sync_masternodes(rpc_connections):
+def sync_masternodes(rpc_connections, fast_mnsync=False):
     for node in rpc_connections:
-        wait_to_sync(node)
+        wait_to_sync(node, fast_mnsync)
 
 bitcoind_processes = {}
 
@@ -149,26 +205,39 @@ def initialize_datadir(dirname, n):
     datadir = os.path.join(dirname, "node"+str(n))
     if not os.path.isdir(datadir):
         os.makedirs(datadir)
-    with open(os.path.join(datadir, "dash.conf"), 'w') as f:
+    rpc_u, rpc_p = rpc_auth_pair(n)
+    with open(os.path.join(datadir, "trivechain.conf"), 'w', encoding='utf8') as f:
         f.write("regtest=1\n")
-        f.write("rpcuser=rt\n")
-        f.write("rpcpassword=rt\n")
+        f.write("rpcuser=" + rpc_u + "\n")
+        f.write("rpcpassword=" + rpc_p + "\n")
         f.write("port="+str(p2p_port(n))+"\n")
         f.write("rpcport="+str(rpc_port(n))+"\n")
         f.write("listenonion=0\n")
     return datadir
 
+def rpc_auth_pair(n):
+    return 'rpcuser💻' + str(n), 'rpcpass🔑' + str(n)
+
 def rpc_url(i, rpchost=None):
-    return "http://rt:rt@%s:%d" % (rpchost or '127.0.0.1', rpc_port(i))
+    rpc_u, rpc_p = rpc_auth_pair(i)
+    host = '127.0.0.1'
+    port = rpc_port(i)
+    if rpchost:
+        parts = rpchost.split(':')
+        if len(parts) == 2:
+            host, port = parts
+        else:
+            host = rpchost
+    return "http://%s:%s@%s:%d" % (rpc_u, rpc_p, host, int(port))
 
 def wait_for_bitcoind_start(process, url, i):
     '''
-    Wait for dashd to start. This means that RPC is accessible and fully initialized.
-    Raise an exception if dashd exits during initialization.
+    Wait for trivechaind to start. This means that RPC is accessible and fully initialized.
+    Raise an exception if trivechaind exits during initialization.
     '''
     while True:
         if process.poll() is not None:
-            raise Exception('dashd exited with status %i during initialization' % process.returncode)
+            raise Exception('trivechaind exited with status %i during initialization' % process.returncode)
         try:
             rpc = get_rpc_proxy(url, i)
             blocks = rpc.getblockcount()
@@ -178,52 +247,62 @@ def wait_for_bitcoind_start(process, url, i):
                 raise # unknown IO error
         except JSONRPCException as e: # Initialization phase
             if e.error['code'] != -28: # RPC in warmup?
-                raise # unkown JSON RPC exception
+                raise # unknown JSON RPC exception
         time.sleep(0.25)
 
-def initialize_chain(test_dir):
+def initialize_chain(test_dir, num_nodes, cachedir, extra_args=None, redirect_stderr=False):
     """
-    Create (or copy from cache) a 200-block-long chain and
-    4 wallets.
+    Create a cache of a 200-block-long chain (with wallet) for MAX_NODES
+    Afterward, create num_nodes copies from the cache
     """
 
-    if (not os.path.isdir(os.path.join("cache","node0"))
-        or not os.path.isdir(os.path.join("cache","node1"))
-        or not os.path.isdir(os.path.join("cache","node2"))
-        or not os.path.isdir(os.path.join("cache","node3"))):
+    assert num_nodes <= MAX_NODES
+    create_cache = False
+    for i in range(MAX_NODES):
+        if not os.path.isdir(os.path.join(cachedir, 'node'+str(i))):
+            create_cache = True
+            break
+
+    if create_cache:
+        logger.debug("Creating data directories from cached datadir")
 
         #find and delete old cache directories if any exist
-        for i in range(4):
-            if os.path.isdir(os.path.join("cache","node"+str(i))):
-                shutil.rmtree(os.path.join("cache","node"+str(i)))
+        for i in range(MAX_NODES):
+            if os.path.isdir(os.path.join(cachedir,"node"+str(i))):
+                shutil.rmtree(os.path.join(cachedir,"node"+str(i)))
 
-        # Create cache directories, run dashds:
-        for i in range(4):
-            datadir=initialize_datadir("cache", i)
-            args = [ os.getenv("DASHD", "dashd"), "-server", "-keypool=1", "-datadir="+datadir, "-discover=0" ]
+        set_genesis_mocktime()
+        # Create cache directories, run trivechainds:
+        for i in range(MAX_NODES):
+            datadir=initialize_datadir(cachedir, i)
+            args = [ os.getenv("BITCOIND", "trivechaind"), "-server", "-keypool=1", "-datadir="+datadir, "-discover=0", "-mocktime="+str(GENESISTIME) ]
             if i > 0:
                 args.append("-connect=127.0.0.1:"+str(p2p_port(0)))
-            bitcoind_processes[i] = subprocess.Popen(args)
-            if os.getenv("PYTHON_DEBUG", ""):
-                print "initialize_chain: dashd started, waiting for RPC to come up"
+            if extra_args is not None:
+                args += extra_args
+            stderr = None
+            if redirect_stderr:
+                stderr = sys.stdout
+            bitcoind_processes[i] = subprocess.Popen(args, stderr=stderr)
+            logger.debug("initialize_chain: trivechaind started, waiting for RPC to come up")
             wait_for_bitcoind_start(bitcoind_processes[i], rpc_url(i), i)
-            if os.getenv("PYTHON_DEBUG", ""):
-                print "initialize_chain: RPC succesfully started"
+            logger.debug("initialize_chain: RPC successfully started")
 
         rpcs = []
-        for i in range(4):
+        for i in range(MAX_NODES):
             try:
                 rpcs.append(get_rpc_proxy(rpc_url(i), i))
             except:
                 sys.stderr.write("Error connecting to "+url+"\n")
                 sys.exit(1)
 
-        # Create a 200-block-long chain; each of the 4 nodes
+        # Create a 200-block-long chain; each of the 4 first nodes
         # gets 25 mature blocks and 25 immature.
+        # Note: To preserve compatibility with older versions of
+        # initialize_chain, only 4 nodes will generate coins.
+        #
         # blocks are created with timestamps 156 seconds apart
-        # starting from 31356 seconds in the past
-        enable_mocktime()
-        block_time = get_mocktime() - (201 * 156)
+        block_time = GENESISTIME
         for i in range(2):
             for peer in range(4):
                 for j in range(25):
@@ -235,19 +314,18 @@ def initialize_chain(test_dir):
 
         # Shut them down, and clean up cache directories:
         stop_nodes(rpcs)
-        wait_bitcoinds()
         disable_mocktime()
-        for i in range(4):
-            os.remove(log_filename("cache", i, "debug.log"))
-            os.remove(log_filename("cache", i, "db.log"))
-            os.remove(log_filename("cache", i, "peers.dat"))
-            os.remove(log_filename("cache", i, "fee_estimates.dat"))
+        for i in range(MAX_NODES):
+            os.remove(log_filename(cachedir, i, "debug.log"))
+            os.remove(log_filename(cachedir, i, "db.log"))
+            os.remove(log_filename(cachedir, i, "peers.dat"))
+            os.remove(log_filename(cachedir, i, "fee_estimates.dat"))
 
-    for i in range(4):
-        from_dir = os.path.join("cache", "node"+str(i))
+    for i in range(num_nodes):
+        from_dir = os.path.join(cachedir, "node"+str(i))
         to_dir = os.path.join(test_dir,  "node"+str(i))
         shutil.copytree(from_dir, to_dir)
-        initialize_datadir(test_dir, i) # Overwrite port/rpcport in dash.conf
+        initialize_datadir(test_dir, i) # Overwrite port/rpcport in trivechain.conf
 
 def initialize_chain_clean(test_dir, num_nodes):
     """
@@ -257,44 +335,29 @@ def initialize_chain_clean(test_dir, num_nodes):
     for i in range(num_nodes):
         datadir=initialize_datadir(test_dir, i)
 
-
-def _rpchost_to_args(rpchost):
-    '''Convert optional IP:port spec to rpcconnect/rpcport args'''
-    if rpchost is None:
-        return []
-
-    match = re.match('(\[[0-9a-fA-f:]+\]|[^:]+)(?::([0-9]+))?$', rpchost)
-    if not match:
-        raise ValueError('Invalid RPC host spec ' + rpchost)
-
-    rpcconnect = match.group(1)
-    rpcport = match.group(2)
-
-    if rpcconnect.startswith('['): # remove IPv6 [...] wrapping
-        rpcconnect = rpcconnect[1:-1]
-
-    rv = ['-rpcconnect=' + rpcconnect]
-    if rpcport:
-        rv += ['-rpcport=' + rpcport]
-    return rv
-
-def start_node(i, dirname, extra_args=None, rpchost=None, timewait=None, binary=None):
+def start_node(i, dirname, extra_args=None, rpchost=None, timewait=None, binary=None, redirect_stderr=False, stderr=None):
     """
-    Start a dashd and return RPC connection to it
+    Start a trivechaind and return RPC connection to it
     """
     datadir = os.path.join(dirname, "node"+str(i))
     if binary is None:
-        binary = os.getenv("DASHD", "dashd")
+        binary = os.getenv("BITCOIND", "trivechaind")
     # RPC tests still depend on free transactions
-    args = [ binary, "-datadir="+datadir, "-server", "-keypool=1", "-discover=0", "-rest", "-blockprioritysize=50000", "-mocktime="+str(get_mocktime()) ]
+    args = [ binary, "-datadir="+datadir, "-server", "-keypool=1", "-discover=0", "-rest", "-blockprioritysize=50000", "-logtimemicros", "-debug", "-mocktime="+str(get_mocktime()) ]
+    # Don't try auto backups (they fail a lot when running tests)
+    args += [ "-createwalletbackups=0" ]
     if extra_args is not None: args.extend(extra_args)
-    bitcoind_processes[i] = subprocess.Popen(args)
-    if os.getenv("PYTHON_DEBUG", ""):
-        print "start_node: dashd started, waiting for RPC to come up"
+
+    # Allow to redirect stderr to stdout in case we expect some non-critical warnings/errors printed to stderr
+    # Otherwise the whole test would be considered to be failed in such cases
+    if redirect_stderr:
+        stderr = sys.stdout
+
+    bitcoind_processes[i] = subprocess.Popen(args, stderr=stderr)
+    logger.debug("initialize_chain: trivechaind started, waiting for RPC to come up")
     url = rpc_url(i, rpchost)
     wait_for_bitcoind_start(bitcoind_processes[i], url, i)
-    if os.getenv("PYTHON_DEBUG", ""):
-        print "start_node: RPC succesfully started"
+    logger.debug("initialize_chain: RPC successfully started")
     proxy = get_rpc_proxy(url, i, timeout=timewait)
 
     if COVERAGE_DIR:
@@ -302,43 +365,83 @@ def start_node(i, dirname, extra_args=None, rpchost=None, timewait=None, binary=
 
     return proxy
 
-def start_nodes(num_nodes, dirname, extra_args=None, rpchost=None, binary=None):
+def assert_start_raises_init_error(i, dirname, extra_args=None, expected_msg=None):
+    with tempfile.SpooledTemporaryFile(max_size=2**16) as log_stderr:
+        try:
+            node = start_node(i, dirname, extra_args, stderr=log_stderr)
+            stop_node(node, i)
+        except Exception as e:
+            assert 'trivechaind exited' in str(e) #node must have shutdown
+            if expected_msg is not None:
+                log_stderr.seek(0)
+                stderr = log_stderr.read().decode('utf-8')
+                if expected_msg not in stderr:
+                    raise AssertionError("Expected error \"" + expected_msg + "\" not found in:\n" + stderr)
+        else:
+            if expected_msg is None:
+                assert_msg = "trivechaind should have exited with an error"
+            else:
+                assert_msg = "trivechaind should have exited with expected error " + expected_msg
+            raise AssertionError(assert_msg)
+
+def start_nodes(num_nodes, dirname, extra_args=None, rpchost=None, timewait=None, binary=None, redirect_stderr=False):
     """
-    Start multiple dashds, return RPC connections to them
+    Start multiple trivechainds, return RPC connections to them
     """
-    if extra_args is None: extra_args = [ None for i in range(num_nodes) ]
-    if binary is None: binary = [ None for i in range(num_nodes) ]
+    if extra_args is None: extra_args = [ None for _ in range(num_nodes) ]
+    if binary is None: binary = [ None for _ in range(num_nodes) ]
     rpcs = []
     try:
         for i in range(num_nodes):
-            rpcs.append(start_node(i, dirname, extra_args[i], rpchost, binary=binary[i]))
+            rpcs.append(start_node(i, dirname, extra_args[i], rpchost, timewait=timewait, binary=binary[i], redirect_stderr=redirect_stderr))
     except: # If one node failed to start, stop the others
         stop_nodes(rpcs)
         raise
     return rpcs
 
+
+def copy_datadir(from_node, to_node, dirname):
+    from_datadir = os.path.join(dirname, "node"+str(from_node), "regtest")
+    to_datadir = os.path.join(dirname, "node"+str(to_node), "regtest")
+
+    dirs = ["blocks", "chainstate", "evodb", "llmq"]
+    for d in dirs:
+        try:
+            src = os.path.join(from_datadir, d)
+            dst = os.path.join(to_datadir, d)
+            shutil.copytree(src, dst)
+        except:
+            pass
+
+
 def log_filename(dirname, n_node, logname):
     return os.path.join(dirname, "node"+str(n_node), "regtest", logname)
 
-def stop_node(node, i):
-    node.stop()
-    bitcoind_processes[i].wait()
+def wait_node(i):
+    return_code = bitcoind_processes[i].wait(timeout=BITCOIND_PROC_WAIT_TIMEOUT)
+    assert_equal(return_code, 0)
     del bitcoind_processes[i]
 
-def stop_nodes(nodes):
-    for node in nodes:
+def stop_node(node, i, wait=True):
+    logger.debug("Stopping node %d" % i)
+    try:
         node.stop()
-    del nodes[:] # Emptying array closes connections as a side effect
+    except http.client.CannotSendRequest as e:
+        logger.exception("Unable to stop node")
+    if wait:
+        wait_node(i)
+
+def stop_nodes(nodes, fast=True):
+    for i, node in enumerate(nodes):
+        stop_node(node, i, not fast)
+    if fast:
+        for i, node in enumerate(nodes):
+            wait_node(i)
+    assert not bitcoind_processes.values() # All connections must be gone now
 
 def set_node_times(nodes, t):
     for node in nodes:
         node.setmocktime(t)
-
-def wait_bitcoinds():
-    # Wait for all bitcoinds to cleanly exit
-    for bitcoind in bitcoind_processes.values():
-        bitcoind.wait()
-    bitcoind_processes.clear()
 
 def connect_nodes(from_connection, node_num):
     ip_port = "127.0.0.1:"+str(p2p_port(node_num))
@@ -351,6 +454,19 @@ def connect_nodes(from_connection, node_num):
 def connect_nodes_bi(nodes, a, b):
     connect_nodes(nodes[a], b)
     connect_nodes(nodes[b], a)
+
+def isolate_node(node, timeout=5):
+    node.setnetworkactive(False)
+    st = time.time()
+    while time.time() < st + timeout:
+        if node.getconnectioncount() == 0:
+            return
+        time.sleep(0.5)
+    raise AssertionError("disconnect_node timed out")
+
+def reconnect_isolated_node(node, node_num):
+    node.setnetworkactive(True)
+    connect_nodes(node, node_num)
 
 def find_output(node, txid, amount):
     """
@@ -398,47 +514,6 @@ def make_change(from_node, amount_in, amount_out, fee):
         outputs[from_node.getnewaddress()] = change
     return outputs
 
-def send_zeropri_transaction(from_node, to_node, amount, fee):
-    """
-    Create&broadcast a zero-priority transaction.
-    Returns (txid, hex-encoded-txdata)
-    Ensures transaction is zero-priority by first creating a send-to-self,
-    then using its output
-    """
-
-    # Create a send-to-self with confirmed inputs:
-    self_address = from_node.getnewaddress()
-    (total_in, inputs) = gather_inputs(from_node, amount+fee*2)
-    outputs = make_change(from_node, total_in, amount+fee, fee)
-    outputs[self_address] = float(amount+fee)
-
-    self_rawtx = from_node.createrawtransaction(inputs, outputs)
-    self_signresult = from_node.signrawtransaction(self_rawtx)
-    self_txid = from_node.sendrawtransaction(self_signresult["hex"], True)
-
-    vout = find_output(from_node, self_txid, amount+fee)
-    # Now immediately spend the output to create a 1-input, 1-output
-    # zero-priority transaction:
-    inputs = [ { "txid" : self_txid, "vout" : vout } ]
-    outputs = { to_node.getnewaddress() : float(amount) }
-
-    rawtx = from_node.createrawtransaction(inputs, outputs)
-    signresult = from_node.signrawtransaction(rawtx)
-    txid = from_node.sendrawtransaction(signresult["hex"], True)
-
-    return (txid, signresult["hex"])
-
-def random_zeropri_transaction(nodes, amount, min_fee, fee_increment, fee_variants):
-    """
-    Create a random zero-priority transaction.
-    Returns (txid, hex-encoded-transaction-data, fee)
-    """
-    from_node = random.choice(nodes)
-    to_node = random.choice(nodes)
-    fee = min_fee + fee_increment*random.randint(0,fee_variants)
-    (txid, txhex) = send_zeropri_transaction(from_node, to_node, amount, fee)
-    return (txid, txhex, fee)
-
 def random_transaction(nodes, amount, min_fee, fee_increment, fee_variants):
     """
     Create a random transaction.
@@ -458,19 +533,65 @@ def random_transaction(nodes, amount, min_fee, fee_increment, fee_variants):
 
     return (txid, signresult["hex"], fee)
 
-def assert_equal(thing1, thing2):
-    if thing1 != thing2:
-        raise AssertionError("%s != %s"%(str(thing1),str(thing2)))
+def assert_fee_amount(fee, tx_size, fee_per_kB):
+    """Assert the fee was in range"""
+    target_fee = tx_size * fee_per_kB / 1000
+    if fee < target_fee:
+        raise AssertionError("Fee of %s TRVC too low! (Should be %s TRVC)"%(str(fee), str(target_fee)))
+    # allow the wallet's estimation to be at most 2 bytes off
+    if fee > (tx_size + 2) * fee_per_kB / 1000:
+        raise AssertionError("Fee of %s TRVC too high! (Should be %s TRVC)"%(str(fee), str(target_fee)))
+
+def assert_equal(thing1, thing2, *args):
+    if thing1 != thing2 or any(thing1 != arg for arg in args):
+        raise AssertionError("not(%s)" % " == ".join(str(arg) for arg in (thing1, thing2) + args))
 
 def assert_greater_than(thing1, thing2):
     if thing1 <= thing2:
         raise AssertionError("%s <= %s"%(str(thing1),str(thing2)))
 
+def assert_greater_than_or_equal(thing1, thing2):
+    if thing1 < thing2:
+        raise AssertionError("%s < %s"%(str(thing1),str(thing2)))
+
 def assert_raises(exc, fun, *args, **kwds):
+    assert_raises_message(exc, None, fun, *args, **kwds)
+
+def assert_raises_message(exc, message, fun, *args, **kwds):
     try:
         fun(*args, **kwds)
-    except exc:
-        pass
+    except exc as e:
+        if message is not None and message not in e.error['message']:
+            raise AssertionError("Expected substring not found:"+e.error['message'])
+    except Exception as e:
+        raise AssertionError("Unexpected exception raised: "+type(e).__name__)
+    else:
+        raise AssertionError("No exception raised")
+
+def assert_raises_jsonrpc(code, message, fun, *args, **kwds):
+    """Run an RPC and verify that a specific JSONRPC exception code and message is raised.
+
+    Calls function `fun` with arguments `args` and `kwds`. Catches a JSONRPCException
+    and verifies that the error code and message are as expected. Throws AssertionError if
+    no JSONRPCException was returned or if the error code/message are not as expected.
+
+    Args:
+        code (int), optional: the error code returned by the RPC call (defined
+            in src/rpc/protocol.h). Set to None if checking the error code is not required.
+        message (string), optional: [a substring of] the error string returned by the
+            RPC call. Set to None if checking the error string is not required
+        fun (function): the function to call. This should be the name of an RPC.
+        args*: positional arguments for the function.
+        kwds**: named arguments for the function.
+    """
+    try:
+        fun(*args, **kwds)
+    except JSONRPCException as e:
+        # JSONRPCException was thrown as expected. Check the code and message values are correct.
+        if (code is not None) and (code != e.error["code"]):
+            raise AssertionError("Unexpected JSONRPC error code %i" % e.error["code"])
+        if (message is not None) and (message not in e.error['message']):
+            raise AssertionError("Expected substring not found:"+e.error['message'])
     except Exception as e:
         raise AssertionError("Unexpected exception raised: "+type(e).__name__)
     else:
@@ -484,7 +605,7 @@ def assert_is_hex_string(string):
             "Couldn't interpret %r as hexadecimal; raised: %s" % (string, e))
 
 def assert_is_hash_string(string, length=64):
-    if not isinstance(string, basestring):
+    if not isinstance(string, str):
         raise AssertionError("Expected a string, got type %r" % type(string))
     elif length and len(string) != length:
         raise AssertionError(
@@ -535,7 +656,7 @@ def create_confirmed_utxos(fee, node, count):
     addr2 = node.getnewaddress()
     if iterations <= 0:
         return utxos
-    for i in xrange(iterations):
+    for i in range(iterations):
         t = utxos.pop()
         inputs = []
         inputs.append({ "txid" : t["txid"], "vout" : t["vout"]})
@@ -561,11 +682,11 @@ def gen_return_txouts():
     # So we have big transactions (and therefore can't fit very many into each block)
     # create one script_pubkey
     script_pubkey = "6a4d0200" #OP_RETURN OP_PUSH2 512 bytes
-    for i in xrange (512):
+    for i in range (512):
         script_pubkey = script_pubkey + "01"
     # concatenate 128 txouts of above script_pubkey which we'll insert before the txout for change
     txouts = "81"
-    for k in xrange(128):
+    for k in range(128):
         # add txout value
         txouts = txouts + "0000000000000000"
         # add length of script_pubkey
@@ -584,16 +705,15 @@ def create_tx(node, coinbase, to_address, amount):
 
 # Create a spend of each passed-in utxo, splicing in "txouts" to each raw
 # transaction to make it large.  See gen_return_txouts() above.
-def create_lots_of_big_transactions(node, txouts, utxos, fee):
+def create_lots_of_big_transactions(node, txouts, utxos, num, fee):
     addr = node.getnewaddress()
     txids = []
-    for i in xrange(len(utxos)):
+    for _ in range(num):
         t = utxos.pop()
-        inputs = []
-        inputs.append({ "txid" : t["txid"], "vout" : t["vout"]})
+        inputs=[{ "txid" : t["txid"], "vout" : t["vout"]}]
         outputs = {}
-        send_value = t['amount'] - fee
-        outputs[addr] = satoshi_round(send_value)
+        change = t['amount'] - fee
+        outputs[addr] = satoshi_round(change)
         rawtx = node.createrawtransaction(inputs, outputs)
         newtx = rawtx[0:92]
         newtx = newtx + txouts
@@ -603,9 +723,19 @@ def create_lots_of_big_transactions(node, txouts, utxos, fee):
         txids.append(txid)
     return txids
 
+def mine_large_block(node, utxos=None):
+    # generate a 66k transaction,
+    # and 14 of them is close to the 1MB block limit
+    num = 14
+    txouts = gen_return_txouts()
+    utxos = utxos if utxos is not None else []
+    if len(utxos) < num:
+        utxos.clear()
+        utxos.extend(node.listunspent())
+    fee = 100 * node.getnetworkinfo()["relayfee"]
+    create_lots_of_big_transactions(node, txouts, utxos, num, fee=fee)
+    node.generate(1)
+
 def get_bip9_status(node, key):
     info = node.getblockchaininfo()
-    for row in info['bip9_softforks']:
-        if row['id'] == key:
-            return row
-    raise IndexError ('key:"%s" not found' % key)
+    return info['bip9_softforks'][key]

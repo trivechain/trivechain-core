@@ -1,30 +1,32 @@
-// Copyright (c) 2014-2017 The Dash Core developers
+// Copyright (c) 2019 The Trivechain developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #ifndef EXCLUSIVESEND_H
 #define EXCLUSIVESEND_H
 
+#include "bls/bls.h"
+#include "chain.h"
 #include "chainparams.h"
 #include "primitives/transaction.h"
 #include "pubkey.h"
 #include "sync.h"
-#include "tinyformat.h"
 #include "timedata.h"
+#include "tinyformat.h"
 
 class CExclusiveSend;
 class CConnman;
 
 // timeouts
-static const int EXCLUSIVESEND_AUTO_TIMEOUT_MIN       = 5;
-static const int EXCLUSIVESEND_AUTO_TIMEOUT_MAX       = 15;
-static const int EXCLUSIVESEND_QUEUE_TIMEOUT          = 30;
-static const int EXCLUSIVESEND_SIGNING_TIMEOUT        = 15;
+static const int EXCLUSIVESEND_AUTO_TIMEOUT_MIN = 5;
+static const int EXCLUSIVESEND_AUTO_TIMEOUT_MAX = 15;
+static const int EXCLUSIVESEND_QUEUE_TIMEOUT = 30;
+static const int EXCLUSIVESEND_SIGNING_TIMEOUT = 15;
 
 //! minimum peer version accepted by mixing pool
-static const int MIN_EXCLUSIVESEND_PEER_PROTO_VERSION = 70208;
+static const int MIN_EXCLUSIVESEND_PEER_PROTO_VERSION = 70213;
 
-static const CAmount EXCLUSIVESEND_ENTRY_MAX_SIZE     = 9;
+static const size_t EXCLUSIVESEND_ENTRY_MAX_SIZE = 9;
 
 // pool responses
 enum PoolMessage {
@@ -77,66 +79,88 @@ enum PoolStatusUpdate {
 class CTxDSIn : public CTxIn
 {
 public:
+    // memory only
+    CScript prevPubKey;
     bool fHasSig; // flag to indicate if signed
-    int nSentTimes; //times we've sent this anonymously
 
-    CTxDSIn(const CTxIn& txin) :
+    CTxDSIn(const CTxIn& txin, const CScript& script) :
         CTxIn(txin),
-        fHasSig(false),
-        nSentTimes(0)
-        {}
+        prevPubKey(script),
+        fHasSig(false)
+    {
+    }
 
     CTxDSIn() :
         CTxIn(),
-        fHasSig(false),
-        nSentTimes(0)
-        {}
+        prevPubKey(),
+        fHasSig(false)
+    {
+    }
 };
 
-/** Holds an mixing output
- */
-class CTxDSOut : public CTxOut
+class CExclusiveSendAccept
 {
 public:
-    int nSentTimes; //times we've sent this anonymously
+    int nDenom;
+    CMutableTransaction txCollateral;
 
-    CTxDSOut(const CTxOut& out) :
-        CTxOut(out),
-        nSentTimes(0)
-        {}
+    CExclusiveSendAccept() :
+        nDenom(0),
+        txCollateral(CMutableTransaction()){};
 
-    CTxDSOut() :
-        CTxOut(),
-        nSentTimes(0)
-        {}
-};
-
-// A clients transaction in the mixing pool
-class CDarkSendEntry
-{
-public:
-    std::vector<CTxDSIn> vecTxDSIn;
-    std::vector<CTxDSOut> vecTxDSOut;
-    CTransaction txCollateral;
-    // memory only
-    CService addr;
-
-    CDarkSendEntry() :
-        vecTxDSIn(std::vector<CTxDSIn>()),
-        vecTxDSOut(std::vector<CTxDSOut>()),
-        txCollateral(CTransaction()),
-        addr(CService())
-        {}
-
-    CDarkSendEntry(const std::vector<CTxIn>& vecTxIn, const std::vector<CTxOut>& vecTxOut, const CTransaction& txCollateral);
+    CExclusiveSendAccept(int nDenom, const CMutableTransaction& txCollateral) :
+        nDenom(nDenom),
+        txCollateral(txCollateral){};
 
     ADD_SERIALIZE_METHODS;
 
     template <typename Stream, typename Operation>
-    inline void SerializationOp(Stream& s, Operation ser_action, int nType, int nVersion) {
+    inline void SerializationOp(Stream& s, Operation ser_action)
+    {
+        READWRITE(nDenom);
+        READWRITE(txCollateral);
+    }
+
+    friend bool operator==(const CExclusiveSendAccept& a, const CExclusiveSendAccept& b)
+    {
+        return a.nDenom == b.nDenom && a.txCollateral == b.txCollateral;
+    }
+};
+
+// A clients transaction in the mixing pool
+class CExclusiveSendEntry
+{
+public:
+    std::vector<CTxDSIn> vecTxDSIn;
+    std::vector<CTxOut> vecTxOut;
+    CTransactionRef txCollateral;
+    // memory only
+    CService addr;
+
+    CExclusiveSendEntry() :
+        vecTxDSIn(std::vector<CTxDSIn>()),
+        vecTxOut(std::vector<CTxOut>()),
+        txCollateral(MakeTransactionRef()),
+        addr(CService())
+    {
+    }
+
+    CExclusiveSendEntry(const std::vector<CTxDSIn>& vecTxDSIn, const std::vector<CTxOut>& vecTxOut, const CTransaction& txCollateral) :
+        vecTxDSIn(vecTxDSIn),
+        vecTxOut(vecTxOut),
+        txCollateral(MakeTransactionRef(txCollateral)),
+        addr(CService())
+    {
+    }
+
+    ADD_SERIALIZE_METHODS;
+
+    template <typename Stream, typename Operation>
+    inline void SerializationOp(Stream& s, Operation ser_action)
+    {
         READWRITE(vecTxDSIn);
         READWRITE(txCollateral);
-        READWRITE(vecTxDSOut);
+        READWRITE(vecTxOut);
     }
 
     bool AddScriptSig(const CTxIn& txin);
@@ -144,48 +168,54 @@ public:
 
 
 /**
- * A currently inprogress mixing merge and denomination information
+ * A currently in progress mixing merge and denomination information
  */
-class CDarksendQueue
+class CExclusiveSendQueue
 {
 public:
     int nDenom;
-    CTxIn vin;
+    COutPoint masternodeOutpoint;
     int64_t nTime;
     bool fReady; //ready for submit
     std::vector<unsigned char> vchSig;
     // memory only
     bool fTried;
 
-    CDarksendQueue() :
+    CExclusiveSendQueue() :
         nDenom(0),
-        vin(CTxIn()),
+        masternodeOutpoint(COutPoint()),
         nTime(0),
         fReady(false),
         vchSig(std::vector<unsigned char>()),
         fTried(false)
-        {}
+    {
+    }
 
-    CDarksendQueue(int nDenom, COutPoint outpoint, int64_t nTime, bool fReady) :
+    CExclusiveSendQueue(int nDenom, COutPoint outpoint, int64_t nTime, bool fReady) :
         nDenom(nDenom),
-        vin(CTxIn(outpoint)),
+        masternodeOutpoint(outpoint),
         nTime(nTime),
         fReady(fReady),
         vchSig(std::vector<unsigned char>()),
         fTried(false)
-        {}
+    {
+    }
 
     ADD_SERIALIZE_METHODS;
 
     template <typename Stream, typename Operation>
-    inline void SerializationOp(Stream& s, Operation ser_action, int nType, int nVersion) {
+    inline void SerializationOp(Stream& s, Operation ser_action)
+    {
         READWRITE(nDenom);
-        READWRITE(vin);
+        READWRITE(masternodeOutpoint);
         READWRITE(nTime);
         READWRITE(fReady);
-        READWRITE(vchSig);
+        if (!(s.GetType() & SER_GETHASH)) {
+            READWRITE(vchSig);
+        }
     }
 
+    uint256 GetSignatureHash() const;
     /** Sign this mixing transaction
      *  \return true if all conditions are met:
      *     1) we have an active Masternode,
@@ -195,28 +225,28 @@ public:
      */
     bool Sign();
     /// Check if we have a valid Masternode address
-    bool CheckSignature(const CPubKey& pubKeyMasternode);
+    bool CheckSignature(const CBLSPublicKey& blsPubKey) const;
 
-    bool Relay(CConnman &connman);
+    bool Relay(CConnman& connman);
 
     /// Is this queue expired?
     bool IsExpired() { return GetAdjustedTime() - nTime > EXCLUSIVESEND_QUEUE_TIMEOUT; }
 
-    std::string ToString()
+    std::string ToString() const
     {
         return strprintf("nDenom=%d, nTime=%lld, fReady=%s, fTried=%s, masternode=%s",
-                        nDenom, nTime, fReady ? "true" : "false", fTried ? "true" : "false", vin.prevout.ToStringShort());
+            nDenom, nTime, fReady ? "true" : "false", fTried ? "true" : "false", masternodeOutpoint.ToStringShort());
     }
 
-    friend bool operator==(const CDarksendQueue& a, const CDarksendQueue& b)
+    friend bool operator==(const CExclusiveSendQueue& a, const CExclusiveSendQueue& b)
     {
-        return a.nDenom == b.nDenom && a.vin.prevout == b.vin.prevout && a.nTime == b.nTime && a.fReady == b.fReady;
+        return a.nDenom == b.nDenom && a.masternodeOutpoint == b.masternodeOutpoint && a.nTime == b.nTime && a.fReady == b.fReady;
     }
 };
 
 /** Helper class to store mixing transaction (tx) information.
  */
-class CDarksendBroadcastTx
+class CExclusiveSendBroadcastTx
 {
 private:
     // memory only
@@ -224,68 +254,74 @@ private:
     int nConfirmedHeight;
 
 public:
-    CTransaction tx;
-    CTxIn vin;
+    CTransactionRef tx;
+    COutPoint masternodeOutpoint;
     std::vector<unsigned char> vchSig;
     int64_t sigTime;
 
-    CDarksendBroadcastTx() :
+    CExclusiveSendBroadcastTx() :
         nConfirmedHeight(-1),
-        tx(),
-        vin(),
+        tx(MakeTransactionRef()),
+        masternodeOutpoint(),
         vchSig(),
         sigTime(0)
-        {}
+    {
+    }
 
-    CDarksendBroadcastTx(CTransaction tx, COutPoint outpoint, int64_t sigTime) :
+    CExclusiveSendBroadcastTx(const CTransactionRef& _tx, COutPoint _outpoint, int64_t _sigTime) :
         nConfirmedHeight(-1),
-        tx(tx),
-        vin(CTxIn(outpoint)),
+        tx(_tx),
+        masternodeOutpoint(_outpoint),
         vchSig(),
-        sigTime(sigTime)
-        {}
+        sigTime(_sigTime)
+    {
+    }
 
     ADD_SERIALIZE_METHODS;
 
     template <typename Stream, typename Operation>
-    inline void SerializationOp(Stream& s, Operation ser_action, int nType, int nVersion) {
+    inline void SerializationOp(Stream& s, Operation ser_action)
+    {
         READWRITE(tx);
-        READWRITE(vin);
-        READWRITE(vchSig);
+        READWRITE(masternodeOutpoint);
+        if (!(s.GetType() & SER_GETHASH)) {
+            READWRITE(vchSig);
+        }
         READWRITE(sigTime);
     }
 
-    friend bool operator==(const CDarksendBroadcastTx& a, const CDarksendBroadcastTx& b)
+    friend bool operator==(const CExclusiveSendBroadcastTx& a, const CExclusiveSendBroadcastTx& b)
     {
-        return a.tx == b.tx;
+        return *a.tx == *b.tx;
     }
-    friend bool operator!=(const CDarksendBroadcastTx& a, const CDarksendBroadcastTx& b)
+    friend bool operator!=(const CExclusiveSendBroadcastTx& a, const CExclusiveSendBroadcastTx& b)
     {
         return !(a == b);
     }
     explicit operator bool() const
     {
-        return *this != CDarksendBroadcastTx();
+        return *this != CExclusiveSendBroadcastTx();
     }
 
+    uint256 GetSignatureHash() const;
+
     bool Sign();
-    bool CheckSignature(const CPubKey& pubKeyMasternode);
+    bool CheckSignature(const CBLSPublicKey& blsPubKey) const;
 
     void SetConfirmedHeight(int nConfirmedHeightIn) { nConfirmedHeight = nConfirmedHeightIn; }
     bool IsExpired(int nHeight);
 };
 
 // base class
-class CExclusiveSendBase
+class CExclusiveSendBaseSession
 {
 protected:
-    // The current mixing sessions in progress on the network
-    std::vector<CDarksendQueue> vecDarksendQueue;
+    mutable CCriticalSection cs_exclusivesend;
 
-    std::vector<CDarkSendEntry> vecEntries; // Masternode/clients entries
+    std::vector<CExclusiveSendEntry> vecEntries; // Masternode/clients entries
 
-    PoolState nState; // should be one of the POOL_STATE_XXX values
-    int64_t nTimeLastSuccessfulStep; // the time when last successful mixing step was performed, in UTC milliseconds
+    PoolState nState;                // should be one of the POOL_STATE_XXX values
+    int64_t nTimeLastSuccessfulStep; // the time when last successful mixing step was performed
 
     int nSessionID; // 0 if no mixing session is active
 
@@ -294,15 +330,42 @@ protected:
     void SetNull();
 
 public:
-    int nSessionDenom; //Users must submit an denom matching this
+    int nSessionDenom; //Users must submit a denom matching this
 
-    CExclusiveSendBase() { SetNull(); }
+    CExclusiveSendBaseSession() :
+        vecEntries(),
+        nState(POOL_STATE_IDLE),
+        nTimeLastSuccessfulStep(0),
+        nSessionID(0),
+        finalMutableTransaction(),
+        nSessionDenom(0)
+    {
+    }
 
-    int GetQueueSize() const { return vecDarksendQueue.size(); }
     int GetState() const { return nState; }
     std::string GetStateString() const;
 
     int GetEntriesCount() const { return vecEntries.size(); }
+};
+
+// base class
+class CExclusiveSendBaseManager
+{
+protected:
+    mutable CCriticalSection cs_vecqueue;
+
+    // The current mixing sessions in progress on the network
+    std::vector<CExclusiveSendQueue> vecExclusiveSendQueue;
+
+    void SetNull();
+    void CheckQueue();
+
+public:
+    CExclusiveSendBaseManager() :
+        vecExclusiveSendQueue() {}
+
+    int GetQueueSize() const { return vecExclusiveSendQueue.size(); }
+    bool GetQueueItemAndTry(CExclusiveSendQueue& dsqRet);
 };
 
 // helper class
@@ -313,15 +376,15 @@ private:
     CExclusiveSend() {}
     ~CExclusiveSend() {}
     CExclusiveSend(CExclusiveSend const&) = delete;
-    CExclusiveSend& operator= (CExclusiveSend const&) = delete;
-
-    static const CAmount COLLATERAL = 0.001 * COIN;
+    CExclusiveSend& operator=(CExclusiveSend const&) = delete;
 
     // static members
     static std::vector<CAmount> vecStandardDenominations;
-    static std::map<uint256, CDarksendBroadcastTx> mapDSTX;
+    static std::map<uint256, CExclusiveSendBroadcastTx> mapDSTX;
 
     static CCriticalSection cs_mapdstx;
+
+    static void CheckDSTXes(int nHeight);
 
 public:
     static void InitStandardDenominations();
@@ -331,31 +394,33 @@ public:
     /// Get the denominations for a specific amount of trivechain.
     static int GetDenominationsByAmounts(const std::vector<CAmount>& vecAmount);
 
+    static bool IsDenominatedAmount(CAmount nInputAmount);
+
     /// Get the denominations for a list of outputs (returns a bitshifted integer)
     static int GetDenominations(const std::vector<CTxOut>& vecTxOut, bool fSingleRandomDenom = false);
-    static int GetDenominations(const std::vector<CTxDSOut>& vecTxDSOut);
     static std::string GetDenominationsToString(int nDenom);
-    static bool GetDenominationsBits(int nDenom, std::vector<int> &vecBitsRet);
+    static bool GetDenominationsBits(int nDenom, std::vector<int>& vecBitsRet);
 
     static std::string GetMessageByID(PoolMessage nMessageID);
 
-    /// Get the maximum number of transactions for the pool
-    static int GetMaxPoolTransactions() { return Params().PoolMaxTransactions(); }
+    /// Get the minimum/maximum number of participants for the pool
+    static int GetMinPoolParticipants() { return Params().PoolMinParticipants(); }
+    static int GetMaxPoolParticipants() { return Params().PoolMaxParticipants(); }
 
     static CAmount GetMaxPoolAmount() { return vecStandardDenominations.empty() ? 0 : EXCLUSIVESEND_ENTRY_MAX_SIZE * vecStandardDenominations.front(); }
 
     /// If the collateral is valid given by a client
     static bool IsCollateralValid(const CTransaction& txCollateral);
-    static CAmount GetCollateralAmount() { return COLLATERAL; }
-    static CAmount GetMaxCollateralAmount() { return COLLATERAL*4; }
+    static CAmount GetCollateralAmount() { return GetSmallestDenomination() / 10; }
+    static CAmount GetMaxCollateralAmount() { return GetCollateralAmount() * 4; }
 
-    static void AddDSTX(const CDarksendBroadcastTx& dstx);
-    static CDarksendBroadcastTx GetDSTX(const uint256& hash);
-    static void CheckDSTXes(int nHeight);
+    static bool IsCollateralAmount(CAmount nInputAmount);
 
-    static void SyncTransaction(const CTransaction& tx, const CBlock* pblock);
+    static void AddDSTX(const CExclusiveSendBroadcastTx& dstx);
+    static CExclusiveSendBroadcastTx GetDSTX(const uint256& hash);
+
+    static void UpdatedBlockTip(const CBlockIndex* pindex);
+    static void SyncTransaction(const CTransaction& tx, const CBlockIndex* pindex, int posInBlock);
 };
-
-void ThreadCheckExclusiveSend(CConnman& connman);
 
 #endif

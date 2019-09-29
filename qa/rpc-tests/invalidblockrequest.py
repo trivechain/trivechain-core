@@ -1,24 +1,21 @@
-#!/usr/bin/env python2
-#
-# Distributed under the MIT/X11 software license, see the accompanying
+#!/usr/bin/env python3
+# Copyright (c) 2015-2016 The Bitcoin Core developers
+# Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
-#
+"""Test node responses to invalid blocks.
+
+In this test we connect to one node over p2p, and test block requests:
+1) Valid blocks should be requested and become chain tip.
+2) Invalid block with duplicated transaction should be re-requested.
+3) Invalid block with bad coinbase value should be rejected and not
+re-requested.
+"""
 
 from test_framework.test_framework import ComparisonTestFramework
 from test_framework.util import *
 from test_framework.comptool import TestManager, TestInstance, RejectResult
 from test_framework.blocktools import *
 import copy
-import time
-
-
-'''
-In this test we connect to one node over p2p, and test block requests:
-1) Valid blocks should be requested and become chain tip.
-2) Invalid block with duplicated transaction should be re-requested.
-3) Invalid block with bad coinbase value should be rejected and not
-re-requested.
-'''
 
 # Use the ComparisonTestFramework with 1 node: only use --testbinary.
 class InvalidBlockRequestTest(ComparisonTestFramework):
@@ -26,6 +23,7 @@ class InvalidBlockRequestTest(ComparisonTestFramework):
     ''' Can either run this test as 1 node with expected answers, or two and compare them. 
         Change the "outcome" variable from each TestInstance object to only do the comparison. '''
     def __init__(self):
+        super().__init__()
         self.num_nodes = 1
 
     def run_test(self):
@@ -34,13 +32,13 @@ class InvalidBlockRequestTest(ComparisonTestFramework):
         self.tip = None
         self.block_time = None
         NetworkThread().start() # Start up network handling in another thread
-        sync_masternodes(self.nodes)
+        sync_masternodes(self.nodes, True)
         test.run()
 
     def get_tests(self):
         if self.tip is None:
-            self.tip = int ("0x" + self.nodes[0].getbestblockhash() + "L", 0)
-        self.block_time = int(time.time())+1
+            self.tip = int("0x" + self.nodes[0].getbestblockhash(), 0)
+        self.block_time = get_mocktime() + 1
 
         '''
         Create a new block with an anyone-can-spend coinbase
@@ -59,7 +57,7 @@ class InvalidBlockRequestTest(ComparisonTestFramework):
         Now we need that block to mature so we can spend the coinbase.
         '''
         test = TestInstance(sync_every_block=False)
-        for i in xrange(100):
+        for i in range(100):
             block = create_block(self.tip, create_coinbase(height), self.block_time)
             block.solve()
             self.tip = block.sha256
@@ -104,7 +102,7 @@ class InvalidBlockRequestTest(ComparisonTestFramework):
         '''
         block3 = create_block(self.tip, create_coinbase(height), self.block_time)
         self.block_time += 1
-        block3.vtx[0].vout[0].nValue = 1000 * COIN # Too high!
+        block3.vtx[0].vout[0].nValue = 10000 * COIN # Too high!
         block3.vtx[0].sha256=None
         block3.vtx[0].calc_sha256()
         block3.hashMerkleRoot = block3.calc_merkle_root()

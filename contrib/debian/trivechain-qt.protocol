@@ -1,0 +1,11 @@
+[Protocol]
+exec=trivechain-qt '%u'
+protocol=trivechain
+input=none
+output=none
+helper=true
+listing=
+reading=false
+writing=false
+makedir=false
+deleting=false

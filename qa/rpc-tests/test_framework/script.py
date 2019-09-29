@@ -1,21 +1,16 @@
-#
-# script.py
-#
-# This file is modified from python-bitcoinlib.
-#
-# Distributed under the MIT/X11 software license, see the accompanying
+#!/usr/bin/env python3
+# Copyright (c) 2015-2016 The Bitcoin Core developers
+# Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
-#
+"""Functionality to build scripts, as well as SignatureHash().
 
-"""Scripts
-
-Functionality to build scripts, as well as SignatureHash().
+This file is modified from python-bitcoinlib.
 """
 
-from __future__ import absolute_import, division, print_function, unicode_literals
 
-from .mininode import CTransaction, CTxOut, hash256
+from .mininode import CTransaction, CTxOut, sha256, hash256
 from binascii import hexlify
+import hashlib
 
 import sys
 bchr = chr
@@ -34,6 +29,10 @@ MAX_SCRIPT_ELEMENT_SIZE = 520
 MAX_SCRIPT_OPCODES = 201
 
 OPCODE_NAMES = {}
+
+def hash160(s):
+    return hashlib.new('ripemd160', sha256(s)).digest()
+
 
 _opcode_instances = []
 class CScriptOp(int):
@@ -658,7 +657,7 @@ class CScript(bytes):
                 other = bchr(CScriptOp(OP_0))
             else:
                 other = CScriptNum.encode(other)
-        elif isinstance(other, (int, long)):
+        elif isinstance(other, int):
             if 0 <= other <= 16:
                 other = bytes(bchr(CScriptOp.encode_op_n(other)))
             elif other == -1:
@@ -876,7 +875,7 @@ def SignatureHash(script, txTo, inIdx, hashtype):
         tmp = txtmp.vout[outIdx]
         txtmp.vout = []
         for i in range(outIdx):
-            txtmp.vout.append(CTxOut())
+            txtmp.vout.append(CTxOut(-1))
         txtmp.vout.append(tmp)
 
         for i in range(len(txtmp.vin)):

@@ -1,15 +1,26 @@
-// Copyright (c) 2014-2017 The Dash Core developers
+// Copyright (c) 2019 The Trivechain developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
+#include "chainparams.h"
 #include "dsnotificationinterface.h"
 #include "instantx.h"
 #include "governance.h"
-#include "masternodeman.h"
 #include "masternode-payments.h"
 #include "masternode-sync.h"
+#include "exclusivesend.h"
+#ifdef ENABLE_WALLET
 #include "exclusivesend-client.h"
-#include "txmempool.h"
+#endif // ENABLE_WALLET
+#include "validation.h"
+
+#include "evo/deterministicmns.h"
+#include "evo/mnauth.h"
+
+#include "llmq/quorums.h"
+#include "llmq/quorums_chainlocks.h"
+#include "llmq/quorums_directsend.h"
+#include "llmq/quorums_dkgsessionmgr.h"
 
 void CDSNotificationInterface::InitializeCurrentBlockTip()
 {
@@ -19,6 +30,7 @@ void CDSNotificationInterface::InitializeCurrentBlockTip()
 
 void CDSNotificationInterface::AcceptedBlockHeader(const CBlockIndex *pindexNew)
 {
+    llmq::chainLocksHandler->AcceptedBlockHeader(pindexNew);
     masternodeSync.AcceptedBlockHeader(pindexNew);
 }
 
@@ -32,41 +44,51 @@ void CDSNotificationInterface::UpdatedBlockTip(const CBlockIndex *pindexNew, con
     if (pindexNew == pindexFork) // blocks were disconnected without any new ones
         return;
 
+    deterministicMNManager->UpdatedBlockTip(pindexNew);
+
     masternodeSync.UpdatedBlockTip(pindexNew, fInitialDownload, connman);
 
-    // DIP0001 updates
-
-    bool fDIP0001ActiveAtTipTmp = fDIP0001ActiveAtTip;
-    // Update global flags
-    fDIP0001ActiveAtTip = (VersionBitsState(pindexNew, Params().GetConsensus(), Consensus::DEPLOYMENT_DIP0001, versionbitscache) == THRESHOLD_ACTIVE);
-    fDIP0001WasLockedIn = fDIP0001ActiveAtTip || (VersionBitsState(pindexNew, Params().GetConsensus(), Consensus::DEPLOYMENT_DIP0001, versionbitscache) == THRESHOLD_LOCKED_IN);
-
-    // Update min fees only if activation changed and we are using default fees
-    if (fDIP0001ActiveAtTipTmp != fDIP0001ActiveAtTip) {
-        if (!mapArgs.count("-minrelaytxfee")) {
-            ::minRelayTxFee = CFeeRate(fDIP0001ActiveAtTip ? DEFAULT_DIP0001_MIN_RELAY_TX_FEE : DEFAULT_LEGACY_MIN_RELAY_TX_FEE);
-            mempool.UpdateMinFee(::minRelayTxFee);
-        }
-        if (!mapArgs.count("-mintxfee")) {
-            CWallet::minTxFee = CFeeRate(fDIP0001ActiveAtTip ? DEFAULT_DIP0001_TRANSACTION_MINFEE : DEFAULT_LEGACY_TRANSACTION_MINFEE);
-        }
-        if (!mapArgs.count("-fallbackfee")) {
-            CWallet::fallbackFee = CFeeRate(fDIP0001ActiveAtTip ? DEFAULT_DIP0001_FALLBACK_FEE : DEFAULT_LEGACY_FALLBACK_FEE);
-        }
-    }
+    // Update global DIP0001 activation status
+    fDIP0001ActiveAtTip = pindexNew->nHeight >= Params().GetConsensus().DIP0001Height;
+    // update directsend autolock activation flag (we reuse the DIP3 deployment)
+    directsend.isAutoLockBip9Active = pindexNew->nHeight + 1 >= Params().GetConsensus().DIP0003Height;
 
     if (fInitialDownload)
         return;
 
-    mnodeman.UpdatedBlockTip(pindexNew);
-    privateSendClient.UpdatedBlockTip(pindexNew);
+    if (fLiteMode)
+        return;
+
+    llmq::quorumDirectSendManager->UpdatedBlockTip(pindexNew);
+    llmq::chainLocksHandler->UpdatedBlockTip(pindexNew);
+
+    CExclusiveSend::UpdatedBlockTip(pindexNew);
+#ifdef ENABLE_WALLET
+    exclusiveSendClient.UpdatedBlockTip(pindexNew);
+#endif // ENABLE_WALLET
     directsend.UpdatedBlockTip(pindexNew);
-    mnpayments.UpdatedBlockTip(pindexNew, connman);
     governance.UpdatedBlockTip(pindexNew, connman);
+    llmq::quorumManager->UpdatedBlockTip(pindexNew, fInitialDownload);
+    llmq::quorumDKGSessionManager->UpdatedBlockTip(pindexNew, fInitialDownload);
 }
 
-void CDSNotificationInterface::SyncTransaction(const CTransaction &tx, const CBlock *pblock)
+void CDSNotificationInterface::SyncTransaction(const CTransaction &tx, const CBlockIndex *pindex, int posInBlock)
 {
-    directsend.SyncTransaction(tx, pblock);
-    CExclusiveSend::SyncTransaction(tx, pblock);
+    llmq::quorumDirectSendManager->SyncTransaction(tx, pindex, posInBlock);
+    llmq::chainLocksHandler->SyncTransaction(tx, pindex, posInBlock);
+    directsend.SyncTransaction(tx, pindex, posInBlock);
+    CExclusiveSend::SyncTransaction(tx, pindex, posInBlock);
+}
+
+void CDSNotificationInterface::NotifyMasternodeListChanged(bool undo, const CDeterministicMNList& oldMNList, const CDeterministicMNListDiff& diff)
+{
+    CMNAuth::NotifyMasternodeListChanged(undo, oldMNList, diff);
+    governance.CheckMasternodeOrphanObjects(connman);
+    governance.CheckMasternodeOrphanVotes(connman);
+    governance.UpdateCachesAndClean();
+}
+
+void CDSNotificationInterface::NotifyChainLock(const CBlockIndex* pindex)
+{
+    llmq::quorumDirectSendManager->NotifyChainLock(pindex);
 }

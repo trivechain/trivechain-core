@@ -1,15 +1,15 @@
 [Unit]
-Description=Dash's distributed currency daemon
+Description=Trivechain's distributed currency daemon
 After=network.target
 
 [Service]
-User=dashcore
-Group=dashcore
+User=trivechain
+Group=trivechain
 
 Type=forking
 PIDFile=/var/lib/trivechaind/trivechaind.pid
 ExecStart=/usr/bin/trivechaind -daemon -pid=/var/lib/trivechaind/trivechaind.pid \
--conf=/etc/dashcore/dash.conf -datadir=/var/lib/trivechaind -disablewallet
+-conf=/etc/trivechain/trivechain.conf -datadir=/var/lib/trivechaind -disablewallet
 
 Restart=always
 PrivateTmp=true

@@ -39,6 +39,7 @@ typedef enum trivechainconsensus_error_t
     trivechainconsensus_ERR_TX_INDEX,
     trivechainconsensus_ERR_TX_SIZE_MISMATCH,
     trivechainconsensus_ERR_TX_DESERIALIZE,
+    trivechainconsensus_ERR_INVALID_FLAGS,
 } trivechainconsensus_error;
 
 /** Script verification flags */
@@ -47,7 +48,12 @@ enum
     trivechainconsensus_SCRIPT_FLAGS_VERIFY_NONE                = 0,
     trivechainconsensus_SCRIPT_FLAGS_VERIFY_P2SH                = (1U << 0), // evaluate P2SH (BIP16) subscripts
     trivechainconsensus_SCRIPT_FLAGS_VERIFY_DERSIG              = (1U << 2), // enforce strict DER (BIP66) compliance
+    trivechainconsensus_SCRIPT_FLAGS_VERIFY_NULLDUMMY           = (1U << 4), // enforce NULLDUMMY (BIP147)
     trivechainconsensus_SCRIPT_FLAGS_VERIFY_CHECKLOCKTIMEVERIFY = (1U << 9), // enable CHECKLOCKTIMEVERIFY (BIP65)
+    trivechainconsensus_SCRIPT_FLAGS_VERIFY_CHECKSEQUENCEVERIFY = (1U << 10), // enable CHECKSEQUENCEVERIFY (BIP112)
+    trivechainconsensus_SCRIPT_FLAGS_VERIFY_ALL                 = trivechainconsensus_SCRIPT_FLAGS_VERIFY_P2SH | trivechainconsensus_SCRIPT_FLAGS_VERIFY_DERSIG |
+                                                            trivechainconsensus_SCRIPT_FLAGS_VERIFY_NULLDUMMY | trivechainconsensus_SCRIPT_FLAGS_VERIFY_CHECKLOCKTIMEVERIFY |
+                                                            trivechainconsensus_SCRIPT_FLAGS_VERIFY_CHECKSEQUENCEVERIFY
 };
 
 /// Returns 1 if the input nIn of the serialized transaction pointed to by

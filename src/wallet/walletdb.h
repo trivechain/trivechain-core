@@ -61,9 +61,8 @@ public:
     ADD_SERIALIZE_METHODS;
 
     template <typename Stream, typename Operation>
-    inline void SerializationOp(Stream& s, Operation ser_action, int nType, int nVersion) {
+    inline void SerializationOp(Stream& s, Operation ser_action) {
         READWRITE(this->nVersion);
-        nVersion = this->nVersion;
         READWRITE(nCreateTime);
     }
 
@@ -74,11 +73,11 @@ public:
     }
 };
 
-/** Access to the wallet database (wallet.dat) */
+/** Access to the wallet database */
 class CWalletDB : public CDB
 {
 public:
-    CWalletDB(const std::string& strFilename, const char* pszMode = "r+", bool fFlushOnClose = true) : CDB(strFilename, pszMode, fFlushOnClose)
+    CWalletDB(const std::string& strFilename, const char* pszMode = "r+", bool _fFlushOnClose = true) : CDB(strFilename, pszMode, _fFlushOnClose)
     {
     }
 
@@ -88,7 +87,7 @@ public:
     bool WritePurpose(const std::string& strAddress, const std::string& purpose);
     bool ErasePurpose(const std::string& strAddress);
 
-    bool WriteTx(uint256 hash, const CWalletTx& wtx);
+    bool WriteTx(const CWalletTx& wtx);
     bool EraseTx(uint256 hash);
 
     bool WriteKey(const CPubKey& vchPubKey, const CPrivKey& vchPrivKey, const CKeyMetadata &keyMeta);
@@ -97,7 +96,7 @@ public:
 
     bool WriteCScript(const uint160& hash, const CScript& redeemScript);
 
-    bool WriteWatchOnly(const CScript &script);
+    bool WriteWatchOnly(const CScript &script, const CKeyMetadata &keymeta);
     bool EraseWatchOnly(const CScript &script);
 
     bool WriteBestBlock(const CBlockLocator& locator);
@@ -115,6 +114,7 @@ public:
 
     /// This writes directly to the database, and will not update the CWallet's cached accounting entries!
     /// Use wallet.AddAccountingEntry instead, to write *and* update its caches.
+    bool WriteAccountingEntry(const uint64_t nAccEntryNum, const CAccountingEntry& acentry);
     bool WriteAccountingEntry_Backend(const CAccountingEntry& acentry);
     bool ReadAccount(const std::string& strAccount, CAccount& account);
     bool WriteAccount(const std::string& strAccount, const CAccount& account);
@@ -127,28 +127,36 @@ public:
     CAmount GetAccountCreditDebit(const std::string& strAccount);
     void ListAccountCreditDebit(const std::string& strAccount, std::list<CAccountingEntry>& acentries);
 
-    DBErrors ReorderTransactions(CWallet* pwallet);
     DBErrors LoadWallet(CWallet* pwallet);
-    DBErrors FindWalletTx(CWallet* pwallet, std::vector<uint256>& vTxHash, std::vector<CWalletTx>& vWtx);
-    DBErrors ZapWalletTx(CWallet* pwallet, std::vector<CWalletTx>& vWtx);
-    static bool Recover(CDBEnv& dbenv, const std::string& filename, bool fOnlyKeys);
-    static bool Recover(CDBEnv& dbenv, const std::string& filename);
+    DBErrors FindWalletTx(std::vector<uint256>& vTxHash, std::vector<CWalletTx>& vWtx);
+    DBErrors ZapWalletTx(std::vector<CWalletTx>& vWtx);
+    DBErrors ZapSelectTx(std::vector<uint256>& vHashIn, std::vector<uint256>& vHashOut);
+    /* Try to (very carefully!) recover wallet database (with a possible key type filter) */
+    static bool Recover(const std::string& filename, void *callbackDataIn, bool (*recoverKVcallback)(void* callbackData, CDataStream ssKey, CDataStream ssValue));
+    /* Recover convenience-function to bypass the key filter callback, called when verify fails, recovers everything */
+    static bool Recover(const std::string& filename);
+    /* Recover filter (used as callback), will only let keys (cryptographical keys) as KV/key-type pass through */
+    static bool RecoverKeysOnlyFilter(void *callbackData, CDataStream ssKey, CDataStream ssValue);
+    /* Function to determine if a certain KV/key-type is a key (cryptographical key) type */
+    static bool IsKeyType(const std::string& strType);
+    /* verifies the database environment */
+    static bool VerifyEnvironment(const std::string& walletFile, const boost::filesystem::path& dataDir, std::string& errorStr);
+    /* verifies the database file */
+    static bool VerifyDatabaseFile(const std::string& walletFile, const boost::filesystem::path& dataDir, std::string& warningStr, std::string& errorStr);
 
     //! write the hdchain model (external chain child index counter)
     bool WriteHDChain(const CHDChain& chain);
     bool WriteCryptedHDChain(const CHDChain& chain);
     bool WriteHDPubKey(const CHDPubKey& hdPubKey, const CKeyMetadata& keyMeta);
 
+    static void IncrementUpdateCounter();
+    static unsigned int GetUpdateCounter();
 private:
     CWalletDB(const CWalletDB&);
     void operator=(const CWalletDB&);
-
-    bool WriteAccountingEntry(const uint64_t nAccEntryNum, const CAccountingEntry& acentry);
 };
 
-bool BackupWallet(const CWallet& wallet, const std::string& strDest);
-void ThreadFlushWalletDB(const std::string& strFile);
-
-bool AutoBackupWallet (CWallet* wallet, std::string strWalletFile, std::string& strBackupWarning, std::string& strBackupError);
+//! Compacts BDB state so that wallet.dat is self-contained (if there are changes)
+void MaybeCompactWalletDB();
 
 #endif // BITCOIN_WALLET_WALLETDB_H

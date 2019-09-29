@@ -21,8 +21,8 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef TRVC_BIP39_H
-#define TRVC_BIP39_H
+#ifndef TRIVECHAIN_BIP39_H
+#define TRIVECHAIN_BIP39_H
 
 #include "support/allocators/secure.h"
 

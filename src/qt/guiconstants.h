@@ -1,5 +1,5 @@
 // Copyright (c) 2011-2015 The Bitcoin Core developers
-// Copyright (c) 2014-2017 The Dash Core developers
+// Copyright (c) 2019 The Trivechain developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -34,6 +34,8 @@ static const bool DEFAULT_SPLASHSCREEN = true;
 #define COLOR_TX_STATUS_DANGER QColor(200, 100, 100)
 /* Transaction list -- TX status decoration - default color */
 #define COLOR_BLACK QColor(0, 0, 0)
+/* Transaction list -- TX status decoration - LockedByDirectSend color */
+#define COLOR_TX_STATUS_LOCKED QColor(0, 128, 255)
 
 /* Tooltips longer than this (in characters) are converted into rich text,
    so that they can be word-wrapped.
@@ -44,7 +46,7 @@ static const int TOOLTIP_WRAP_THRESHOLD = 80;
 static const int MAX_URI_LENGTH = 255;
 
 /* QRCodeDialog -- size of exported QR Code image */
-#define EXPORT_IMAGE_SIZE 256
+#define QR_IMAGE_SIZE 300
 
 /* Number of frames in spinner animation */
 #define SPINNER_FRAMES 36
@@ -53,5 +55,6 @@ static const int MAX_URI_LENGTH = 255;
 #define QAPP_ORG_DOMAIN "trivechain.com"
 #define QAPP_APP_NAME_DEFAULT "Trivechain-Qt"
 #define QAPP_APP_NAME_TESTNET "Trivechain-Qt-testnet"
+#define QAPP_APP_NAME_DEVNET "Trivechain-Qt-%s"
 
 #endif // BITCOIN_QT_GUICONSTANTS_H

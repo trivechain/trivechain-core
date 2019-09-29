@@ -27,6 +27,9 @@ static const int MAX_OPS_PER_SCRIPT = 201;
 // Maximum number of public keys per multisig
 static const int MAX_PUBKEYS_PER_MULTISIG = 20;
 
+// Maximum script length in bytes
+static const int MAX_SCRIPT_SIZE = 10000;
+
 // Threshold for nLockTime: below this value it is interpreted as block number,
 // otherwise as UNIX timestamp.
 static const unsigned int LOCKTIME_THRESHOLD = 500000000; // Tue Nov  5 00:53:20 1985 UTC
@@ -391,7 +394,6 @@ protected:
     }
 public:
     CScript() { }
-    CScript(const CScript& b) : CScriptBase(b.begin(), b.end()) { }
     CScript(const_iterator pbegin, const_iterator pend) : CScriptBase(pbegin, pend) { }
     CScript(std::vector<unsigned char>::const_iterator pbegin, std::vector<unsigned char>::const_iterator pend) : CScriptBase(pbegin, pend) { }
     CScript(const unsigned char* pbegin, const unsigned char* pend) : CScriptBase(pbegin, pend) { }
@@ -446,16 +448,16 @@ public:
         else if (b.size() <= 0xffff)
         {
             insert(end(), OP_PUSHDATA2);
-            uint8_t data[2];
-            WriteLE16(data, b.size());
-            insert(end(), data, data + sizeof(data));
+            uint8_t _data[2];
+            WriteLE16(_data, b.size());
+            insert(end(), _data, _data + sizeof(_data));
         }
         else
         {
             insert(end(), OP_PUSHDATA4);
-            uint8_t data[4];
-            WriteLE32(data, b.size());
-            insert(end(), data, data + sizeof(data));
+            uint8_t _data[4];
+            WriteLE32(_data, b.size());
+            insert(end(), _data, _data + sizeof(_data));
         }
         insert(end(), b.begin(), b.end());
         return *this;
@@ -617,10 +619,12 @@ public:
      */
     unsigned int GetSigOpCount(const CScript& scriptSig) const;
 
-    bool IsNormalPaymentScript() const;
     bool IsPayToPublicKeyHash() const;
 
     bool IsPayToScriptHash() const;
+
+    /** Used for obsolete pay-to-pubkey addresses indexing. */
+    bool IsPayToPublicKey() const;
 
     /** Called by IsStandardTx and P2SH/BIP62 VerifyScript (which makes it consensus-critical). */
     bool IsPushOnly(const_iterator pc) const;
@@ -633,7 +637,7 @@ public:
      */
     bool IsUnspendable() const
     {
-        return (size() > 0 && *begin() == OP_RETURN);
+        return (size() > 0 && *begin() == OP_RETURN) || (size() > MAX_SCRIPT_SIZE);
     }
 
     void clear()

@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2017 The Dash Core developers
+// Copyright (c) 2019 The Trivechain developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -11,23 +11,24 @@
 class CExclusiveSendServer;
 
 // The main object for accessing mixing
-extern CExclusiveSendServer privateSendServer;
+extern CExclusiveSendServer exclusiveSendServer;
 
 /** Used to keep track of current status of mixing pool
  */
-class CExclusiveSendServer : public CExclusiveSendBase
+class CExclusiveSendServer : public CExclusiveSendBaseSession, public CExclusiveSendBaseManager
 {
 private:
-    mutable CCriticalSection cs_darksend;
-
     // Mixing uses collateral transactions to trust parties entering the pool
     // to behave honestly. If they don't it takes their money.
-    std::vector<CTransaction> vecSessionCollaterals;
+    std::vector<CTransactionRef> vecSessionCollaterals;
+
+    // Maximum number of participants in a certain session, random between min and max.
+    int nSessionMaxParticipants;
 
     bool fUnitTest;
 
     /// Add a clients entry to the pool
-    bool AddEntry(const CDarkSendEntry& entryNew, PoolMessage& nMessageIDRet);
+    bool AddEntry(const CExclusiveSendEntry& entryNew, PoolMessage& nMessageIDRet);
     /// Add signature to a txin
     bool AddScriptSig(const CTxIn& txin);
 
@@ -43,18 +44,18 @@ private:
     void CommitFinalTransaction(CConnman& connman);
 
     /// Is this nDenom and txCollateral acceptable?
-    bool IsAcceptableDenomAndCollateral(int nDenom, CTransaction txCollateral, PoolMessage &nMessageIDRet);
-    bool CreateNewSession(int nDenom, CTransaction txCollateral, PoolMessage &nMessageIDRet, CConnman& connman);
-    bool AddUserToExistingSession(int nDenom, CTransaction txCollateral, PoolMessage &nMessageIDRet);
+    bool IsAcceptableDSA(const CExclusiveSendAccept& dsa, PoolMessage& nMessageIDRet);
+    bool CreateNewSession(const CExclusiveSendAccept& dsa, PoolMessage& nMessageIDRet, CConnman& connman);
+    bool AddUserToExistingSession(const CExclusiveSendAccept& dsa, PoolMessage& nMessageIDRet);
     /// Do we have enough users to take entries?
-    bool IsSessionReady() { return (int)vecSessionCollaterals.size() >= CExclusiveSend::GetMaxPoolTransactions(); }
+    bool IsSessionReady();
 
     /// Check that all inputs are signed. (Are all inputs signed?)
     bool IsSignaturesComplete();
     /// Check to make sure a given input matches an input in the pool and its scriptSig is valid
     bool IsInputScriptSigValid(const CTxIn& txin);
     /// Are these outputs compatible with other client in the pool?
-    bool IsOutputsCompatibleWithSessionDenom(const std::vector<CTxDSOut>& vecTxDSOut);
+    bool IsOutputsCompatibleWithSessionDenom(const std::vector<CTxOut>& vecTxOut);
 
     // Set the 'state' value, with some logging and capturing when the state changed
     void SetState(PoolState nStateNew);
@@ -69,14 +70,16 @@ private:
 
 public:
     CExclusiveSendServer() :
-        fUnitTest(false) { SetNull(); }
+        vecSessionCollaterals(),
+        nSessionMaxParticipants(0),
+        fUnitTest(false) {}
 
-    void ProcessMessage(CNode* pfrom, std::string& strCommand, CDataStream& vRecv, CConnman& connman);
+    void ProcessMessage(CNode* pfrom, const std::string& strCommand, CDataStream& vRecv, CConnman& connman);
 
     void CheckTimeout(CConnman& connman);
     void CheckForCompleteQueue(CConnman& connman);
-};
 
-void ThreadCheckExclusiveSendServer(CConnman& connman);
+    void DoMaintenance(CConnman& connman);
+};
 
 #endif
