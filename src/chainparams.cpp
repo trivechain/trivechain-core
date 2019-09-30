@@ -220,10 +220,10 @@ public:
         consensus.nMasternodeMinimumConfirmations = 1;
         consensus.BIP34Height = 1;
         consensus.BIP34Hash = uint256S("0x000007d91d1254d60e2dd1ae580383070a4ddffa4c64c2eeb4a2f9ecc0414343");
-        consensus.BIP65Height = 450000; 
+        consensus.DIP0001Height = 1;
+	consensus.BIP65Height = 450000; 
         consensus.BIP66Height = 450000; 
-        consensus.DIP0001Height = 450000;
-        consensus.DIP0003Height = 450000;
+        consensus.DIP0003Height = 445500;
         consensus.DIP0003EnforcementHeight = 450000;
         consensus.DIP0003EnforcementHash = uint256S("");
         consensus.powLimit = uint256S("00000fffff000000000000000000000000000000000000000000000000000000");
