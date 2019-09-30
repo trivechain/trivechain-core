@@ -199,7 +199,7 @@ public:
         strNetworkID = "main";
         consensus.nSubsidyHalvingInterval = 525600; // Note: actual number of blocks per calendar year with DGW v3 is ~200700 (for example 449750 - 249050)
         consensus.nMasternodePaymentsStartBlock = 1000;
-        consensus.nMasternodePaymentsIncreaseBlock = 0; // Masternode payment in Trivechain is fixed at 40%
+        consensus.nMasternodePaymentsIncreaseBlock = 445500; // Masternode payment in Trivechain is fixed at 40%
         consensus.nMasternodePaymentsIncreasePeriod = 0; // Masternode payment in Trivechain is fixed at 40%
         
         consensus.nDirectSendConfirmationsRequired = 15;
