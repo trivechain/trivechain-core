@@ -71,11 +71,11 @@
     </message>
     <message>
         <source>These are your Trivechain addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation>這些是你要付款過去的達世幣位址。在付錢之前，務必要檢查金額和收款位址是否正確。</translation>
+        <translation>這些是你要付款過去的特爾鏈位址。在付錢之前，務必要檢查金額和收款位址是否正確。</translation>
     </message>
     <message>
         <source>These are your Trivechain addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
-        <translation>這些是你用來收款的達世幣位址。建議在每次交易時，都使用一個新的收款位址。</translation>
+        <translation>這些是你用來收款的特爾鏈位址。建議在每次交易時，都使用一個新的收款位址。</translation>
     </message>
     <message>
         <source>&amp;Copy Address</source>
@@ -189,7 +189,7 @@
     </message>
     <message>
         <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR TRVC&lt;/b&gt;!</source>
-        <translation>警告: 如果把錢包加密後又忘記密碼，你就會從此&lt;b&gt;失去其中所有的達世幣了&lt;/b&gt;！</translation>
+        <translation>警告: 如果把錢包加密後又忘記密碼，你就會從此&lt;b&gt;失去其中所有的特爾鏈了&lt;/b&gt;！</translation>
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
@@ -201,7 +201,7 @@
     </message>
     <message>
         <source>%1 will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your funds from being stolen by malware infecting your computer.</source>
-        <translation>%1 現在要關閉，好完成加密程序。請注意，加密錢包不能完全防止入侵你的電腦的惡意程式偷取達世幣。</translation>
+        <translation>%1 現在要關閉，好完成加密程序。請注意，加密錢包不能完全防止入侵你的電腦的惡意程式偷取特爾鏈。</translation>
     </message>
     <message>
         <source>IMPORTANT: Any previous backups you have made of your wallet file should be replaced with the newly generated, encrypted wallet file. Previous backups of the unencrypted wallet file contain the same HD seed and still have full access to all your funds just like the new, encrypted wallet.</source>
@@ -259,11 +259,11 @@
     <name>BitcoinGUI</name>
     <message>
         <source>A fatal error occurred. Trivechain can no longer continue safely and will quit.</source>
-        <translation>發生致命錯誤。達世幣核心軟體不再能安全地繼續運行下去，程式將會關閉。</translation>
+        <translation>發生致命錯誤。特爾鏈核心軟體不再能安全地繼續運行下去，程式將會關閉。</translation>
     </message>
     <message>
         <source>Trivechain</source>
-        <translation>達世幣核心</translation>
+        <translation>特爾鏈核心</translation>
     </message>
     <message>
         <source>Wallet</source>
@@ -287,7 +287,7 @@
     </message>
     <message>
         <source>Send coins to a Trivechain address</source>
-        <translation>付錢給一個達世幣位址</translation>
+        <translation>付錢給一個特爾鏈位址</translation>
     </message>
     <message>
         <source>&amp;Receive</source>
@@ -295,7 +295,7 @@
     </message>
     <message>
         <source>Request payments (generates QR codes and trivechain: URIs)</source>
-        <translation>要求付款(產生 QR Code 和達世幣付款協議的 URI)</translation>
+        <translation>要求付款(產生 QR Code 和特爾鏈付款協議的 URI)</translation>
     </message>
     <message>
         <source>&amp;Transactions</source>
@@ -323,7 +323,7 @@
     </message>
     <message>
         <source>Show information about Trivechain</source>
-        <translation>顯示達世幣核心的相關資訊</translation>
+        <translation>顯示特爾鏈核心的相關資訊</translation>
     </message>
     <message>
         <source>About &amp;Qt</source>
@@ -395,7 +395,7 @@
     </message>
     <message>
         <source>Sign messages with your Trivechain addresses to prove you own them</source>
-        <translation>用達世幣位址簽署訊息來證明位址是你的</translation>
+        <translation>用特爾鏈位址簽署訊息來證明位址是你的</translation>
     </message>
     <message>
         <source>&amp;Verify message...</source>
@@ -403,7 +403,7 @@
     </message>
     <message>
         <source>Verify messages to ensure they were signed with specified Trivechain addresses</source>
-        <translation>驗證訊息是用來確定訊息是用指定的達世幣位址簽署的</translation>
+        <translation>驗證訊息是用來確定訊息是用指定的特爾鏈位址簽署的</translation>
     </message>
     <message>
         <source>&amp;Information</source>
@@ -483,7 +483,7 @@
     </message>
     <message>
         <source>Open a trivechain: URI or payment request</source>
-        <translation>開啓一個達世幣協議的 URI 或付款要求</translation>
+        <translation>開啓一個特爾鏈協議的 URI 或付款要求</translation>
     </message>
     <message>
         <source>&amp;Command-line options</source>
@@ -527,7 +527,7 @@
     </message>
     <message numerus="yes">
         <source>%n active connection(s) to Trivechain network</source>
-        <translation><numerusform>%n 個運作中的達世幣網路連線</numerusform></translation>
+        <translation><numerusform>%n 個運作中的特爾鏈網路連線</numerusform></translation>
     </message>
     <message>
         <source>Network activity disabled</source>
@@ -878,7 +878,7 @@
     </message>
     <message>
         <source>The entered address "%1" is not a valid Trivechain address.</source>
-        <translation>輸入的位址 %1 並不是有效的達世幣位址。</translation>
+        <translation>輸入的位址 %1 並不是有效的特爾鏈位址。</translation>
     </message>
     <message>
         <source>The entered address "%1" is already in the address book.</source>
@@ -976,7 +976,7 @@
     </message>
     <message>
         <source>&lt;h3&gt;ExclusiveSend Basics&lt;/h3&gt; ExclusiveSend gives you true financial privacy by obscuring the origins of your funds. All the Trivechain in your wallet is comprised of different "inputs" which you can think of as separate, discrete coins.&lt;br&gt; ExclusiveSend uses an innovative process to mix your inputs with the inputs of two other people, without having your coins ever leave your wallet. You retain control of your money at all times.&lt;hr&gt; &lt;b&gt;The ExclusiveSend process works like this:&lt;/b&gt;&lt;ol type="1"&gt; &lt;li&gt;ExclusiveSend begins by breaking your transaction inputs down into standard denominations. These denominations are 0.001 TRVC, 0.01 TRVC, 0.1 TRVC, 1 TRVC and 10 TRVC -- sort of like the paper money you use every day.&lt;/li&gt; &lt;li&gt;Your wallet then sends requests to specially configured software nodes on the network, called "masternodes." These masternodes are informed then that you are interested in mixing a certain denomination. No identifiable information is sent to the masternodes, so they never know "who" you are.&lt;/li&gt; &lt;li&gt;When two other people send similar messages, indicating that they wish to mix the same denomination, a mixing session begins. The masternode mixes up the inputs and instructs all three users' wallets to pay the now-transformed input back to themselves. Your wallet pays that denomination directly to itself, but in a different address (called a change address).&lt;/li&gt; &lt;li&gt;In order to fully obscure your funds, your wallet must repeat this process a number of times with each denomination. Each time the process is completed, it's called a "round." Each round of ExclusiveSend makes it exponentially more difficult to determine where your funds originated.&lt;/li&gt; &lt;li&gt;This mixing process happens in the background without any intervention on your part. When you wish to make a transaction, your funds will already be anonymized. No additional waiting is required.&lt;/li&gt; &lt;/ol&gt; &lt;hr&gt;&lt;b&gt;IMPORTANT:&lt;/b&gt; Your wallet only contains 1000 of these "change addresses." Every time a mixing event happens, up to 9 of your addresses are used up. This means those 1000 addresses last for about 100 mixing events. When 900 of them are used, your wallet must create more addresses. It can only do this, however, if you have automatic backups enabled.&lt;br&gt; Consequently, users who have backups disabled will also have ExclusiveSend disabled. &lt;hr&gt;For more information, see the &lt;a href="https://docs.trivechain.com/en/latest/wallets/trivechain/exclusivesend-directsend.html"&gt;ExclusiveSend documentation&lt;/a&gt;.</source>
-        <translation>&lt;h3&gt;匿名發送基礎知識&lt;/h3&gt; 匿名發送通過隱藏您的資金來源為您提供真正的財務隱私。您的錢包中所有的達世幣都由不同的“輸入”組成，您可以將其視為分開的離散硬幣。&lt;br&gt; 匿名發送使用創新的方法將您的輸入與其他兩個人的輸入相結合，而過程中不會讓您的達世幣離開您的錢包。每時每刻，您仍然控制著您的錢。&lt;hr&gt; &lt;b&gt;匿名發送的運作原理如下:&lt;/b&gt;&lt;ol type="1"&gt; &lt;li&gt;匿名發送首先將您的交易分柝成多個標準面額的交易。這些標準面額分別為0.001 TRVC, 0.01 TRVC, 0.1 TRVC, 1 TRVC 和10 TRVC --有點像您每天使用的紙幣。&lt;/li&gt; &lt;li&gt;您的錢包然後發送請求到網絡上有專門配置的軟件節點，稱為“主節點”。這些主節點會收到您希望混合一些資金的通知。沒有可識別的信息發送到主節點，所以他們永遠不會知道你是"誰"。&lt;/li&gt; &lt;li&gt;當另外兩個人發送類似的消息時，表示希望混合相同的面額的話，混合會話就會開始。相關的主節點會混合這些輸入，並指示所有三個用戶的錢包將已經轉換了輸入的交易支付給自己。你的錢包直接支付給自己，但是付給不同的位址 (稱之為找零位址)。&lt;/li&gt; &lt;li&gt;為了完全掩蓋您的資金來源，您的錢包必須以每個面額來重複此過程數次。每次這個過程完成後，都稱之為一個 "循環"。每個循環的匿名發送都會令確定您的資金來源的工作倍加困難。&lt;/li&gt; &lt;li&gt;這種混合過程發生在後台，而不需要您進行任何操作。當您想進行交易時，您的資金將已被匿名處理。不需再花額外的時間等待。&lt;/li&gt; &lt;/ol&gt; &lt;hr&gt;&lt;b&gt;重要:&lt;/b&gt;您的錢包只能擁有1000個"找零位址。" 每次混合事件發生時，最多會使用9個找零位址。這意味著這1000個位址可以容許100次的混合事件。當其的中900個已經被使用後，您的錢包必須創建更多的位址。如果您啟用了自動備份，則只能夠這樣做。&lt;br&gt;因此，禁用備份的用戶也將禁用匿名發送。&lt;hr&gt;如欲了解更多信息請參閱&lt;a href="https://docs.trivechain.com/en/latest/wallets/trivechain/exclusivesend-directsend.html"&gt;匿名發送文檔&lt;/a&gt;。</translation>
+        <translation>&lt;h3&gt;匿名發送基礎知識&lt;/h3&gt; 匿名發送通過隱藏您的資金來源為您提供真正的財務隱私。您的錢包中所有的特爾鏈都由不同的“輸入”組成，您可以將其視為分開的離散硬幣。&lt;br&gt; 匿名發送使用創新的方法將您的輸入與其他兩個人的輸入相結合，而過程中不會讓您的特爾鏈離開您的錢包。每時每刻，您仍然控制著您的錢。&lt;hr&gt; &lt;b&gt;匿名發送的運作原理如下:&lt;/b&gt;&lt;ol type="1"&gt; &lt;li&gt;匿名發送首先將您的交易分柝成多個標準面額的交易。這些標準面額分別為0.001 TRVC, 0.01 TRVC, 0.1 TRVC, 1 TRVC 和10 TRVC --有點像您每天使用的紙幣。&lt;/li&gt; &lt;li&gt;您的錢包然後發送請求到網絡上有專門配置的軟件節點，稱為“主節點”。這些主節點會收到您希望混合一些資金的通知。沒有可識別的信息發送到主節點，所以他們永遠不會知道你是"誰"。&lt;/li&gt; &lt;li&gt;當另外兩個人發送類似的消息時，表示希望混合相同的面額的話，混合會話就會開始。相關的主節點會混合這些輸入，並指示所有三個用戶的錢包將已經轉換了輸入的交易支付給自己。你的錢包直接支付給自己，但是付給不同的位址 (稱之為找零位址)。&lt;/li&gt; &lt;li&gt;為了完全掩蓋您的資金來源，您的錢包必須以每個面額來重複此過程數次。每次這個過程完成後，都稱之為一個 "循環"。每個循環的匿名發送都會令確定您的資金來源的工作倍加困難。&lt;/li&gt; &lt;li&gt;這種混合過程發生在後台，而不需要您進行任何操作。當您想進行交易時，您的資金將已被匿名處理。不需再花額外的時間等待。&lt;/li&gt; &lt;/ol&gt; &lt;hr&gt;&lt;b&gt;重要:&lt;/b&gt;您的錢包只能擁有1000個"找零位址。" 每次混合事件發生時，最多會使用9個找零位址。這意味著這1000個位址可以容許100次的混合事件。當其的中900個已經被使用後，您的錢包必須創建更多的位址。如果您啟用了自動備份，則只能夠這樣做。&lt;br&gt;因此，禁用備份的用戶也將禁用匿名發送。&lt;hr&gt;如欲了解更多信息請參閱&lt;a href="https://docs.trivechain.com/en/latest/wallets/trivechain/exclusivesend-directsend.html"&gt;匿名發送文檔&lt;/a&gt;。</translation>
     </message>
 </context>
 <context>
@@ -1161,7 +1161,7 @@
     </message>
     <message>
         <source>Recent transactions may not yet be visible, and therefore your wallet's balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the Trivechain network, as detailed below.</source>
-        <translation>最近的交易可能尚未顯示，因此您的錢包的餘額可能不正確。 一旦你的錢包完成與達世幣網絡的同步，這個信息將是正確的，如下所述。</translation>
+        <translation>最近的交易可能尚未顯示，因此您的錢包的餘額可能不正確。 一旦你的錢包完成與特爾鏈網絡的同步，這個信息將是正確的，如下所述。</translation>
     </message>
     <message>
         <source>Attempting to spend Trivechain that are affected by not-yet-displayed transactions will not be accepted by the network.</source>
@@ -1255,7 +1255,7 @@
     </message>
     <message>
         <source>Amount of Trivechain to keep anonymized</source>
-        <translation>保持匿名的達世幣數量</translation>
+        <translation>保持匿名的特爾鏈數量</translation>
     </message>
     <message>
         <source>W&amp;allet</source>
@@ -1307,7 +1307,7 @@
     </message>
     <message>
         <source>Automatically open the Trivechain client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>自動在路由器上開放達世幣核心客戶端的通訊埠。只有在你的路由器支援且開啓「通用即插即用」協定(UPnP)時才有作用。</translation>
+        <translation>自動在路由器上開放特爾鏈核心客戶端的通訊埠。只有在你的路由器支援且開啓「通用即插即用」協定(UPnP)時才有作用。</translation>
     </message>
     <message>
         <source>Accept connections from outside</source>
@@ -1319,7 +1319,7 @@
     </message>
     <message>
         <source>Connect to the Trivechain network through a SOCKS5 proxy.</source>
-        <translation>透過 SOCKS5 代理伺服器來連線到達世幣網路。</translation>
+        <translation>透過 SOCKS5 代理伺服器來連線到特爾鏈網路。</translation>
     </message>
     <message>
         <source>&amp;Connect through SOCKS5 proxy (default proxy):</source>
@@ -1415,7 +1415,7 @@
     </message>
     <message>
         <source>Connect to the Trivechain network through a separate SOCKS5 proxy for Tor hidden services.</source>
-        <translation>透過另一個SOCKS5 代理伺服器作為Tor隱藏服務來連線到達世幣網路。</translation>
+        <translation>透過另一個SOCKS5 代理伺服器作為Tor隱藏服務來連線到特爾鏈網路。</translation>
     </message>
     <message>
         <source>Use separate SOCKS5 proxy to reach peers via Tor hidden services:</source>
@@ -1540,7 +1540,7 @@ https://www.transifex.com/projects/p/trivechain/</translation>
     </message>
     <message>
         <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Trivechain network after a connection is established, but this process has not completed yet.</source>
-        <translation>顯示的資訊可能是過期的。跟達世幣網路的連線建立後，你的錢包會自動和網路同步，但是這個步驟還沒完成。</translation>
+        <translation>顯示的資訊可能是過期的。跟特爾鏈網路的連線建立後，你的錢包會自動和網路同步，但是這個步驟還沒完成。</translation>
     </message>
     <message>
         <source>Available:</source>
@@ -1640,7 +1640,7 @@ https://www.transifex.com/projects/p/trivechain/</translation>
     </message>
     <message>
         <source>0 TRVC / 0 Rounds</source>
-        <translation>0 達世幣 / 0 循環次數</translation>
+        <translation>0 特爾鏈 / 0 循環次數</translation>
     </message>
     <message>
         <source>Submitted Denom:</source>
@@ -1805,7 +1805,7 @@ https://www.transifex.com/projects/p/trivechain/</translation>
     </message>
     <message>
         <source>Cannot start trivechain: click-to-pay handler</source>
-        <translation>無法啟動達世幣 : 點擊支付處理程序</translation>
+        <translation>無法啟動特爾鏈 : 點擊支付處理程序</translation>
     </message>
     <message>
         <source>URI handling</source>
@@ -1821,7 +1821,7 @@ https://www.transifex.com/projects/p/trivechain/</translation>
     </message>
     <message>
         <source>URI cannot be parsed! This can be caused by an invalid Trivechain address or malformed URI parameters.</source>
-        <translation>沒辦法解析 URI 位址！可能是因為達世幣位址無效，或是 URI 參數格式錯誤。</translation>
+        <translation>沒辦法解析 URI 位址！可能是因為特爾鏈位址無效，或是 URI 參數格式錯誤。</translation>
     </message>
     <message>
         <source>Payment request file handling</source>
@@ -1919,7 +1919,7 @@ https://www.transifex.com/projects/p/trivechain/</translation>
     </message>
     <message>
         <source>Enter a Trivechain address (e.g. %1)</source>
-        <translation>輸入達世幣位址 (例如 %1)</translation>
+        <translation>輸入特爾鏈位址 (例如 %1)</translation>
     </message>
     <message>
         <source>%1 d</source>
@@ -2441,7 +2441,7 @@ https://www.transifex.com/projects/p/trivechain/</translation>
     </message>
     <message>
         <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the Trivechain network.</source>
-        <translation>附加在付款要求中的訊息，可以不填，打開要求內容時會顯示。注意: 這個訊息不會隨著付款送到達世幣網路上。</translation>
+        <translation>附加在付款要求中的訊息，可以不填，打開要求內容時會顯示。注意: 這個訊息不會隨著付款送到特爾鏈網路上。</translation>
     </message>
     <message>
         <source>&amp;Message:</source>
@@ -2453,7 +2453,7 @@ https://www.transifex.com/projects/p/trivechain/</translation>
     </message>
     <message>
         <source>An optional message to attach to the payment request, which will be displayed when the request is opened.&lt;br&gt;Note: The message will not be sent with the payment over the Trivechain network.</source>
-        <translation>附加在付款要求中的訊息，可以不填，打開要求內容時會顯示。&lt;br&gt;注意: 這個訊息不會隨著付款送到達世幣網路上。</translation>
+        <translation>附加在付款要求中的訊息，可以不填，打開要求內容時會顯示。&lt;br&gt;注意: 這個訊息不會隨著付款送到特爾鏈網路上。</translation>
     </message>
     <message>
         <source>Use this form to request payments. All fields are &lt;b&gt;optional&lt;/b&gt;.</source>
@@ -2910,7 +2910,7 @@ https://www.transifex.com/projects/p/trivechain/</translation>
     </message>
     <message>
         <source>Warning: Invalid Trivechain address</source>
-        <translation>警告: 無效的達世幣位址</translation>
+        <translation>警告: 無效的特爾鏈位址</translation>
     </message>
     <message>
         <source>Warning: Unknown change address</source>
@@ -2941,7 +2941,7 @@ https://www.transifex.com/projects/p/trivechain/</translation>
     </message>
     <message>
         <source>The Trivechain address to send the payment to</source>
-        <translation>接收付款的達世幣位址</translation>
+        <translation>接收付款的特爾鏈位址</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -2977,7 +2977,7 @@ https://www.transifex.com/projects/p/trivechain/</translation>
     </message>
     <message>
         <source>The fee will be deducted from the amount being sent. The recipient will receive a lower amount of Trivechain than you enter in the amount field. If multiple recipients are selected, the fee is split equally.</source>
-        <translation>手續費將從發送金額中扣除。接收者將收到的達世幣金額將會比您在金額字段中輸入的金額為少。 如果選擇了多個收款人，該費用將會被平均攤分。</translation>
+        <translation>手續費將從發送金額中扣除。接收者將收到的特爾鏈金額將會比您在金額字段中輸入的金額為少。 如果選擇了多個收款人，該費用將會被平均攤分。</translation>
     </message>
     <message>
         <source>S&amp;ubtract fee from amount</source>
@@ -2989,7 +2989,7 @@ https://www.transifex.com/projects/p/trivechain/</translation>
     </message>
     <message>
         <source>A message that was attached to the trivechain: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the Trivechain network.</source>
-        <translation>附加在達世幣付款協議 URI 中的訊息，會和交易內容一起存起來，給你自己做參考。注意: 這個訊息不會送到達世幣網路上。</translation>
+        <translation>附加在特爾鏈付款協議 URI 中的訊息，會和交易內容一起存起來，給你自己做參考。注意: 這個訊息不會送到特爾鏈網路上。</translation>
     </message>
     <message>
         <source>This is an unauthenticated payment request.</source>
@@ -3046,7 +3046,7 @@ https://www.transifex.com/projects/p/trivechain/</translation>
     </message>
     <message>
         <source>The Trivechain address to sign the message with</source>
-        <translation>用來簽署訊息的達世幣位址</translation>
+        <translation>用來簽署訊息的特爾鏈位址</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -3078,7 +3078,7 @@ https://www.transifex.com/projects/p/trivechain/</translation>
     </message>
     <message>
         <source>Sign the message to prove you own this Trivechain address</source>
-        <translation>簽署這個訊息來證明這個達世幣位址是你的</translation>
+        <translation>簽署這個訊息來證明這個特爾鏈位址是你的</translation>
     </message>
     <message>
         <source>Sign &amp;Message</source>
@@ -3102,11 +3102,11 @@ https://www.transifex.com/projects/p/trivechain/</translation>
     </message>
     <message>
         <source>The Trivechain address the message was signed with</source>
-        <translation>簽署這個訊息的達世幣位址</translation>
+        <translation>簽署這個訊息的特爾鏈位址</translation>
     </message>
     <message>
         <source>Verify the message to ensure it was signed with the specified Trivechain address</source>
-        <translation>驗證這個訊息來確定是用指定的達世幣位址簽署的</translation>
+        <translation>驗證這個訊息來確定是用指定的特爾鏈位址簽署的</translation>
     </message>
     <message>
         <source>Verify &amp;Message</source>
@@ -3839,7 +3839,7 @@ https://www.transifex.com/projects/p/trivechain/</translation>
     </message>
     <message>
         <source>Warning: The network does not appear to fully agree! Some miners appear to be experiencing issues.</source>
-        <translation>警告: 達世幣網路對於區塊鏈結的決定目前有分歧！看來有些礦工會有問題。</translation>
+        <translation>警告: 特爾鏈網路對於區塊鏈結的決定目前有分歧！看來有些礦工會有問題。</translation>
     </message>
     <message>
         <source>Warning: We do not appear to fully agree with our peers! You may need to upgrade, or other nodes may need to upgrade.</source>
@@ -4391,7 +4391,7 @@ https://www.transifex.com/projects/p/trivechain/</translation>
     </message>
     <message>
         <source>Disable all Trivechain specific functionality (Masternodes, ExclusiveSend, DirectSend, Governance) (0-1, default: %u)</source>
-        <translation>禁止所有達世幣的附加功能 (主節點，匿名發送，即時到帳，預算案) (0-1，預設值: %u)</translation>
+        <translation>禁止所有特爾鏈的附加功能 (主節點，匿名發送，即時到帳，預算案) (0-1，預設值: %u)</translation>
     </message>
     <message>
         <source>%s file contains all private keys from this wallet. Do not share it with anyone!</source>
@@ -4547,7 +4547,7 @@ https://www.transifex.com/projects/p/trivechain/</translation>
     </message>
     <message>
         <source>You are starting in lite mode, all Trivechain-specific functionality is disabled.</source>
-        <translation>您正在使用精簡模式，故此所有與達世幣相關的特別功能已被禁用。</translation>
+        <translation>您正在使用精簡模式，故此所有與特爾鏈相關的特別功能已被禁用。</translation>
     </message>
     <message>
         <source>You need to rebuild the database using -reindex to go back to unpruned mode.  This will redownload the entire blockchain</source>
@@ -4895,7 +4895,7 @@ https://www.transifex.com/projects/p/trivechain/</translation>
     </message>
     <message>
         <source>Trivechain</source>
-        <translation>達世幣核心</translation>
+        <translation>特爾鏈核心</translation>
     </message>
     <message>
         <source>The %s developers</source>
@@ -5103,7 +5103,7 @@ https://www.transifex.com/projects/p/trivechain/</translation>
     </message>
     <message>
         <source>Keep N TRVC anonymized (%u-%u, default: %u)</source>
-        <translation>保留 N 個已經匿名處理的達世幣 (%u-%u, 預設值: %u)</translation>
+        <translation>保留 N 個已經匿名處理的特爾鏈 (%u-%u, 預設值: %u)</translation>
     </message>
     <message>
         <source>Loading P2P addresses...</source>
