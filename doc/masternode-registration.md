@@ -35,16 +35,20 @@ Steps
 - Mark down the fee source address
 
 ## 5. Deposit to fee source address
-- Send 1 TRVC to the fee source address
+- Send 0.0001 TRVC to the fee source address
 - Wait for 15 confirmations
 - Note: you can send any amount as long as enough to cover transaction fee or use an address that already have funds
 
-## 6. Get the transaction details
+## 6. Get voting/owner address
+- Execute command `getaccountaddress myvotingaddress` in **Debug console**
+- Mark down the voting address
+
+## 7. Get the transaction details
 - Execute command `masternode outputs` in **Debug console**
 - You will receive an array of valid transaction pairs of "collateralHash" : "collateralIndex"
 - Mark down the collateralHash and collateralIndex
 
-## 7. Prepare a ProRegTx transaction
+## 8. Prepare a ProRegTx transaction
 We will now prepare an unsigned ProRegTx special transaction using the `protx register_prepare` command in **Debug console**. This command has the following syntax:
 ```
 protx register_prepare collateralHash collateralIndex ipAndPort ownerKeyAddr
@@ -54,11 +58,11 @@ protx register_prepare collateralHash collateralIndex ipAndPort ownerKeyAddr
 - `collateralHash`: The txid of the 10,000 TRVC collateral funding transaction
 - `collateralIndex`: The output index of the 10,000 TRVC funding transaction
 - `ipAndPort`: Masternode IP address and port, in the format x.x.x.x:yyyy (or provided by your hosting service)
-- `ownerKeyAddr`: The new TRVC address generated above for the owner/voting address (masternode address)
+- `ownerKeyAddr`: The new TRVC address generated above for the owner/voting address (myvotingaddress address)
 - `operatorPubKey`: The BLS public key generated above (or provided by your hosting service)
-- `votingKeyAddr`: The new TRVC address generated above, or the address of a delegate, used for proposal voting (masternode address)
+- `votingKeyAddr`: The new TRVC address generated above, or the address of a delegate, used for proposal voting (myvotingaddress address)
 - `operatorReward`: The percentage of the block reward allocated to the operator as payment in percentage ( 1 = 1% )
-- `payoutAddress`: A new or existing TRVC address to receive the owner’s masternode rewards (masternode address)
+- `payoutAddress`: A new or existing TRVC address to receive the owner’s masternode rewards (any address)
 - `feeSourceAddress`: An address used to fund ProTx fee.
 
 Example (remove line breaks if copying):
@@ -83,7 +87,7 @@ Output:
 ```
 Next we will use the `collateralAddress` and `signMessage` fields to sign the transaction, and the output of the `tx` field to submit the transaction.
 
-## 8. Sign the ProRegTx transaction
+## 9. Sign the ProRegTx transaction
 Now we will sign the content of the `signMessage` field using the private key for the collateral address as specified in `collateralAddress`. Note that no internet connection is required for this step, meaning that the wallet can remain disconnected from the internet in cold storage to sign the message. In this example we will again use Dash Core, but it is equally possible to use the signing function of a hardware wallet. The command takes the following syntax:
 ```
 signmessage collateralAddress signMessage
@@ -97,7 +101,7 @@ Output:
 IMf5P6WT60E+QcA5+ixors38umHuhTxx6TNHMsf9gLTIPcpilXkm1jDglMpK+JND0W3k/Z+NzEWUxvRy71NEDns=
 ```
 
-## 9. Submit the signed message
+## 10. Submit the signed message
 ```
 protx register_submit tx sig
 ```
@@ -115,7 +119,7 @@ Output:
 9f5ec7540baeefc4b7581d88d236792851f26b4b754684a31ee35d09bdfb7fb6
 ```
 
-## 10. Enable the masternode tab
+## 11. Enable the masternode tab
 - From the main menu, select **Settings > Options > Wallet**
 - Check **Show Masternodes Tab**, click **OK**
 - Close Trivechain-qt wallet
