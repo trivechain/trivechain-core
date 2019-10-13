@@ -202,12 +202,12 @@ public:
         consensus.BIP34Height = 1;
         consensus.BIP34Hash = uint256S("0x000007d91d1254d60e2dd1ae580383070a4ddffa4c64c2eeb4a2f9ecc0414343");
         consensus.DIP0001Height = 1;
-	consensus.BIP65Height = 450000; 
+	    consensus.BIP65Height = 450000; 
         consensus.BIP66Height = 450000; 
-        consensus.DIP0003Height = 445500;
+        consensus.DIP0003Height = 448300;
         consensus.DIP0003EnforcementHeight = 450000;
-        consensus.DIP0003EnforcementHash = uint256S("");
-        consensus.powLimit = uint256S("00000fffff000000000000000000000000000000000000000000000000000000");
+        consensus.DIP0003EnforcementHash = uint256S("0x0000000003283dab0bc51f7616666e7885b58cdbb619221faebcb55b5fe7c46a");
+        consensus.powLimit = uint256S("000000fffff00000000000000000000000000000000000000000000000000000"); // Ensure Minimum Proof of Work Hash Rate
         consensus.nPowTargetTimespan = 24 * 60 * 60; // Adjustment using 24 hour
         consensus.nPowTargetSpacing = 60; // Trivechain: 1 minute
         consensus.fPowAllowMinDifficultyBlocks = false;
@@ -252,12 +252,10 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_DIP0008].nThreshold = 50; 
 
         // The best chain should have at least this much work.
-        // consensus.nMinimumChainWork = uint256S("0x00000000000000000000000000000000000000000000146103ebd818111fae85"); // 1067570
-        consensus.nMinimumChainWork = uint256S("0x00");
+        consensus.nMinimumChainWork = uint256S("0x000000000000000000000000000000000000000000000005f4b37398bb9e46c2"); // 463985
 
         // By default assume that the signatures in ancestors of this block are valid.
-        // consensus.defaultAssumeValid = uint256S("0x000000000000001e09926bcf5fa4513d23e870a34f74e38200db99eb3f5b7a70"); // 1067570
-        consensus.defaultAssumeValid = uint256S("0000000000012c3d19793ebb8fe56bf3644529b159fbee8b7a8ab21ff463f4eb"); //226650
+        consensus.defaultAssumeValid = uint256S("0x0000000004bb95c07ce12675f74434eaeda033634f0ff84e25a3d26806eb670f"); //463985
         /**
          * The message start string is designed to be unlikely to occur in normal data.
          * The characters are rarely used upper ASCII, not valid as UTF-8, and produce
@@ -328,11 +326,15 @@ public:
             ( 200000, uint256S("0x00000000000df26f68d1a64d69ef250797d773b0c6e00fa399ee3cec059541e7"))
             ( 226650, uint256S("0x0000000000012c3d19793ebb8fe56bf3644529b159fbee8b7a8ab21ff463f4eb"))
             ( 288000, uint256S("0x00000000029c6f80395cbec98682c8fba0f13d47b7089607637173ff7f65f65b"))
+            ( 350000, uint256S("0x00000000335cfe6e42e70756bd9925b927d38309caabf8ac67e969799cb24b42"))           
+            ( 450000, uint256S("0x0000000003283dab0bc51f7616666e7885b58cdbb619221faebcb55b5fe7c46a"))           
+            ( 463985, uint256S("0x0000000004bb95c07ce12675f74434eaeda033634f0ff84e25a3d26806eb670f"))
+            
         };
 
         chainTxData = ChainTxData{
-            1559822642, // * UNIX timestamp of last checkpoint block
-            507840,     // * total number of transactions between genesis and last checkpoint
+            1570955481, // * UNIX timestamp of last checkpoint block
+            781311,     // * total number of transactions between genesis and last checkpoint
                         //   (the tx=... number in the SetBestChain debug.log lines)
             5000        // * estimated number of transactions per day after checkpoint
         };
