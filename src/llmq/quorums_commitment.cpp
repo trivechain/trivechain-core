@@ -187,8 +187,10 @@ bool CheckLLMQCommitment(const CTransaction& tx, const CBlockIndex* pindexPrev, 
     const auto& params = Params().GetConsensus().llmqs.at((Consensus::LLMQType)qcTx.commitment.llmqType);
 
     if (qcTx.commitment.IsNull()) {
-        if (!qcTx.commitment.VerifyNull()) {
-            return state.DoS(100, false, REJECT_INVALID, "bad-qc-invalid-null");
+        if (pindexPrev->nHeight > 465000) {
+            if (!qcTx.commitment.VerifyNull()) {
+                return state.DoS(100, false, REJECT_INVALID, "bad-qc-invalid-null");
+            }
         }
         return true;
     }
