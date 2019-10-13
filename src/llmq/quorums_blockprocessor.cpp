@@ -176,54 +176,54 @@ static std::tuple<std::string, uint8_t, uint32_t> BuildInversedHeightKey(Consens
 
 bool CQuorumBlockProcessor::ProcessCommitment(int nHeight, const uint256& blockHash, const CFinalCommitment& qc, CValidationState& state)
 {
-    auto& params = Params().GetConsensus().llmqs.at((Consensus::LLMQType)qc.llmqType);
+    if (nHeight > 465000) {
+        auto& params = Params().GetConsensus().llmqs.at((Consensus::LLMQType)qc.llmqType);
 
-    uint256 quorumHash = GetQuorumBlockHash((Consensus::LLMQType)qc.llmqType, nHeight);
-    if (quorumHash.IsNull()) {
-        return state.DoS(100, false, REJECT_INVALID, "bad-qc-block");
-    }
-    if (quorumHash != qc.quorumHash) {
-        return state.DoS(100, false, REJECT_INVALID, "bad-qc-block");
-    }
+        uint256 quorumHash = GetQuorumBlockHash((Consensus::LLMQType)qc.llmqType, nHeight);
+        if (quorumHash.IsNull()) {
+            return state.DoS(100, false, REJECT_INVALID, "bad-qc-block");
+        }
+        if (quorumHash != qc.quorumHash) {
+            return state.DoS(100, false, REJECT_INVALID, "bad-qc-block");
+        }
 
-    if (qc.IsNull()) {
-        if (nHeight > 465000) {
+        if (qc.IsNull()) {
             if (!qc.VerifyNull()) {
                 return state.DoS(100, false, REJECT_INVALID, "bad-qc-invalid-null");
             }
+            return true;
         }
-        return true;
+
+        if (HasMinedCommitment(params.type, quorumHash)) {
+            // should not happen as it's already handled in ProcessBlock
+            return state.DoS(100, false, REJECT_INVALID, "bad-qc-dup");
+        }
+
+        if (!IsMiningPhase(params.type, nHeight)) {
+            // should not happen as it's already handled in ProcessBlock
+            return state.DoS(100, false, REJECT_INVALID, "bad-qc-height");
+        }
+
+        auto members = CLLMQUtils::GetAllQuorumMembers(params.type, quorumHash);
+
+        if (!qc.Verify(members, true)) {
+            return state.DoS(100, false, REJECT_INVALID, "bad-qc-invalid");
+        }
+
+        // Store commitment in DB
+        auto quorumIndex = mapBlockIndex.at(qc.quorumHash);
+        evoDb.Write(std::make_pair(DB_MINED_COMMITMENT, std::make_pair((uint8_t)params.type, quorumHash)), std::make_pair(qc, blockHash));
+        evoDb.Write(BuildInversedHeightKey(params.type, nHeight), quorumIndex->nHeight);
+
+        {
+            LOCK(minableCommitmentsCs);
+            hasMinedCommitmentCache.erase(std::make_pair(params.type, quorumHash));
+        }
+
+        LogPrint("llmq", "CQuorumBlockProcessor::%s -- processed commitment from block. type=%d, quorumHash=%s, signers=%s, validMembers=%d, quorumPublicKey=%s\n", __func__,
+                qc.llmqType, quorumHash.ToString(), qc.CountSigners(), qc.CountValidMembers(), qc.quorumPublicKey.ToString());
+
     }
-
-    if (HasMinedCommitment(params.type, quorumHash)) {
-        // should not happen as it's already handled in ProcessBlock
-        return state.DoS(100, false, REJECT_INVALID, "bad-qc-dup");
-    }
-
-    if (!IsMiningPhase(params.type, nHeight)) {
-        // should not happen as it's already handled in ProcessBlock
-        return state.DoS(100, false, REJECT_INVALID, "bad-qc-height");
-    }
-
-    auto members = CLLMQUtils::GetAllQuorumMembers(params.type, quorumHash);
-
-    if (!qc.Verify(members, true)) {
-        return state.DoS(100, false, REJECT_INVALID, "bad-qc-invalid");
-    }
-
-    // Store commitment in DB
-    auto quorumIndex = mapBlockIndex.at(qc.quorumHash);
-    evoDb.Write(std::make_pair(DB_MINED_COMMITMENT, std::make_pair((uint8_t)params.type, quorumHash)), std::make_pair(qc, blockHash));
-    evoDb.Write(BuildInversedHeightKey(params.type, nHeight), quorumIndex->nHeight);
-
-    {
-        LOCK(minableCommitmentsCs);
-        hasMinedCommitmentCache.erase(std::make_pair(params.type, quorumHash));
-    }
-
-    LogPrint("llmq", "CQuorumBlockProcessor::%s -- processed commitment from block. type=%d, quorumHash=%s, signers=%s, validMembers=%d, quorumPublicKey=%s\n", __func__,
-              qc.llmqType, quorumHash.ToString(), qc.CountSigners(), qc.CountValidMembers(), qc.quorumPublicKey.ToString());
-
     return true;
 }
 

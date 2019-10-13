@@ -157,6 +157,7 @@ void CFinalCommitmentTxPayload::ToJson(UniValue& obj) const
 
 bool CheckLLMQCommitment(const CTransaction& tx, const CBlockIndex* pindexPrev, CValidationState& state)
 {
+    if (pindexPrev->nHeight > 465000) {
     CFinalCommitmentTxPayload qcTx;
     if (!GetTxPayload(tx, qcTx)) {
         return state.DoS(100, false, REJECT_INVALID, "bad-qc-payload");
@@ -187,10 +188,8 @@ bool CheckLLMQCommitment(const CTransaction& tx, const CBlockIndex* pindexPrev, 
     const auto& params = Params().GetConsensus().llmqs.at((Consensus::LLMQType)qcTx.commitment.llmqType);
 
     if (qcTx.commitment.IsNull()) {
-        if (pindexPrev->nHeight > 465000) {
-            if (!qcTx.commitment.VerifyNull()) {
-                return state.DoS(100, false, REJECT_INVALID, "bad-qc-invalid-null");
-            }
+        if (!qcTx.commitment.VerifyNull()) {
+            return state.DoS(100, false, REJECT_INVALID, "bad-qc-invalid-null");
         }
         return true;
     }
@@ -199,7 +198,7 @@ bool CheckLLMQCommitment(const CTransaction& tx, const CBlockIndex* pindexPrev, 
     if (!qcTx.commitment.Verify(members, false)) {
         return state.DoS(100, false, REJECT_INVALID, "bad-qc-invalid");
     }
-
+    }
     return true;
 }
 
