@@ -207,7 +207,7 @@ public:
         consensus.DIP0003Height = 448300;
         consensus.DIP0003EnforcementHeight = 450000;
         consensus.DIP0003EnforcementHash = uint256S("0x0000000003283dab0bc51f7616666e7885b58cdbb619221faebcb55b5fe7c46a");
-        consensus.powLimit = uint256S("000000fffff00000000000000000000000000000000000000000000000000000"); // Ensure Minimum Proof of Work Hash Rate
+        consensus.powLimit = uint256S("00000fffff000000000000000000000000000000000000000000000000000000"); // Ensure Minimum Proof of Work Hash Rate
         consensus.nPowTargetTimespan = 24 * 60 * 60; // Adjustment using 24 hour
         consensus.nPowTargetSpacing = 60; // Trivechain: 1 minute
         consensus.fPowAllowMinDifficultyBlocks = false;
