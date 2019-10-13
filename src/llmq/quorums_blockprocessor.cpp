@@ -145,7 +145,7 @@ bool CQuorumBlockProcessor::ProcessBlock(const CBlock& block, const CBlockIndex*
             return state.DoS(100, false, REJECT_INVALID, "bad-qc-not-allowed");
         }
 
-        if (!hasCommitmentInNewBlock && isCommitmentRequired) {
+        if (!hasCommitmentInNewBlock && isCommitmentRequired && pindex->nHeight > 465000) {
             // If no non-null commitment was mined for the mining phase yet and the new block does not include
             // a (possibly null) commitment, the block should be rejected.
             return state.DoS(100, false, REJECT_INVALID, "bad-qc-missing");
