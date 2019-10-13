@@ -71,11 +71,11 @@
     </message>
     <message>
         <source>These are your Trivechain addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation>这些是你要付款过去的达世币地址。在付款之前，务必要检查金额和收款地址是否正确。</translation>
+        <translation>这些是你要付款过去的特尔链地址。在付款之前，务必要检查金额和收款地址是否正确。</translation>
     </message>
     <message>
         <source>These are your Trivechain addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
-        <translation>这些是你用来收款的达世币地址。建议在每次交易时，都使用一个新的收款地址。</translation>
+        <translation>这些是你用来收款的特尔链地址。建议在每次交易时，都使用一个新的收款地址。</translation>
     </message>
     <message>
         <source>&amp;Copy Address</source>
@@ -189,7 +189,7 @@
     </message>
     <message>
         <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR TRVC&lt;/b&gt;!</source>
-        <translation>警告:如果把钱包加​​密后又忘记密码，您就会从此&lt;b&gt;失去所有的达世币了&lt;/b&gt;！</translation>
+        <translation>警告:如果把钱包加​​密后又忘记密码，您就会从此&lt;b&gt;失去所有的特尔链了&lt;/b&gt;！</translation>
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
@@ -259,11 +259,11 @@
     <name>BitcoinGUI</name>
     <message>
         <source>A fatal error occurred. Trivechain can no longer continue safely and will quit.</source>
-        <translation>发生致命错误。达世币核心钱包不再能安全地运行下去，程序将会关闭。</translation>
+        <translation>发生致命错误。特尔链核心钱包不再能安全地运行下去，程序将会关闭。</translation>
     </message>
     <message>
         <source>Trivechain</source>
-        <translation>达世币核心</translation>
+        <translation>特尔链核心</translation>
     </message>
     <message>
         <source>Wallet</source>
@@ -287,7 +287,7 @@
     </message>
     <message>
         <source>Send coins to a Trivechain address</source>
-        <translation>发送币至达世币地址</translation>
+        <translation>发送币至特尔链地址</translation>
     </message>
     <message>
         <source>&amp;Receive</source>
@@ -295,7 +295,7 @@
     </message>
     <message>
         <source>Request payments (generates QR codes and trivechain: URIs)</source>
-        <translation>请求付款(生成二维码和达世币付款协议的URI)</translation>
+        <translation>请求付款(生成二维码和特尔链付款协议的URI)</translation>
     </message>
     <message>
         <source>&amp;Transactions</source>
@@ -323,7 +323,7 @@
     </message>
     <message>
         <source>Show information about Trivechain</source>
-        <translation>显示关于达世币核心信息</translation>
+        <translation>显示关于特尔链核心信息</translation>
     </message>
     <message>
         <source>About &amp;Qt</source>
@@ -395,7 +395,7 @@
     </message>
     <message>
         <source>Sign messages with your Trivechain addresses to prove you own them</source>
-        <translation>使用您的达市币地址进行消息签名以证明对此地址的所有权</translation>
+        <translation>使用您的特尔链地址进行消息签名以证明对此地址的所有权</translation>
     </message>
     <message>
         <source>&amp;Verify message...</source>
@@ -403,7 +403,7 @@
     </message>
     <message>
         <source>Verify messages to ensure they were signed with specified Trivechain addresses</source>
-        <translation>验证消息是用来确定此消息是用指定的达世币地址签发的</translation>
+        <translation>验证消息是用来确定此消息是用指定的特尔链地址签发的</translation>
     </message>
     <message>
         <source>&amp;Information</source>
@@ -483,7 +483,7 @@
     </message>
     <message>
         <source>Open a trivechain: URI or payment request</source>
-        <translation>打开一个达世币协议的URI或付款请求</translation>
+        <translation>打开一个特尔链协议的URI或付款请求</translation>
     </message>
     <message>
         <source>&amp;Command-line options</source>
@@ -527,7 +527,7 @@
     </message>
     <message numerus="yes">
         <source>%n active connection(s) to Trivechain network</source>
-        <translation><numerusform>%n个有效的达世币网络连接</numerusform></translation>
+        <translation><numerusform>%n个有效的特尔链网络连接</numerusform></translation>
     </message>
     <message>
         <source>Network activity disabled</source>
@@ -878,7 +878,7 @@
     </message>
     <message>
         <source>The entered address "%1" is not a valid Trivechain address.</source>
-        <translation>输入的地址“%1”不是有效的达世币地址。</translation>
+        <translation>输入的地址“%1”不是有效的特尔链地址。</translation>
     </message>
     <message>
         <source>The entered address "%1" is already in the address book.</source>
@@ -976,7 +976,7 @@
     </message>
     <message>
         <source>&lt;h3&gt;ExclusiveSend Basics&lt;/h3&gt; ExclusiveSend gives you true financial privacy by obscuring the origins of your funds. All the Trivechain in your wallet is comprised of different "inputs" which you can think of as separate, discrete coins.&lt;br&gt; ExclusiveSend uses an innovative process to mix your inputs with the inputs of two other people, without having your coins ever leave your wallet. You retain control of your money at all times.&lt;hr&gt; &lt;b&gt;The ExclusiveSend process works like this:&lt;/b&gt;&lt;ol type="1"&gt; &lt;li&gt;ExclusiveSend begins by breaking your transaction inputs down into standard denominations. These denominations are 0.001 TRVC, 0.01 TRVC, 0.1 TRVC, 1 TRVC and 10 TRVC -- sort of like the paper money you use every day.&lt;/li&gt; &lt;li&gt;Your wallet then sends requests to specially configured software nodes on the network, called "masternodes." These masternodes are informed then that you are interested in mixing a certain denomination. No identifiable information is sent to the masternodes, so they never know "who" you are.&lt;/li&gt; &lt;li&gt;When two other people send similar messages, indicating that they wish to mix the same denomination, a mixing session begins. The masternode mixes up the inputs and instructs all three users' wallets to pay the now-transformed input back to themselves. Your wallet pays that denomination directly to itself, but in a different address (called a change address).&lt;/li&gt; &lt;li&gt;In order to fully obscure your funds, your wallet must repeat this process a number of times with each denomination. Each time the process is completed, it's called a "round." Each round of ExclusiveSend makes it exponentially more difficult to determine where your funds originated.&lt;/li&gt; &lt;li&gt;This mixing process happens in the background without any intervention on your part. When you wish to make a transaction, your funds will already be anonymized. No additional waiting is required.&lt;/li&gt; &lt;/ol&gt; &lt;hr&gt;&lt;b&gt;IMPORTANT:&lt;/b&gt; Your wallet only contains 1000 of these "change addresses." Every time a mixing event happens, up to 9 of your addresses are used up. This means those 1000 addresses last for about 100 mixing events. When 900 of them are used, your wallet must create more addresses. It can only do this, however, if you have automatic backups enabled.&lt;br&gt; Consequently, users who have backups disabled will also have ExclusiveSend disabled. &lt;hr&gt;For more information, see the &lt;a href="https://docs.trivechain.com/en/latest/wallets/trivechain/exclusivesend-directsend.html"&gt;ExclusiveSend documentation&lt;/a&gt;.</source>
-        <translation>&lt;h3&gt;匿名发送基础知识&lt;/h3&gt;匿名发送通过隐藏您的资金来源为您提供真正的财务隐私。您的钱包中所有的达世币都由不同的“输入”组成，您可以将其视为分开的离散硬币。&lt;br&gt;匿名发送使用创新的方法将您的输入与其他两个人的输入相结合，而过程中不会让您的达世币离开您的钱包。每时每刻，您仍然控制着您的钱。&lt;hr&gt;&lt;b&gt;匿名发送的运作原理如下：&lt;/b&gt;&lt;ol type="1"&gt;&lt;li&gt;匿名发送首先将您的交易分柝成多个标准面额的交易。这些标准面额分别为0.001 TRVC，0.01 TRVC，0.1 TRVC，1 TRVC和10 TRVC --有点像您每天使用的纸币。&lt;/li&gt;&lt;li&gt;您的钱包然后发送请求到网络上有专门配置的软件节点，称为“主节点”。这些主节点会收到您希望混合一些资金的通知。没有可识别的信息发送到主节点，所以他们永远不会知道你是“谁”。&lt;li&gt;当另外两个人发送类似的消息时，表示希望混合相同的面额的话，混合会话就会开始。相关的主节点会混合这些输入，并指示所有三个用户的钱包将已经转换了输入的交易支付给自己。您的钱包直接支付给自己，但是付给不同的位址（称之为找零地址）。&lt;/li&gt;&lt;li&gt;为了完全掩盖您的资金来源，您的钱包必须以每个面额来重复此过程数次。每次这个过程完成后，都称之为一个“循环”。每个循环的匿名发送都会令确定您的资金来源的工作倍加困难。&lt;/li&gt;&lt;li&gt;这种混合过程发生在后台，而不需要您进行任何操作。当您想进行交易时，您的资金将已被匿名处理。不需再花额外的时间等待。&lt;/li&gt;&lt;/ol&gt;&lt;hr&gt;重要：&lt;b&gt;您的钱包只能拥有1000个“找零地址”。每次混合事件发生时，最多会使用9个找零地址。这意味着这1000个地址可以容许100次的混合事件。当其的中900个已经被使用后，您的钱包必须创建更多的地址。如果您启用了自动备份，则只能够这样做。&lt;br&gt;因此，禁用备份的用户也将禁用匿名发送。&lt;hr&gt;如欲了解更多信息请参阅&lt;a href="https://docs.trivechain.com/en/latest/wallets/trivechain/exclusivesend-directsend.html"&gt;匿名发送文档&lt;/a&gt;。</translation>
+        <translation>&lt;h3&gt;匿名发送基础知识&lt;/h3&gt;匿名发送通过隐藏您的资金来源为您提供真正的财务隐私。您的钱包中所有的特尔链都由不同的“输入”组成，您可以将其视为分开的离散硬币。&lt;br&gt;匿名发送使用创新的方法将您的输入与其他两个人的输入相结合，而过程中不会让您的特尔链离开您的钱包。每时每刻，您仍然控制着您的钱。&lt;hr&gt;&lt;b&gt;匿名发送的运作原理如下：&lt;/b&gt;&lt;ol type="1"&gt;&lt;li&gt;匿名发送首先将您的交易分柝成多个标准面额的交易。这些标准面额分别为0.001 TRVC，0.01 TRVC，0.1 TRVC，1 TRVC和10 TRVC --有点像您每天使用的纸币。&lt;/li&gt;&lt;li&gt;您的钱包然后发送请求到网络上有专门配置的软件节点，称为“主节点”。这些主节点会收到您希望混合一些资金的通知。没有可识别的信息发送到主节点，所以他们永远不会知道你是“谁”。&lt;li&gt;当另外两个人发送类似的消息时，表示希望混合相同的面额的话，混合会话就会开始。相关的主节点会混合这些输入，并指示所有三个用户的钱包将已经转换了输入的交易支付给自己。您的钱包直接支付给自己，但是付给不同的位址（称之为找零地址）。&lt;/li&gt;&lt;li&gt;为了完全掩盖您的资金来源，您的钱包必须以每个面额来重复此过程数次。每次这个过程完成后，都称之为一个“循环”。每个循环的匿名发送都会令确定您的资金来源的工作倍加困难。&lt;/li&gt;&lt;li&gt;这种混合过程发生在后台，而不需要您进行任何操作。当您想进行交易时，您的资金将已被匿名处理。不需再花额外的时间等待。&lt;/li&gt;&lt;/ol&gt;&lt;hr&gt;重要：&lt;b&gt;您的钱包只能拥有1000个“找零地址”。每次混合事件发生时，最多会使用9个找零地址。这意味着这1000个地址可以容许100次的混合事件。当其的中900个已经被使用后，您的钱包必须创建更多的地址。如果您启用了自动备份，则只能够这样做。&lt;br&gt;因此，禁用备份的用户也将禁用匿名发送。&lt;hr&gt;如欲了解更多信息请参阅&lt;a href="https://docs.trivechain.com/en/latest/wallets/trivechain/exclusivesend-directsend.html"&gt;匿名发送文档&lt;/a&gt;。</translation>
     </message>
 </context>
 <context>
@@ -1161,11 +1161,11 @@
     </message>
     <message>
         <source>Recent transactions may not yet be visible, and therefore your wallet's balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the Trivechain network, as detailed below.</source>
-        <translation>最近的交易可能尚未显示，因此您的钱包的余额可能不正确。一旦您的钱包完成与达世币网络的同步，这个信息将会修正，如下所述。</translation>
+        <translation>最近的交易可能尚未显示，因此您的钱包的余额可能不正确。一旦您的钱包完成与特尔链网络的同步，这个信息将会修正，如下所述。</translation>
     </message>
     <message>
         <source>Attempting to spend Trivechain that are affected by not-yet-displayed transactions will not be accepted by the network.</source>
-        <translation>假如您正在尝试花费尚未显示出来的达世币，这个交易将不会被网络所接受。</translation>
+        <translation>假如您正在尝试花费尚未显示出来的特尔链，这个交易将不会被网络所接受。</translation>
     </message>
     <message>
         <source>Number of blocks left</source>
@@ -1255,7 +1255,7 @@
     </message>
     <message>
         <source>Amount of Trivechain to keep anonymized</source>
-        <translation>保持匿名化的达世币数</translation>
+        <translation>保持匿名化的特尔链数</translation>
     </message>
     <message>
         <source>W&amp;allet</source>
@@ -1307,7 +1307,7 @@
     </message>
     <message>
         <source>Automatically open the Trivechain client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>自动在路由器打开达世币核心客户端端口。此项只在路由器支持UPnP且开启时有效。</translation>
+        <translation>自动在路由器打开特尔链核心客户端端口。此项只在路由器支持UPnP且开启时有效。</translation>
     </message>
     <message>
         <source>Accept connections from outside</source>
@@ -1319,7 +1319,7 @@
     </message>
     <message>
         <source>Connect to the Trivechain network through a SOCKS5 proxy.</source>
-        <translation>通过SOCKS5代理连接达世币网络。</translation>
+        <translation>通过SOCKS5代理连接特尔链网络。</translation>
     </message>
     <message>
         <source>&amp;Connect through SOCKS5 proxy (default proxy):</source>
@@ -1415,7 +1415,7 @@
     </message>
     <message>
         <source>Connect to the Trivechain network through a separate SOCKS5 proxy for Tor hidden services.</source>
-        <translation>通过另一个SOCKS5代理服务器作为Tor隐藏服务来连接到达世币网络。</translation>
+        <translation>通过另一个SOCKS5代理服务器作为Tor隐藏服务来连接到特尔链网络。</translation>
     </message>
     <message>
         <source>Use separate SOCKS5 proxy to reach peers via Tor hidden services:</source>
@@ -1469,7 +1469,7 @@ https://www.transifex.com/projects/p/trivechain/</translation>
     </message>
     <message>
         <source>&amp;Unit to show amounts in:</source>
-        <translation>达世币金额单位(&amp;U)：</translation>
+        <translation>特尔链金额单位(&amp;U)：</translation>
     </message>
     <message>
         <source>Choose the default subdivision unit to show in the interface and when sending coins.</source>
@@ -1540,7 +1540,7 @@ https://www.transifex.com/projects/p/trivechain/</translation>
     </message>
     <message>
         <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Trivechain network after a connection is established, but this process has not completed yet.</source>
-        <translation>显示的信息也许已过期。当与达世币网络连接后钱包程序会自动同步，但现在还未完成。</translation>
+        <translation>显示的信息也许已过期。当与特尔链网络连接后钱包程序会自动同步，但现在还未完成。</translation>
     </message>
     <message>
         <source>Available:</source>
@@ -1640,7 +1640,7 @@ https://www.transifex.com/projects/p/trivechain/</translation>
     </message>
     <message>
         <source>0 TRVC / 0 Rounds</source>
-        <translation>0 达世币 / 0 循环数</translation>
+        <translation>0 特尔链 / 0 循环数</translation>
     </message>
     <message>
         <source>Submitted Denom:</source>
@@ -1664,7 +1664,7 @@ https://www.transifex.com/projects/p/trivechain/</translation>
     </message>
     <message>
         <source>The denominations you submitted to the Masternode.&lt;br&gt;To mix, other users must submit the exact same denominations.</source>
-        <translation>您向主节点所提交的用以面额化混合的达世币。&lt;br&gt;为了混合，其他用户必须提交完全一样的面额。</translation>
+        <translation>您向主节点所提交的用以面额化混合的特尔链。&lt;br&gt;为了混合，其他用户必须提交完全一样的面额。</translation>
     </message>
     <message>
         <source>(Last Message)</source>
@@ -1805,7 +1805,7 @@ https://www.transifex.com/projects/p/trivechain/</translation>
     </message>
     <message>
         <source>Cannot start trivechain: click-to-pay handler</source>
-        <translation>无法启动达世币程序：click-to-pay handler</translation>
+        <translation>无法启动特尔链程序：click-to-pay handler</translation>
     </message>
     <message>
         <source>URI handling</source>
@@ -1821,7 +1821,7 @@ https://www.transifex.com/projects/p/trivechain/</translation>
     </message>
     <message>
         <source>URI cannot be parsed! This can be caused by an invalid Trivechain address or malformed URI parameters.</source>
-        <translation>URI不能被解析! 原因可能是无效的达世币地址或URI参数格式错误。</translation>
+        <translation>URI不能被解析! 原因可能是无效的特尔链地址或URI参数格式错误。</translation>
     </message>
     <message>
         <source>Payment request file handling</source>
@@ -1919,7 +1919,7 @@ https://www.transifex.com/projects/p/trivechain/</translation>
     </message>
     <message>
         <source>Enter a Trivechain address (e.g. %1)</source>
-        <translation>输入达世币地址(例如 %1)</translation>
+        <translation>输入特尔链地址(例如 %1)</translation>
     </message>
     <message>
         <source>%1 d</source>
@@ -2441,7 +2441,7 @@ https://www.transifex.com/projects/p/trivechain/</translation>
     </message>
     <message>
         <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the Trivechain network.</source>
-        <translation>附加在付款要求中的讯息，可以不填，打开要求内容时会显示。注意：这个讯息不会随着付款送到达世币网路上。</translation>
+        <translation>附加在付款要求中的讯息，可以不填，打开要求内容时会显示。注意：这个讯息不会随着付款送到特尔链网路上。</translation>
     </message>
     <message>
         <source>&amp;Message:</source>
@@ -2453,7 +2453,7 @@ https://www.transifex.com/projects/p/trivechain/</translation>
     </message>
     <message>
         <source>An optional message to attach to the payment request, which will be displayed when the request is opened.&lt;br&gt;Note: The message will not be sent with the payment over the Trivechain network.</source>
-        <translation>附加在付款要求中的讯息，可以不填，打开要求内容时会显示。&lt;br&gt;注意：这个讯息不会随着付款送到达世币网路上。</translation>
+        <translation>附加在付款要求中的讯息，可以不填，打开要求内容时会显示。&lt;br&gt;注意：这个讯息不会随着付款送到特尔链网路上。</translation>
     </message>
     <message>
         <source>Use this form to request payments. All fields are &lt;b&gt;optional&lt;/b&gt;.</source>
@@ -2910,7 +2910,7 @@ https://www.transifex.com/projects/p/trivechain/</translation>
     </message>
     <message>
         <source>Warning: Invalid Trivechain address</source>
-        <translation>警告：无效的达世币地址</translation>
+        <translation>警告：无效的特尔链地址</translation>
     </message>
     <message>
         <source>Warning: Unknown change address</source>
@@ -2977,7 +2977,7 @@ https://www.transifex.com/projects/p/trivechain/</translation>
     </message>
     <message>
         <source>The fee will be deducted from the amount being sent. The recipient will receive a lower amount of Trivechain than you enter in the amount field. If multiple recipients are selected, the fee is split equally.</source>
-        <translation>手续费将从发送金额中扣除。接收者将收到的达世币金额将会比您在金额字段中输入的金额为少。如果选择了多个收款人，该费用将会被平均摊分。</translation>
+        <translation>手续费将从发送金额中扣除。接收者将收到的特尔链金额将会比您在金额字段中输入的金额为少。如果选择了多个收款人，该费用将会被平均摊分。</translation>
     </message>
     <message>
         <source>S&amp;ubtract fee from amount</source>
@@ -2989,7 +2989,7 @@ https://www.transifex.com/projects/p/trivechain/</translation>
     </message>
     <message>
         <source>A message that was attached to the trivechain: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the Trivechain network.</source>
-        <translation>附加在达世币付款协议URI中的信息，会和交易内容一并存储，可供您参考。提示：此信息不会发送到达世币网络上。</translation>
+        <translation>附加在特尔链付款协议URI中的信息，会和交易内容一并存储，可供您参考。提示：此信息不会发送到特尔链网络上。</translation>
     </message>
     <message>
         <source>This is an unauthenticated payment request.</source>
@@ -3078,7 +3078,7 @@ https://www.transifex.com/projects/p/trivechain/</translation>
     </message>
     <message>
         <source>Sign the message to prove you own this Trivechain address</source>
-        <translation>签署信息证明您拥有此达世币地址</translation>
+        <translation>签署信息证明您拥有此特尔链地址</translation>
     </message>
     <message>
         <source>Sign &amp;Message</source>
@@ -3106,7 +3106,7 @@ https://www.transifex.com/projects/p/trivechain/</translation>
     </message>
     <message>
         <source>Verify the message to ensure it was signed with the specified Trivechain address</source>
-        <translation>验证信息用来确保此被签署信息对应相对的达世币地址</translation>
+        <translation>验证信息用来确保此被签署信息对应相对的特尔链地址</translation>
     </message>
     <message>
         <source>Verify &amp;Message</source>
@@ -3355,7 +3355,7 @@ https://www.transifex.com/projects/p/trivechain/</translation>
     </message>
     <message>
         <source>Generated coins must mature %1 blocks before they can be spent. When you generated this block, it was broadcast to the network to be added to the block chain. If it fails to get into the chain, its state will change to "not accepted" and it won't be spendable. This may occasionally happen if another node generates a block within a few seconds of yours.</source>
-        <translation>生成的达世币在可以使用前必须有 %1 个成熟的区块。当您生成了此区块后，它将被广播到网络中以加入区块链。如果它未成功进入区块链，其状态将变更为“不接受”并且不可使用。这可能偶尔会发生，如果另一个节点比你早几秒钟成功生成一个区块。</translation>
+        <translation>生成的特尔链在可以使用前必须有 %1 个成熟的区块。当您生成了此区块后，它将被广播到网络中以加入区块链。如果它未成功进入区块链，其状态将变更为“不接受”并且不可使用。这可能偶尔会发生，如果另一个节点比你早几秒钟成功生成一个区块。</translation>
     </message>
     <message>
         <source>Debug information</source>
@@ -3749,11 +3749,11 @@ https://www.transifex.com/projects/p/trivechain/</translation>
     <name>WalletModel</name>
     <message>
         <source>Send Coins</source>
-        <translation>发送达世币</translation>
+        <translation>发送特尔链</translation>
     </message>
     <message>
         <source>DirectSend doesn't support sending values that high yet. Transactions are currently limited to %1 TRVC.</source>
-        <translation>即时发送功能目前还不支持发送如此高的金额。目前限制在%1达世币。</translation>
+        <translation>即时发送功能目前还不支持发送如此高的金额。目前限制在%1特尔链。</translation>
     </message>
     <message>
         <source>Used way too many inputs (&gt;%1) for this DirectSend transaction, fees could be huge.</source>
@@ -3839,7 +3839,7 @@ https://www.transifex.com/projects/p/trivechain/</translation>
     </message>
     <message>
         <source>Warning: The network does not appear to fully agree! Some miners appear to be experiencing issues.</source>
-        <translation>警告: 达世币网路对于区块链结的决定目前有分歧！看来有些矿工会有问题。</translation>
+        <translation>警告: 特尔链网路对于区块链结的决定目前有分歧！看来有些矿工会有问题。</translation>
     </message>
     <message>
         <source>Warning: We do not appear to fully agree with our peers! You may need to upgrade, or other nodes may need to upgrade.</source>
@@ -4391,7 +4391,7 @@ https://www.transifex.com/projects/p/trivechain/</translation>
     </message>
     <message>
         <source>Disable all Trivechain specific functionality (Masternodes, ExclusiveSend, DirectSend, Governance) (0-1, default: %u)</source>
-        <translation>禁止所有达世币的附加功能（主节点，匿名发送，即时发送，预算案）（0-1，默认：%u）</translation>
+        <translation>禁止所有特尔链的附加功能（主节点，匿名发送，即时发送，预算案）（0-1，默认：%u）</translation>
     </message>
     <message>
         <source>%s file contains all private keys from this wallet. Do not share it with anyone!</source>
@@ -4447,7 +4447,7 @@ https://www.transifex.com/projects/p/trivechain/</translation>
     </message>
     <message>
         <source>DirectSend doesn't support sending values that high yet. Transactions are currently limited to %1 TRVC.</source>
-        <translation>即时发送系统暂时并不支持这么高的交易金额。目前的金额仅限于%1达世币。</translation>
+        <translation>即时发送系统暂时并不支持这么高的交易金额。目前的金额仅限于%1特尔链。</translation>
     </message>
     <message>
         <source>DirectSend requires inputs with at least %d confirmations, you might need to wait a few minutes and try again.</source>
@@ -4547,7 +4547,7 @@ https://www.transifex.com/projects/p/trivechain/</translation>
     </message>
     <message>
         <source>You are starting in lite mode, all Trivechain-specific functionality is disabled.</source>
-        <translation>您启动了简化模式，所有达世币特有的功能已禁用。</translation>
+        <translation>您启动了简化模式，所有特尔链特有的功能已禁用。</translation>
     </message>
     <message>
         <source>You need to rebuild the database using -reindex to go back to unpruned mode.  This will redownload the entire blockchain</source>
@@ -4895,7 +4895,7 @@ https://www.transifex.com/projects/p/trivechain/</translation>
     </message>
     <message>
         <source>Trivechain</source>
-        <translation>达世币核心</translation>
+        <translation>特尔链核心</translation>
     </message>
     <message>
         <source>The %s developers</source>
@@ -5103,7 +5103,7 @@ https://www.transifex.com/projects/p/trivechain/</translation>
     </message>
     <message>
         <source>Keep N TRVC anonymized (%u-%u, default: %u)</source>
-        <translation>保持 N 个匿名处理的达世币 (%u-%u, default: %u)</translation>
+        <translation>保持 N 个匿名处理的特尔链 (%u-%u, default: %u)</translation>
     </message>
     <message>
         <source>Loading P2P addresses...</source>
