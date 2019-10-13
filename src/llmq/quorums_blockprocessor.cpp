@@ -187,8 +187,10 @@ bool CQuorumBlockProcessor::ProcessCommitment(int nHeight, const uint256& blockH
     }
 
     if (qc.IsNull()) {
-        if (!qc.VerifyNull()) {
-            return state.DoS(100, false, REJECT_INVALID, "bad-qc-invalid-null");
+        if (nHeight > 465000) {
+            if (!qc.VerifyNull()) {
+                return state.DoS(100, false, REJECT_INVALID, "bad-qc-invalid-null");
+            }
         }
         return true;
     }
