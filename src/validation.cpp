@@ -1216,8 +1216,8 @@ CAmount GetBlockSubsidy(int nPrevBits, int nPrevHeight, const Consensus::Params&
     // TRVC 2.0 After Forking
     // Inflation by 25% every 525,600 blocks (1 year)
     // Before the start of constant reward
-    if (nPrevHeight >= 752230) {
-        for (int i = 752230; i <= nPrevHeight; i += 525600) {
+    if (nPrevHeight >= 752255) {
+        for (int i = 752255; i <= nPrevHeight; i += 525600) {
             nSubsidy -= nSubsidy * 0.25;
         }
     }
@@ -1225,7 +1225,10 @@ CAmount GetBlockSubsidy(int nPrevBits, int nPrevHeight, const Consensus::Params&
 
     // TRVC 2.0 Hard fork to reduce the block reward by 30 extra percent (allowing budget/superblocks)
     CAmount nSuperblockPart = (nPrevHeight > consensusParams.nBudgetPaymentsStartBlock) ? (nSubsidy * 3) / 10 : 0;
-    if ((nPrevHeight <= 212375 && Params().NetworkIDString() == CBaseChainParams::TESTNET) || (nPrevHeight <= 226655 && Params().NetworkIDString() == CBaseChainParams::MAIN)) {
+    if (
+        (nPrevHeight <= 212375 && Params().NetworkIDString() == CBaseChainParams::TESTNET) || 
+        (nPrevHeight <= 226655 && Params().NetworkIDString() == CBaseChainParams::MAIN)
+    ) {
         // TRVC 1.0 only 10% Governance
         nSuperblockPart = (nPrevHeight > consensusParams.nBudgetPaymentsStartBlock) ? nSubsidy / 10 : 0;
     }
