@@ -10,8 +10,15 @@
  * network protocol versioning
  */
 
+// Current Version
+static const int PROTOCOL_VERSION = 70216;
 
-static const int PROTOCOL_VERSION = 70215;
+//! disconnect from peers older than this proto version
+static const int MIN_PEER_PROTO_VERSION = 70215;
+
+//! Force everyone to upgrade to TRVC 2.2 by 1st November 2019
+static const int TIME_MIN_PEER_PROTO_VERSION = 70216;
+static const int TIME_PEER_PROTO_CHECK = 1572537600;
 
 //! initial proto version, to be increased after version/verack negotiation
 static const int INIT_PROTO_VERSION = 209;
@@ -19,8 +26,6 @@ static const int INIT_PROTO_VERSION = 209;
 //! In this version, 'getheaders' was introduced.
 static const int GETHEADERS_VERSION = 70077;
 
-//! disconnect from peers older than this proto version
-static const int MIN_PEER_PROTO_VERSION = 70213;
 
 //! nTime field added to CAddress, starting with this version;
 //! if possible, avoid requesting addresses nodes older than this
