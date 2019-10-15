@@ -333,10 +333,10 @@ public:
         };
 
         chainTxData = ChainTxData{
-            1570955481, // * UNIX timestamp of last checkpoint block
-            781311,     // * total number of transactions between genesis and last checkpoint
+            1570955481, // * UNIX timestamp of last known number of transactions (Block 1068571)
+            781311,     // * total number of transactions between genesis and that timestamp
                         //   (the tx=... number in the SetBestChain debug.log lines)
-            1440        // * estimated number of transactions per day after checkpoint
+            0.01        // * estimated number of transactions per second after that timestamp
         };
     }
 };
