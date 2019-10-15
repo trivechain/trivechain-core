@@ -53,7 +53,6 @@ public:
     CDirectSendDb(CDBWrapper& _db) : db(_db) {}
 
     void WriteNewDirectSendLock(const uint256& hash, const CDirectSendLock& islock);
-    void RemoveDirectSendLock(const uint256& hash, CDirectSendLockPtr islock);
     void RemoveDirectSendLock(CDBBatch& batch, const uint256& hash, CDirectSendLockPtr islock);
 
     void WriteDirectSendLockMined(const uint256& hash, int nHeight);
@@ -62,6 +61,7 @@ public:
     std::unordered_map<uint256, CDirectSendLockPtr> RemoveConfirmedDirectSendLocks(int nUntilHeight);
     void RemoveArchivedDirectSendLocks(int nUntilHeight);
     bool HasArchivedDirectSendLock(const uint256& islockHash);
+    size_t GetDirectSendLockCount();
 
     CDirectSendLockPtr GetDirectSendLockByHash(const uint256& hash);
     uint256 GetDirectSendLockHashByTxid(const uint256& txid);
@@ -137,6 +137,7 @@ public:
     void ProcessMessageDirectSendLock(CNode* pfrom, const CDirectSendLock& islock, CConnman& connman);
     bool PreVerifyDirectSendLock(NodeId nodeId, const CDirectSendLock& islock, bool& retBan);
     bool ProcessPendingDirectSendLocks();
+    std::unordered_set<uint256> ProcessPendingDirectSendLocks(int signHeight, const std::unordered_map<uint256, std::pair<NodeId, CDirectSendLock>>& pend, bool ban);
     void ProcessDirectSendLock(NodeId from, const uint256& hash, const CDirectSendLock& islock);
     void UpdateWalletTransaction(const uint256& txid, const CTransactionRef& tx);
 
@@ -158,6 +159,8 @@ public:
 
     bool AlreadyHave(const CInv& inv);
     bool GetDirectSendLockByHash(const uint256& hash, CDirectSendLock& ret);
+
+    size_t GetDirectSendLockCount();
 
     void WorkThreadMain();
 };

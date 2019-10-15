@@ -88,7 +88,7 @@ Output:
 Next we will use the `collateralAddress` and `signMessage` fields to sign the transaction, and the output of the `tx` field to submit the transaction.
 
 ## 9. Sign the ProRegTx transaction
-Now we will sign the content of the `signMessage` field using the private key for the collateral address as specified in `collateralAddress`. Note that no internet connection is required for this step, meaning that the wallet can remain disconnected from the internet in cold storage to sign the message. In this example we will again use Dash Core, but it is equally possible to use the signing function of a hardware wallet. The command takes the following syntax:
+Now we will sign the content of the `signMessage` field using the private key for the collateral address as specified in `collateralAddress`. Note that no internet connection is required for this step, meaning that the wallet can remain disconnected from the internet in cold storage to sign the message. In this example we will again use Trivechain, but it is equally possible to use the signing function of a hardware wallet. The command takes the following syntax:
 ```
 signmessage collateralAddress signMessage
 ```

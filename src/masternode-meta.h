@@ -104,7 +104,11 @@ public:
         }
         else {
             strVersion = SERIALIZATION_VERSION_STRING;
+            Clear();
             READWRITE(strVersion);
+            if (strVersion != SERIALIZATION_VERSION_STRING) {
+                return;
+            }
         }
 
         std::vector<CMasternodeMetaInfo> tmpMetaInfo;
@@ -122,10 +126,6 @@ public:
         }
 
         READWRITE(nDsqCount);
-
-        if(ser_action.ForRead() && (strVersion != SERIALIZATION_VERSION_STRING)) {
-            Clear();
-        }
     }
 
 public:
