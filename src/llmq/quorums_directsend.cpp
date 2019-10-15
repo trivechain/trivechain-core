@@ -61,13 +61,6 @@ void CDirectSendDb::WriteNewDirectSendLock(const uint256& hash, const CDirectSen
     }
 }
 
-void CDirectSendDb::RemoveDirectSendLock(const uint256& hash, CDirectSendLockPtr islock)
-{
-    CDBBatch batch(db);
-    RemoveDirectSendLock(batch, hash, islock);
-    db.WriteBatch(batch);
-}
-
 void CDirectSendDb::RemoveDirectSendLock(CDBBatch& batch, const uint256& hash, CDirectSendLockPtr islock)
 {
     if (!islock) {
@@ -183,6 +176,28 @@ void CDirectSendDb::RemoveArchivedDirectSendLocks(int nUntilHeight)
 bool CDirectSendDb::HasArchivedDirectSendLock(const uint256& islockHash)
 {
     return db.Exists(std::make_tuple(std::string("is_a2"), islockHash));
+}
+
+size_t CDirectSendDb::GetDirectSendLockCount()
+{
+    auto it = std::unique_ptr<CDBIterator>(db.NewIterator());
+    auto firstKey = std::make_tuple(std::string("is_i"), uint256());
+
+    it->Seek(firstKey);
+
+    size_t cnt = 0;
+    while (it->Valid()) {
+        decltype(firstKey) curKey;
+        if (!it->GetKey(curKey) || std::get<0>(curKey) != "is_i") {
+            break;
+        }
+
+        cnt++;
+
+        it->Next();
+    }
+
+    return cnt;
 }
 
 CDirectSendLockPtr CDirectSendDb::GetDirectSendLockByHash(const uint256& hash)
@@ -444,10 +459,6 @@ bool CDirectSendManager::ProcessTx(const CTransaction& tx, const Consensus::Para
 
 bool CDirectSendManager::CheckCanLock(const CTransaction& tx, bool printDebug, const Consensus::Params& params)
 {
-    if (sporkManager.IsSporkActive(SPORK_16_DIRECTSEND_AUTOLOCKS) && (mempool.UsedMemoryShare() > CDirectSend::AUTO_IX_MEMPOOL_THRESHOLD)) {
-        return false;
-    }
-
     if (tx.vin.empty()) {
         // can't lock TXs without inputs (e.g. quorum commitments)
         return false;
@@ -712,8 +723,6 @@ bool CDirectSendManager::PreVerifyDirectSendLock(NodeId nodeId, const llmq::CDir
 
 bool CDirectSendManager::ProcessPendingDirectSendLocks()
 {
-    auto llmqType = Params().GetConsensus().llmqForDirectSend;
-
     decltype(pendingDirectSendLocks) pend;
 
     {
@@ -734,6 +743,44 @@ bool CDirectSendManager::ProcessPendingDirectSendLocks()
         LOCK(cs_main);
         tipHeight = chainActive.Height();
     }
+
+    auto llmqType = Params().GetConsensus().llmqForDirectSend;
+
+    // Every time a new quorum enters the active set, an older one is removed. This means that between two blocks, the
+    // active set can be different, leading to different selection of the signing quorum. When we detect such rotation
+    // of the active set, we must re-check invalid sigs against the previous active set and only ban nodes when this also
+    // fails.
+    auto quorums1 = quorumSigningManager->GetActiveQuorumSet(llmqType, tipHeight);
+    auto quorums2 = quorumSigningManager->GetActiveQuorumSet(llmqType, tipHeight - 1);
+    bool quorumsRotated = quorums1 != quorums2;
+
+    if (quorumsRotated) {
+        // first check against the current active set and don't ban
+        auto badISLocks = ProcessPendingDirectSendLocks(tipHeight, pend, false);
+        if (!badISLocks.empty()) {
+            LogPrintf("CDirectSendManager::%s -- detected LLMQ active set rotation, redoing verification on old active set\n", __func__);
+
+            // filter out valid IS locks from "pend"
+            for (auto it = pend.begin(); it != pend.end(); ) {
+                if (!badISLocks.count(it->first)) {
+                    it = pend.erase(it);
+                } else {
+                    ++it;
+                }
+            }
+            // now check against the previous active set and perform banning if this fails
+            ProcessPendingDirectSendLocks(tipHeight - 1, pend, true);
+        }
+    } else {
+        ProcessPendingDirectSendLocks(tipHeight, pend, true);
+    }
+
+    return true;
+}
+
+std::unordered_set<uint256> CDirectSendManager::ProcessPendingDirectSendLocks(int signHeight, const std::unordered_map<uint256, std::pair<NodeId, CDirectSendLock>>& pend, bool ban)
+{
+    auto llmqType = Params().GetConsensus().llmqForDirectSend;
 
     CBLSBatchVerifier<NodeId, uint256> batchVerifier(false, true, 8);
     std::unordered_map<uint256, std::pair<CQuorumCPtr, CRecoveredSig>> recSigs;
@@ -759,10 +806,10 @@ bool CDirectSendManager::ProcessPendingDirectSendLocks()
             continue;
         }
 
-        auto quorum = quorumSigningManager->SelectQuorumForSigning(llmqType, tipHeight, id);
+        auto quorum = quorumSigningManager->SelectQuorumForSigning(llmqType, signHeight, id);
         if (!quorum) {
             // should not happen, but if one fails to select, all others will also fail to select
-            return false;
+            return {};
         }
         uint256 signHash = CLLMQUtils::BuildSignHash(llmqType, quorum->qc.quorumHash, id, islock.txid);
         batchVerifier.PushMessage(nodeId, hash, signHash, islock.sig.Get(), quorum->qc.quorumPublicKey);
@@ -785,7 +832,9 @@ bool CDirectSendManager::ProcessPendingDirectSendLocks()
 
     batchVerifier.Verify();
 
-    if (!batchVerifier.badSources.empty()) {
+    std::unordered_set<uint256> badISLocks;
+
+    if (ban && !batchVerifier.badSources.empty()) {
         LOCK(cs_main);
         for (auto& nodeId : batchVerifier.badSources) {
             // Let's not be too harsh, as the peer might simply be unlucky and might have sent us an old lock which
@@ -801,6 +850,7 @@ bool CDirectSendManager::ProcessPendingDirectSendLocks()
         if (batchVerifier.badMessages.count(hash)) {
             LogPrintf("CDirectSendManager::%s -- txid=%s, islock=%s: invalid sig in islock, peer=%d\n", __func__,
                      islock.txid.ToString(), hash.ToString(), nodeId);
+            badISLocks.emplace(hash);
             continue;
         }
 
@@ -821,7 +871,7 @@ bool CDirectSendManager::ProcessPendingDirectSendLocks()
         }
     }
 
-    return true;
+    return badISLocks;
 }
 
 void CDirectSendManager::ProcessDirectSendLock(NodeId from, const uint256& hash, const CDirectSendLock& islock)
@@ -1084,6 +1134,8 @@ void CDirectSendManager::UpdatedBlockTip(const CBlockIndex* pindexNew)
 
 void CDirectSendManager::HandleFullyConfirmedBlock(const CBlockIndex* pindex)
 {
+    auto& consensusParams = Params().GetConsensus();
+
     std::unordered_map<uint256, CDirectSendLockPtr> removeISLocks;
     {
         LOCK(cs);
@@ -1101,7 +1153,14 @@ void CDirectSendManager::HandleFullyConfirmedBlock(const CBlockIndex* pindex)
             for (auto& in : islock->inputs) {
                 auto inputRequestId = ::SerializeHash(std::make_pair(INPUTLOCK_REQUESTID_PREFIX, in));
                 inputRequestIds.erase(inputRequestId);
+
+                // no need to keep recovered sigs for fully confirmed IS locks, as there is no chance for conflicts
+                // from now on. All inputs are spent now and can't be spend in any other TX.
+                quorumSigningManager->RemoveRecoveredSig(consensusParams.llmqForDirectSend, inputRequestId);
             }
+
+            // same as in the loop
+            quorumSigningManager->RemoveRecoveredSig(consensusParams.llmqForDirectSend, islock->GetRequestId());
         }
 
         // Find all previously unlocked TXs that got locked by this fully confirmed (ChainLock) block and remove them
@@ -1410,6 +1469,11 @@ CDirectSendLockPtr CDirectSendManager::GetConflictingLock(const CTransaction& tx
         }
     }
     return nullptr;
+}
+
+size_t CDirectSendManager::GetDirectSendLockCount()
+{
+    return db.GetDirectSendLockCount();
 }
 
 void CDirectSendManager::WorkThreadMain()
