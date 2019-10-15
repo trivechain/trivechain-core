@@ -163,7 +163,7 @@ size_t ClientModel::getMempoolDynamicUsage() const
     return mempool.DynamicMemoryUsage();
 }
 
-size_t ClientModel::getInstantSentLockCount() const
+size_t ClientModel::getDirectSentLockCount() const
 {
     if (!llmq::quorumDirectSendManager) {
         return 0;
@@ -187,7 +187,7 @@ void ClientModel::updateTimer()
     // no locking required at this point
     // the following calls will acquire the required lock
     Q_EMIT mempoolSizeChanged(getMempoolSize(), getMempoolDynamicUsage());
-    Q_EMIT dslockCountChanged(getInstantSentLockCount());
+    Q_EMIT dslockCountChanged(getDirectSentLockCount());
     Q_EMIT bytesChanged(getTotalBytesRecv(), getTotalBytesSent());
 }
 
