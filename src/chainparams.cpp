@@ -399,7 +399,7 @@ public:
         consensus.DIP0003EnforcementHeight = 1;
         consensus.DIP0003EnforcementHash = uint256S("0x00");
         consensus.powLimit = uint256S("0000ffffff000000000000000000000000000000000000000000000000000000");
-        consensus.nPowTargetTimespan = 24 * 60 * 60; // Trivechain: 1 day
+        consensus.nPowTargetTimespan = 2 * 60 * 60; // Trivechain: 2 hours
         consensus.nPowTargetSpacing = 5; // Trivechain: 5 seconds
         consensus.fPowAllowMinDifficultyBlocks = false;
         consensus.fPowNoRetargeting = false;
@@ -511,7 +511,7 @@ public:
         };
 
         chainTxData = ChainTxData{
-            1571739000, // * UNIX timestamp of devnet genesis block
+            1571755200, // * UNIX timestamp of devnet genesis block
             1,          // * we only have 2 coinbase transactions when a devnet is started up
             0.01        // * estimated number of transactions per second
         };
