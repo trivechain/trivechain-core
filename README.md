@@ -1,4 +1,4 @@
-TRIVECHAIN - TRVC 2.1
+TRIVECHAIN - TRVC 2.2
 ===============================
 Trivechain is a public blockchain managed by Decentralized autonomous organization (DAO) with focus on bridging businesses to enter the new era digital age with implementation of blockchain-based technology and DApps (decentralized applications)
 
@@ -13,7 +13,7 @@ Blockchain Specs
 <tr><td>Difficulty Retargeting</td><td>Every Block</td></tr>
 <tr><td>Initial Block Reward (TRVC 2.0 Era)</td><td>25 TRVC</td></tr>
 <tr><td>Block Reward Adjustment (-25%)</td><td>Every 525,600 Blocks / 1 year</td></tr>
-<tr><td>Proof of Work (PoW) Algo</td><td>X16R</td></tr>
+<tr><td>Proof of Work (PoW) Algo</td><td>X16Rv2</td></tr>
 <tr><td>Masternode (PoSe) Collateral</td><td>10,000 TRVC</td></tr>
 <tr><td>TriveGovernance Proposal Fee</td><td>50 TRVC</td></tr>
 <tr><td>Max Supply (Best Estimation)</td><td>80,582,104 TRVC</td></tr>
@@ -34,6 +34,17 @@ Mining Pool (Pow)
 - EU Pool: https://eu-pool.trivechain.com
 - Asia Pool: https://sea-pool.trivechain.com
 
+PoW Mining Software
+- Nvidia CUDA: https://github.com/trexminer/T-Rex/releases
+- CPU: https://github.com/tpruvot/cpuminer-multi
+
+Masternode Setup (PoSe)
+- AWS EC2 AMI (Ohio): ami-0da1cda5e58d48437
+- AWS EC2 AMI (Stockholm): ami-0be931cb99849bb20
+- AWS EC2 AMI (Singapore): ami-0fcff4e76df09629e
+- Alibaba Cloud: Ask for access in official WeChat group
+- Masternode Registration: https://github.com/trivechain/trivechain-core/blob/master/doc/masternode-registration.md
+
 Social Media
 - Facebook: https://www.facebook.com/trivechain/
 - Twitter: https://twitter.com/trivechain_trvc
@@ -44,6 +55,10 @@ Social Media
 
 Exchanger
 - Exchanger 1: https://bitrabbit.com/markets/trvc_btc
+
+Testnet ( v2 Genesis started on 22 Oct 2019 )
+- Pool: https://pool.trvc.dev
+- Explorer: https://insight.trvc.dev
 
 Block Rewards and Circulating Supply
 ----------------
@@ -119,43 +134,13 @@ Block Rewards and Circulating Supply
 
 License
 -------
-
 Trivechain is released under the terms of the MIT license. See [COPYING](COPYING) for more
 information or see https://opensource.org/licenses/MIT.
 
 Development Process
 -------------------
-
 The `master` branch is meant to be stable. Development is normally done in separate branches.
 [Tags](https://github.com/trivechain/trivechain-core/tags) are created to indicate new official,
 stable release versions of Trivechain.
 
 The contribution workflow is described in [CONTRIBUTING.md](CONTRIBUTING.md).
-
-Testing
--------
-
-Testing and code review is the bottleneck for development; we get more pull
-requests than we can review and test on short notice. Please be patient and help out by testing
-other people's pull requests, and remember this is a security-critical project where any mistake might cost people
-lots of money.
-
-### Automated Testing
-
-Developers are strongly encouraged to write [unit tests](/doc/unit-tests.md) for new code, and to
-submit new unit tests for old code. Unit tests can be compiled and run
-(assuming they weren't disabled in configure) with: `make check`
-
-There are also [regression and integration tests](/qa) of the RPC interface, written
-in Python, that are run automatically on the build server.
-These tests can be run (if the [test dependencies](/qa) are installed) with: `qa/pull-tester/rpc-tests.py`
-
-The Travis CI system makes sure that every pull request is built for Windows
-and Linux, OS X, and that unit and sanity tests are automatically run.
-
-### Manual Quality Assurance (QA) Testing
-
-Changes should be tested by somebody other than the developer who wrote the
-code. This is especially important for large or high-risk changes. It is useful
-to add a test plan to the pull request description if testing the changes is
-not straightforward.
