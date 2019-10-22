@@ -1195,7 +1195,7 @@ CAmount GetBlockSubsidy(int nPrevBits, int nPrevHeight, const Consensus::Params&
             nSubsidyBase = nSubsidyBase * 0.5;
             nHalvings--;
         }
-    } else if ((nPrevHeight <= 212375 && Params().NetworkIDString() == CBaseChainParams::TESTNET) || (nPrevHeight <= 226655 && Params().NetworkIDString() == CBaseChainParams::MAIN)) {
+    } else if (nPrevHeight <= 226655) {
         // Realign with TRVC 1.0 white paper before fork
         // Accepts only whole number, changed to 12 to realign with the actual reward
         nSubsidyBase = 12;
@@ -1208,7 +1208,7 @@ CAmount GetBlockSubsidy(int nPrevBits, int nPrevHeight, const Consensus::Params&
     CAmount nSubsidy = nSubsidyBase * COIN;
 
     // TRVC 1.0 Before Fork
-    if ((nPrevHeight <= 212375 && Params().NetworkIDString() == CBaseChainParams::TESTNET) || (nPrevHeight <= 226655 && Params().NetworkIDString() == CBaseChainParams::MAIN)) {
+    if (nPrevHeight <= 226655) {
         for (int i = 200000; i <= nPrevHeight; i += 200000) {
             nSubsidy -= nSubsidy * 0.1;
         }
@@ -1225,10 +1225,7 @@ CAmount GetBlockSubsidy(int nPrevBits, int nPrevHeight, const Consensus::Params&
 
     // TRVC 2.0 Hard fork to reduce the block reward by 30 extra percent (allowing budget/superblocks)
     CAmount nSuperblockPart = (nPrevHeight > consensusParams.nBudgetPaymentsStartBlock) ? (nSubsidy * 3) / 10 : 0;
-    if (
-        (nPrevHeight <= 212375 && Params().NetworkIDString() == CBaseChainParams::TESTNET) || 
-        (nPrevHeight <= 226655 && Params().NetworkIDString() == CBaseChainParams::MAIN)
-    ) {
+    if (nPrevHeight <= 226655) {
         // TRVC 1.0 only 10% Governance
         nSuperblockPart = (nPrevHeight > consensusParams.nBudgetPaymentsStartBlock) ? nSubsidy / 10 : 0;
     }
@@ -3408,11 +3405,8 @@ bool ContextualCheckBlockHeader(const CBlockHeader& block, CValidationState& sta
     // Check proof of work
     // Check proof of work
     if(Params().NetworkIDString() == CBaseChainParams::TESTNET || Params().NetworkIDString() == CBaseChainParams::REGTEST ) {
-        // Ignore before 226650
         LogPrint("bad-diff-debug", "%d: %f != %f\n", nHeight, block.nBits, GetNextWorkRequired(pindexPrev, &block, consensusParams));
-        if (nHeight > 226650 && block.nBits != GetNextWorkRequired(pindexPrev, &block, consensusParams))
-            return state.DoS(100, error("%s : incorrect proof of work at %d", __func__, nHeight),
-                            REJECT_INVALID, "bad-diffbits");
+        return state.DoS(100, error("%s : incorrect proof of work at %d", __func__, nHeight), REJECT_INVALID, "bad-diffbits");
     } else if(Params().NetworkIDString() == CBaseChainParams::MAIN && nHeight <= 68589){
         // architecture issues with DGW v1 and v2)
         unsigned int nBitsNext = GetNextWorkRequired(pindexPrev, &block, consensusParams);
