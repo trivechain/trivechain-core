@@ -350,37 +350,37 @@ public:
     CTestNetParams() {
         strNetworkID = "test";
         consensus.nSubsidyHalvingInterval = 525600;
-        consensus.nMasternodePaymentsStartBlock = 4010; // not true, but it's ok as long as it's less then nMasternodePaymentsIncreaseBlock
+        consensus.nMasternodePaymentsStartBlock = 50000;
         consensus.nMasternodePaymentsIncreaseBlock = 0;
         consensus.nMasternodePaymentsIncreasePeriod = 0;
         consensus.nDirectSendConfirmationsRequired = 2;
         consensus.nDirectSendKeepLock = 15;
         consensus.nDirectSendSigsRequired = 15;
         consensus.nDirectSendSigsTotal = 15;
-        consensus.nBudgetPaymentsStartBlock = 4100;
+        consensus.nBudgetPaymentsStartBlock = 100000;
         consensus.nBudgetPaymentsCycleBlocks = 50;
         consensus.nBudgetPaymentsWindowBlocks = 10;
-        consensus.nSuperblockStartBlock = 4200; // NOTE: Should satisfy nSuperblockStartBlock > nBudgetPeymentsStartBlock
+        consensus.nSuperblockStartBlock = 100000; // NOTE: Should satisfy nSuperblockStartBlock > nBudgetPeymentsStartBlock
         consensus.nSuperblockStartHash = uint256(); // do not check this on testnet
-        consensus.nSuperblockCycle = 24; // Superblocks can be issued hourly on testnet
+        consensus.nSuperblockCycle = 60; // Superblocks can be issued hourly on testnet
         consensus.nGovernanceMinQuorum = 1;
         consensus.nGovernanceFilterElements = 500;
         consensus.nMasternodeMinimumConfirmations = 1;
         consensus.BIP34Height = 1;
-        consensus.BIP34Hash = uint256S("0x0000047d24635e347be3aaaeb66c26be94901a2f962feccd4f95090191f208c1");
-        consensus.BIP65Height = 300000; 
-        consensus.BIP66Height = 300000; 
-        consensus.DIP0001Height = 300000;
-        consensus.DIP0003Height = 300000;
-        consensus.DIP0003EnforcementHeight = 300000;
-        consensus.DIP0003EnforcementHash = uint256S("");
-        consensus.powLimit = uint256S("00000fffff000000000000000000000000000000000000000000000000000000");
+        consensus.BIP34Hash = uint256S("0x00");
+        consensus.BIP65Height = 1; 
+        consensus.BIP66Height = 1; 
+        consensus.DIP0001Height = 1;
+        consensus.DIP0003Height = 1;
+        consensus.DIP0003EnforcementHeight = 1;
+        consensus.DIP0003EnforcementHash = uint256S("0x00");
+        consensus.powLimit = uint256S("0000ffffff000000000000000000000000000000000000000000000000000000");
         consensus.nPowTargetTimespan = 24 * 60 * 60; // Trivechain: 1 day
-        consensus.nPowTargetSpacing = 15; // Trivechain: 1 minute
+        consensus.nPowTargetSpacing = 5; // Trivechain: 5 seconds
         consensus.fPowAllowMinDifficultyBlocks = false;
         consensus.fPowNoRetargeting = false;
         consensus.nRuleChangeActivationThreshold = 1512; // 75% for testchains
-        consensus.nMinerConfirmationWindow = 2016; // nPowTargetTimespan / nPowTargetSpacing
+        consensus.nMinerConfirmationWindow = 750; // nPowTargetTimespan / nPowTargetSpacing
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].bit = 28;
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nStartTime = 1199145601; // January 1, 2008
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nTimeout = 1230767999; // December 31, 2008
@@ -419,10 +419,10 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_DIP0008].nThreshold = 5; // 50% of 100
 
         // The best chain should have at least this much work.
-        consensus.nMinimumChainWork = uint256S("0x00"); // 4000
+        consensus.nMinimumChainWork = uint256S("0x00"); // 1
 
         // By default assume that the signatures in ancestors of this block are valid.
-        consensus.defaultAssumeValid = uint256S("00000ce22113f3eb8636e225d6a1691e132fdd587aed993e1bc9b07a0235eea4"); // 4000
+        consensus.defaultAssumeValid = uint256S("0x00"); // 1
 
         pchMessageStart[0] = 0xcc;
         pchMessageStart[1] = 0xa2;
@@ -444,10 +444,10 @@ public:
         // nodes with support for servicebits filtering should be at the top
         vSeeds.push_back(CDNSSeedData("trvc.dev",  "dnsseed.trvc.dev"));
 
-        // Testnet Trivechain addresses start with 'y'
-        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,140);
-        // Testnet Trivechain script addresses start with '8' or '9'
-        base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,19);
+        // Testnet Trivechain addresses start with 't'
+        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,127);
+        // Testnet Trivechain script addresses start with '7'
+        base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,15);
         // Testnet private keys start with '9' or 'c' (Bitcoin defaults)
         base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,239);
         // Testnet Trivechain BIP32 pubkeys start with 'tpub' (Bitcoin defaults)
@@ -465,7 +465,7 @@ public:
         consensus.llmqChainLocks = Consensus::LLMQ_5_60;
         consensus.llmqForDirectSend = Consensus::LLMQ_5_60;
 
-        fMiningRequiresPeers = true;
+        fMiningRequiresPeers = false;
         fDefaultConsistencyChecks = false;
         fRequireStandard = false;
         fRequireRoutableExternalIP = true;
@@ -473,7 +473,7 @@ public:
         fAllowMultipleAddressesFromGroup = false;
         fAllowMultiplePorts = true;
 
-        nPoolMinParticipants = 3;
+        nPoolMinParticipants = 1;
         nPoolMaxParticipants = 5;
         nFulfilledRequestExpireTime = 5*60; // fulfilled requests expire in 5 minutes
 
@@ -483,12 +483,12 @@ public:
 
         checkpointData = (CCheckpointData) {
             boost::assign::map_list_of
-            ( 203871, uint256S("0x000000d54be3783d235c99915edb20f1a711f3a78717208c58a35087e77cf2aa"))
+            ( 1, uint256S("0x000008ad295e16d2a5456aef65cb1c28139835aba6a340d0be0fb8ca2b2e9e26"))
         };
 
         chainTxData = ChainTxData{
-            1554365338, // * UNIX timestamp of last known number of transactions (Block 203871)
-            204600,     // * total number of transactions between genesis and that timestamp
+            1571732800, // * UNIX timestamp of last known number of transactions (Block 203871)
+            1,     // * total number of transactions between genesis and that timestamp
                         //   (the tx=... number in the SetBestChain debug.log lines)
             0.01        // * estimated number of transactions per second after that timestamp
         };
