@@ -82,6 +82,30 @@ static CBlock CreateGenesisBlock(uint32_t nTime, uint32_t nNonce, uint32_t nBits
     return CreateGenesisBlock(pszTimestamp, genesisOutputScript, nTime, nNonce, nBits, nVersion, genesisReward);
 }
 
+static CBlock CreateTestnetGenesisBlock(uint32_t nTime, uint32_t nNonce, uint32_t nBits, int32_t nVersion, const CAmount& genesisReward)
+{
+    const char* pszTimestamp = "14 Oct 2019 MaGIC with MBA has Launched Blockchain Researcher Lab Program in Malaysia";
+    const CScript genesisOutputScript = CScript() << ParseHex("a8a308a009e3b0fa6a1b55eea6c7e8b00a0221fab0ab7934f7e4c0132c134d857c4088ad4dd0f549c92a6dcdd2a1288237f5de1d66b605d2529a7cc1c3ad963bf7") << OP_CHECKSIG;
+    CBlock block = CreateGenesisBlock(pszTimestamp, genesisOutputScript, nTime, nNonce, nBits, nVersion, genesisReward);
+    return block;
+
+    // Find Testnet Block
+    /*arith_uint256 bnTarget;
+    bnTarget.SetCompact(block.nBits);
+
+    for (uint32_t nNonce = 0; nNonce < UINT32_MAX; nNonce++) {
+        block.nNonce = nNonce;
+
+        uint256 hash = block.GetHash();
+        if (UintToArith256(hash) <= bnTarget) {
+            std::printf("nNonce: %s\n", std::to_string(nNonce).c_str());
+            std::printf("hash: %s\n", block.GetHash().ToString().c_str());
+            std::printf("hashMerkleRoot: %s\n", block.hashMerkleRoot.ToString().c_str());
+            return block;
+        }
+    }*/
+}
+
 static CBlock FindDevNetGenesisBlock(const Consensus::Params& params, const CBlock &prevBlock, const CAmount& reward)
 {
     std::string devNetName = GetDevNetName();
@@ -432,11 +456,11 @@ public:
         nDefaultPort = 19999;
         nPruneAfterHeight = 1000;
 
-        genesis = CreateGenesisBlock(1519872632, 1542867, 0x1e0ffff0, 1, 50 * COIN);
+        genesis = CreateTestnetGenesisBlock(1571739000, 338132, 0x1e0ffff0, 4, 50 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
-        assert(consensus.hashGenesisBlock == uint256S("0x000008ad295e16d2a5456aef65cb1c28139835aba6a340d0be0fb8ca2b2e9e26"));
-        assert(genesis.hashMerkleRoot == uint256S("0x72c0f9b5871b31ead65a1a21a2d769f74c674e954fb4d4baeeac0e23b37699c8"));
-
+        assert(consensus.hashGenesisBlock == uint256S("0x00000288fe5535c740c1418c70a6da3affa7c858ea6de8852a568ed24d5328d5"));
+        assert(genesis.hashMerkleRoot == uint256S("0x1a0fcbc4f780019418d47b90a3a17c1ccee58f1d5b8aa28400658c6f45561ebf"));
+        
         vFixedSeeds.clear();
         vFixedSeeds = std::vector<SeedSpec6>(pnSeed6_test, pnSeed6_test + ARRAYLEN(pnSeed6_test));
 
@@ -446,8 +470,8 @@ public:
 
         // Testnet Trivechain addresses start with 't'
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,127);
-        // Testnet Trivechain script addresses start with '7'
-        base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,15);
+        // Testnet Trivechain script addresses start with 's'
+        base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,125);
         // Testnet private keys start with '9' or 'c' (Bitcoin defaults)
         base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,239);
         // Testnet Trivechain BIP32 pubkeys start with 'tpub' (Bitcoin defaults)
@@ -477,20 +501,19 @@ public:
         nPoolMaxParticipants = 5;
         nFulfilledRequestExpireTime = 5*60; // fulfilled requests expire in 5 minutes
 
-        vSporkAddresses = {"ySR7RSyoWQMt6GNcShJrSnfm7opLaJ87ui"};
+        vSporkAddresses = {"tRaXPu5bovE5bXx7fgZ5ANsmACdra86PPm"};
         nMinSporkKeys = 1;
         fBIP9CheckMasternodesUpgraded = true;
 
         checkpointData = (CCheckpointData) {
             boost::assign::map_list_of
-            ( 1, uint256S("0x000008ad295e16d2a5456aef65cb1c28139835aba6a340d0be0fb8ca2b2e9e26"))
+            (      0, uint256S("0x00000288fe5535c740c1418c70a6da3affa7c858ea6de8852a568ed24d5328d5"))
         };
 
         chainTxData = ChainTxData{
-            1571732800, // * UNIX timestamp of last known number of transactions (Block 203871)
-            1,     // * total number of transactions between genesis and that timestamp
-                        //   (the tx=... number in the SetBestChain debug.log lines)
-            0.01        // * estimated number of transactions per second after that timestamp
+            1571739000, // * UNIX timestamp of devnet genesis block
+            1,          // * we only have 2 coinbase transactions when a devnet is started up
+            0.01        // * estimated number of transactions per second
         };
 
     }

@@ -3406,7 +3406,8 @@ bool ContextualCheckBlockHeader(const CBlockHeader& block, CValidationState& sta
     // Check proof of work
     if(Params().NetworkIDString() == CBaseChainParams::TESTNET || Params().NetworkIDString() == CBaseChainParams::REGTEST ) {
         LogPrint("bad-diff-debug", "%d: %f != %f\n", nHeight, block.nBits, GetNextWorkRequired(pindexPrev, &block, consensusParams));
-        return state.DoS(100, error("%s : incorrect proof of work at %d", __func__, nHeight), REJECT_INVALID, "bad-diffbits");
+        if (block.nBits != GetNextWorkRequired(pindexPrev, &block, consensusParams))
+            return state.DoS(100, error("%s : incorrect proof of work at %d", __func__, nHeight), REJECT_INVALID, "bad-diffbits");
     } else if(Params().NetworkIDString() == CBaseChainParams::MAIN && nHeight <= 68589){
         // architecture issues with DGW v1 and v2)
         unsigned int nBitsNext = GetNextWorkRequired(pindexPrev, &block, consensusParams);
