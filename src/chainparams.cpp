@@ -401,6 +401,7 @@ public:
         consensus.powLimit = uint256S("0000ffffff000000000000000000000000000000000000000000000000000000");
         consensus.nPowTargetTimespan = 2 * 60 * 60; // Trivechain: 2 hours
         consensus.nPowTargetSpacing = 5; // Trivechain: 5 seconds
+        consensus.nMinimumDifficultyBlocks = 500000;
         consensus.fPowAllowMinDifficultyBlocks = false;
         consensus.fPowNoRetargeting = false;
         consensus.nRuleChangeActivationThreshold = 1512; // 75% for testchains
