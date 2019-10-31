@@ -305,7 +305,7 @@ public:
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,65);
         // Trivechain script addresses start with '8'
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,18);
-        // Trivechain private keys start with '8' or 'T'
+        // Trivechain private keys start with 'X'
         base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,204);
         // Trivechain BIP32 pubkeys start with 'xpub' (Bitcoin defaults)
         base58Prefixes[EXT_PUBLIC_KEY] = boost::assign::list_of(0x04)(0x88)(0xB2)(0x1E).convert_to_container<std::vector<unsigned char> >();
@@ -400,12 +400,12 @@ public:
         consensus.DIP0003EnforcementHash = uint256S("0x00");
         consensus.powLimit = uint256S("0000ffffff000000000000000000000000000000000000000000000000000000");
         consensus.nPowTargetTimespan = 2 * 60 * 60; // Trivechain: 2 hours
-        consensus.nPowTargetSpacing = 5; // Trivechain: 5 seconds
+        consensus.nPowTargetSpacing = 60; // Trivechain: 1 minute
         consensus.nMinimumDifficultyBlocks = 500000;
         consensus.fPowAllowMinDifficultyBlocks = false;
         consensus.fPowNoRetargeting = false;
         consensus.nRuleChangeActivationThreshold = 1512; // 75% for testchains
-        consensus.nMinerConfirmationWindow = 750; // nPowTargetTimespan / nPowTargetSpacing
+        consensus.nMinerConfirmationWindow = 120; // nPowTargetTimespan / nPowTargetSpacing
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].bit = 28;
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nStartTime = 1199145601; // January 1, 2008
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nTimeout = 1230767999; // December 31, 2008
