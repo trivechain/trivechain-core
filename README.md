@@ -1,3 +1,4 @@
+![TRIVECHAIN](https://raw.githubusercontent.com/trivechain/trivechain-core/master/PR%20Kit/icons/TRVC-48x48.png "TRIVECHAIN")
 TRIVECHAIN - TRVC 2.2
 ===============================
 Trivechain is a public blockchain managed by Decentralized autonomous organization (DAO) with focus on bridging businesses to enter the new era digital age with implementation of blockchain-based technology and DApps (decentralized applications)
@@ -22,21 +23,23 @@ Blockchain Specs
 Useful Links
 ----------------
 Explorer
-- Blockchain Explorer 1 - https://insight.trivechain.com
-- Blockchain Explorer 2 - https://explorer.trivechain.com
+- Blockchain Explorer 1 - [https://insight.trivechain.com](https://insight.trivechain.com)
+- Blockchain Explorer 2 - [https://explorer.trivechain.com](https://explorer.trivechain.com)
 
 Wallet
-- Trivechain’s wallet (TRVC App): https://trvc.app
-- Trivechain’s copay wallet: https://wallet.trivechain.com
+- Trivechain’s wallet (TRVC App): [https://trvc.app](https://trvc.app)
+- Trivechain’s copay wallet: [https://wallet.trivechain.com](https://wallet.trivechain.com)
 
 Mining Pool (Pow)
-- US Pool: https://us-pool.trivechain.com
-- EU Pool: https://eu-pool.trivechain.com
-- Asia Pool: https://sea-pool.trivechain.com
+- US Pool: [https://us-pool.trivechain.com](https://us-pool.trivechain.com)
+- EU Pool: [https://eu-pool.trivechain.com](https://eu-pool.trivechain.com)
+- Asia Pool: [https://sea-pool.trivechain.com](https://sea-pool.trivechain.com)
+- Cool Pool: [https://extra.cool-pool.net](https://extra.cool-pool.net)
+- Swift Pool: [https://swift-pools.com](https://swift-pools.com)
 
 PoW Mining Software
-- Nvidia CUDA: https://github.com/trexminer/T-Rex/releases
-- CPU: https://github.com/tpruvot/cpuminer-multi
+- Nvidia CUDA: [https://github.com/trexminer/T-Rex/releases](https://github.com/trexminer/T-Rex/releases)
+- CPU: [https://github.com/tpruvot/cpuminer-multi](https://github.com/tpruvot/cpuminer-multi)
 
 Masternode Setup (PoSe)
 - AWS EC2 AMI (Ohio): ami-0da1cda5e58d48437
@@ -54,7 +57,8 @@ Social Media
 - Medium: https://medium.com/trivechain
 
 Exchanger
-- Exchanger 1: https://bitrabbit.com/markets/trvc_btc
+- BitRabbit: https://bitrabbit.com/markets/trvc_btc
+- PARS Exchange: https://parsxc.com/trade/index/market/trvc_btc/
 
 Testnet ( v2 Genesis started on 22 Oct 2019 )
 - Pool: https://pool.trvc.dev
