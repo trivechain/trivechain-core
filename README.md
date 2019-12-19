@@ -62,7 +62,8 @@ Exchanger
 
 Testnet ( v2 Genesis started on 22 Oct 2019 )
 - Pool: https://pool.trvc.dev
-- Explorer: https://insight.trvc.dev
+- Blockchain Explorer 1: https://insight.trvc.dev
+- Blockchain Explorer 2: https://explorer.trvc.dev/
 
 Block Rewards and Circulating Supply
 ----------------
