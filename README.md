@@ -22,6 +22,10 @@ Blockchain Specs
 
 Useful Links
 ----------------
+Official Website
+- Trivechain: https://trivechain.com/
+- TriveAcademy: https://trive.academy/
+
 Explorer
 - Blockchain Explorer 1 - [https://insight.trivechain.com](https://insight.trivechain.com)
 - Blockchain Explorer 2 - [https://explorer.trivechain.com](https://explorer.trivechain.com)
@@ -55,6 +59,8 @@ Social Media
 - Wechat: TRVC20
 - Discord: https://discordapp.com/invite/2stZ3he
 - Medium: https://medium.com/trivechain
+- Youtube: https://www.youtube.com/channel/UCIUtsQZ8KCWWD9M3CpEAR-w
+- Reddit: https://www.reddit.com/user/TRVC-2
 
 Exchanger
 - BitRabbit: https://bitrabbit.com/markets/trvc_btc
