@@ -1,4 +1,5 @@
 ![TRIVECHAIN](https://raw.githubusercontent.com/trivechain/trivechain-core/master/PR%20Kit/icons/TRVC-48x48.png "TRIVECHAIN")
+
 TRIVECHAIN - TRVC 2.2
 ===============================
 Trivechain is a public blockchain managed by Decentralized autonomous organization (DAO) with focus on bridging businesses to enter the new era digital age with implementation of blockchain-based technology and DApps (decentralized applications)
@@ -27,19 +28,16 @@ Official Website
 - TriveAcademy: https://trive.academy/
 
 Explorer
-- Blockchain Explorer 1 - [https://insight.trivechain.com](https://insight.trivechain.com)
-- Blockchain Explorer 2 - [https://explorer.trivechain.com](https://explorer.trivechain.com)
+- Blockchain Explorer ( Actively Develop )- [https://explorer.trivechain.com](https://explorer.trivechain.com)
+- Blockchain Explorer - [https://insight.trivechain.com](https://insight.trivechain.com)
 
 Wallet
-- Trivechain’s wallet (TRVC App): [https://trvc.app](https://trvc.app)
-- Trivechain’s copay wallet: [https://wallet.trivechain.com](https://wallet.trivechain.com)
+- Trivechain’s wallet (TRVC App - Actively Developing ): [https://trvc.app](https://trvc.app)
+- Trivechain’s copay decentralized wallet: [https://wallet.trivechain.com](https://wallet.trivechain.com)
 
 Mining Pool (Pow)
-- US Pool: [https://us-pool.trivechain.com](https://us-pool.trivechain.com)
-- EU Pool: [https://eu-pool.trivechain.com](https://eu-pool.trivechain.com)
-- Asia Pool: [https://sea-pool.trivechain.com](https://sea-pool.trivechain.com)
+- Official Pool: [https://pool.trivechain.com](https://pool.trivechain.com)
 - Cool Pool: [https://extra.cool-pool.net](https://extra.cool-pool.net)
-- Swift Pool: [https://swift-pools.com](https://swift-pools.com)
 
 PoW Mining Software
 - Nvidia CUDA: [https://github.com/trexminer/T-Rex/releases](https://github.com/trexminer/T-Rex/releases)
@@ -49,15 +47,14 @@ Masternode Setup (PoSe)
 - AWS EC2 AMI (Ohio): ami-0da1cda5e58d48437
 - AWS EC2 AMI (Stockholm): ami-0be931cb99849bb20
 - AWS EC2 AMI (Singapore): ami-0fcff4e76df09629e
-- Alibaba Cloud: Ask for access in official WeChat group
 - Masternode Registration: https://github.com/trivechain/trivechain-core/blob/master/doc/masternode-registration.md
 
 Social Media
+- Discord: https://discordapp.com/invite/2stZ3he
 - Facebook: https://www.facebook.com/trivechain/
 - Twitter: https://twitter.com/trivechain_trvc
 - Telegram: https://t.me/trivechain
 - Wechat: TRVC20
-- Discord: https://discordapp.com/invite/2stZ3he
 - Medium: https://medium.com/trivechain
 - Youtube: https://www.youtube.com/channel/UCIUtsQZ8KCWWD9M3CpEAR-w
 - Reddit: https://www.reddit.com/user/TRVC-2
