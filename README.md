@@ -36,7 +36,8 @@ Wallet
 - Trivechain’s copay decentralized wallet: [https://wallet.trivechain.com](https://wallet.trivechain.com)
 
 Mining Pool (Pow)
-- Official Pool: [https://pool.trivechain.com](https://pool.trivechain.com)
+- Official Europe Pool: [https://eu-miner.trivechain.com/](https://eu-miner.trivechain.com/)
+- Official US Pool: [https://us-miner.trivechain.com/](https://us-miner.trivechain.com/)
 - Cool Pool: [https://extra.cool-pool.net](https://extra.cool-pool.net)
 
 PoW Mining Software
