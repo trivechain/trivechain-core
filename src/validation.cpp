@@ -574,6 +574,10 @@ bool CheckTransaction(const CTransaction& tx, CValidationState &state)
             return state.DoS(100, false, REJECT_INVALID, "bad-txns-input-burnt");
         if (txin.prevout.hash == uint256S("e219be3d8106bdd156d5309000e875b4ec0ffd965a41b91ff94daa67e41e1a20") && txin.prevout.n == 1) 
             return state.DoS(100, false, REJECT_INVALID, "bad-txns-input-burnt");
+        if (txin.prevout.hash == uint256S("0436065b8fe9cf9e2e9f25c74030ff7393a524e1c51b2da976a55988cb2c917f") && txin.prevout.n == 1) 
+            return state.DoS(100, false, REJECT_INVALID, "bad-txns-input-burnt");
+        if (txin.prevout.hash == uint256S("721bb6e6feeac78116d4be05533ca0efc3d6808c9325572a03f1dd045a34a59b") && txin.prevout.n == 0) 
+            return state.DoS(100, false, REJECT_INVALID, "bad-txns-input-burnt");
     }
 
     if (tx.IsCoinBase())
