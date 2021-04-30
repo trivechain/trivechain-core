@@ -231,6 +231,7 @@ public:
         consensus.DIP0003Height = 445500;
         consensus.DIP0003EnforcementHeight = 450000;
         consensus.DIP0003EnforcementHash = uint256S("0x0000000003283dab0bc51f7616666e7885b58cdbb619221faebcb55b5fe7c46a");
+        consensus.T3Height = 1222000;
         consensus.powLimit = uint256S("00000fffff000000000000000000000000000000000000000000000000000000"); // Ensure Minimum Proof of Work Hash Rate
         consensus.nPowTargetTimespan = 24 * 60 * 60; // Adjustment using 24 hour
         consensus.nPowTargetSpacing = 60; // Trivechain: 1 minute
@@ -398,6 +399,7 @@ public:
         consensus.DIP0003Height = 1;
         consensus.DIP0003EnforcementHeight = 1;
         consensus.DIP0003EnforcementHash = uint256S("0x00");
+        consensus.T3Height = 744200;
         consensus.powLimit = uint256S("0000ffffff000000000000000000000000000000000000000000000000000000");
         consensus.nPowTargetTimespan = 2 * 60 * 60; // Trivechain: 2 hours
         consensus.nPowTargetSpacing = 60; // Trivechain: 1 minute
@@ -552,6 +554,7 @@ public:
         consensus.DIP0003Height = 2; // DIP0003 activated immediately on devnet
         consensus.DIP0003EnforcementHeight = 2; // DIP0003 activated immediately on devnet
         consensus.DIP0003EnforcementHash = uint256();
+        consensus.T3Height = 744180;
         consensus.powLimit = uint256S("7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"); // ~uint256(0) >> 1
         consensus.nPowTargetTimespan = 24 * 60 * 60; // Trivechain: 1 day
         consensus.nPowTargetSpacing = 60; // Trivechain: 1 minute
@@ -718,6 +721,7 @@ public:
         consensus.DIP0003Height = 432;
         consensus.DIP0003EnforcementHeight = 500;
         consensus.DIP0003EnforcementHash = uint256();
+        consensus.T3Height = 744180;
         consensus.powLimit = uint256S("7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
         consensus.nPowTargetTimespan = 24 * 60 * 60; // Trivechain: 1 day
         consensus.nPowTargetSpacing = 2.5 * 60; // Trivechain: 2.5 minutes

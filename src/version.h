@@ -11,10 +11,10 @@
  */
 
 // Current Version
-static const int PROTOCOL_VERSION = 70216;
+static const int PROTOCOL_VERSION = 70300;
 
 //! disconnect from peers older than this proto version
-static const int MIN_PEER_PROTO_VERSION = 70215;
+static const int MIN_PEER_PROTO_VERSION = 70300;
 
 //! Force everyone to upgrade to TRVC 2.2 by 1st November 2019
 static const int TIME_MIN_PEER_PROTO_VERSION = 70216;
