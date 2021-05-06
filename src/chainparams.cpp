@@ -277,10 +277,10 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_DIP0008].nThreshold = 50; 
 
         // The best chain should have at least this much work.
-        consensus.nMinimumChainWork = uint256S("0x000000000000000000000000000000000000000000000005f4b37398bb9e46c2"); // 463985
+        consensus.nMinimumChainWork = uint256S("0x000000000000000000000000000000000000000000000005f50216497fe061b2"); // 1219386
 
         // By default assume that the signatures in ancestors of this block are valid.
-        consensus.defaultAssumeValid = uint256S("0x0000000004bb95c07ce12675f74434eaeda033634f0ff84e25a3d26806eb670f"); //463985
+        consensus.defaultAssumeValid = uint256S("0x000000028076c547d2711346bcf80cace113046274da9fc66c2505cd22e5e165"); // 1219386
         /**
          * The message start string is designed to be unlikely to occur in normal data.
          * The characters are rarely used upper ASCII, not valid as UTF-8, and produce
@@ -343,23 +343,24 @@ public:
 
         checkpointData = (CCheckpointData) {
             boost::assign::map_list_of
-            (   1500, uint256S("0x0000019499f2569d0c4c99a171a94294f8111036fc3331a85e1d09320f586684"))
-            (   5000, uint256S("0x000002bcecf140a86b1db138706636e58b09b6271066110369cb4b2c168b0262"))
-            (  50000, uint256S("0x00000000000012dcd42042070a4e106e577394760f7663ebfc130c348766acea"))
-            ( 100000, uint256S("0x0000000000015c62c9a493529215f3f0c3e9e01a45c14063671340558dce34d4"))
-            ( 150000, uint256S("0x000000000000a5a404d4b403401c61159df545da193fe002115d7f799e2b85fe"))
-            ( 200000, uint256S("0x00000000000df26f68d1a64d69ef250797d773b0c6e00fa399ee3cec059541e7"))
-            ( 226650, uint256S("0x0000000000012c3d19793ebb8fe56bf3644529b159fbee8b7a8ab21ff463f4eb"))
-            ( 288000, uint256S("0x00000000029c6f80395cbec98682c8fba0f13d47b7089607637173ff7f65f65b"))
-            ( 350000, uint256S("0x00000000335cfe6e42e70756bd9925b927d38309caabf8ac67e969799cb24b42"))           
-            ( 450000, uint256S("0x0000000003283dab0bc51f7616666e7885b58cdbb619221faebcb55b5fe7c46a"))           
-            ( 463985, uint256S("0x0000000004bb95c07ce12675f74434eaeda033634f0ff84e25a3d26806eb670f"))
+            (    1500, uint256S("0x0000019499f2569d0c4c99a171a94294f8111036fc3331a85e1d09320f586684"))
+            (    5000, uint256S("0x000002bcecf140a86b1db138706636e58b09b6271066110369cb4b2c168b0262"))
+            (   50000, uint256S("0x00000000000012dcd42042070a4e106e577394760f7663ebfc130c348766acea"))
+            (  100000, uint256S("0x0000000000015c62c9a493529215f3f0c3e9e01a45c14063671340558dce34d4"))
+            (  150000, uint256S("0x000000000000a5a404d4b403401c61159df545da193fe002115d7f799e2b85fe"))
+            (  200000, uint256S("0x00000000000df26f68d1a64d69ef250797d773b0c6e00fa399ee3cec059541e7"))
+            (  226650, uint256S("0x0000000000012c3d19793ebb8fe56bf3644529b159fbee8b7a8ab21ff463f4eb"))
+            (  288000, uint256S("0x00000000029c6f80395cbec98682c8fba0f13d47b7089607637173ff7f65f65b"))
+            (  350000, uint256S("0x00000000335cfe6e42e70756bd9925b927d38309caabf8ac67e969799cb24b42"))
+            (  450000, uint256S("0x0000000003283dab0bc51f7616666e7885b58cdbb619221faebcb55b5fe7c46a"))
+            (  463985, uint256S("0x0000000004bb95c07ce12675f74434eaeda033634f0ff84e25a3d26806eb670f"))
+            ( 1219386, uint256S("0x000000028076c547d2711346bcf80cace113046274da9fc66c2505cd22e5e165"))
             
         };
 
         chainTxData = ChainTxData{
-            1570955481, // * UNIX timestamp of last known number of transactions (Block 463985)
-            781311,     // * total number of transactions between genesis and that timestamp
+            1620326423, // * UNIX timestamp of last known number of transactions (Block 1219386)
+            2133262,     // * total number of transactions between genesis and that timestamp
                         //   (the tx=... number in the SetBestChain debug.log lines)
             0.01        // * estimated number of transactions per second after that timestamp
         };
