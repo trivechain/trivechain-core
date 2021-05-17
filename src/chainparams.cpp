@@ -277,10 +277,10 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_DIP0008].nThreshold = 50; 
 
         // The best chain should have at least this much work.
-        consensus.nMinimumChainWork = uint256S("0x000000000000000000000000000000000000000000000005f50216497fe061b2"); // 1219386
+        consensus.nMinimumChainWork = uint256S("0x000000000000000000000000000000000000000000000005f5021fd2320dbc2f"); // 1234424
 
         // By default assume that the signatures in ancestors of this block are valid.
-        consensus.defaultAssumeValid = uint256S("0x000000028076c547d2711346bcf80cace113046274da9fc66c2505cd22e5e165"); // 1219386
+        consensus.defaultAssumeValid = uint256S("0x00000006dfdfa9615eed78002ac68826ba9211dd4f77e7c22b1c022bf8ea1c29"); // 1234424
         /**
          * The message start string is designed to be unlikely to occur in normal data.
          * The characters are rarely used upper ASCII, not valid as UTF-8, and produce
@@ -355,12 +355,12 @@ public:
             (  450000, uint256S("0x0000000003283dab0bc51f7616666e7885b58cdbb619221faebcb55b5fe7c46a"))
             (  463985, uint256S("0x0000000004bb95c07ce12675f74434eaeda033634f0ff84e25a3d26806eb670f"))
             ( 1219386, uint256S("0x000000028076c547d2711346bcf80cace113046274da9fc66c2505cd22e5e165"))
-            
+            ( 1234424, uint256S("0x00000006dfdfa9615eed78002ac68826ba9211dd4f77e7c22b1c022bf8ea1c29"))
         };
 
         chainTxData = ChainTxData{
-            1620326423, // * UNIX timestamp of last known number of transactions (Block 1219386)
-            2133262,     // * total number of transactions between genesis and that timestamp
+            1621277668, // * UNIX timestamp of last known number of transactions (Block 1219386)
+            2158390,     // * total number of transactions between genesis and that timestamp
                         //   (the tx=... number in the SetBestChain debug.log lines)
             0.01        // * estimated number of transactions per second after that timestamp
         };
