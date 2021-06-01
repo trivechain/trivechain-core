@@ -1,3 +1,11 @@
+> # DEPRECATED
+>
+> The core developers have stopped developing the protocol
+>
+> TRVC is now a token on Binance Smart Chain
+>
+> https://bscscan.com/token/0x771cb7dd18072527ca412dddccce8a33b5f88219
+
 ![TRIVECHAIN](https://raw.githubusercontent.com/trivechain/trivechain-core/master/PR%20Kit/icons/TRVC-48x48.png "TRIVECHAIN")
 
 TRIVECHAIN - TRVC 2.2
